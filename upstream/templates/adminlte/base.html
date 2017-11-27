@@ -1,4 +1,6 @@
 {% load static %}
+{% load bootstrap_calendar %}
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -14,11 +16,14 @@
 
     {% block stylesheets %}
         {% include 'adminlte/lib/_styles.html' %}
+        {% bootstrap_calendar_css %}
+        {% block page_stylesheets %}{% endblock %}
     {% endblock %}
+
 
     {% block extra_head %}{% endblock %}
 </head>
-<body class="hold-transition skin-yellow-light sidebar-mini {% block body_class %}{% block bodyclass %}{% endblock %}{% endblock %}">
+<body class="hold-transition skin-yellow sidebar-mini {% block body_class %}{% block bodyclass %}{% endblock %}{% endblock %}">
 
 {% block body %}
     <div class="wrapper">
@@ -75,6 +80,11 @@
 
 {% block javascript %}
 {% include 'adminlte/lib/_scripts.html' %}
+{% bootstrap_calendar_js language="lang-code" %}
+{% bootstrap_calendar_init language="lang-code" %}
+
+{% block page_javascript %}{% endblock %}
+
 {% endblock %}
 
 {% block extra_foot %}{% endblock %}

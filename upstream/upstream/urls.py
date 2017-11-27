@@ -19,6 +19,7 @@ from django.conf.urls import include,url
 from django.contrib import admin
 from homepage import views
 from django.contrib.auth import views as auth_views
+import django_bootstrap_calendar
 
 urlpatterns = [
     url(r'^$', views.index),
@@ -26,10 +27,11 @@ urlpatterns = [
     url(r'^djrichtextfield/', include('djrichtextfield.urls')),
     url(r'^accounts/login/', auth_views.login, {'template_name': 'clear/login.html'}, name='login'),
     url(r'^accounts/logout/', auth_views.logout, {'next_page': '/'}, name='logout'),
-    url(r'^project/', include('projectManager.urls')),
+    url(r'^project/', include('projectManager.urls'),name='project'),
     url(r'^mail/', include('webmail.urls')),
     url(r'^personnel/', include('personnel.urls')),
     url(r'^inventory/', include('inventory.urls')),
     url(r'^ldapconnect/', include('ldapconnect.urls')),
+    url(r'^calendar/', include('django_bootstrap_calendar.urls')),
 
 ]

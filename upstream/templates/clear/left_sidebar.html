@@ -1,4 +1,5 @@
 {% load static %}
+{% load detail_tags %}
 
 <aside class="left-side sidebar-offcanvas">
     <!-- sidebar: style can be found in sidebar-->
@@ -29,7 +30,7 @@
             <ul class="navigation">
               <!-- / .project -->
               {% load menubuilder %}{% menu project %}
-              <li class="menu-dropdown active" id="active">
+              <li class="menu-dropdown {% add_active '/project/' request %}" id="active">
                   <a href="#">
                     <i class="menu-icon ti-desktop"></i>
                     <span>Proje</span>
@@ -47,7 +48,7 @@
               </li>
               <!-- / .inventory -->
               {% load menubuilder %}{% menu inventory %}
-              <li class="menu-dropdown" id="active">
+              <li class="menu-dropdown {% add_active '/inventory/' request %}" id="active">
                   <a href="#">
                     <i class="menu-icon ti-desktop"></i>
                     <span>Stok</span>
@@ -65,7 +66,7 @@
               </li>
               <!-- / .personnel -->
               {% load menubuilder %}{% menu personnel %}
-              <li class="menu-dropdown" id="active">
+              <li class="menu-dropdown{% add_active '/personnel/' request %}" id="active">
                   <a href="#">
                     <i class="menu-icon ti-desktop"></i>
                     <span>Personel</span>

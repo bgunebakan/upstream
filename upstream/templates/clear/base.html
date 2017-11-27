@@ -1,7 +1,10 @@
 <!DOCTYPE html>
 {% load static %}
 {% load detail_tags %}
+{% load bootstrap4 %}
 
+{% bootstrap_css %}
+{% bootstrap_javascript %}
 <html>
 <head>
     <meta charset="UTF-8">
@@ -28,7 +31,9 @@
     <link href="{% static 'css/custom_css/dashboard1.css' %}" rel="stylesheet" type="text/css"/>
     <link href="{% static 'css/custom_css/dashboard1_timeline.css' %}" rel="stylesheet"/>
 
-    <!--end of page level css-->
+    {% block css %}
+    {% endblock %}
+
 </head>
 <body class="skin-default">
 
@@ -53,8 +58,8 @@
             <div class="row">
                 <div class="col-lg-6 col-md-6 col-sm-5 col-8">
                     <div class="header-element">
-                        <h3>Upstream/
-                            <small>Ana Sayfa</small>
+                        <h3>Upstream
+                            <small>{{request.path}}</small>
                         </h3>
                     </div>
                 </div>
@@ -69,10 +74,12 @@
                 </div>
             </div>
         </section>
+
         <section class="content">
-          {% block main_content %}
-              {% include 'clear/main_content.html' %}
-          {% endblock %}
+
+            {% block content %}
+            {% endblock %}
+
           {% block rightsidebar %}
               {% include 'clear/right_sidebar.html' %}
           {% endblock %}
@@ -84,11 +91,7 @@
 <div id="qn"></div>
 
 
-
-{% block javascript %}
 {% include 'clear/scripts.html' %}
-{% endblock %}
-
 </body>
 
 </html>

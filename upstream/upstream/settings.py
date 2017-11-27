@@ -31,7 +31,6 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
-SITE_NAME = "TARLA - Upstream"
 # Application definition
 
 INSTALLED_APPS = [
@@ -45,12 +44,14 @@ INSTALLED_APPS = [
     'django_mailbox',
     'django_countries',
     'phonenumber_field',
+    'bootstrap3_datetime',
     'menu',
+    'django_bootstrap_calendar',
     # General use templates & template tags (should appear first)
-    #'django_adminlte',
-    'bootstrap4',
+    'django_adminlte',
      # Optional: Django admin theme (must be before django.contrib.admin)
-    #'django_adminlte_theme',
+    'bootstrapform',
+    'django_adminlte_theme',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',

@@ -1,62 +1,133 @@
-<head>
-  <meta charset="UTF-8" />      <!--  <---- This line -->
-</head>
-{% extends 'adminlte/base.html' %}
-{% block logout_url%}'accounts/logout'{% endblock %}
-{% block title %}Upstream{% endblock %}
+<!DOCTYPE html>
+{% extends 'clear/base.html' %}
 
+{% load static %}
+
+{% block css %}
+
+<!--page level css -->
+<link rel="stylesheet" type="text/css" href="{% static 'css/custom.css' %}">
+
+<link rel="stylesheet" type="text/css" href="{% static 'vendors/animate/animate.min.css' %}">
+<link href="{% static 'css/timeline.css' %}" rel="stylesheet"/>
+<!--end of page level css-->
+{% endblock %}
+
+{% block javascript %}
+
+<!-- begining of page level js -->
+<script type="text/javascript" src="{% static 'vendors/wow/js/wow.min.js' %}"></script>
+<script type="text/javascript" src="{% static 'vendors/advanced_newsTicker/js/newsTicker.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/custom_js/time_line.js' %}"></script>
+
+<script src="{% static 'vendors/fullcalendar/js/fullcalendar.min.js' %}" type="text/javascript"></script>
+<script src="{% static 'vendors/iCheck/js/icheck.js' %}"></script>
+<script src="{% static 'js/custom_js/calendar_custom.js' %}" type="text/javascript"></script>
+{% endblock %}
 
 {% block content %}
-<div class="info-box">
-  <!-- Apply any bg-* class to to the icon to color it -->
-  <span class="info-box-icon bg-red"><i class="fa fa-star-o"></i></span>
-  <div class="info-box-content">
-    <span class="info-box-text">Likes</span>
-    <span class="info-box-number">93,139</span>
-  </div>
-  <!-- /.info-box-content -->
-</div>
-<!-- /.info-box -->
-<!-- Apply any bg-* class to to the info-box to color it -->
-<div class="info-box bg-red">
-  <span class="info-box-icon"><i class="fa fa-comments-o"></i></span>
-  <div class="info-box-content">
-    <span class="info-box-text">Likes</span>
-    <span class="info-box-number">41,410</span>
-    <!-- The progress section is optional -->
-    <div class="progress">
-      <div class="progress-bar" style="width: 70%"></div>
-    </div>
-    <span class="progress-description">
-      70% Increase in 30 Days
-    </span>
-  </div>
-  <!-- /.info-box-content -->
-</div>
-<!-- /.info-box -->
+            <!--main content-->
+                <div class="row">
+                    <div class="col-md-3">
+                        <div class="box">
+                            <div class="box-title">
+                                <h3>Draggable Events</h3>
+                                <div class="float-right box-toolbar">
+                                    <a href="#" class="btn btn-link btn-xs" data-toggle="modal" data-target="#myModal">
+                                        <i class="fa ti-plus"></i>
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="box-body">
+                                <div id='external-events'>
+                                    <div class='external-event palette-warning'>Team Out</div>
+                                    <div class='external-event palette-primary'>Product Seminar</div>
+                                    <div class='external-event palette-danger'>Client Meeting</div>
+                                    <div class='external-event palette-info'>Repeating Event</div>
+                                    <div class='external-event palette-success'>Anniversary Celebrations</div>
+                                    <p class="well no-border no-radius">
+                                        <input type='checkbox' class="custom_icheck" id='drop-remove'/>
+                                        <label for='drop-remove'>remove after drop</label>
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="box-footer">
+                                <a href="#" class="btn btn-success btn-block" data-toggle="modal" data-target="#myModal">Create
+                                    event</a>
+                            </div>
+                        </div>
+                        <!-- /.box -->
+                    </div>
+                    <div class="col-md-9">
+                        <div class="box">
+                            <div class="box-body">
+                                <div id="calendar"></div>
+                            </div>
+                        </div>
+                        <!-- /.box -->
+                    </div>
+                    <!-- /.col -->
+                </div>
+              
+            <div class="row">
+              <div class="col-md-8">
+                  <div class="box">
+                      <div class="box-body">
+                          <div id="calendar"></div>
+                      </div>
+                  </div>
+                  <!-- /.box -->
+              </div>
+                <div class="col-md-4">
+                    <div class="row">
+                        <div class="col-sm-6 col-md-12">
+                            <div class="card">
+                                <div class="card-header">
+                                    <h3 class="card-title">
+                                        <i class="fa fa-fw ti-comment-alt"></i> Recent Activities
+                                    </h3>
+                                    <span class="float-right">
+                                        <i class="fa fa-fw ti-angle-up clickable"></i>
+                                        <i class="fa fa-fw ti-close removecard"></i>
+                                    </span>
+                                </div>
+                                <div class="card-body">
+                                    <ul class="schedule-cont">
+                                        <li class="item success">
+                                            <div class="data">
+                                                <div class="time text-muted"> Just now</div>
+                                                <p><span class="text-info">Jade</span> Project team has successfully
+                                                    completed their
+                                                    first phase.</p>
+                                            </div>
+                                        </li>
+                                        <li class="item danger">
+                                            <div class="data">
+                                                <div class="time text-muted"> 7min ago</div>
+                                                <p>Tinder Project's <span class="text-info">Second</span> review has
+                                                    completed.</p>
+                                            </div>
+                                        </li>
+                                        <li class="item">
+                                            <div class="data">
+                                                <div class="time text-muted">5hours ago</div>
+                                                <p>Richard McClintock, updated his project over view report.</p>
+                                            </div>
+                                        </li>
+                                        <li class="item success">
+                                            <div class="data">
+                                                <div class="time text-muted"> Yesterday</div>
+                                                <p>Variations Project <span class="text-info">Evaluation</span> is going
+                                                    on to highlight
+                                                    the project success .</p>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                      </div>
+                  </div>
+              </div>
 
-    <!-- Default box -->
-    <div class="box">
-        <div class="box-header with-border">
-            <h3 class="box-title">Title</h3>
-
-            <div class="box-tools pull-right">
-                <button type="button" class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip"
-                        title="Collapse">
-                    <i class="fa fa-minus"></i></button>
-                <button type="button" class="btn btn-box-tool" data-widget="remove" data-toggle="tooltip"
-                        title="Remove">
-                    <i class="fa fa-times"></i></button>
-            </div>
-        </div>
-        <div class="box-body">
-            Proje
-        </div>
-        <!-- /.box-body -->
-        <div class="box-footer">
-            Footer
-        </div>
-        <!-- /.box-footer-->
-    </div>
-    <!-- /.box -->
 {% endblock %}

@@ -2,8 +2,9 @@
   <meta charset="UTF-8" />      <!--  <---- This line -->
 </head>
 {% extends 'adminlte/base.html' %}
+{% load detail_tags %}
 {% block logout_url%}'accounts/logout'{% endblock %}
-{% block title %}TARLA - Upstream - Kullanıcı Yetkilendirme{% endblock %}
+{% block title %}Kullanıcı Yetkilendirme - {% title %}{% endblock %}
 
 
 {% block content %}
