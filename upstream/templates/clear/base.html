@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+{% load static %}
+{% load detail_tags %}
+
+<html>
+<head>
+    <meta charset="UTF-8">
+    {% block title_outer %}
+        <title>{% title %}</title>
+    {% endblock %}
+    <meta content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no' name='viewport'>
+    <link rel="shortcut icon" href="{% static 'img/favicon.ico' %}"/>
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+    <![endif]-->
+    <!-- global css -->
+    <link type="text/css" rel="stylesheet" href="{% static 'css/app.css' %}"/>
+    <!-- end of global css -->
+    <!--page level css -->
+    <link rel="stylesheet" href="{% static 'vendors/swiper/css/swiper.min.css' %}">
+    <link href="{% static 'vendors/nvd3/css/nv.d3.min.css' %}" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="{% static 'vendors/lcswitch/css/lc_switch.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/custom.css' %}">
+
+    <link href="{% static 'css/custom_css/dashboard1.css' %}" rel="stylesheet" type="text/css"/>
+    <link href="{% static 'css/custom_css/dashboard1_timeline.css' %}" rel="stylesheet"/>
+
+    <!--end of page level css-->
+</head>
+<body class="skin-default">
+
+<div class="preloader">
+    <div class="loader_img"><img src="{% static 'img/loader.gif' %}" alt="loading..." height="64" width="64"></div>
+</div>
+{% block nav_header %}
+    {% include 'clear/header.html' %}
+{% endblock %}
+
+
+
+<div class="wrapper row-offcanvas row-offcanvas-left">
+    <!-- Left side column. contains the logo and sidebar -->
+    {% block nav_sidebar %}
+        {% include 'clear/left_sidebar.html' %}
+    {% endblock %}
+
+    <aside class="right-side">
+
+        <section class="content-header">
+            <div class="row">
+                <div class="col-lg-6 col-md-6 col-sm-5 col-8">
+                    <div class="header-element">
+                        <h3>Upstream/
+                            <small>Ana Sayfa</small>
+                        </h3>
+                    </div>
+                </div>
+                <div class="col-lg-4 ml-auto col-md-6 col-sm-7 col-4">
+                    <div class="header-object">
+                        <span class="option-search float-right d-none d-sm-block">
+                            <span class="search-wrapper">
+                                <input type="text" placeholder="Ara"><i class="ti-search"></i>
+                            </span>
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section class="content">
+          {% block main_content %}
+              {% include 'clear/main_content.html' %}
+          {% endblock %}
+          {% block rightsidebar %}
+              {% include 'clear/right_sidebar.html' %}
+          {% endblock %}
+        </section>
+        <!-- /.content --> </aside>
+    <!-- /.right-side --> </div>
+<!-- ./wrapper -->
+<!-- global js -->
+<div id="qn"></div>
+
+
+
+{% block javascript %}
+{% include 'clear/scripts.html' %}
+{% endblock %}
+
+</body>
+
+</html>

@@ -31,7 +31,7 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
-
+SITE_NAME = "TARLA - Upstream"
 # Application definition
 
 INSTALLED_APPS = [
@@ -40,11 +40,17 @@ INSTALLED_APPS = [
     'webmail.apps.WebmailConfig',
     'personnel.apps.PersonnelConfig',
     'inventory.apps.InventoryConfig',
+    'tarlaguard.apps.TarlaguardConfig',
+    'homepage.apps.HomepageConfig',
     'django_mailbox',
+    'django_countries',
+    'phonenumber_field',
+    'menu',
     # General use templates & template tags (should appear first)
-    'django_adminlte',
+    #'django_adminlte',
+    'bootstrap4',
      # Optional: Django admin theme (must be before django.contrib.admin)
-    'django_adminlte_theme',
+    #'django_adminlte_theme',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -69,7 +75,7 @@ ROOT_URLCONF = 'upstream.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [os.path.join(BASE_DIR, 'templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -84,42 +90,14 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'upstream.wsgi.application'
 
-
-# Database
-# https://docs.djangoproject.com/en/1.9/ref/settings/#databases
-
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'upstream.sqlite3'),
-    }
-}
-
-# Password validation
-# https://docs.djangoproject.com/en/1.9/ref/settings/#auth-password-validators
-
-LOGGING = {
-    "version": 1,
-    "disable_existing_loggers": False,
-    "handlers": {
-        "console": {
-            "class": "logging.StreamHandler",
-        },
-    },
-    "loggers": {
-        "django_auth_ldap": {
-            "handlers": ["console"],
-            "level": "DEBUG",
-        },
-    },
-}
-
+#-----------LDAP AUTH SETTINGS-----------------------
 # Baseline configuration.
 AUTH_LDAP_SERVER_URI = "ldap://127.0.0.1"
 
 AUTH_LDAP_BIND_DN = "cn=admin,dc=creworker,dc=com"
 AUTH_LDAP_BIND_PASSWORD = "salvation"
-AUTH_LDAP_USER_SEARCH = LDAPSearch("ou=users,dc=creworker,dc=com",
+AUTH_LDAP_USER_SEARCH_BASE = "ou=users,dc=creworker,dc=com"
+AUTH_LDAP_USER_SEARCH = LDAPSearch(AUTH_LDAP_USER_SEARCH_BASE,
     ldap.SCOPE_SUBTREE, "(uid=%(user)s)")
 # or perhaps:
 # AUTH_LDAP_USER_DN_TEMPLATE = "uid=%(user)s,ou=users,dc=creworker,dc=com"
@@ -174,6 +152,52 @@ AUTHENTICATION_BACKENDS = (
     'django_auth_ldap.backend.LDAPBackend',
     'django.contrib.auth.backends.ModelBackend',
 )
+#-----------------------LDAP AUTH
+
+# Database
+# https://docs.djangoproject.com/en/1.9/ref/settings/#databases
+
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': os.path.join(BASE_DIR, 'upstream.sqlite3'),
+     },
+     'ldap': {
+         'ENGINE': 'ldapdb.backends.ldap',
+         'NAME': AUTH_LDAP_SERVER_URI, #'ldap://127.0.0.1/',
+         'USER': unicode(AUTH_LDAP_BIND_DN), # unicode('cn=admin,dc=creworker,dc=com'),
+         'PASSWORD': unicode(AUTH_LDAP_BIND_PASSWORD), #unicode('salvation'),
+      }
+}
+DATABASE_ROUTERS = ['ldapdb.router.Router']
+
+#DATABASES = {
+#    'default': {
+#        'ENGINE': 'django.db.backends.sqlite3',
+#        'NAME': os.path.join(BASE_DIR, 'upstream.sqlite3'),
+#    }
+#}
+
+
+# Password validation
+# https://docs.djangoproject.com/en/1.9/ref/settings/#auth-password-validators
+
+LOGGING = {
+    "version": 1,
+    "disable_existing_loggers": False,
+    "handlers": {
+        "console": {
+            "class": "logging.StreamHandler",
+        },
+    },
+    "loggers": {
+        "django_auth_ldap": {
+            "handlers": ["console"],
+            "level": "DEBUG",
+        },
+    },
+}
+
 
 
 AUTH_PASSWORD_VALIDATORS = [
