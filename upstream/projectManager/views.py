@@ -19,9 +19,6 @@ def index(request):
 
 @login_required
 def new_project(request,form_type):
-    print request.POST
-    from_date = request.POST.get('start_date')
-    print from_date,"----"
 
     if request.method == 'POST':
         # create a form instance and populate it with data from the request:

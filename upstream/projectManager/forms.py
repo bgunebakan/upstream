@@ -2,7 +2,7 @@
 from django import forms
 
 from .models import *
-
+from djrichtextfield.widgets import RichTextWidget
 
 class ProjectForm(forms.ModelForm):
 
@@ -51,6 +51,11 @@ class CommentForm(forms.ModelForm):
     class Meta:
         model = Comment
         exclude = ('date',)
+        #text = forms.CharField(widget=RichTextWidget(field_settings='mini'))
+        widgets = {
+            'text': forms.DateTimeInput(attrs={'class':'textarea','id':'editor1'}),
+        }
+
         #fields = ('name', 'top_project', 'owner', 'group')
 
     def __init__(self, *args, **kwargs):

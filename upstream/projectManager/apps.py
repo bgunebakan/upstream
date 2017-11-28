@@ -6,3 +6,6 @@ from django.apps import AppConfig
 
 class ProjectmanagerConfig(AppConfig):
     name = 'projectManager'
+
+    def ready(self):
+        import projectManager.signals  # noqa
