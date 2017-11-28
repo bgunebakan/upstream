@@ -6,6 +6,7 @@ from django.db import models
 from django.contrib.auth.models import User
 from django_countries.fields import CountryField
 from phonenumber_field.modelfields import PhoneNumberField
+from django.db.models.query import QuerySet
 
 class SoftDeleteManager(models.Manager):
 

@@ -8,7 +8,6 @@ from django.contrib.auth.decorators import login_required
 from .forms import *
 from django.conf import settings
 import homepage
-from django.forms.models import model_to_dict
 from upstream.utils import get_settings
 from django.http import HttpResponseRedirect
 

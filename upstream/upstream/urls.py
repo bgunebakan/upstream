@@ -20,7 +20,8 @@ from django.contrib import admin
 from homepage import views
 from django.contrib.auth import views as auth_views
 import django_bootstrap_calendar
-
+from django.conf import settings
+from django.conf.urls.static import static
 urlpatterns = [
     url(r'^$', views.index),
     url(r'^admin/', admin.site.urls),
@@ -35,3 +36,5 @@ urlpatterns = [
     url(r'^calendar/', include('django_bootstrap_calendar.urls')),
 
 ]
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

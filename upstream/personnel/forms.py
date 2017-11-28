@@ -1,13 +1,13 @@
 # -*- coding: utf-8 -*-
 from django import forms
 
-from .models import * #Personnel,Identifier,IdentifierType,Controller,Door,Door_group
+from .models import Personnel #,Identifier,IdentifierType,Controller,Door,Door_group
 
 class PersonnelForm(forms.ModelForm):
 
     class Meta:
         model = Personnel
-        fields = ('name', 'surname','identifier', 'country','nat_id','gender','department','title',
+        fields = ('name', 'surname', 'country','nat_id','gender','department','title',
         'job','phone_number1','phone_number2','email','address','marital_status','military_situation',
          'drive_licence','health_status','description','profile_picture','user_file')
 
@@ -29,11 +29,11 @@ class PersonnelForm(forms.ModelForm):
         self.fields['military_situation'].widget.attrs.update({'class' : 'form-control'})
         self.fields['drive_licence'].widget.attrs.update({'class' : 'form-control'})
         self.fields['health_status'].widget.attrs.update({'class' : 'form-control'})
-        self.fields['identifier'].widget.attrs.update({'class' : 'form-control'})
+        #self.fields['identifier'].widget.attrs.update({'class' : 'form-control'})
         self.fields['description'].widget.attrs.update({'class' : 'form-control'})
         self.fields['profile_picture'].widget.attrs.update({'class' : 'form-control'})
         self.fields['user_file'].widget.attrs.update({'class' : 'form-control'})
-        self.fields['identifier'].queryset = Identifier.objects.filter(identifier_type=1).select_related('personnel')
+        #self.fields['identifier'].queryset = Identifier.objects.filter(identifier_type=1).select_related('personnel')
 
 
 class GuestForm(forms.ModelForm):
