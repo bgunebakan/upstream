@@ -60,6 +60,7 @@ class Category(models.Model):
 
 class ItemType(models.Model):
     name = models.CharField(max_length=50)
+    code = models.IntegerField(default=0)
     created_date = models.DateTimeField(default=timezone.now,verbose_name='oluşturma tarihi', editable=False)
     description = models.TextField(max_length=200,null=True,blank=True)
 
