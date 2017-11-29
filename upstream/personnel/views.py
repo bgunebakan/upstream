@@ -27,6 +27,4 @@ def profile(request):
     else:
         form = PersonnelForm(request.POST or None, instance=personnel)
 
-
-    print personnel.name
     return render(request, 'personnel/profile.html',{'personnel': personnel,'form':form})

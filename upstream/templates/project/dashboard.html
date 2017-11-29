@@ -9,6 +9,11 @@
 
 {% block bodyclass %}skin-yellow{% endblock %}
 
+
+{% block page_javascript %}
+{% bootstrap_calendar_js language="lang-code" %}
+{% bootstrap_calendar_init language="lang-code" %}
+{% endblock %}
 {% block content %}
 <div class="row">
   <div class="col-md-5">

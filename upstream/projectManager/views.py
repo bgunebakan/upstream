@@ -10,11 +10,13 @@ from django.conf import settings
 import homepage
 from upstream.utils import get_settings
 from django.http import HttpResponseRedirect
+from personnel.models import Personnel
 
 @login_required
 def index(request):
-
-    return render(request, 'project/dashboard.html')
+    personnel,created = Personnel.objects.get_or_create(user=request.user)
+    
+    return render(request, 'project/dashboard.html',{'personnel': personnel})
 
 @login_required
 def new_project(request,form_type):
