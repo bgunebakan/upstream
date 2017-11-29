@@ -1,4 +1,6 @@
 {% load adminlte_helpers %}
+{% load detail_tags %}
+
 <!-- Left side column. contains the sidebar -->
 <aside class="main-sidebar">
     <!-- sidebar: style can be found in sidebar.less -->
@@ -22,31 +24,84 @@
             <li class="header">{% block nav_heading %}Ana Menü{% endblock %}</li>
 
             {% block nav_links %}
-                <li>
-                    <a href="/project">
-                        <i class="fa fa-dashboard"></i> <span>Proje Yönetimi</span>
+            <!-- / .project -->
+            {% load menubuilder %}{% menu project %}
+            <li class="treeview {% add_active '/project/' request %}" id="active">
+                <a href="#">
+                  <i class="fa fa-group"></i>
+                  <span>Proje Yönetimi</span>
+                  <span class="pull-right-container">
+                      <i class="fa fa-angle-left pull-right"></i>
+                  </span>
+                </a>
+                <ul class="treeview-menu">
+                  {% for item in menuitems %}
+                  <li>
+                    <a href="{{ item.url }}" title="{{ item.title|escape }}"{% if item.current %} class='current'{% endif %}>
+                      <i class="fa fa-user"></i>{{ item.title }}
                     </a>
-                </li>
-                <li>
-                    <a href="/personnel">
-                        <i class="fa fa-user"></i> <span>Personel</span>
+                  </li>
+                  {% endfor %}
+                </ul>
+            </li>
+            {% load menubuilder %}{% menu personnel %}
+            <li class="treeview {% add_active '/personnel/' request %}" id="active">
+                <a href="#">
+                  <i class="fa fa-group"></i>
+                  <span>Personel Yönetimi</span>
+                  <span class="pull-right-container">
+                      <i class="fa fa-angle-left pull-right"></i>
+                  </span>
+                </a>
+                <ul class="treeview-menu">
+                  {% for item in menuitems %}
+                  <li>
+                    <a href="{{ item.url }}" title="{{ item.title|escape }}"{% if item.current %} class='current'{% endif %}>
+                      <i class="fa fa-user"></i>{{ item.title }}
                     </a>
-                </li>
-                <li>
-                    <a href="https://127.0.0.1">
-                        <i class="fa fa-user"></i> <span>Indico</span>
+                  </li>
+                  {% endfor %}
+                </ul>
+            </li>
+            {% load menubuilder %}{% menu inventory %}
+            <li class="treeview {% add_active '/inventory/' request %}" id="active">
+                <a href="#">
+                  <i class="fa fa-group"></i>
+                  <span>Stok Takip</span>
+                  <span class="pull-right-container">
+                      <i class="fa fa-angle-left pull-right"></i>
+                  </span>
+                </a>
+                <ul class="treeview-menu">
+                  {% for item in menuitems %}
+                  <li>
+                    <a href="{{ item.url }}" title="{{ item.title|escape }}"{% if item.current %} class='current'{% endif %}>
+                      <i class="fa fa-user"></i>{{ item.title }}
                     </a>
-                </li>
-                <li>
-                    <a href="/inventory">
-                        <i class="fa fa-user"></i> <span>Stok Takip</span>
+                  </li>
+                  {% endfor %}
+                </ul>
+            </li>
+            {% load menubuilder %}{% menu indico %}
+            <li class="treeview {% add_active '/indico/' request %}" id="active">
+                <a href="#">
+                  <i class="fa fa-group"></i>
+                  <span>Indico</span>
+                  <span class="pull-right-container">
+                      <i class="fa fa-angle-left pull-right"></i>
+                  </span>
+                </a>
+                <ul class="treeview-menu">
+                  {% for item in menuitems %}
+                  <li>
+                    <a href="{{ item.url }}" title="{{ item.title|escape }}"{% if item.current %} class='current'{% endif %}>
+                      <i class="fa fa-user"></i>{{ item.title }}
                     </a>
-                </li>
-                <li>
-                    <a href="/ldapconnect">
-                        <i class="fa fa-user"></i> <span>Kullanıcı Yetkilendirme</span>
-                    </a>
-                </li>
+                  </li>
+                  {% endfor %}
+                </ul>
+            </li>
+
             {% endblock nav_links %}
             {% endblock nav_links_outer %}
         </ul>
