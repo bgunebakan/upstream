@@ -15,7 +15,7 @@ from personnel.models import Personnel
 @login_required
 def index(request):
     personnel,created = Personnel.objects.get_or_create(user=request.user)
-    
+
     return render(request, 'project/dashboard.html',{'personnel': personnel})
 
 @login_required
@@ -23,15 +23,15 @@ def new_project(request,form_type):
 
     if request.method == 'POST':
         # create a form instance and populate it with data from the request:
-        if form_type in "project":
+        if form_type == "project":
             form = ProjectForm(request.POST)
-        elif form_type in "task":
+        elif form_type == "task":
             form = TaskForm(request.POST)
-        elif form_type in "tasktype":
+        elif form_type == "tasktype":
             form = TasktypeForm(request.POST)
-        elif form_type in "statustype":
+        elif form_type == "statustype":
             form = StatustypeForm(request.POST)
-        elif form_type in "comment":
+        elif form_type == "comment":
             form = CommentForm(request.POST)
 
         # check whether it's valid:
@@ -44,15 +44,15 @@ def new_project(request,form_type):
 
     # if a GET (or any other method) we'll create a blank form
     else:
-        if form_type in "project":
+        if form_type == "project":
             form = ProjectForm()
-        elif form_type in "task":
+        elif form_type == "task":
             form = TaskForm()
-        elif form_type in "tasktype":
+        elif form_type == "tasktype":
             form = TasktypeForm()
-        elif form_type in "statustype":
+        elif form_type == "statustype":
             form = StatustypeForm()
-        elif form_type in "comment":
+        elif form_type == "comment":
             form = CommentForm()
 
 

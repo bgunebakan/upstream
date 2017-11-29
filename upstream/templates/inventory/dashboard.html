@@ -1,5 +1,5 @@
 {% extends 'adminlte/base.html' %}
-{% load bootstrap_calendar %}
+{% load bootstrap %}
 {% load detail_tags %}
 
 {% block title %}Stok Yönetimi - {% title %} {% endblock %}
@@ -21,7 +21,38 @@
 {% block content %}
 <!-- Small boxes (Stat box) -->
 <div class="row">
-  <div class="col-lg-3 col-xs-6">
+  <div class="col-md-10">
+    <div class="box box-primary">
+
+      <div class="box-header">
+        <h3 class="box-title">Son Hareketler</h3>
+        <div class="box-tools pull-right">
+          <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+          </button>
+          <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+        </div>
+      </div>
+
+      <div class="box-body">
+        <div class="form-group">
+          <form role="form" method="post" class="form-horizontal">
+            <div class="box-body">
+              {% csrf_token %}
+              {{ form|bootstrap }}
+
+              <div class="box-footer">
+                <button type="submit" class="btn btn-primary">Submit</button>
+              </div>
+            </div>
+          </form>
+          <!-- /.input group -->
+        </div>
+      </div>
+<!-- /.box-body -->
+    </div>
+  </div>
+  <div class="col-md-2">
+
     <!-- small box -->
     <div class="small-box bg-aqua">
       <div class="inner">
@@ -34,9 +65,9 @@
       </div>
       <a href="/list/itemtype/100/" class="small-box-footer">Listele <i class="fa fa-arrow-circle-right"></i></a>
     </div>
-  </div>
+
   <!-- ./col -->
-  <div class="col-lg-3 col-xs-6">
+
     <!-- small box -->
     <div class="small-box bg-green">
       <div class="inner">
@@ -49,9 +80,9 @@
       </div>
       <a href="/list/itemtype/200/" class="small-box-footer">Listele <i class="fa fa-arrow-circle-right"></i></a>
     </div>
-  </div>
+
   <!-- ./col -->
-  <div class="col-lg-3 col-xs-6">
+
     <!-- small box -->
     <div class="small-box bg-yellow">
       <div class="inner">
@@ -64,9 +95,9 @@
       </div>
       <a href="/list/personnel/" class="small-box-footer">Listele <i class="fa fa-arrow-circle-right"></i></a>
     </div>
-  </div>
+
   <!-- ./col -->
-  <div class="col-lg-3 col-xs-6">
+
     <!-- small box -->
     <div class="small-box bg-red">
       <div class="inner">
@@ -79,7 +110,8 @@
       </div>
       <a href="/list/inventory/" class="small-box-footer">Listele <i class="fa fa-arrow-circle-right"></i></a>
     </div>
-  </div>
+
   <!-- ./col -->
+</div>
 </div>
 {% endblock %}

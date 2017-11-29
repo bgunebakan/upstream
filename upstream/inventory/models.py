@@ -8,9 +8,9 @@ from datetime import datetime
 
 
 class Location(models.Model):
-    name = models.CharField(max_length=32, verbose_name=_(u'Name'))
-    address = models.TextField(max_length=200,null=True,blank=True)
-    phone_number1 = models.CharField(max_length=32, null=True, blank=True, verbose_name=_(u'Phone number'))
+    name = models.CharField(max_length=32, verbose_name=_(u'Yer ismi'))
+    address = models.TextField(max_length=200,null=True,blank=True, verbose_name=_(u'Adres'))
+    phone_number1 = models.CharField(max_length=32, null=True, blank=True, verbose_name=_(u'Telefon'))
     phone_number2 = models.CharField(max_length=32, null=True, blank=True, verbose_name=_(u'Phone number'))
 
     class Meta:
@@ -26,10 +26,10 @@ class Location(models.Model):
         return ('location_view', [str(self.id)])
 
 class Inventory(models.Model):
-    name = models.CharField(max_length=32, verbose_name=_(u'Name'))
-    location = models.ForeignKey(Location, verbose_name=_(u'Location'))
-    description = models.TextField(max_length=200,null=True,blank=True)
-    created_date = models.DateTimeField(default=timezone.now,verbose_name='oluşturma tarihi', editable=False)
+    name = models.CharField(max_length=32, verbose_name=_(u'Depo ismi'))
+    location = models.ForeignKey(Location, verbose_name=_(u'Yer'))
+    description = models.TextField(max_length=200,null=True,blank=True, verbose_name=_(u'Açıklama'))
+    created_date = models.DateTimeField(default=timezone.now,verbose_name='Oluşturma tarihi', editable=False)
 
 
     class Meta:
@@ -45,10 +45,10 @@ class Inventory(models.Model):
 
 
 class Category(models.Model):
-    name = models.CharField(max_length=50)
-    created_date = models.DateTimeField(default=timezone.now,verbose_name='oluşturma tarihi', editable=False)
-    top_category = models.ForeignKey('self',null=True,blank=True)
-    description = models.TextField(max_length=200,null=True,blank=True)
+    name = models.CharField(max_length=50, verbose_name=_(u'Kategori ismi'))
+    created_date = models.DateTimeField(default=timezone.now,verbose_name='Oluşturma tarihi', editable=False)
+    top_category = models.ForeignKey('self',null=True,blank=True, verbose_name=_(u'Üst kategori'))
+    description = models.TextField(max_length=200,null=True,blank=True, verbose_name=_(u'Açıklama'))
 
     class Meta:
         ordering = ['name']
@@ -59,24 +59,25 @@ class Category(models.Model):
         return self.name
 
 class ItemType(models.Model):
-    name = models.CharField(max_length=50)
-    code = models.IntegerField(default=0)
-    created_date = models.DateTimeField(default=timezone.now,verbose_name='oluşturma tarihi', editable=False)
-    description = models.TextField(max_length=200,null=True,blank=True)
+    name = models.CharField(max_length=50, verbose_name=_(u'Malzeme Çeşit ismi'))
+    code = models.IntegerField(default=0, verbose_name=_(u'Malzeme Kodu'))
+    created_date = models.DateTimeField(default=timezone.now,verbose_name='Oluşturma tarihi', editable=False)
+    description = models.TextField(max_length=200,null=True,blank=True, verbose_name=_(u'Açıklama'))
 
     def __unicode__(self):
         return self.name
 
 class Item(models.Model):
-    name = models.CharField(verbose_name=_(u'Name'), max_length=64)
-    brand = models.CharField(verbose_name=_(u'Brand'), max_length=32, null=True, blank=True)
+    name = models.CharField(verbose_name=_(u'Malzeme Adı'), max_length=64)
+    brand = models.CharField(verbose_name=_(u'Marka'), max_length=32, null=True, blank=True)
     model = models.CharField(verbose_name=_(u'Model'), max_length=32, null=True, blank=True)
-    part_number = models.CharField(verbose_name=_(u'Part number'), max_length=32, null=True, blank=True)
-    notes = models.TextField(verbose_name=_(u'Notes'), null=True, blank=True)
-    suppliers = models.ManyToManyField('Supplier', blank=True, verbose_name=_(u'Suppliers'))
-    inventory = models.ForeignKey(Inventory, null=True, blank=True)
-    category = models.ForeignKey(Category)
-    item_type = models.ForeignKey(ItemType)
+    part_number = models.CharField(verbose_name=_(u'Parça Numarası'), max_length=32, null=True, blank=True)
+    notes = models.TextField(verbose_name=_(u'Açıklama'), null=True, blank=True)
+    suppliers = models.ManyToManyField('Supplier', blank=True, verbose_name=_(u'Tedarikçi'))
+    inventory = models.ForeignKey(Inventory, null=True, blank=True, verbose_name=_(u'Depo'))
+    category = models.ForeignKey(Category, verbose_name=_(u'Kategori'))
+    item_type = models.ForeignKey(ItemType, verbose_name=_(u'Malzeme çeşidi'))
+    created_date = models.DateTimeField(default=timezone.now,verbose_name='Oluşturma tarihi', editable=False)
 
 
     class Meta:
@@ -94,11 +95,11 @@ class Item(models.Model):
 
 
 class Log(models.Model):
-    timedate = models.DateTimeField(auto_now_add=True, verbose_name=_(u'Date & time'))
-    action = models.CharField(max_length=32, verbose_name=_(u'Action'))
-    description = models.TextField(verbose_name=_(u'Description'), null=True, blank=True)
+    timedate = models.DateTimeField(auto_now_add=True, verbose_name=_(u'Tarih-Saat'))
+    action = models.CharField(max_length=32, verbose_name=_(u'Hareket'))
+    description = models.TextField(verbose_name=_(u'Açıklama'), null=True, blank=True)
 
-    item = models.ForeignKey(Item)
+    item = models.ForeignKey(Item, verbose_name=_(u'Malzeme'))
 
 
     def __unicode__(self):
@@ -113,11 +114,12 @@ class Log(models.Model):
 
 
 class Supplier(models.Model):
-    name = models.CharField(max_length=32, verbose_name=_(u'Name'))
-    address = models.TextField(max_length=200,null=True,blank=True)
-    phone_number1 = models.CharField(max_length=32, null=True, blank=True, verbose_name=_(u'Phone number'))
-    phone_number2 = models.CharField(max_length=32, null=True, blank=True, verbose_name=_(u'Phone number'))
-    notes = models.TextField(null=True, blank=True, verbose_name=(u'Notes'))
+    name = models.CharField(max_length=32, verbose_name=_(u'Tedarikçi Firma'))
+    address = models.TextField(max_length=200,null=True,blank=True, verbose_name=_(u'Adres'))
+    phone_number1 = models.CharField(max_length=32, null=True, blank=True, verbose_name=_(u'Telefon'))
+    web = models.CharField(max_length=32, null=True, blank=True, verbose_name=_(u'Web'))
+    notes = models.TextField(null=True, blank=True, verbose_name=(u'Açıklama'))
+    created_date = models.DateTimeField(default=timezone.now,verbose_name='Oluşturma tarihi', editable=False)
 
     class Meta:
         ordering = ['name']
