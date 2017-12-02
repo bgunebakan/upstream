@@ -1,6 +1,8 @@
 {% extends 'adminlte/base.html' %}
 {% load detail_tags %}
 {% load bootstrap%}
+{% load render_table from django_tables2 %}
+{% load static %}
 
 {% block title %}Personel Yönetimi - {% title %} {% endblock %}
 
@@ -8,6 +10,11 @@
 {% block page_description %}Profil{% endblock %}
 
 {% block bodyclass %}skin-blue{% endblock %}
+
+{% block page_stylesheets %}
+<!-- ChartJS 1.0.1 -->
+<script src="{% static 'plugins/chartjs/Chart.min.js' %}"></script>
+{% endblock %}
 
 {% block content %}
   <div class="row">
@@ -50,9 +57,9 @@
           <strong><i class="fa fa-book margin-r-5"></i>İletişim</strong>
 
           <p class="text-muted">
-            {{ personnel.email }}
-            {{ personnel.phone_number1 }}
-            {{ personnel.phone_number2 }}
+            E-posta: <b><a href="mailto:{{ personnel.email }}">{{ personnel.email }}</a> </b><br>
+            Telefon: <b><a href="tel:{{ personnel.phone_number1 }}">{{ personnel.phone_number1 }}</a> </b><br>
+            Telefon 2: <b><a href="tel:{{ personnel.phone_number2 }}">{{ personnel.phone_number2 }}</a></b>
           </p>
 
           <hr>
@@ -81,12 +88,21 @@
         </ul>
         <div class="tab-content">
           <div class="active tab-pane" id="activity">
-
-
+            <div class="box-body">
+              {% render_table table_list %}
+            </div>
           </div>
           <!-- /.tab-pane -->
           <div class="tab-pane" id="timeline">
             <!-- The timeline -->
+            <!-- BAR CHART -->
+              <div class="box-body">
+                <div class="chart">
+                  <canvas id="barChart" style="height:230px"></canvas>
+                </div>
+              </div>
+              <!-- /.box-body -->
+
 
           </div>
           <!-- /.tab-pane -->

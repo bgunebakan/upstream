@@ -10,7 +10,7 @@ from django.http import HttpResponseRedirect
 @login_required
 def index(request):
     personnel,created = Personnel.objects.get_or_create(user=request.user)
-    form = ItemForm()
+    form = list(ItemForm())
 
     return render(request, 'inventory/dashboard.html',{'personnel': personnel,'form': form})
 

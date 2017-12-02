@@ -1,6 +1,7 @@
 {% extends 'adminlte/base.html' %}
 {% load bootstrap %}
 {% load detail_tags %}
+{% load crispy_forms_tags %}
 
 {% block title %}Stok Yönetimi - {% title %} {% endblock %}
 
@@ -22,33 +23,41 @@
 <!-- Small boxes (Stat box) -->
 <div class="row">
   <div class="col-md-10">
-    <div class="box box-primary">
+    <div class="box box-default">
+      <div class="box-header with-border">
+        <h3 class="box-title">Select2</h3>
 
-      <div class="box-header">
-        <h3 class="box-title">Son Hareketler</h3>
         <div class="box-tools pull-right">
-          <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
-          </button>
-          <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+          <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+          <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-remove"></i></button>
         </div>
       </div>
-
+      <!-- /.box-header -->
       <div class="box-body">
-        <div class="form-group">
-          <form role="form" method="post" class="form-horizontal">
-            <div class="box-body">
-              {% csrf_token %}
-              {{ form|bootstrap }}
-
-              <div class="box-footer">
-                <button type="submit" class="btn btn-primary">Submit</button>
-              </div>
-            </div>
-          </form>
-          <!-- /.input group -->
+        <form class="form-horizontal">
+    <fieldset>
+    %if form.non_field_errors():
+        <div class='alert alert-error'>${form.non_field_errors()}</div>
+    %endif
+        ${form.as_crispy}
+    <div class="form-actions">
+        <button type="submit" class="btn btn-primary" id="some-id">
+            Find
+        </button>
+        <button type="reset" class="btn" id="clear-filter">
+            Clear
+        </button>
+    </div>
+    </fieldset>
+</form>
+        <div class="box-footer">
+          <button type="submit" class="btn btn-primary">Submit</button>
         </div>
       </div>
-<!-- /.box-body -->
+      <!-- /.box-body -->
+      <div class="box-footer">
+
+      </div>
     </div>
   </div>
   <div class="col-md-2">
