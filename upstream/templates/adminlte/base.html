@@ -1,5 +1,6 @@
 {% load static %}
 {% load bootstrap_calendar %}
+{% load detail_tags %}
 
 <!DOCTYPE html>
 <html>
@@ -24,7 +25,7 @@
 
     {% block extra_head %}{% endblock %}
 </head>
-<body class="hold-transition skin-blue sidebar-mini sidebar-collapse {% block body_class %}{% block bodyclass %}{% endblock %}{% endblock %}">
+<body class="hold-transition skin-blue sidebar-mini {% hide_sidebar %} {% block body_class %}{% block bodyclass %}{% endblock %}{% endblock %}">
 
 {% block body %}
     <div class="wrapper">

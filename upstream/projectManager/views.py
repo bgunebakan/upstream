@@ -11,12 +11,36 @@ import homepage
 from upstream.utils import get_settings
 from django.http import HttpResponseRedirect
 from personnel.models import Personnel
+from .tables import *
+from django_tables2 import RequestConfig
 
 @login_required
 def index(request):
     personnel,created = Personnel.objects.get_or_create(user=request.user)
     projects = Project.objects.all()
     return render(request, 'project/dashboard.html',{'personnel': personnel,'projects' : projects})
+
+@login_required
+def detail_project(request,project_id):
+    personnel,created = Personnel.objects.get_or_create(user=request.user)
+    project = Project.objects.get(id=int(project_id))
+    #form = ProjectForm(request.POST,instance=project)
+    form = ProjectForm(request.POST or None, instance=project)
+
+    return render(request, 'project/form.html',{'personnel': personnel,'form' : form})
+
+
+@login_required
+def projects_table(request):
+    personnel,created = Personnel.objects.get_or_create(user=request.user)
+    projects = Project.objects.all()
+
+    table = ProjectTable(Project.objects.all())
+    table_label = 'Projeler'
+
+    RequestConfig(request, paginate={'per_page': 20}).configure(table)
+
+    return render(request, 'project/table.html',{'table_list': table,'table_label': table_label,'personnel': personnel,'projects' : projects})
 
 @login_required
 def new_project(request,form_type):

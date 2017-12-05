@@ -90,6 +90,13 @@
               {% for project in projects %}
                 {% if project.top_project == top_project %}
                   <li>{{ project.name }}</li>
+                    <ul>
+                    {% for sub_project in projects %}
+                      {% if sub_project.top_project == project %}
+                        <li>{{ sub_project.name }}</li>
+                      {%endif%}
+                    {% endfor %}
+                    </ul>
                 {%endif%}
               {% endfor %}
             </ul>

@@ -19,8 +19,14 @@ def version():
     return setting.value
 
 @register.simple_tag
+def hide_sidebar():
+    setting = homepage.models.Setting.objects.get(name='hide_sidebar')
+    if setting.value == 'True':
+        return 'sidebar-collapse'
+
+
+@register.simple_tag
 def appname(request):
-    print "-------",request.path
     if '/project/' in request.path:
         return 'Proje Yönetimi'
     elif '/personnel/' in request.path :
