@@ -15,8 +15,8 @@ from personnel.models import Personnel
 @login_required
 def index(request):
     personnel,created = Personnel.objects.get_or_create(user=request.user)
-
-    return render(request, 'project/dashboard.html',{'personnel': personnel})
+    projects = Project.objects.all()
+    return render(request, 'project/dashboard.html',{'personnel': personnel,'projects' : projects})
 
 @login_required
 def new_project(request,form_type):

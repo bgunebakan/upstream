@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 from django import template
 import homepage
 from django.core.urlresolvers import resolve
@@ -15,9 +17,16 @@ def version():
     setting = homepage.models.Setting.objects.get(name='version')
 
     return setting.value
+
 @register.simple_tag
 def appname(request):
-    return resolve(request.path).app_name
+    print "-------",request.path
+    if '/project/' in request.path:
+        return 'Proje Yönetimi'
+    elif '/personnel/' in request.path :
+        return 'Personel Yönetimi'
+    elif '/inventory/' in request.path:
+        return 'Stok Takip'
 
 @register.simple_tag
 def add_active(url,request):
