@@ -1,0 +1,9 @@
+Django
+Pillow
+django_phonenumber_field
+django_countries
+djrichtextfield
+django_mailbox
+django_adminlte
+django_adminlte_theme
+python-dateutil
