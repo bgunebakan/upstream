@@ -3,14 +3,18 @@
 from django import template
 import homepage
 from django.core.urlresolvers import resolve
+from django.core.exceptions import ObjectDoesNotExist
 
 register = template.Library()
 
 @register.simple_tag
 def title():
-    setting = homepage.models.Setting.objects.get(name='title')
-
+    try:
+        setting = homepage.models.Setting.objects.get(name='title')
+    except ObjectDoesNotExist:
+        return "Upstream"
     return setting.value
+
 
 @register.simple_tag
 def version():
@@ -20,7 +24,10 @@ def version():
 
 @register.simple_tag
 def hide_sidebar():
-    setting = homepage.models.Setting.objects.get(name='hide_sidebar')
+    try:
+        setting = homepage.models.Setting.objects.get(name='hide_sidebar')
+    except ObjectDoesNotExist:
+        return "False"
     if setting.value == 'True':
         return 'sidebar-collapse'
 

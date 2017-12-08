@@ -5,7 +5,7 @@ from django.db import models
 from django.utils.translation import ugettext_lazy as _
 from django.utils import timezone
 from datetime import datetime
-
+import personnel.models
 
 class Location(models.Model):
     name = models.CharField(max_length=32, verbose_name=_(u'Yer ismi'))
@@ -27,7 +27,7 @@ class Location(models.Model):
 
 class Inventory(models.Model):
     name = models.CharField(max_length=32, verbose_name=_(u'Depo ismi'))
-    location = models.ForeignKey(Location, verbose_name=_(u'Yer'))
+    location = models.ForeignKey(Location,null=True, verbose_name=_(u'Yer'),on_delete=models.SET_NULL)
     description = models.TextField(max_length=200,null=True,blank=True, verbose_name=_(u'Açıklama'))
     created_date = models.DateTimeField(default=timezone.now,verbose_name='Oluşturma tarihi', editable=False)
 
@@ -47,7 +47,7 @@ class Inventory(models.Model):
 class Category(models.Model):
     name = models.CharField(max_length=50, verbose_name=_(u'Kategori ismi'))
     created_date = models.DateTimeField(default=timezone.now,verbose_name='Oluşturma tarihi', editable=False)
-    top_category = models.ForeignKey('self',null=True,blank=True, verbose_name=_(u'Üst kategori'))
+    top_category = models.ForeignKey('self',null=True,blank=True, verbose_name=_(u'Üst kategori'),on_delete=models.SET_NULL)
     description = models.TextField(max_length=200,null=True,blank=True, verbose_name=_(u'Açıklama'))
 
     class Meta:
@@ -72,13 +72,14 @@ class Item(models.Model):
     brand = models.CharField(verbose_name=_(u'Marka'), max_length=32, null=True, blank=True)
     model = models.CharField(verbose_name=_(u'Model'), max_length=32, null=True, blank=True)
     part_number = models.CharField(verbose_name=_(u'Parça Numarası'), max_length=32, null=True, blank=True)
+    user = models.ForeignKey(personnel.models.Personnel, verbose_name=_(u'Personel'),null=True,on_delete=models.SET_NULL)
     notes = models.TextField(verbose_name=_(u'Açıklama'), null=True, blank=True)
     suppliers = models.ManyToManyField('Supplier', blank=True, verbose_name=_(u'Tedarikçi'))
-    inventory = models.ForeignKey(Inventory, null=True, blank=True, verbose_name=_(u'Depo'))
-    category = models.ForeignKey(Category, verbose_name=_(u'Kategori'))
-    item_type = models.ForeignKey(ItemType, verbose_name=_(u'Malzeme çeşidi'))
+    inventory = models.ForeignKey(Inventory, null=True, blank=True, verbose_name=_(u'Depo'),on_delete=models.SET_NULL)
+    category = models.ForeignKey(Category, verbose_name=_(u'Kategori'),null=True,on_delete=models.SET_NULL)
+    item_type = models.ForeignKey(ItemType, verbose_name=_(u'Malzeme çeşidi'),null=True,on_delete=models.SET_NULL)
     created_date = models.DateTimeField(default=timezone.now,verbose_name='Oluşturma tarihi', editable=False)
-
+    deleted = models.BooleanField(default=False)
 
     class Meta:
         ordering = ['name']
@@ -99,16 +100,8 @@ class Log(models.Model):
     action = models.CharField(max_length=32, verbose_name=_(u'Hareket'))
     description = models.TextField(verbose_name=_(u'Açıklama'), null=True, blank=True)
 
-    item = models.ForeignKey(Item, verbose_name=_(u'Malzeme'))
-
-
-    def __unicode__(self):
-        return '%s, %s - %s' % (self.timedate, self.action, self.content_object)
-
-    @models.permalink
-    def get_absolute_url(self):
-        return ('log_view', [str(self.id)])
-
+    item = models.ForeignKey(Item, verbose_name=_(u'Malzeme'),null=True,on_delete=models.SET_NULL)
+    user = models.ForeignKey(personnel.models.Personnel, verbose_name=_(u'Personel'),null=True,on_delete=models.SET_NULL)
 
 
 

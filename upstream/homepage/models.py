@@ -5,7 +5,7 @@ from django.db import models
 from django.utils import timezone
 from django.contrib import admin
 from django.contrib.auth.models import User,Group
-from djrichtextfield.models import RichTextField
+#from djrichtextfield.models import RichTextField
 
 class Setting(models.Model):
     name = models.CharField(max_length=30,unique=True)
@@ -24,12 +24,12 @@ class Post(models.Model):
     )
 
     title = models.CharField(max_length=30,unique=True)
-    text = RichTextField()
-    owner = models.ForeignKey(User)
+    text = models.TextField(max_length=500,null=True,blank=True)#RichTextField()
+    owner = models.ForeignKey(User,null=True,on_delete=models.SET_NULL)
     keywords = models.CharField(max_length=200,unique=True,null=True,blank=True)
     post_image = models.ImageField(upload_to='post_media/',null=True,default='post_media/post.png',verbose_name = "Yazı görseli")
     status = models.IntegerField(choices = STATUS,default=2)
-    category = models.ForeignKey(Category,null=True,blank=True)
+    category = models.ForeignKey(Category,null=True,blank=True,on_delete=models.SET_NULL)
     created_date = models.DateTimeField(verbose_name='date created',default=timezone.now, editable=False)
     updated_date = models.DateTimeField(auto_now=True,verbose_name='güncelleme tarihi', blank=True, editable=False)
 
@@ -40,7 +40,7 @@ class Menu_item(models.Model):
             (3, 'Settings'),
     )
     name = models.CharField(max_length=30,unique=True)
-    top_menu = models.ForeignKey('self',null=True,blank=True)
+    top_menu = models.ForeignKey('self',null=True,blank=True,on_delete=models.SET_NULL)
     url = models.CharField(max_length=30,unique=True)
     icon = models.CharField(max_length=30,unique=True, blank=True)
     menu_type = models.IntegerField(choices = MENU_TYPE,default=1)

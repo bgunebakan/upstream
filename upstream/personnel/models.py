@@ -66,7 +66,7 @@ class Personnel(models.Model):
     drive_licence = models.IntegerField(choices=Drive_licence, default=1,verbose_name = "Sürücü Belgesi")
     health_status = models.CharField(max_length=50,null=True,verbose_name = "Sağlık Durumu",blank=True)
 
-    identifier = models.OneToOneField('tarlaguard.Identifier',null=True,on_delete=models.CASCADE,verbose_name = "Kart No")
+    identifier = models.OneToOneField('tarlaguard.Identifier',null=True,blank=True,on_delete=models.CASCADE,verbose_name = "Kart No")
     profile_picture = models.ImageField(upload_to='profile_pictures/',null=True,default='profile_pictures/profile.png',verbose_name = "Profil Fotoğrafı")
     user_file = models.FileField(upload_to='personnel_pdf/',null=True,blank=True,verbose_name = "Personel PDF")
     description = models.TextField(max_length=100,verbose_name = "Açıklama",null=True,blank=True)
@@ -84,6 +84,6 @@ class Personnel(models.Model):
         permissions = Permission.objects.filter(personnel=self)
         for permission in permissions:
             permission.delete()
-	    self.identifier = None
+        self.identifier = None
         self.save()
         return

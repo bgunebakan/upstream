@@ -13,13 +13,12 @@ def send_controller(Command,ControllerIp, args):
 
     try:
     #if True:
-	s = socket.socket(
-	    socket.AF_INET, socket.SOCK_STREAM)
-	print s.getsockname()
-        print ControllerIp
-	s.connect((ControllerIp, ControllerPort))
+        s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        print(s.getsockname())
+        print(ControllerIp)
+        s.connect((ControllerIp, ControllerPort))
         #s.settimeout(1.0)
-        print MESSAGE
+        print(MESSAGE)
         s.send(MESSAGE)
         data = ''
         con = True
@@ -35,7 +34,7 @@ def send_controller(Command,ControllerIp, args):
 	            data += character
 
 
-        print data
+        print(data)
         if "OK" in data :
             return True
         elif Command is 'L':
@@ -47,24 +46,24 @@ def send_controller(Command,ControllerIp, args):
 
         s.close()
 
-    except socket.error, exc:
-        print "Caught exception socket.error : %s" % exc
+    except socket.error as exc:
+        print("Caught exception socket.error : %s" % exc)
         return False
 
 def setTime(controller):
 
-    print controller.ip_address
+    print(controller.ip_address)
     #print timezone.localtime(timezone.now())
-    print time.strftime("%d.%m.%Y,%H:%M:%S", time.localtime()) #"%a %b %d %H:%M:%S %Z %Y"
+    print(time.strftime("%d.%m.%Y,%H:%M:%S", time.localtime())) #"%a %b %d %H:%M:%S %Z %Y"
     timenow = time.strftime("%d.%m.%Y,%H:%M:%S", time.localtime())
     response = send_controller('T',controller.ip_address,unicode(timenow))
-    print response
+    print(response)
 
     if response:
         controller.health = True
-        print controller.name,' saati guncellendi.'
+        print(controller.name,' saati guncellendi.')
     else:
         controller.health = False
 
     controller.save()
-    return response
+    return(response)

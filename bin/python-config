@@ -1,4 +1,4 @@
-#!/home/gunebakan/works/TARLA/it/upstream/upstreamvenv/bin/python
+#!/home/bilal/works/TARLA/it/upstream/bin/python
 
 import sys
 import getopt

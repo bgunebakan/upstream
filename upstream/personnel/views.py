@@ -17,7 +17,11 @@ from django.http import HttpResponseRedirect
 from datetime import datetime, timedelta
 from django.db.models import Sum
 from dateutil import parser
+from django.core.exceptions import ObjectDoesNotExist
 
+@login_required
+def index(request):
+    return HttpResponseRedirect('/personnel/profile/')
 
 @login_required
 def user_detail(request):
@@ -48,27 +52,30 @@ def profile(request,username, template_name='personnel/profile.html'):
 
     if request.method=='POST':
         if username == "":
+            print "no username"
             personnel = Personnel.objects.get(user=request.user)
         else:
             personnel = Personnel.objects.get(user__username=username)
-        if personnel.identifier.identifier_type == 1:
+        if personnel.identifier:
+            if personnel.identifier.identifier_type == 1:
+                form = PersonnelForm(request.POST,request.FILES, instance=personnel)
+            elif personnel.identifier.identifier_type == 2:
+                form = GuestForm(request.POST, instance=personnel)
+        else:
             form = PersonnelForm(request.POST,request.FILES, instance=personnel)
-        elif personnel.identifier.identifier_type == 2:
-            form = GuestForm(request.POST, instance=personnel)
-
         if form.is_valid():
             form.save()
             messages.success(request, 'Personel Güncellendi.')
-        return HttpResponseRedirect('/personnel/detail/' + request.user.username)
+        return HttpResponseRedirect('/personnel/profile/' + request.user.username)
     else:
         try:
             if username == "":
                 personnel = Personnel.objects.get(user=request.user)
             else:
                 personnel = Personnel.objects.get(user__username=username)
-        except Personnel.DoesNotExist:
+        except ObjectDoesNotExist:
             messages.error(request, username + ' TC kimlik nolu Kullanici Bulunamadi!')
-            return HttpResponseRedirect('/personnel/profile/')
+            return HttpResponseRedirect('/project/')
         #workhour calculations
         actions = tarlaguard.models.Action.objects.filter(personnel=personnel).order_by('-created_date')
         #---------------
@@ -104,11 +111,13 @@ def profile(request,username, template_name='personnel/profile.html'):
         # Chart object
         chart = gchart.ColumnChart(data_source,options={'title': 'Son 10 gün çalışma saati'})
 
-
-        if personnel.identifier.identifier_type == 1:
+        if personnel.identifier:
+            if personnel.identifier.identifier_type == 1:
+                form = PersonnelForm(request.POST or None, instance=personnel)
+            elif personnel.identifier.identifier_type == 2:
+                form = GuestForm(request.POST or None, instance=personnel)
+        else:
             form = PersonnelForm(request.POST or None, instance=personnel)
-        elif personnel.identifier.identifier_type == 2:
-            form = GuestForm(request.POST or None, instance=personnel)
 
 
         table = tarlaguard.tables.ActionTable(tarlaguard.models.Action.objects.filter(personnel=personnel), order_by='-created_date')

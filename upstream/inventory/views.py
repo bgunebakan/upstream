@@ -6,6 +6,8 @@ from django.contrib.auth.decorators import login_required
 from personnel.models import Personnel
 from .forms import *
 from django.http import HttpResponseRedirect
+from .tables import *
+from django_tables2 import RequestConfig
 
 @login_required
 def index(request):
@@ -60,3 +62,15 @@ def new(request,form_type):
 
 
     return render(request, 'project/form.html',{'form': form})
+
+@login_required
+def item_table(request):
+    personnel,created = Personnel.objects.get_or_create(user=request.user)
+    #projects = Item.objects.all()
+
+    table = ItemTable(Item.objects.all())
+    table_label = 'Malzemeler'
+
+    RequestConfig(request, paginate={'per_page': 20}).configure(table)
+
+    return render(request, 'inventory/table.html',{'table_list': table,'table_label': table_label,'personnel': personnel})

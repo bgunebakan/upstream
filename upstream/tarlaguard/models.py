@@ -1,10 +1,9 @@
 # -*- coding: utf-8 -*-
-from __future__ import unicode_literals
 
 from django.db import models
 from django.utils import timezone
 from django.contrib import admin
-from utils import *
+from .utils import *
 from django.db.models.query import QuerySet
 
 from personnel.models import Personnel
@@ -56,7 +55,7 @@ class Controller(models.Model):
         self.save()
         return
 
-    def __unicode__(self):
+    def __str__(self):
         return self.name+" - "+self.mac
 
 class Door(models.Model):
@@ -85,7 +84,7 @@ class Door(models.Model):
         ,verbose_name = "Kapı ismi"
     )
 
-    entrance = models.ForeignKey('Controller', related_name="entrance_controller", null=True, default=None,verbose_name = "Kontrolcü")
+    entrance = models.ForeignKey('Controller', related_name="entrance_controller", null=True,on_delete=models.SET_NULL, default=None,verbose_name = "Kontrolcü")
     entrance_controller_pin = models.IntegerField(choices=PINS, default=None,verbose_name = "Kontrolcü pin")
 
     antipassback = models.BooleanField(default=False,verbose_name = "Antipassback")
@@ -102,7 +101,7 @@ class Door(models.Model):
 #        self.deleted=True
 #        self.save()
 #        return
-    def __unicode__(self):
+    def __str__(self):
         return self.entrance.name + ' -- ' + self.name
 
     class Meta:
@@ -124,7 +123,7 @@ class Door_group(models.Model):
     created_date = models.DateTimeField(default=timezone.now)
 
 
-    def __unicode__(self):
+    def __str__(self):
         return self.name
 
     class Meta:
@@ -134,10 +133,10 @@ class Door_group(models.Model):
 
 class Action(models.Model):
 
-    personnel = models.ForeignKey('personnel.Personnel',blank=True,null=True,verbose_name = "Personel")
-    identifier = models.ForeignKey('Identifier',null=True,verbose_name = "Kart No")
-    door = models.ForeignKey('door',null=True,blank=True,verbose_name = "Kapı")
-    action_type = models.ForeignKey('Action_type',verbose_name = "Hareket")
+    personnel = models.ForeignKey('personnel.Personnel',blank=True,null=True,on_delete=models.SET_NULL,verbose_name = "Personel")
+    identifier = models.ForeignKey('Identifier',null=True,verbose_name = "Kart No",on_delete=models.SET_NULL)
+    door = models.ForeignKey('door',null=True,blank=True,verbose_name = "Kapı",on_delete=models.SET_NULL)
+    action_type = models.ForeignKey('Action_type',verbose_name = "Hareket",null=True,on_delete=models.SET_NULL)
     created_date = models.DateTimeField(default=timezone.now,verbose_name = "Tarih-Saat")
     deleted = models.BooleanField(default=False,verbose_name = "Silinmiş")
 
@@ -147,7 +146,7 @@ class Action(models.Model):
         self.deleted=True
         self.save()
         return
-    def __unicode__(self):
+    def __str__(self):
         message = str(self.id) + ':'
         if self.door:
             message += 'Door ' + self.door.name + ' | '
@@ -189,7 +188,7 @@ class Action_type(models.Model):
         self.save()
         return
 
-    def __unicode__(self):
+    def __str__(self):
         return self.message
 
 class Identifier(models.Model):
@@ -226,11 +225,11 @@ class Identifier(models.Model):
     objects = SoftDeleteManager()
 
     def delete(self, *args, **kwargs):
-        print self.key
+        print(self.key)
         permissions = Permission.objects.filter(personnel__identifier__key=self.key)
         if permissions:
             for permission in permissions:
-                print unicode(permission.personnel.name) + unicode(permission.door)
+                print(str(permission.personnel.name) + str(permission.door))
                 permission.delete()
 
         self.deleted=True
@@ -238,7 +237,7 @@ class Identifier(models.Model):
         self.save()
         return
 
-    def __unicode__(self):
+    def __str__(self):
         return self.name+"-"+self.key
 
     class Meta:
@@ -247,8 +246,8 @@ class Identifier(models.Model):
         )
 
 class Permission(models.Model):
-    personnel = models.ForeignKey('personnel.Personnel')
-    door = models.ForeignKey('Door', null=True, blank=True)
+    personnel = models.ForeignKey('personnel.Personnel',null=True,on_delete=models.SET_NULL)
+    door = models.ForeignKey('Door', null=True, blank=True,on_delete=models.SET_NULL)
 
     start_date = models.DateTimeField(null=True, blank=True)
     end_date = models.DateTimeField(null=True, blank=True)

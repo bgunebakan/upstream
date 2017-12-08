@@ -34,7 +34,7 @@ ALLOWED_HOSTS = ["192.168.43.5","127.0.0.1"]
 # Application definition
 
 INSTALLED_APPS = [
-    'djrichtextfield',
+    #'djrichtextfield',
     'projectManager.apps.ProjectmanagerConfig',
     'webmail.apps.WebmailConfig',
     'personnel.apps.PersonnelConfig',
@@ -165,14 +165,14 @@ DATABASES = {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': os.path.join(BASE_DIR, 'upstream.sqlite3'),
      },
-     'ldap': {
-         'ENGINE': 'ldapdb.backends.ldap',
-         'NAME': AUTH_LDAP_SERVER_URI, #'ldap://127.0.0.1/',
-         'USER': unicode(AUTH_LDAP_BIND_DN), # unicode('cn=admin,dc=creworker,dc=com'),
-         'PASSWORD': unicode(AUTH_LDAP_BIND_PASSWORD), #unicode('salvation'),
-      }
+#     'ldap': {
+#         'ENGINE': 'ldapdb.backends.ldap',
+#         'NAME': AUTH_LDAP_SERVER_URI, #'ldap://127.0.0.1/',
+#         'USER': str(AUTH_LDAP_BIND_DN), # str('cn=admin,dc=creworker,dc=com'),
+#         'PASSWORD': str(AUTH_LDAP_BIND_PASSWORD), #str('salvation'),
+#      }
 }
-DATABASE_ROUTERS = ['ldapdb.router.Router']
+#DATABASE_ROUTERS = ['ldapdb.router.Router']
 
 #DATABASES = {
 #    'default': {
@@ -241,14 +241,14 @@ MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 LOGIN_REDIRECT_URL = '/'
 
-DJRICHTEXTFIELD_CONFIG = {
-    'js': ['//tinymce.cachefly.net/4.1/tinymce.min.js'],
-    'init_template': 'djrichtextfield/init/tinymce.js',
-    'settings': {
-        'menubar': False,
-        'plugins': 'link image table code',
-        'toolbar': 'formatselect | bold italic | removeformat |'
-                   ' link unlink image table | code',
-        'width': 700
-    }
-}
+#DJRICHTEXTFIELD_CONFIG = {
+#    'js': ['//tinymce.cachefly.net/4.1/tinymce.min.js'],
+#    'init_template': 'djrichtextfield/init/tinymce.js',
+#    'settings': {
+#        'menubar': False,
+#        'plugins': 'link image table code',
+#        'toolbar': 'formatselect | bold italic | removeformat |'
+#                   ' link unlink image table | code',
+#        'width': 700
+#    }
+#}

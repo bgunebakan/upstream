@@ -2,7 +2,7 @@
 from django import forms
 
 from .models import *
-from djrichtextfield.widgets import RichTextWidget
+#from djrichtextfield.widgets import RichTextWidget
 
 class LocationForm(forms.ModelForm):
 
@@ -56,6 +56,6 @@ class SupplierForm(forms.ModelForm):
     class Meta:
         model = Supplier
         exclude = ('created_date',)
-        
+
     def __init__(self, *args, **kwargs):
         super(SupplierForm, self).__init__(*args, **kwargs)
