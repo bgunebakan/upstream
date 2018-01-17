@@ -16,7 +16,10 @@ from django_tables2 import RequestConfig
 
 @login_required
 def index(request):
-    personnel,created = Personnel.objects.get_or_create(user=request.user)
+    try:
+        personnel = Personnel.objects.get(user=request.user)
+    except Personnel.DoesNotExist:
+        return HttpResponseRedirect('/personnel/new/personnel')
     projects = Project.objects.all()
     return render(request, 'project/dashboard.html',{'personnel': personnel,'projects' : projects})
 

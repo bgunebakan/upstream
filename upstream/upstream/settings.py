@@ -96,20 +96,27 @@ WSGI_APPLICATION = 'upstream.wsgi.application'
 #-----------LDAP AUTH SETTINGS-----------------------
 # Baseline configuration.
 AUTH_LDAP_SERVER_URI = "ldap://127.0.0.1"
+#AUTH_LDAP_SERVER_URI = "ldap://146.185.180.109:389"
 
-AUTH_LDAP_BIND_DN = "cn=admin,dc=creworker,dc=com"
-AUTH_LDAP_BIND_PASSWORD = "salvation"
-AUTH_LDAP_USER_SEARCH_BASE = "ou=users,dc=creworker,dc=com"
+#AUTH_LDAP_BIND_DN = "cn=fd-admin,dc=creworker,dc=com"
+#AUTH_LDAP_BIND_DN = "cn=admin,dc=tarla,dc=org,dc=tr"
+#AUTH_LDAP_BIND_PASSWORD = "salvation"
+AUTH_LDAP_USER_SEARCH_BASE = "ou=people,dc=creworker,dc=com"
+#AUTH_LDAP_USER_SEARCH_BASE = "ou=users,dc=tarla,dc=org,dc=tr"
+
 AUTH_LDAP_USER_SEARCH = LDAPSearch(AUTH_LDAP_USER_SEARCH_BASE,
     ldap.SCOPE_SUBTREE, "(uid=%(user)s)")
 # or perhaps:
 # AUTH_LDAP_USER_DN_TEMPLATE = "uid=%(user)s,ou=users,dc=creworker,dc=com"
 
 # Set up the basic group parameters.
-AUTH_LDAP_GROUP_SEARCH = LDAPSearch("ou=django,ou=groups,dc=creworker,dc=com",
+AUTH_LDAP_GROUP_SEARCH = LDAPSearch("ou=groups,dc=upstream,dc=creworker,dc=com",
     ldap.SCOPE_SUBTREE, "(objectClass=posixGroup)"
 )
-AUTH_LDAP_GROUP_TYPE = PosixGroupType(name_attr="memberUid")
+#AUTH_LDAP_GROUP_SEARCH = LDAPSearch("ou=groups,dc=tarla,dc=org,dc=tr",
+#    ldap.SCOPE_SUBTREE, "(objectClass=posixGroup)"
+#)
+AUTH_LDAP_GROUP_TYPE = PosixGroupType(name_attr="uid")
 
 # Simple group restrictions
 #AUTH_LDAP_REQUIRE_GROUP = "cn=enabled,ou=django,ou=groups,dc=creworker,dc=com"
@@ -119,9 +126,9 @@ AUTH_LDAP_GROUP_TYPE = PosixGroupType(name_attr="memberUid")
 AUTH_LDAP_USER_ATTR_MAP = {
     "first_name": "givenName",
     "last_name": "sn",
-    "email": "mail",
-    "employee_number": "employeeNumber",
-    "employee_type": "employeeType"
+    #"email": "mail",
+    #"employee_number": "employeeNumber",
+    #"employee_type": "employeeType"
 }
 
 AUTH_LDAP_PROFILE_ATTR_MAP = {
@@ -129,11 +136,15 @@ AUTH_LDAP_PROFILE_ATTR_MAP = {
 }
 
 AUTH_LDAP_USER_FLAGS_BY_GROUP = {
-    "is_active": "cn=active,ou=django,ou=groups,dc=creworker,dc=com",
-    "is_staff": "cn=staff,ou=django,ou=groups,dc=creworker,dc=com",
-    "is_superuser": "cn=superuser,ou=django,ou=groups,dc=creworker,dc=com"
+    "is_active": "cn=active,ou=groups,dc=upstream,dc=creworker,dc=com",
+    "is_staff": "cn=staff,ou=groups,dc=upstream,dc=creworker,dc=com",
+    "is_superuser": "cn=superuser,ou=groups,dc=upstream,dc=creworker,dc=com"
 }
-
+#AUTH_LDAP_USER_FLAGS_BY_GROUP = {
+#    "is_active": "cn=active,ou=groups,dc=tarla,dc=org,dc=tr",
+#    "is_staff": "cn=staff,ou=groups,dc=tarla,dc=org,dc=tr",
+#    "is_superuser": "cn=superuser,ou=groups,dc=tarla,dc=org,dc=tr"
+#}
 #AUTH_LDAP_PROFILE_FLAGS_BY_GROUP = {
 #    "is_awesome": "cn=awesome,ou=django,ou=groups,dc=creworker,dc=com",
 #}
