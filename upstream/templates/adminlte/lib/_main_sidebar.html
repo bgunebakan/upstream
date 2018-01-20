@@ -24,6 +24,7 @@
             <li class="header">{% block nav_heading %}Ana Menü{% endblock %}</li>
 
             {% block nav_links %}
+            {%if '/project/' in request.path %}
             <!-- / .project -->
             {% load menubuilder %}{% menu project %}
             <li class="treeview {% add_active '/project/' request %}" id="active">
@@ -44,6 +45,9 @@
                   {% endfor %}
                 </ul>
             </li>
+            {%endif%}
+
+            {%if '/personnel/' in request.path %}
             {% load menubuilder %}{% menu personnel %}
             <li class="treeview {% add_active '/personnel/' request %}" id="active">
                 <a href="#">
@@ -63,6 +67,9 @@
                   {% endfor %}
                 </ul>
             </li>
+            {%endif%}
+
+            {%if '/access/' in request.path %}
             {% load menubuilder %}{% menu access %}
             <li class="treeview {% add_active '/access/' request %}" id="active">
                 <a href="#">
@@ -82,6 +89,9 @@
                   {% endfor %}
                 </ul>
             </li>
+            {%endif%}
+
+            {%if '/inventory/' in request.path %}
             {% load menubuilder %}{% menu inventory %}
             <li class="treeview {% add_active '/inventory/' request %}" id="active">
                 <a href="#">
@@ -101,6 +111,9 @@
                   {% endfor %}
                 </ul>
             </li>
+            {%endif%}
+
+            {%if '/indico/' in request.path %}
             {% load menubuilder %}{% menu indico %}
             <li class="treeview {% add_active '/indico/' request %}" id="active">
                 <a href="#">
@@ -120,6 +133,7 @@
                   {% endfor %}
                 </ul>
             </li>
+            {%endif%}
 
             {% endblock nav_links %}
             {% endblock nav_links_outer %}

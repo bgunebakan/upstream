@@ -26,14 +26,13 @@ from django.conf.urls.static import static
 urlpatterns = [
     url(r'^$', views.index),
     url(r'^admin/', admin.site.urls),
-    #url(r'^djrichtextfield/', include('djrichtextfield.urls')),
-    url(r'^accounts/login/', auth_views.login, {'template_name': 'clear/login.html'}, name='login'),
+    url(r'^accounts/login/', auth_views.login, {'template_name': 'adminlte/login.html'}, name='login'),
     url(r'^accounts/logout/', auth_views.logout, {'next_page': '/'}, name='logout'),
     url(r'^project/', include('projectManager.urls'),name='project'),
     url(r'^mail/', include('webmail.urls')),
     url(r'^personnel/', include('personnel.urls')),
     url(r'^access/', include('tarlaguard.urls')),
-    url(r'^inventory/', include('inventory.urls')),
+    url(r'^inventory/', include('inventory.urls', namespace='inventory-urls', app_name='inventory')),
     url(r'^ldapconnect/', include('ldapconnect.urls')),
     url(r'^calendar/', include('django_bootstrap_calendar.urls')),
 

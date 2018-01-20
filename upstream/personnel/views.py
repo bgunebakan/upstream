@@ -18,6 +18,7 @@ from datetime import datetime, timedelta
 from django.db.models import Sum
 from dateutil import parser
 from django.core.exceptions import ObjectDoesNotExist
+from django.http import Http404
 
 @login_required
 def index(request):
@@ -70,14 +71,17 @@ def profile(request,username, template_name='personnel/profile.html'):
     else:
         try:
             if username == "":
+                print "no username" + unicode(request.user.username)
                 personnel = Personnel.objects.get(user=request.user)
+                actions = tarlaguard.models.Action.objects.filter(user=request.user).order_by('-created_date')
             else:
                 personnel = Personnel.objects.get(user__username=username)
+                actions = tarlaguard.models.Action.objects.filter(user__username=username).order_by('-created_date')
         except ObjectDoesNotExist:
             messages.error(request, username + ' TC kimlik nolu Kullanici Bulunamadi!')
             return HttpResponseRedirect('/project/')
         #workhour calculations
-        actions = tarlaguard.models.Action.objects.filter(personnel=personnel).order_by('-created_date')
+
         #---------------
 
         d = defaultdict(list)
@@ -120,10 +124,43 @@ def profile(request,username, template_name='personnel/profile.html'):
             form = PersonnelForm(request.POST or None, instance=personnel)
 
 
-        table = tarlaguard.tables.ActionTable(tarlaguard.models.Action.objects.filter(personnel=personnel), order_by='-created_date')
+        table = tarlaguard.tables.ActionTable(tarlaguard.models.Action.objects.filter(user__username=personnel.user.username), order_by='-created_date')
         RequestConfig(request, paginate={'per_page': 15}).configure(table)
 
         if form.is_valid():
             form.save()
             return HttpResponseRedirect('/personnel/all/')
         return render(request, template_name, {'chart': chart,'table_list': table,'personnel': personnel,'form':form,'form_label':"Kart Tipi Güncelleme",'user_menu':'active'})
+
+@login_required
+def new_user(request,user_type):
+    #user_type = "personnel"
+    if request.method == 'POST':
+        # create a form instance and populate it with data from the request:
+        if user_type == "personnel":
+            form = ProjectForm(request.POST)
+        elif user_type == "guest":
+            form = TaskForm(request.POST)
+        else:
+            raise Http404("Aradığınız Sayfa Bulunamadı!")
+
+        # check whether it's valid:
+        if form.is_valid():
+            # process the data in form.cleaned_data as required
+            # ...
+            form.save()
+            # redirect to a new URL:
+            return HttpResponseRedirect('#')
+
+    # if a GET (or any other method) we'll create a blank form
+    else:
+        if user_type == "personnel":
+            form = PersonnelForm()
+        elif user_type == "guest":
+            form = GuestForm()
+        else:
+            raise Http404("Aradığınız Sayfa Bulunamadı!")
+
+
+
+    return render(request, 'personnel/form.html',{'form': form})

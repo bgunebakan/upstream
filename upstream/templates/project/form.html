@@ -4,10 +4,11 @@
 {% load bootstrap%}
 {% load detail_tags %}
 
-{% block title %}Proje Yönetimi - {% title %} {% endblock %}
+{% block title %}Proje Yönetimi{% endblock %}
 
 {% block page_name %}Proje Yönetimi{% endblock %}
 {% block page_description %}Yeni Oluştur{% endblock %}
+{% block bodyclass %}skin-yellow{% endblock %}
 
 
 {% block page_stylesheets %}
@@ -48,7 +49,7 @@
                     {{ form|bootstrap }}
 
                     <div class="box-footer">
-                      <button type="submit" class="btn btn-primary">Submit</button>
+                      <button type="submit" class="btn btn-primary">Kaydet</button>
                     </div>
                   </div>
                 </form>

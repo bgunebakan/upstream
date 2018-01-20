@@ -41,7 +41,7 @@ class GuestForm(forms.ModelForm):
 
     class Meta:
         model = Personnel
-        fields = ('name', 'surname','identifier', 'country','nat_id','description')
+        fields = ('name', 'surname', 'country','nat_id','description')
 
     def __init__(self, *args, **kwargs):
         super(GuestForm, self).__init__(*args, **kwargs)
@@ -49,6 +49,6 @@ class GuestForm(forms.ModelForm):
         self.fields['surname'].widget.attrs.update({'class' : 'form-control'})
         self.fields['country'].widget.attrs.update({'class' : 'form-control'})
         self.fields['nat_id'].widget.attrs.update({'class' : 'form-control'})
-        self.fields['identifier'].widget.attrs.update({'class' : 'form-control'})
+        #self.fields['identifier'].widget.attrs.update({'class' : 'form-control'})
         self.fields['description'].widget.attrs.update({'class' : 'form-control'})
-        self.fields['identifier'].queryset = Identifier.objects.filter(identifier_type=2)
+        #self.fields['identifier'].queryset = Identifier.objects.filter(identifier_type=2)

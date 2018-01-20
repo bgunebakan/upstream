@@ -5,6 +5,7 @@ from django.utils import timezone
 from django.contrib import admin
 from .utils import *
 from django.db.models.query import QuerySet
+from django.contrib.auth.models import User,Group
 
 from personnel.models import Personnel
 
@@ -133,7 +134,7 @@ class Door_group(models.Model):
 
 class Action(models.Model):
 
-    personnel = models.ForeignKey('personnel.Personnel',blank=True,null=True,on_delete=models.SET_NULL,verbose_name = "Personel")
+    user = models.ForeignKey(User,blank=True,null=True,on_delete=models.SET_NULL,verbose_name = "Personel")
     identifier = models.ForeignKey('Identifier',null=True,verbose_name = "Kart No",on_delete=models.SET_NULL)
     door = models.ForeignKey('door',null=True,blank=True,verbose_name = "Kapı",on_delete=models.SET_NULL)
     action_type = models.ForeignKey('Action_type',verbose_name = "Hareket",null=True,on_delete=models.SET_NULL)
@@ -246,7 +247,7 @@ class Identifier(models.Model):
         )
 
 class Permission(models.Model):
-    personnel = models.ForeignKey('personnel.Personnel',null=True,on_delete=models.SET_NULL)
+    personnel = models.ForeignKey(User,null=True,on_delete=models.SET_NULL)
     door = models.ForeignKey('Door', null=True, blank=True,on_delete=models.SET_NULL)
 
     start_date = models.DateTimeField(null=True, blank=True)
