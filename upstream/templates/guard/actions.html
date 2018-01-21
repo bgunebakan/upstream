@@ -1,0 +1,72 @@
+{% extends 'janus/index.html' %}
+{% load static %}
+
+{% block content %}
+
+{% load table_tags %}
+<!-- Content Header (Page header) -->
+<section class="content-header">
+  <h1>
+    Hareketleri listeleme
+  </h1>
+  <ol class="breadcrumb">
+    <li><a href="/"><i class="fa fa-dashboard"></i>Ana Sayfa</a></li>
+    <li><a href="/actions/">Raporlar</a></li>
+    <li><a href="/actions/">Tüm hareketler</a></li>
+  </ol>
+</section>
+
+<!-- Main content -->
+<section class="content">
+  <div class="row">
+    <div class="col-xs-12">
+      <div class="box">
+        <div class="box-header">
+          <h3 class="box-title">Hareketler</h3>
+        </div>
+        <!-- /.box-header -->
+        <div class="box-body">
+          <table id="example2" class="table table-bordered table-hover">
+            <thead>
+            <tr>
+              <th>Kart no</th>
+              <th>Kapı</th>
+              <th>Kontrolcü</th>
+              <th>Hareket türü</th>
+              <th>Tarih-Saat</th>
+            </tr>
+            </thead>
+            <tbody>
+              {% for action in actions.all %}
+
+            <tr>
+
+              <td>{{ action.identifier }}</td>
+              <td>{{ action.door }}</td>
+              <td>{{ action.controller.name }}</td>
+              <td>{{ action.action_type }}</td>
+              <td>{{ action.created_date }}</td>
+
+            </tr>
+
+            {% endfor %}
+            </tbody>
+          </table>
+        </div>
+        <!-- /.box-body -->
+      </div>
+      <!-- /.box -->
+
+    </div>
+    <!-- /.col -->
+  </div>
+  <!-- /.row -->
+</section>
+<!-- /.content -->
+
+{% endblock %}
+<!-- DataTables -->
+<script src="{% static 'plugins/datatables/jquery.dataTables.min.js' %}"></script>
+<script src="{% static 'plugins/datatables/dataTables.bootstrap.min.js' %}"></script>
+<!-- SlimScroll -->
+<script src="{% static 'plugins/slimScroll/jquery.slimscroll.min.js' %}"></script>

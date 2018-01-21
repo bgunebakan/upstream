@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+
+{% load static %}
+
+
+<link href="{% static 'bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
+<script src="{% static 'datatable/jquery-3.2.1.min.js' %}"></script>
+<script src="{% static 'bootstrap/js/bootstrap.min.js' %}"></script>
+
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>TARLA Guard Kartlı Geçiş Sistemi</title>
+  <!-- Tell the browser to be responsive to screen width -->
+  <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+  <!-- Bootstrap 3.3.6 -->
+  <link rel="stylesheet" href="{% static 'bootstrap/css/bootstrap.min.css' %}">
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css">
+  <!-- Ionicons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css">
+  <!-- Theme style -->
+  <link rel="stylesheet" href="{% static 'dist/css/AdminLTE.min.css' %}">
+  <!-- AdminLTE Skins. Choose a skin from the css/skins
+       folder instead of downloading all of them to reduce the load. -->
+  <link rel="stylesheet" href="{% static 'dist/css/skins/_all-skins.min.css' %}">
+
+  <script src="{% static 'datatable/jquery-1.12.4.js' %}"></script>
+  <script src="{% static 'datatable/jquery.dataTables.min.js' %}"></script>
+  <script src="{% static 'datatable/dataTables.bootstrap.min.js' %}"></script>
+
+  <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+  <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+  <!--[if lt IE 9]>
+  <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+  <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+  <![endif]-->
+</head>
+<body class="hold-transition skin-blue sidebar-mini">
+<div class="wrapper">
+
+  <header class="main-header">
+    <!-- Logo -->
+    <a href="/" class="logo">
+      <!-- mini logo for sidebar mini 50x50 pixels -->
+      <span class="logo-mini"><b>TARLA</b></span>
+      <!-- logo for regular state and mobile devices -->
+      <span class="logo-lg"><b>TARLA</b>Guard</span>
+    </a>
+    <!-- Header Navbar: style can be found in header.less -->
+    <nav class="navbar navbar-static-top">
+      <!-- Sidebar toggle button-->
+      <a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </a>
+
+
+    </nav>
+  </header>
+  <!-- Left side column. contains the logo and sidebar -->
+  <aside class="main-sidebar">
+    <!-- sidebar: style can be found in sidebar.less -->
+    <section class="sidebar">
+      <!-- Sidebar user panel -->
+      <div class="user-panel">
+        <div class="pull-left image">
+          {% for group in user.groups.all %}
+            {% if group.name == 'admin' %}
+              <img src="{% static 'dist/img/admin.jpeg' %}" class="img-circle" alt="User Image">
+            {%else%}
+              <img src="{% static 'dist/img/security.png' %}" class="img-circle" alt="User Image">
+            {%endif%}
+          {%endfor%}
+        </div>
+        <div class="pull-left info">
+          <p>{{user.username}}</p>
+          <a href="/accounts/logout" role="button">
+            Çıkış Yap</a>
+        </div>
+      </div>
+      <!-- search form -->
+      <form action="/users/search/" method="get" class="sidebar-form">
+        <div class="input-group">
+          <input type="text" name="q" class="form-control" placeholder="Kullanıcı Ara...">
+              <span class="input-group-btn">
+                <button type="submit" name="search" id="search-btn" class="btn btn-flat"><i class="fa fa-search"></i>
+                </button>
+              </span>
+        </div>
+      </form>
+      <!-- /.search form -->
+      <!-- sidebar menu: : style can be found in sidebar.less -->
+      {% for group in user.groups.all %}
+        {% if group.name == 'admin' %}
+        <ul class="sidebar-menu">
+          <li class="header">Ana Menü</li>
+
+          <li class="treeview {{user_menu}}">
+            <a href="#">
+              <i class="fa fa-users"></i> <span>Kullanıcılar</span>
+              <span class="pull-right-container">
+                <i class="fa fa-angle-left pull-right"></i>
+              </span>
+            </a>
+            <ul class="treeview-menu">
+              <li class="active"><a href="/users/list/personnel/"><i class="fa fa-circle-o"></i> Personelleri listele</a></li>
+              <li><a href="/users/list/guest/"><i class="fa fa-circle-o"></i> Ziyaretçileri listele</a></li>
+              <li><a href="/users/new/personnel/"><i class="fa fa-circle-o"></i> Personel Oluştur</a></li>
+              <li><a href="/users/new/guest/"><i class="fa fa-circle-o"></i> Ziyaretçi Oluştur</a></li>
+            </ul>
+          </li>
+          <li class="treeview {{identifier_menu}}">
+            <a href="#">
+              <i class="fa fa-credit-card"></i> <span>Kartlar</span>
+              <span class="pull-right-container">
+                <i class="fa fa-angle-left pull-right"></i>
+              </span>
+            </a>
+            <ul class="treeview-menu">
+              <li class="active"><a href="/identifiers/all/"><i class="fa fa-circle-o"></i> Kartları listele</a></li>
+              <li><a href="/identifiers/new/"><i class="fa fa-circle-o"></i> Yeni Oluştur</a></li>
+            </ul>
+          </li>
+
+          <li class="treeview {{action_menu}}">
+            <a href="#">
+              <i class="fa fa-bar-chart"></i> <span>Raporlar</span>
+              <span class="pull-right-container">
+                <i class="fa fa-angle-left pull-right"></i>
+              </span>
+            </a>
+            <ul class="treeview-menu">
+              <li><a href="/actions/all"><i class="fa fa-circle-o"></i> Tüm hareketler</a></li>
+              <li><a href="/actions/error"><i class="fa fa-circle-o"></i> Hatalı hareketler</a></li>
+            </ul>
+          </li>
+          <li class="treeview {{system_menu}}">
+            <a href="#">
+              <i class="fa fa-gear"></i> <span>Sistem</span>
+              <span class="pull-right-container">
+                <i class="fa fa-angle-left pull-right"></i>
+              </span>
+            </a>
+            <ul class="treeview-menu">
+              <li class="active"><a href="/controllers/status/all/"><i class="fa fa-circle-o"></i> Kontrolcülerin Durumu</a></li>
+              <li><a href="/settime/"><i class="fa fa-circle-o"></i> Kontrolcü saatleri güncelle</a></li>
+              <li><a href="/doors/new/"><i class="fa fa-circle-o"></i> Yeni kapı oluştur</a></li>
+              <li><a href="/doors/all/"><i class="fa fa-circle-o"></i> Kapıları Listele</a></li>
+            </ul>
+          </li>
+          <li class="treeview {{help_menu}}">
+            <a href="#">
+              <i class="fa fa-question-circle"></i> <span>Yardım</span>
+              <span class="pull-right-container">
+                <i class="fa fa-angle-left pull-right"></i>
+              </span>
+            </a>
+            <ul class="treeview-menu">
+              <li class="active"><a href="{% static 'docs/TarlaGuard-Teknik-Döküman.pdf' %}"><i class="fa fa-circle-o"></i> Tarlaguard Teknik döküman</a></li>
+            </ul>
+          </li>
+        </ul>
+      </section>
+      <!-- /.sidebar -->
+    </aside>
+        {%else%}
+        <ul class="sidebar-menu">
+          <li class="header">Ana Menü</li>
+
+          <li class="treeview {{user_menu}}">
+            <a href="#">
+              <i class="fa fa-users"></i> <span>Kullanıcılar</span>
+              <span class="pull-right-container">
+                <i class="fa fa-angle-left pull-right"></i>
+              </span>
+            </a>
+            <ul class="treeview-menu">
+              <li><a href="/users/list/guest/"><i class="fa fa-circle-o"></i> Ziyaretçileri listele</a></li>
+              <li><a href="/users/new/guest/"><i class="fa fa-circle-o"></i> Ziyaretçi Oluştur</a></li>
+            </ul>
+          </li>
+
+
+        </ul>
+      </section>
+      <!-- /.sidebar -->
+    </aside>
+        {% endif %}
+      {% endfor %}
+
+
+  <!-- Content Wrapper. Contains page content -->
+  <div class="content-wrapper">
+
+    <!-- /.MAIN -->
+    {% block content %}
+    {% endblock %}
+    <!-- /.MAIN -->
+
+  </div>
+  <!-- /.content-wrapper -->
+  <footer class="main-footer">
+    <div class="pull-right hidden-xs">
+      <b>Version</b> 0.4
+    </div>
+    <strong>Copyright &copy; 2017 <a href="http://tarla.org.tr">TARLA</a> </strong>
+    adına <strong><a href="http://creworker.com">Creworker</a></strong> tarafından geliştirilmiştir.
+    Tüm hakları saklıdır.
+  </footer>
+
+</div>
+<!-- ./wrapper -->
+
+<!-- alert message -->
+{% if messages %}
+  <script>
+    alert("{% for message in messages %}{{ message }}\n{% endfor %}");
+  </script>
+{% endif %}
+<!-- alert message -->
+
+<!-- jQuery 2.2.3 -->
+<script src="{% static 'plugins/jQuery/jquery-2.2.3.min.js' %}"></script>
+<!-- Bootstrap 3.3.6 -->
+<script src="{% static 'bootstrap/js/bootstrap.min.js' %}"></script>
+<!-- FastClick -->
+<script src="{% static 'plugins/fastclick/fastclick.js' %}"></script>
+<!-- AdminLTE App -->
+<script src="{% static 'dist/js/app.min.js' %}"></script>
+<!-- AdminLTE for demo purposes -->
+<script src="{% static 'dist/js/demo.js' %}"></script>
+</body>
+</html>
