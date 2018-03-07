@@ -7,6 +7,7 @@ from . import models
 
 
 class PersonnelAdmin(admin.ModelAdmin):
-     list_display = ('user', 'surname','nat_id','identifier','email')
+     list_display = ('user', 'surname','personnel_type','nat_id','email')
 
 admin.site.register(models.Personnel,PersonnelAdmin)
+admin.site.register(models.Personnel_type)

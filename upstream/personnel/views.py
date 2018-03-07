@@ -1,166 +1,149 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
+from django.utils.translation import ugettext_lazy as _
 
-from django.shortcuts import render
+from cruds_adminlte.crud import CRUDView
+from cruds_adminlte.inline_crud import InlineAjaxCRUD
+
+from .models import *
+
+from django.views.generic.base import TemplateView
+from django import forms
+from cruds_adminlte.filter import FormFilter
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth import models
-from .models import Personnel
 from .forms import *
-import tarlaguard.models
-import tarlaguard.tables
-from collections import defaultdict
-from graphos.sources.simple import SimpleDataSource
-from graphos.renderers import gchart, yui, flot, morris, highcharts, c3js
-from django_tables2 import RequestConfig
-from django.contrib import messages
+from django.shortcuts import render
 from django.http import HttpResponseRedirect
-from datetime import datetime, timedelta
-from django.db.models import Sum
-from dateutil import parser
-from django.core.exceptions import ObjectDoesNotExist
-from django.http import Http404
+
+class IndexView(TemplateView):
+    template_name = 'index.html'
+
+def handler403(request, exception):
+    return render(request, 'errors/403.html', locals())
+
+class UserCRUD(CRUDView):
+    model = User
+    template_name_base='crud'
+    namespace = None
+    check_login = True
+    check_perms = True
+    views_available=['create', 'list', 'update', 'detail']
+
+    fields = ['first_name','last_name', 'username','email']
+
+    list_fields = ['first_name','last_name','username','email']
+
+    list_filter = ['first_name', 'username']
+
+    display_fields = ['first_name', 'last_name','username','email']
+
+    add_form = UserForm
+    update_form = UserForm
+
+    search_fields = ['first_name','last_name','username','email']
+    split_space_search = True
+    paginate_by = 5
+    paginate_position = 'Bottom' # Both | Bottom
+    paginate_template = 'cruds/pagination/enumeration.html'
+
+
+class PersonnelCRUD(CRUDView):
+    model = Personnel
+    template_name_base='crud'  #customer cruds => ccruds
+    namespace = None
+    check_login = True
+    check_perms = True
+    views_available=['create', 'list', 'update', 'detail']
+
+    fields = ['personnel_type','name', 'surname','birth_date', 'country','nat_id','gender','department','title',
+    'job','phone_number1','phone_number2','email','address','marital_status','military_situation',
+     'drive_licence','health_status','notes','cv','profile_picture','user_file']
+
+    list_fields = ['name','surname','personnel_type','nat_id','created_date']
+
+    list_filter = ['name', 'personnel_type']
+
+    display_fields = ['personnel_type','name', 'surname','birth_date', 'country','nat_id','gender','department','title',
+    'job','phone_number1','phone_number2','email','address','marital_status','military_situation',
+     'drive_licence','health_status','notes','cv','profile_picture','user_file']
+
+    add_form = PersonnelForm
+    update_form = PersonnelForm
+
+    search_fields = ['name','surname','nat_id']
+    split_space_search = True
+    paginate_by = 5
+    paginate_position = 'Bottom' # Both | Bottom
+    paginate_template = 'cruds/pagination/enumeration.html'
+
+class Personnel_typeCRUD(CRUDView):
+    model = Personnel_type
+    template_name_base='crud'  #customer cruds => ccruds
+    namespace = None
+    check_login = True
+    check_perms = True
+    add_form = Personnel_typeForm
+    update_form = Personnel_typeForm
+
+    views_available=['create', 'list', 'delete', 'update', 'detail']
+    fields = ['name','slug','icon','color','total']
+    list_fields = ['name']
+    display_fields = ['name', 'slug', 'color','icon']
+
+#@group_required(('personnel','admin'), login_url='/personnel/profile/')
+@login_required
+def dashboard(request,template_name='personnel/personnel/dashboard.html'):
+    personnel = Personnel.objects.get(user=request.user)
+    print unicode(request.user.username)
+    personnels = Personnel.objects.all()
+    total_personnels = 0
+    for personnel in personnels:
+        total_personnels = total_personnels + 1
+
+    personnel_types = Personnel_type.objects.all()
+    form = UserForm(request.POST or None)
+
+    return render(request, template_name,{'personnel': personnel,'personnels': personnels,'personnel_types': personnel_types,'form': form ,'total_personnels': total_personnels })
 
 @login_required
-def index(request):
-    return HttpResponseRedirect('/personnel/profile/')
-
-@login_required
-def user_detail(request):
-
-    personnel,created = Personnel.objects.get_or_create(user=request.user)
-
-    if request.method == 'POST':
-        # create a form instance and populate it with data from the request:
-        form = PersonnelForm(request.POST)
-
-        # check whether it's valid:
-        if form.is_valid():
-            new_form = form.save(commit=False)
-            new_form.save()
-            # redirect to a new URL:
-            return HttpResponseRedirect('#')
-
-    # if a GET (or any other method) we'll create a blank form
-    else:
-        form = PersonnelForm(request.POST or None, instance=personnel)
-
-    return render(request, 'personnel/profile.html',{'personnel': personnel,'form':form })
-
-
-@login_required
-def profile(request,username, template_name='personnel/profile.html'):
-
+def profile(request,username, template_name='personnel/personnel/profile.html'):
 
     if request.method=='POST':
         if username == "":
-            print "no username"
+            print "no username:" + unicode(request.user.username)
             personnel = Personnel.objects.get(user=request.user)
         else:
-            personnel = Personnel.objects.get(user__username=username)
-        if personnel.identifier:
-            if personnel.identifier.identifier_type == 1:
-                form = PersonnelForm(request.POST,request.FILES, instance=personnel)
-            elif personnel.identifier.identifier_type == 2:
-                form = GuestForm(request.POST, instance=personnel)
-        else:
-            form = PersonnelForm(request.POST,request.FILES, instance=personnel)
-        if form.is_valid():
-            form.save()
-            messages.success(request, 'Personel Güncellendi.')
-        return HttpResponseRedirect('/personnel/profile/' + request.user.username)
-    else:
-        try:
-            if username == "":
-                print "no username" + unicode(request.user.username)
-                personnel = Personnel.objects.get(user=request.user)
-                actions = tarlaguard.models.Action.objects.filter(user=request.user).order_by('-created_date')
-            else:
-                personnel = Personnel.objects.get(user__username=username)
-                actions = tarlaguard.models.Action.objects.filter(user__username=username).order_by('-created_date')
-        except ObjectDoesNotExist:
-            messages.error(request, username + ' TC kimlik nolu Kullanici Bulunamadi!')
-            return HttpResponseRedirect('/project/')
-        #workhour calculations
+            personnel = Personnel.objects.get(user=request.user)
 
-        #---------------
-
-        d = defaultdict(list)
-
-        for action in actions:
-            key, _ = str(action.created_date).split()
-            d[key].append(str(action.created_date))
-        workday = 0
-        workhour = 0
-        data =  [['Tarih', 'Saat']]
-
-        #sort list by date reverse
-        date_list = sorted(d, key=lambda x: datetime.strptime(x, '%Y-%m-%d'),reverse=True)
-        i=0
-        for date in date_list:
-            dt_max = parser.parse(max(d[date]))
-            dt_min = parser.parse(min(d[date]))
-            if i < 10:
-                data.append([date,int(dt_max.hour)-int(dt_min.hour)])
-            workhour = workhour + int(dt_max.hour)-int(dt_min.hour)
-            workday = workday + 1
-            i = i + 1
-
-        personnel.total_workday = workday
-        personnel.total_workhour = workhour
-        personnel.save()
-
-        # DataSource object
-        data_source = SimpleDataSource(data=data)
-
-        # Chart object
-        chart = gchart.ColumnChart(data_source,options={'title': 'Son 10 gün çalışma saati'})
-
-        if personnel.identifier:
-            if personnel.identifier.identifier_type == 1:
-                form = PersonnelForm(request.POST or None, instance=personnel)
-            elif personnel.identifier.identifier_type == 2:
-                form = GuestForm(request.POST or None, instance=personnel)
-        else:
-            form = PersonnelForm(request.POST or None, instance=personnel)
-
-
-        table = tarlaguard.tables.ActionTable(tarlaguard.models.Action.objects.filter(user__username=personnel.user.username), order_by='-created_date')
-        RequestConfig(request, paginate={'per_page': 15}).configure(table)
+        form = PersonnelForm(request.POST,request.FILES)
 
         if form.is_valid():
-            form.save()
-            return HttpResponseRedirect('/personnel/all/')
-        return render(request, template_name, {'chart': chart,'table_list': table,'personnel': personnel,'form':form,'form_label':"Kart Tipi Güncelleme",'user_menu':'active'})
-
-@login_required
-def new_user(request,user_type):
-    #user_type = "personnel"
-    if request.method == 'POST':
-        # create a form instance and populate it with data from the request:
-        if user_type == "personnel":
-            form = ProjectForm(request.POST)
-        elif user_type == "guest":
-            form = TaskForm(request.POST)
-        else:
-            raise Http404("Aradığınız Sayfa Bulunamadı!")
-
-        # check whether it's valid:
-        if form.is_valid():
-            # process the data in form.cleaned_data as required
-            # ...
             form.save()
             # redirect to a new URL:
+            messages.success(request, 'Personel Güncellendi.')
             return HttpResponseRedirect('#')
 
-    # if a GET (or any other method) we'll create a blank form
+        return HttpResponseRedirect('/personnel/profile/' + personnel.user.username)
     else:
-        if user_type == "personnel":
-            form = PersonnelForm()
-        elif user_type == "guest":
-            form = GuestForm()
+
+        if username == "":
+            print "no username:" + unicode(request.user.username)
+            personnel_user = User.objects.get(username=request.user.username)
+            personnel,created = Personnel.objects.get_or_create(user=request.user)
         else:
-            raise Http404("Aradığınız Sayfa Bulunamadı!")
+            personnel_user = User.objects.get(username=username)
+            personnel,created = Personnel.objects.get_or_create(user=request.user)
 
+        if created:
+            personnel.name = personnel_user.first_name
+            personnel.surname = personnel_user.last_name
+            personnel.email = personnel_user.email
+            personnel.save()
+            form = PersonnelForm(request.POST or None, instance=personnel)
+        else:
+            form = PersonnelForm(request.POST or None, instance=personnel)
+        #if form.is_valid():
+        #    form.save()
 
-
-    return render(request, 'personnel/form.html',{'form': form})
+            #return HttpResponseRedirect('/personnel/all/')
+        return render(request, template_name, {'personnel': personnel,'form':form})

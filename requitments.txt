@@ -17,3 +17,9 @@ django-bootstrap-form
 django-graphos
 matplotlib
 django-constance[database]
+raven
+django-select2
+easy_thumbnails
+django-image-cropping
+django-ajax
+django-cruds-adminlte

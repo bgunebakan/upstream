@@ -19,9 +19,20 @@ from django.conf.urls import include,url
 from django.contrib import admin
 from homepage import views
 from django.contrib.auth import views as auth_views
-import django_bootstrap_calendar
+#import django_bootstrap_calendar
 from django.conf import settings
 from django.conf.urls.static import static
+from personnel.views import IndexView, PersonnelCRUD,Personnel_typeCRUD,UserCRUD
+from django.apps import apps
+from cruds_adminlte.urls import crud_for_model
+from cruds_adminlte.urls import crud_for_app
+from personnel.models import Personnel
+
+usercrud = UserCRUD()
+personnelcrud = PersonnelCRUD()
+personnel_typecrud = Personnel_typeCRUD()
+
+ns = crud_for_app('personnel', check_perms=True, namespace="up")
 
 urlpatterns = [
     url(r'^$', views.index),
@@ -30,11 +41,17 @@ urlpatterns = [
     url(r'^accounts/logout/', auth_views.logout, {'next_page': '/'}, name='logout'),
     url(r'^project/', include('projectManager.urls'),name='project'),
     url(r'^mail/', include('webmail.urls')),
-    url(r'^personnel/', include('personnel.urls')),
+  #  url(r'^personnel/', include('personnel.urls')),
     url(r'^access/', include('tarlaguard.urls')),
     url(r'^inventory/', include('inventory.urls', namespace='inventory-urls', app_name='inventory')),
     url(r'^ldapconnect/', include('ldapconnect.urls')),
-    url(r'^calendar/', include('django_bootstrap_calendar.urls')),
+ #   url(r'^calendar/', include('django_bootstrap_calendar.urls')),
+    
+    url(r'^select2/', include('django_select2.urls')),
+    url('^personnel/', include('personnel.urls')),
+    url(r'', include(usercrud.get_urls())),
+    url(r'', include(personnelcrud.get_urls())),
+    url(r'', include(personnel_typecrud.get_urls())),
 
 ]
 if settings.DEBUG:

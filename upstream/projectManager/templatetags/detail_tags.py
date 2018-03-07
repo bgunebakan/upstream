@@ -12,7 +12,7 @@ def appname(request):
     if '/project/' in request.path:
         return 'Proje Yönetimi'
     elif '/personnel/' in request.path :
-        return 'Personel Yönetimi'
+        return 'Kullanıcı Yönetimi'
     elif '/inventory/' in request.path:
         return 'Stok Takip'
     elif '/access/' in request.path:
