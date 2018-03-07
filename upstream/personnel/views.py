@@ -85,7 +85,7 @@ class Personnel_typeCRUD(CRUDView):
     add_form = Personnel_typeForm
     update_form = Personnel_typeForm
 
-    views_available=['create', 'list', 'delete', 'update', 'detail']
+    views_available=['create', 'list', 'update', 'detail']
     fields = ['name','slug','icon','color','total']
     list_fields = ['name']
     display_fields = ['name', 'slug', 'color','icon']
@@ -93,8 +93,8 @@ class Personnel_typeCRUD(CRUDView):
 #@group_required(('personnel','admin'), login_url='/personnel/profile/')
 @login_required
 def dashboard(request,template_name='personnel/personnel/dashboard.html'):
-    personnel = Personnel.objects.get(user=request.user)
-    print unicode(request.user.username)
+    #personnel = Personnel.objects.get(user=request.user)
+    #print unicode(request.user.username)
     personnels = Personnel.objects.all()
     total_personnels = 0
     for personnel in personnels:
@@ -103,7 +103,7 @@ def dashboard(request,template_name='personnel/personnel/dashboard.html'):
     personnel_types = Personnel_type.objects.all()
     form = UserForm(request.POST or None)
 
-    return render(request, template_name,{'personnel': personnel,'personnels': personnels,'personnel_types': personnel_types,'form': form ,'total_personnels': total_personnels })
+    return render(request, template_name,{'personnels': personnels,'personnel_types': personnel_types,'form': form ,'total_personnels': total_personnels })
 
 @login_required
 def profile(request,username, template_name='personnel/personnel/profile.html'):

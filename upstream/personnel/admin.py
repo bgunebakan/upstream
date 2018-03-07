@@ -3,8 +3,9 @@ from __future__ import unicode_literals
 
 from django.contrib import admin
 
+from django import forms
 from . import models
-
+from django.contrib.admin.widgets import FilteredSelectMultiple
 
 class PersonnelAdmin(admin.ModelAdmin):
      list_display = ('user', 'surname','personnel_type','nat_id','email')

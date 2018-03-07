@@ -1,0 +1,226 @@
+{% extends 'cruds/base.html' %}
+{% load i18n %}
+{% load crud_tags %}
+{% load static %}
+{% block title %}Kullanıcı Yönetimi{% endblock %}
+
+{% block page_name %}Kullanıcı Yönetimi{% endblock %}
+{% block page_description %}Profil{% endblock %}
+
+{% block bodyclass %}skin-blue {%if config.hide_sidebar %}sidebar-collapse{%endif%} {% endblock %}
+
+{% block page_stylesheets %}
+<!-- ChartJS 1.0.1 -->
+<script src="{% static 'plugins/chartjs/Chart.min.js' %}"></script>
+{% endblock %}
+
+{% block content %}
+  <div class="row">
+    <div class="col-md-3">
+
+      <!-- Profile Image -->
+      <div class="box box-primary">
+        <div class="box-body box-profile">
+          <img class="profile-user-img img-responsive img-circle" src="{{ personnel.profile_picture.url }}" alt="Fotoğraf">
+
+          <h3 class="profile-username text-center">{{ personnel }}</h3>
+
+          <p class="text-muted text-center">{{ personnel.job }}</p>
+
+          <ul class="list-group list-group-unbordered">
+            <li class="list-group-item">
+              <b>İş günü</b> <a class="pull-right">{{ personnel.total_workday }}</a>
+            </li>
+            <li class="list-group-item">
+              <b>İş saati</b> <a class="pull-right">{{ personnel.total_workhour }}</a>
+            </li>
+            <li class="list-group-item">
+              <b>Radyasyon Doz</b> <a class="pull-right">{{ personnel.total_dose }}</a>
+            </li>
+
+
+
+          </ul>
+          <div class="col-md-12 col-lg-12 " align="center">
+          <a href="/personnel/personnel/{{personnel.id}}/update" class="btn btn-primary" align="center">Bilgileri Güncelle</a>
+            </div>
+        </div>
+        <!-- /.box-body -->
+      </div>
+      <!-- /.box -->
+
+      <!-- About Me Box -->
+      <div class="box box-primary">
+        <div class="box-header with-border">
+          <h3 class="box-title">Hakkında</h3>
+        </div>
+        <!-- /.box-header -->
+        <div class="box-body">
+          <strong><i class="fa fa-book margin-r-5"></i>İletişim</strong>
+
+          <p class="text-muted">
+            E-posta: <b><a href="mailto:{{ personnel.email }}">{{ personnel.email }}</a> </b><br>
+            Telefon: <b><a href="tel:{{ personnel.phone_number1 }}">{{ personnel.phone_number1 }}</a> </b><br>
+            Telefon 2: <b><a href="tel:{{ personnel.phone_number2 }}">{{ personnel.phone_number2 }}</a></b>
+          </p>
+
+          <hr>
+
+          <strong><i class="fa fa-map-marker margin-r-5"></i>Departman</strong>
+
+          <p class="text-muted">{{ personnel.department }}</p>
+
+          <hr>
+
+          <strong><i class="fa fa-file-text-o margin-r-5"></i> Notlar</strong>
+
+          <p>{{ personnel.notes }}</p>
+        </div>
+        <!-- /.box-body -->
+      </div>
+      <!-- /.box -->
+    </div>
+    <!-- /.col -->
+    <div class="col-md-9">
+      <div class="nav-tabs-custom">
+        <ul class="nav nav-tabs">
+          <li class="active"><a href="#about" data-toggle="tab">Kişisel Bilgiler</a></li>
+          <li class=""><a href="#contact" data-toggle="tab">İletişim Bilgileri</a></li>
+          <li class=""><a href="#job" data-toggle="tab">Mesleki Bilgiler</a></li>
+          <li class=""><a href="#cv" data-toggle="tab">Özgeçmiş</a></li>
+        </ul>
+        <div class="tab-content">
+          <div class="active tab-pane" id="about">
+            <div class="box-body">
+              <div class="row">
+
+                <div class=" col-md-12 col-lg-12 ">
+                  <table class="table table-user-information">
+                    <tbody>
+                      <tr>
+                        <td>İsim :</td>
+                        <td>{{personnel.name}}</td>
+                      </tr>
+                      <tr>
+                        <td>Soyisim :</td>
+                        <td>{{personnel.surname}}</td>
+                      </tr>
+                      <tr>
+                        <td>TC no :</td>
+                        <td>{{personnel.nat_id}}</td>
+                      </tr>
+                      <tr>
+                        <td>Uyruğu :</td>
+                        <td>{{personnel.country}}</td>
+                      </tr>
+                      <tr>
+                        <td>Kullanıcı Türü :</td>
+                        <td>{{personnel.personnel_type}}</td>
+                      </tr>
+                      <tr>
+                        <td>Cinsiyeti :</td>
+                        <td>{{personnel.gender}}</td>
+                      </tr>
+                      <tr>
+                        <td>Doğum Tarihi :</td>
+                        <td>{{personnel.birth_date}}</td>
+                      </tr>
+                      <tr>
+                        <td>Medeni Durumu:</td>
+                        <td>{{personnel.marital_status}}</td>
+                      </tr>
+                      <tr>
+                        <td>Askerlik Durumu:</td>
+                        <td>{{personnel.military_situation}}</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+
+              </div>
+          </div>
+          <div class="tab-pane" id="contact">
+            <div class="box-body">
+              <div class="row">
+
+                <div class=" col-md-12 col-lg-12 ">
+                  <table class="table table-user-information">
+                    <tbody>
+                      <tr>
+                        <td>Şirket Telefonu :</td>
+                        <td>{{personnel.phone_number1}}</td>
+                      </tr>
+                      <tr>
+                        <td>Cep Telefonu :</td>
+                        <td>{{personnel.phone_number2}}</td>
+                      </tr>
+                      <tr>
+                        <td>E-posta :</td>
+                        <td>{{personnel.email}}</td>
+                      </tr>
+                      <tr>
+                        <td>Adres :</td>
+                        <td>{{personnel.address}}</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- /.tab-pane -->
+          <div class="tab-pane" id="job">
+            <!-- The timeline -->
+            <!-- BAR CHART -->
+              <div class="box-body">
+                <div class="row">
+
+                  <div class=" col-md-12 col-lg-12 ">
+                    <table class="table table-user-information">
+                      <tbody>
+                        <tr>
+                          <td>Departman :</td>
+                          <td>{{personnel.department}}</td>
+                        </tr>
+                        <tr>
+                          <td>Görev :</td>
+                          <td>{{personnel.job}}</td>
+                        </tr>
+                        <tr>
+                          <td>Ünvan :</td>
+                          <td>{{personnel.title}}</td>
+                        </tr>
+                        <tr>
+                          <td>Sürücü Belgesi :</td>
+                          <td>{{personnel.drive_licence}}</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+              <!-- /.box-body -->
+
+
+          </div>
+          <!-- /.tab-pane -->
+          <div class="tab-pane" id="cv">
+
+              <div class="box-body">
+                {{ personnel.cv|safe }}
+              </div>
+
+
+          </div>
+
+          <!-- /.tab-pane -->
+        </div>
+        <!-- /.tab-content -->
+      </div>
+      <!-- /.nav-tabs-custom -->
+    </div>
+    <!-- /.col -->
+  </div>
+  <!-- /.row -->
+{% endblock %}

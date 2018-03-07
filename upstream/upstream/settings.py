@@ -13,8 +13,9 @@ https://docs.djangoproject.com/en/1.9/ref/settings/
 """
 
 import os
-import ldap
-from django_auth_ldap.config import LDAPSearch, GroupOfNamesType,PosixGroupType
+import raven
+
+
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -34,23 +35,12 @@ ALLOWED_HOSTS = ["192.168.43.5","127.0.0.1"]
 # Application definition
 
 INSTALLED_APPS = [
-    #'djrichtextfield',
-    #'bootstrap3_datetime',
-    #'django_tables2',
-    #'django_bootstrap_calendar',
-    # General use templates & template tags (should appear first)
-    #'django_adminlte',
-     # Optional: Django admin theme (must be before django.contrib.admin)
-    #'bootstrapform',
-    #'django_adminlte_theme',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'constance',
-    'constance.backends.database',
     'crispy_forms',
     'django_select2',
     'easy_thumbnails',
@@ -58,15 +48,15 @@ INSTALLED_APPS = [
     'cruds_adminlte',
     'personnel',
     'projectManager',
-    'webmail',
-    'inventory',
-    'tarlaguard',
-    'homepage',
     'django_mailbox',
-    'django_countries',
-    'phonenumber_field',
+    'tarlaguard',
+    'inventory',
     'django_ajax',
     'menu',
+    'constance',
+    'constance.backends.database',
+    'raven',
+
 ]
 
 CONSTANCE_BACKEND = 'constance.backends.database.DatabaseBackend'
@@ -76,7 +66,15 @@ CONSTANCE_CONFIG = {
     'hide_sidebar': (True, 'Left sidebar setting '),
 }
 
+RAVEN_CONFIG = {
+    'dsn': 'https://108ffdfbcded4db1970763f200f27005:d56bbf45b4a0458eb3351b7da9b14e8a@sentry.io/291384',
+    # If you are using git, you can also automatically configure the
+    # release based on the git info.
+    'release': raven.fetch_git_sha(os.path.abspath(os.pardir)),
+}
+
 MIDDLEWARE_CLASSES = [
+    'raven.contrib.django.raven_compat.middleware.Sentry404CatchMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -108,78 +106,11 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'upstream.wsgi.application'
 
-#-----------LDAP AUTH SETTINGS-----------------------
-# Baseline configuration.
-AUTH_LDAP_SERVER_URI = "ldap://127.0.0.1"
-#AUTH_LDAP_SERVER_URI = "ldap://146.185.180.109:389"
-
-#AUTH_LDAP_BIND_DN = "cn=fd-admin,dc=creworker,dc=com"
-#AUTH_LDAP_BIND_DN = "cn=admin,dc=tarla,dc=org,dc=tr"
-#AUTH_LDAP_BIND_PASSWORD = "salvation"
-AUTH_LDAP_USER_SEARCH_BASE = "ou=people,dc=creworker,dc=com"
-#AUTH_LDAP_USER_SEARCH_BASE = "ou=users,dc=tarla,dc=org,dc=tr"
-
-AUTH_LDAP_USER_SEARCH = LDAPSearch(AUTH_LDAP_USER_SEARCH_BASE,
-    ldap.SCOPE_SUBTREE, "(uid=%(user)s)")
-# or perhaps:
-# AUTH_LDAP_USER_DN_TEMPLATE = "uid=%(user)s,ou=users,dc=creworker,dc=com"
-
-# Set up the basic group parameters.
-AUTH_LDAP_GROUP_SEARCH = LDAPSearch("ou=groups,dc=upstream,dc=creworker,dc=com",
-    ldap.SCOPE_SUBTREE, "(objectClass=posixGroup)"
-)
-#AUTH_LDAP_GROUP_SEARCH = LDAPSearch("ou=groups,dc=tarla,dc=org,dc=tr",
-#    ldap.SCOPE_SUBTREE, "(objectClass=posixGroup)"
-#)
-AUTH_LDAP_GROUP_TYPE = PosixGroupType(name_attr="uid")
-
-# Simple group restrictions
-#AUTH_LDAP_REQUIRE_GROUP = "cn=enabled,ou=django,ou=groups,dc=creworker,dc=com"
-#AUTH_LDAP_DENY_GROUP = "cn=disabled,ou=django,ou=groups,dc=creworker,dc=com"
-
-# Populate the Django user from the LDAP directory.
-AUTH_LDAP_USER_ATTR_MAP = {
-    "first_name": "givenName",
-    "last_name": "sn",
-    #"email": "mail",
-    #"employee_number": "employeeNumber",
-    #"employee_type": "employeeType"
-}
-
-AUTH_LDAP_PROFILE_ATTR_MAP = {
-    "employee_number": "employeeNumber"
-}
-
-AUTH_LDAP_USER_FLAGS_BY_GROUP = {
-    "is_active": "cn=active,ou=groups,dc=upstream,dc=creworker,dc=com",
-    "is_staff": "cn=staff,ou=groups,dc=upstream,dc=creworker,dc=com",
-    "is_superuser": "cn=superuser,ou=groups,dc=upstream,dc=creworker,dc=com"
-}
-#AUTH_LDAP_USER_FLAGS_BY_GROUP = {
-#    "is_active": "cn=active,ou=groups,dc=tarla,dc=org,dc=tr",
-#    "is_staff": "cn=staff,ou=groups,dc=tarla,dc=org,dc=tr",
-#    "is_superuser": "cn=superuser,ou=groups,dc=tarla,dc=org,dc=tr"
-#}
-#AUTH_LDAP_PROFILE_FLAGS_BY_GROUP = {
-#    "is_awesome": "cn=awesome,ou=django,ou=groups,dc=creworker,dc=com",
-#}
-
-# This is the default, but I like to be explicit.
-AUTH_LDAP_ALWAYS_UPDATE_USER = True
-
-# Use LDAP group membership to calculate group permissions.
-AUTH_LDAP_FIND_GROUP_PERMS = True
-
-# Cache group memberships for an hour to minimize LDAP traffic
-AUTH_LDAP_CACHE_GROUPS = True
-AUTH_LDAP_GROUP_CACHE_TIMEOUT = 3600
-
-
 # Keep ModelBackend around for per-user permissions and maybe a local
 # superuser.
 AUTHENTICATION_BACKENDS = (
-    'django_auth_ldap.backend.LDAPBackend',
     'django.contrib.auth.backends.ModelBackend',
+    'django_python3_ldap.auth.LDAPBackend',
 )
 #-----------------------LDAP AUTH
 
@@ -191,38 +122,51 @@ DATABASES = {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': os.path.join(BASE_DIR, 'upstream.sqlite3'),
      },
-#     'ldap': {
-#         'ENGINE': 'ldapdb.backends.ldap',
-#         'NAME': AUTH_LDAP_SERVER_URI, #'ldap://127.0.0.1/',
-#         'USER': str(AUTH_LDAP_BIND_DN), # str('cn=admin,dc=creworker,dc=com'),
-#         'PASSWORD': str(AUTH_LDAP_BIND_PASSWORD), #str('salvation'),
-#      }
 }
-#DATABASE_ROUTERS = ['ldapdb.router.Router']
-
-#DATABASES = {
-#    'default': {
-#        'ENGINE': 'django.db.backends.sqlite3',
-#        'NAME': os.path.join(BASE_DIR, 'upstream.sqlite3'),
-#    }
-#}
-
 
 # Password validation
 # https://docs.djangoproject.com/en/1.9/ref/settings/#auth-password-validators
 
 LOGGING = {
-    "version": 1,
-    "disable_existing_loggers": False,
-    "handlers": {
-        "console": {
-            "class": "logging.StreamHandler",
+    'version': 1,
+    'disable_existing_loggers': False,
+    'root': {
+        'level': 'WARNING',
+        'handlers': ['sentry'],
+    },
+    'formatters': {
+        'verbose': {
+            'format': '%(levelname)s %(asctime)s %(module)s '
+                      '%(process)d %(thread)d %(message)s'
         },
     },
-    "loggers": {
-        "django_auth_ldap": {
-            "handlers": ["console"],
-            "level": "DEBUG",
+    'handlers': {
+        'sentry': {
+            'level': 'ERROR', # To capture more than ERROR, change to WARNING, INFO, etc.
+            'class': 'raven.contrib.django.raven_compat.handlers.SentryHandler',
+            'tags': {'custom-tag': 'x'},
+        },
+        'console': {
+            'level': 'DEBUG',
+            'class': 'logging.StreamHandler',
+            'formatter': 'verbose'
+        }
+    },
+    'loggers': {
+        'django.db.backends': {
+            'level': 'ERROR',
+            'handlers': ['console'],
+            'propagate': False,
+        },
+        'raven': {
+            'level': 'DEBUG',
+            'handlers': ['console'],
+            'propagate': False,
+        },
+        'sentry.errors': {
+            'level': 'DEBUG',
+            'handlers': ['console'],
+            'propagate': False,
         },
     },
 }
@@ -248,7 +192,7 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/1.9/topics/i18n/
 
-LANGUAGE_CODE = 'en-US'
+LANGUAGE_CODE = 'en-US'#'en-US'
 
 TIME_ZONE = 'Europe/Istanbul'
 
@@ -267,14 +211,76 @@ MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 LOGIN_REDIRECT_URL = '/'
 
-#DJRICHTEXTFIELD_CONFIG = {
-#    'js': ['//tinymce.cachefly.net/4.1/tinymce.min.js'],
-#    'init_template': 'djrichtextfield/init/tinymce.js',
-#    'settings': {
-#        'menubar': False,
-#        'plugins': 'link image table code',
-#        'toolbar': 'formatselect | bold italic | removeformat |'
-#                   ' link unlink image table | code',
-#        'width': 700
-#    }
-#}
+CRISPY_TEMPLATE_PACK = 'bootstrap3'
+IMAGE_CROPPING_JQUERY_URL = None
+
+INTERNAL_IPS = ('127.0.0.1',)
+
+from easy_thumbnails.conf import Settings as thumbnail_settings
+THUMBNAIL_PROCESSORS = (
+    'image_cropping.thumbnail_processors.crop_corners',
+) + thumbnail_settings.THUMBNAIL_PROCESSORS
+
+TIME_FORMAT = 'h:i A'
+DATETIME_FORMAT = 'm/d/Y H:i:s'
+DATE_FORMAT = "m/d/Y"
+
+TIME_INPUT_FORMATS = ['%I:%M %p']
+
+# The URL of the LDAP server.
+LDAP_AUTH_URL = "ldap://ldap.creworker.com:389"
+
+# Initiate TLS on connection.
+LDAP_AUTH_USE_TLS = False
+
+# The LDAP search base for looking up users.
+LDAP_AUTH_SEARCH_BASE = "ou=people,dc=ldap,dc=creworker,dc=com"
+
+# The LDAP class that represents a user.
+LDAP_AUTH_OBJECT_CLASS = "inetOrgPerson"
+
+# User model fields mapped to the LDAP
+# attributes that represent them.
+LDAP_AUTH_USER_FIELDS = {
+    "username": "uid",
+    "first_name": "givenName",
+    "last_name": "sn",
+    "email": "mail",
+}
+
+# A tuple of django model fields used to uniquely identify a user.
+LDAP_AUTH_USER_LOOKUP_FIELDS = ("username",)
+
+# Path to a callable that takes a dict of {model_field_name: value},
+# returning a dict of clean model data.
+# Use this to customize how data loaded from LDAP is saved to the User model.
+LDAP_AUTH_CLEAN_USER_DATA = "django_python3_ldap.utils.clean_user_data"
+
+# Path to a callable that takes a user model and a dict of {ldap_field_name: [value]},
+# and saves any additional user relationships based on the LDAP data.
+# Use this to customize how data loaded from LDAP is saved to User model relations.
+# For customizing non-related User model fields, use LDAP_AUTH_CLEAN_USER_DATA.
+LDAP_AUTH_SYNC_USER_RELATIONS = "django_python3_ldap.utils.sync_user_relations"
+
+# Path to a callable that takes a dict of {ldap_field_name: value},
+# returning a list of [ldap_search_filter]. The search filters will then be AND'd
+# together when creating the final search filter.
+LDAP_AUTH_FORMAT_SEARCH_FILTERS = "django_python3_ldap.utils.format_search_filters"
+
+# Path to a callable that takes a dict of {model_field_name: value}, and returns
+# a string of the username to bind to the LDAP server.
+# Use this to support different types of LDAP server.
+LDAP_AUTH_FORMAT_USERNAME = "django_python3_ldap.utils.format_username_openldap"
+
+# Sets the login domain for Active Directory users.
+LDAP_AUTH_ACTIVE_DIRECTORY_DOMAIN = None
+
+# The LDAP username and password of a user for querying the LDAP database for user
+# details. If None, then the authenticated user will be used for querying, and
+# the `ldap_sync_users` command will perform an anonymous query.
+LDAP_AUTH_CONNECTION_USERNAME = None
+LDAP_AUTH_CONNECTION_PASSWORD = None
+
+# Set connection/receive timeouts (in seconds) on the underlying `ldap3` library.
+LDAP_AUTH_CONNECT_TIMEOUT = None
+LDAP_AUTH_RECEIVE_TIMEOUT = None

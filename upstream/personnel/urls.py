@@ -5,7 +5,7 @@ from django.conf.urls import url, include
 
 
 app_name = 'personnel'
-handler404 = 'personnel.views.handler403'
+handler403 = 'personnel.views.handler403'
 
 urlpatterns=[
     url(r'^$', views.dashboard, name='dashboard'),

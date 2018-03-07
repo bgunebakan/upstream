@@ -1,0 +1,55 @@
+{% extends 'cruds/base.html' %}
+{% load i18n %}
+{% load crispy_forms_tags %}
+{% load crud_tags %}
+{% load static %}
+{% block title %}Kullanıcı Yönetimi{% endblock %}
+
+{% block page_name %}Kullanıcı Yönetimi{% endblock %}
+{% block page_description %}Dashboard{% endblock %}
+
+{% block bodyclass %}skin-blue {%if config.hide_sidebar %}sidebar-collapse{%endif%} {% endblock %}
+
+{% block content %}
+<!-- Small boxes (Stat box) -->
+<div class="row">
+  <div class="col-md-10">
+      <div class="row">
+        {%for personnel_type in personnel_types %}
+        <div class="col-lg-3 col-xs-6">
+        <div class="small-box {{ personnel_type.color }}">
+          <div class="inner">
+            <h3>{{ personnel_type.total }}</h3>
+
+            <h4>{{personnel_type}}</h4>
+          </div>
+          <div class="icon">
+            <i class="fa {{ personnel_type.icon }}"></i>
+          </div>
+          <a href="/personnel/personnel/list?name=&personnel_type={{personnel_type.id}}" class="small-box-footer">Listele <i class="fa fa-arrow-circle-right"></i></a>
+        </div>
+        </div>
+        {%endfor%}
+
+      </div>
+  </div>
+  <div class="col-md-2">
+    <div class="box box-default">
+        <div class="box-header with-border">
+          <h3 class="box-title">Son Eklenenler</h3>
+        </div>
+        <!-- /.box-header -->
+        <div class="box-body">
+          {%for personnel in personnels%}
+            <div class="icon">
+              <i class="fa {{personnel.personnel_type.icon}}">
+                <a href="/personnel/personnel/{{personnel.id}}">{{personnel}}</a>
+              </i>
+            </div>
+          {%endfor%}
+        </div>
+    </div>
+  <!-- ./col -->
+  </div>
+</div>
+{% endblock %}
