@@ -15,6 +15,9 @@ from .forms import *
 from django.shortcuts import render
 from django.http import HttpResponseRedirect
 
+
+
+
 class IndexView(TemplateView):
     template_name = 'index.html'
 
@@ -53,7 +56,7 @@ class PersonnelCRUD(CRUDView):
     namespace = None
     check_login = True
     check_perms = True
-    views_available=['create', 'list', 'update', 'detail']
+    views_available=['create', 'list', 'update','delete','detail']
 
     fields = ['personnel_type','name', 'surname','birth_date', 'country','nat_id','gender','department','title',
     'job','phone_number1','phone_number2','email','address','marital_status','military_situation',
@@ -93,8 +96,7 @@ class Personnel_typeCRUD(CRUDView):
 #@group_required(('personnel','admin'), login_url='/personnel/profile/')
 @login_required
 def dashboard(request,template_name='personnel/personnel/dashboard.html'):
-    #personnel = Personnel.objects.get(user=request.user)
-    #print unicode(request.user.username)
+
     personnels = Personnel.objects.all()
     total_personnels = 0
     for personnel in personnels:

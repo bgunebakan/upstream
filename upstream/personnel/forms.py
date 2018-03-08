@@ -116,7 +116,7 @@ class Personnel_typeForm(forms.ModelForm):
 
     class Meta:
         model = Personnel_type
-        fields = ['name','slug','color','icon','total']
+        fields = ['name','slug','color','icon']
 
     def __init__(self, *args, **kwargs):
         super(Personnel_typeForm, self).__init__(*args, **kwargs)
@@ -124,20 +124,13 @@ class Personnel_typeForm(forms.ModelForm):
         self.helper.form_tag = False
 
         self.helper.layout = Layout(
-            TabHolder(
-                Tab(
-                    _('Invoice'),
-                    Field('name', wrapper_class="col-md-12"),
-                    Field('slug', wrapper_class="col-md-4"),
-                    Field('icon', wrapper_class="col-md-4"),
-                    Field('color', wrapper_class="col-md-4"),
 
-                ),
-                Tab(
-                    _('Email'),
-                    Field('total', wrapper_class="col-md-3"),
-                )
-            )
+            _('Genel Bilgiler'),
+            Field('name', wrapper_class="col-md-12"),
+            Field('slug', wrapper_class="col-md-4"),
+            Field('icon', wrapper_class="col-md-4"),
+            Field('color', wrapper_class="col-md-4"),
+
         )
         self.helper.layout.append(
             FormActions(

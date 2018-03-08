@@ -12,6 +12,7 @@ from django.db.models.signals import post_save
 from django.dispatch import receiver
 from django.utils.translation import ugettext_lazy as _
 from image_cropping import ImageCropField, ImageRatioField
+from auditlog.registry import auditlog
 
 class SoftDeleteManager(models.Manager):
 
@@ -33,8 +34,8 @@ class Personnel_type(models.Model):
         ,verbose_name = "Personel Türü"
     )
     slug = models.CharField(max_length=30,verbose_name = "Kısa isim")
-    icon = models.CharField(max_length=15,default="fa-users",verbose_name = "Icon",help_text=_('Active?'))
-    color = models.CharField(max_length=10,default="bg-yellow",verbose_name = "Renk",help_text=_('Active?'))
+    icon = models.CharField(max_length=20,default="fa-users",verbose_name = "Icon",help_text=_('<a target="_blank" href="http://fontawesome.com/icons">Icon Seçenekleri</a>'))
+    color = models.CharField(max_length=20,default="bg-yellow",verbose_name = "Renk",help_text=_('<a target="_blank" href="http://basscss.com/v7/docs/background-colors/">Renk Seçenekleri</a>'))
     total = models.IntegerField(verbose_name="Toplam Kullanıcı",default=0)
     created_date = models.DateTimeField(default=timezone.now)
     deleted = models.BooleanField(default=False,verbose_name = "Silinmiş")
@@ -89,7 +90,7 @@ class Personnel(models.Model):
             (9, 'E'),
     )
 
-    user = models.OneToOneField(User,null=True,blank=True, on_delete=models.CASCADE)
+    user = models.OneToOneField(User,null=True,blank=True, on_delete=models.CASCADE,verbose_name="Ldap")
     name = models.CharField(max_length=30,verbose_name = "İsim")
     surname = models.CharField(max_length=30,verbose_name = "Soyisim")
     country = CountryField(verbose_name = "Uyruğu",null=True,blank=True)
@@ -119,7 +120,7 @@ class Personnel(models.Model):
 
     personnel_type = models.ForeignKey(Personnel_type, null=True,on_delete=models.SET_NULL,verbose_name = "Personel Tipi")
 
-    created_date = models.DateTimeField(default=timezone.now)
+    created_date = models.DateTimeField(default=timezone.now,verbose_name="Kayıt Tarihi")
 
     deleted = models.BooleanField(default=False,verbose_name = "Silinmiş")
 
@@ -141,3 +142,6 @@ class Personnel(models.Model):
         #self.identifier = None
         self.save()
         return
+
+auditlog.register(Personnel)
+auditlog.register(Personnel_type)

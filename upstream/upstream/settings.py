@@ -56,8 +56,8 @@ INSTALLED_APPS = [
     'constance',
     'constance.backends.database',
     'django_python3_ldap',
+    'auditlog',
 #    'raven.contrib.django.raven_compat',
-
 ]
 
 CONSTANCE_BACKEND = 'constance.backends.database.DatabaseBackend'
@@ -84,7 +84,10 @@ MIDDLEWARE_CLASSES = [
     'django.contrib.auth.middleware.SessionAuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'auditlog.middleware.AuditlogMiddleware',
 ]
+
+DJANGO_SIMPLE_AUDIT_ACTIVATED = True
 
 ROOT_URLCONF = 'upstream.urls'
 

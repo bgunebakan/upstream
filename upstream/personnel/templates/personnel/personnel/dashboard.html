@@ -3,6 +3,7 @@
 {% load crispy_forms_tags %}
 {% load crud_tags %}
 {% load static %}
+{% load personnel_tags %}
 {% block title %}Kullanıcı Yönetimi{% endblock %}
 
 {% block page_name %}Kullanıcı Yönetimi{% endblock %}
@@ -52,4 +53,39 @@
   <!-- ./col -->
   </div>
 </div>
+
+<div class="row">
+  <div class="col-md-5">
+    <div class="box box-default">
+        <div class="box-header with-border">
+          <h3 class="box-title">Hareketler</h3>
+        </div>
+        <!-- /.box-header -->
+        <div class="box-body">
+          {%action_logs 10 as actions%}
+          {{actions|safe}}
+        </div>
+    </div>
+  <!-- ./col -->
+  </div>
+  <div class="col-md-5">
+    <div class="box box-default">
+        <div class="box-header with-border">
+          <h3 class="box-title">Değişiklik logları</h3>
+        </div>
+        <!-- /.box-header -->
+        <div class="box-body">
+          {%for personnel in personnels%}
+            <div class="icon">
+              <i class="fa {{personnel.personnel_type.icon}}">
+                <a href="/personnel/personnel/{{personnel.id}}">{{personnel}}</a>
+              </i>
+            </div>
+          {%endfor%}
+        </div>
+    </div>
+  <!-- ./col -->
+  </div>
+</div>
+
 {% endblock %}
