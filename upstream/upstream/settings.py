@@ -55,6 +55,7 @@ INSTALLED_APPS = [
     'menu',
     'constance',
     'constance.backends.database',
+    'django_python3_ldap',
 #    'raven.contrib.django.raven_compat',
 
 ]
@@ -231,13 +232,13 @@ DATE_FORMAT = "m/d/Y"
 TIME_INPUT_FORMATS = ['%I:%M %p']
 
 # The URL of the LDAP server.
-LDAP_AUTH_URL = "ldap://ldap.creworker.com:389"
+LDAP_AUTH_URL = "ldap://ldap.tarla.org.tr:389"
 
 # Initiate TLS on connection.
 LDAP_AUTH_USE_TLS = False
 
 # The LDAP search base for looking up users.
-LDAP_AUTH_SEARCH_BASE = "ou=people,dc=ldap,dc=creworker,dc=com"
+LDAP_AUTH_SEARCH_BASE = "ou=people,dc=tarla,dc=org,dc=tr"
 
 # The LDAP class that represents a user.
 LDAP_AUTH_OBJECT_CLASS = "inetOrgPerson"
