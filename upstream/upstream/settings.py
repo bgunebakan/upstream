@@ -13,7 +13,7 @@ https://docs.djangoproject.com/en/1.9/ref/settings/
 """
 
 import os
-import raven
+#import raven
 
 
 
@@ -30,7 +30,7 @@ SECRET_KEY = 'k3iogt1+t=udm=!i!rn_hqwk@_*y9v*#ru7r^_wq4zyfuzml%3'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ["192.168.43.5","127.0.0.1"]
+ALLOWED_HOSTS = ['login.tarla.org.tr','127.0.0.1']
 
 # Application definition
 
@@ -55,7 +55,7 @@ INSTALLED_APPS = [
     'menu',
     'constance',
     'constance.backends.database',
-    'raven',
+#    'raven.contrib.django.raven_compat',
 
 ]
 
@@ -66,12 +66,12 @@ CONSTANCE_CONFIG = {
     'hide_sidebar': (True, 'Left sidebar setting '),
 }
 
-RAVEN_CONFIG = {
-    'dsn': 'https://108ffdfbcded4db1970763f200f27005:d56bbf45b4a0458eb3351b7da9b14e8a@sentry.io/291384',
+#RAVEN_CONFIG = {
+#    'dsn': 'https://108ffdfbcded4db1970763f200f27005:d56bbf45b4a0458eb3351b7da9b14e8a@sentry.io/291384',
     # If you are using git, you can also automatically configure the
     # release based on the git info.
-    'release': raven.fetch_git_sha(os.path.abspath(os.pardir)),
-}
+#    'release': raven.fetch_git_sha(os.path.abspath(os.pardir)),
+##}
 
 MIDDLEWARE_CLASSES = [
     'raven.contrib.django.raven_compat.middleware.Sentry404CatchMiddleware',
@@ -206,6 +206,9 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.9/howto/static-files/
 
+#STATIC_ROOT = '/var/www/upstream/static/'
+#STATIC_ROOT = os.path.join(BASE_DIR, "static/")
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 STATIC_URL = '/static/'
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
