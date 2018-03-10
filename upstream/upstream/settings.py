@@ -48,7 +48,6 @@ INSTALLED_APPS = [
     'easy_thumbnails',
     'image_cropping',
     'cruds_adminlte',
-    'testapp',
     'procurement.apps.ProcurementConfig',
     'personnel',
     'projectManager',
