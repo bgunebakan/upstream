@@ -39,6 +39,7 @@ def action_logs(count):
             user = User.objects.get(id=log.actor.id)
             personnel = Personnel.objects.get(user=user)
         except ObjectDoesNotExist:
+            #return "<b>Log Bulunamadı!</b>"
             pass
         html = html + '<div class="icon">'
         if log.action == 0:

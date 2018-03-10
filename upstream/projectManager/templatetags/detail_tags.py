@@ -17,6 +17,8 @@ def appname(request):
         return 'Stok Takip'
     elif '/access/' in request.path:
         return 'Kartlı Geçiş'
+    elif '/procurement/' in request.path:
+        return 'İhale Yönetimi'
 
 @register.simple_tag
 def add_active(url,request):

@@ -71,16 +71,18 @@
   <div class="col-md-5">
     <div class="box box-default">
         <div class="box-header with-border">
-          <h3 class="box-title">Değişiklik logları</h3>
+          <h3 class="box-title">Güncellenecek Kullanıcılar</h3>
         </div>
         <!-- /.box-header -->
         <div class="box-body">
           {%for personnel in personnels%}
-            <div class="icon">
-              <i class="fa {{personnel.personnel_type.icon}}">
-                <a href="/personnel/personnel/{{personnel.id}}">{{personnel}}</a>
-              </i>
-            </div>
+            {%if personnel.personnel_type is None %}
+              <div class="icon">
+                <i class="fa fa-user">
+                  <a href="/personnel/personnel/{{personnel.id}}">{{personnel.user.username}}</a>
+                </i>
+              </div>
+            {%endif%}
           {%endfor%}
         </div>
     </div>

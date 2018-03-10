@@ -27,10 +27,14 @@ from django.apps import apps
 from cruds_adminlte.urls import crud_for_model
 from cruds_adminlte.urls import crud_for_app
 from personnel.models import Personnel
+from procurement.views import TenderCRUD,Tender_end_dateCRUD
 
 usercrud = UserCRUD()
 personnelcrud = PersonnelCRUD()
 personnel_typecrud = Personnel_typeCRUD()
+
+
+tendercrud = TenderCRUD()
 
 ns = crud_for_app('personnel', check_perms=True, namespace="up")
 
@@ -46,10 +50,14 @@ urlpatterns = [
     url(r'^inventory/', include('inventory.urls', namespace='inventory-urls', app_name='inventory')),
     url(r'^ldapconnect/', include('ldapconnect.urls')),
     url(r'^select2/', include('django_select2.urls')),
+    #personnel
     url('^personnel/', include('personnel.urls')),
     url(r'', include(usercrud.get_urls())),
     url(r'', include(personnelcrud.get_urls())),
     url(r'', include(personnel_typecrud.get_urls())),
+    #procurement
+    url(r'^procurement/', include('procurement.urls')),
+    url(r'', include(tendercrud.get_urls())),
 
 ]
 if settings.DEBUG:

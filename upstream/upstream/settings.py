@@ -41,24 +41,42 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'constance',
+    'constance.backends.database',
     'crispy_forms',
     'django_select2',
     'easy_thumbnails',
     'image_cropping',
     'cruds_adminlte',
+    'testapp',
+    'procurement.apps.ProcurementConfig',
     'personnel',
     'projectManager',
     'django_mailbox',
     'tarlaguard',
     'inventory',
+    #'procurement',
     'django_ajax',
     'menu',
-    'constance',
-    'constance.backends.database',
     'django_python3_ldap',
     'auditlog',
+    'csvimport.app.CSVImportConf',
 #    'raven.contrib.django.raven_compat',
 ]
+
+CRISPY_TEMPLATE_PACK = 'bootstrap3'
+IMAGE_CROPPING_JQUERY_URL = None
+
+TIME_FORMAT = 'h:i A'
+DATETIME_FORMAT = 'd.m.Y H:i'
+DATE_FORMAT = 'd.m.Y'
+
+TIME_INPUT_FORMATS = ['%I:%M %p']
+
+from easy_thumbnails.conf import Settings as thumbnail_settings
+THUMBNAIL_PROCESSORS = (
+    'image_cropping.thumbnail_processors.crop_corners',
+) + thumbnail_settings.THUMBNAIL_PROCESSORS
 
 CONSTANCE_BACKEND = 'constance.backends.database.DatabaseBackend'
 
@@ -218,21 +236,7 @@ MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 LOGIN_REDIRECT_URL = '/'
 
-CRISPY_TEMPLATE_PACK = 'bootstrap3'
-IMAGE_CROPPING_JQUERY_URL = None
-
-INTERNAL_IPS = ('127.0.0.1',)
-
-from easy_thumbnails.conf import Settings as thumbnail_settings
-THUMBNAIL_PROCESSORS = (
-    'image_cropping.thumbnail_processors.crop_corners',
-) + thumbnail_settings.THUMBNAIL_PROCESSORS
-
-TIME_FORMAT = 'h:i A'
-DATETIME_FORMAT = 'm/d/Y H:i:s'
-DATE_FORMAT = "m/d/Y"
-
-TIME_INPUT_FORMATS = ['%I:%M %p']
+#INTERNAL_IPS = ('127.0.0.1',)
 
 # The URL of the LDAP server.
 LDAP_AUTH_URL = "ldap://ldap.tarla.org.tr:389"

@@ -2,7 +2,6 @@ Django==1.11
 Pillow
 django_phonenumber_field
 django_countries
-#django-richtextfield
 django_mailbox
 django_adminlte2
 python-dateutil
@@ -23,3 +22,5 @@ django-image-cropping
 djangoajax==2.3.7
 django-cruds-adminlte
 django-auditlog
+django-csvimport
+messytables
