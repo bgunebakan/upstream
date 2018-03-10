@@ -1,0 +1,822 @@
+name,no,tender_type,approximate_price,currency,apply_date,tender_status,auction_date,auction_time,auction_price,auction_no,contract_date,supplier,notes
+"Rf Dalga kılavuzu Tutturucu Destek Aparatı İmalatı Hizmeti, Faraday Kafesi imalatı hizmeti",TARLA-2017TSHZ0001,Hizmet,54300,Türk Lirası,6.3.2017,Ödeme Emri   Strateji Onayı,21.3.2017,,57348,,,Enomak ,
+41 kalem malzeme,TARLA-2017TSRF001,Sarf,51038,Türk Lirası,8.3.2017,Ödeme Emri   Strateji Onayı,21.3.2017,,"36755,82",,,Üçtuğ Müh. Turz.,"Alımın İçeriği
+
+1. Şerit metre  (10 adet)
+2. Oluklu levye   (3 adet)
+3. Boru anahtarı   (3 adet)
+4. Manivella   (3 adet)
+5. Plastik tokmak  (2 adet)
+6. Boya tabancası   (2 adet)
+7. Vidalama uç seti    (5 adet)
+8. Kerpeten   (2 adet)
+9. Karbon çeliği panç seti (1 adet)
+10. Kızak yağı    (10 kg)
+11. Metal boyası      (30 kg)
+12. Sentetik tiner  (16 lt)
+13. Selülozik tiner   (16 kg)
+14. Metal astar boyası   (30 kg)
+15. HSS DIN 338 silindirik saplı matkap ucu seti, haddeli   (4 seri)
+16. HSS DIN 338 silindirik saplı matkap ucu seti, taşlanmış   (3 seri)
+17. HSS DIN 338 silindirik saplı matkap ucu seti, gümüş seri   (2 seri)
+18. HSS DIN 338 silindirik saplı matkap ucu seti, altın seri   (2 seri)
+19. HSS DIN 338 silindirik saplı matkap ucu seti, tin kaplamalı  (1 seri)
+20. 400x600x230mm Plastik Kasa     (75 adet)
+21. 400x600x170mm Plastik Kasa     (50 adet)
+22. 400x600x200mm Plastik Kasa     (70 adet)
+23. 295x505x235mm Plastik Kasa     (25 adet)
+24. 295x505x180mm Plastik Kasa     (110 adet)
+25. 256x505x165mm Plastik Kasa     (35 adet)
+26. 356*185mm Plastik Kasa Seperatörü    (500 adet)
+27. 556*185mm Plastik Kasa Seperatörü    (500 adet)
+28. DIN933 A270 M6 X 35       (3.000 adet)
+29. DIN933 A270 M6 X 40       (500 adet)
+30. DIN933 A270 M6 X 45       (500 adet)
+31. DIN933 A270 M8 X 40       (200 adet)
+32. DIN933 A270 M8 X 45       (3500 adet)
+33. DIN933 A270 M8 X 50       (2000 adet)
+34. DIN933 A270 M8 X 55       (1500 adet)
+35. DIN975 A270 M8 X tij (1 m )      (20 adet)
+36. DIN934 A270 M6 - somum       (5000 adet)
+37. DIN934 A270 M8 - somun       (7200 adet)
+38. DIN125 A270 M6 - pul       (10000 adet)
+39. DIN125 A270 M8 - pul       (14400 adet)
+40. DIN127 A270 M8 - rondela       (7500 adet)
+41. Korozyon, yapışma ve soğuk kaynaklamaya karşı civata pastası  (5 Adet)
+
+"
+Barkod Yazıcısı alımı,TARLA-2017TSDN001,Donanım,12150,Türk Lirası,9.3.2017,Ödeme Emri   Strateji Onayı,9.3.2017,,11800,,,Giz Teknoloji,
+Baskı Devre Makinası,TARLA-2016TSDN023,Donanım,115650,,10.3.2017,Bap- İlgili memurda,,,,,,,
+Seksiyonel Kapı İmalat ve Kurulum Hizmet,TARLA-2017TSHZ003,Hizmet,53000,Türk Lirası,15.3.2017,Ödeme Emri   Strateji Onayı,04.05.2017,11:10:00,56286,121460,,"3A Kapı Sistemleri
+Ürn.İnş.Elk.San.ve Tic.Ltd.Şti.",
+Hızlandırıcı Kontrol Sistemi Danışmanlık Hizmeti (cosylab),TARLA-2017TSHZ006,Hizmet,55000,Euro,20.3.2017,İhalesi yapıldı,19.06.2017,,"289987,42",,06.07.2017-06.04.2018 (270 takvim günü),Cosylab Control System Laboratory,
+"3 kalem donanım alımı (Projeksiyon cihazı Tip1,Zayıf İstemci bilg.ve Projeksiyon cihazı Tip2)",TARLA-2017TSDN004,Donanım,29985,Türk Lirası,20.3.2017,İhalesi Yapıldı-Faturası Ödendi,29.05.2017,14:10:00,30550,121574,Taahhüt ettiği süre: 4-6 hafta,TeknoPark,"Alımın İçeriği
+
+1. Zayıf İstemci Bilgisayar
+2. Projeksiyon Cihazı Tip 1
+3. Projeksiyon Cihazı Tip 2"
+Temiz Oda Kurulum Hizmeti,TARLA-2017TSHZ005,Hizmet,6675000,Türk Lirası,20.3.2017,İhalesi yapıldı,29.11.2017,14:00:00,3140000,,18.12.2017-16.08.2018,Koçoğlu,
+"Vakum Pompaları Bakım Onarım (İyon Pompası, Yağlı Pompa,Turbo Pompa, Leak Dedektörü)",TARLA-2017TSBO001,Bakım Onarım,52800,Türk Lirası,21.3.2017,Ödeme Emri   Strateji Onayı,04.05.2017,11:00:00,53100," 121463
+",,ARES,
+26 kalem malzeme,TARLA-2017TSRF002,Sarf,54824,Türk Lirası,21.3.2017,Ödeme Emri   Strateji Onayı,29.05.2017,14:50:00,50551,121589,,TCS Makina-Hırdavat,"Alımın İçeriği 
+1. Freze koordinat sehpası(1 adet)
+2. Parmak freze seti (2 adet)
+3. Mandren malafası (1 adet)
+4. Yatay dikey döner tabla (1 adet)
+5. Dört ayaklı torna ayna (1 adet)
+6. Üç ayaklı torna ayna (1 adet)
+7. Torna döner punta (1 adet)
+8. Gres basma avadanlığı (1 adet)
+9. Mandren (5 adet)
+10. Kalıp bağlama takımı (1 adet)
+11. Yüzey kopya freze aparatı (2 adet)
+12. Freze tarafma kafası (2 adet)
+13. Karbür kesici uç takımı (10 kutu)
+14. Seramik kesici uç takımı (10 kutu)
+15. Delik büyütme kiti (1 adet)
+16. Pens seti (1 adet)
+17. Torna kater seti (5 set)
+18. Torna kalem seti (3 set)
+19. Yağdanlık (3 adet)
+20. Hava tabancası (3 adet)
+21. Punta matkabı ucu (10 adet)
+22. Somun adaptörü seti (5 seri)
+23. Klavuz seti (2 seri)
+24. Klavuz kesme yağı (2 adet)
+25. Paslanmaz Mig-Mag kaynak teli (1 adet)
+26. Paslanmaz kaynak elektrodu (10 adet)"
+İdari Bina Elektrik Tesisatı Bakım ve Kablolama ve Etiketlendirme Hizmeti,TARLA-2017TSHZ001,Hizmet,57850,Türk Lirası,21.03.2017-22.06.2017,İhalesi Yapıldı-Faturası Ödendi,28.07.2017,11:15:00,61006,122318,07.08.2017-25.08.2017,Info Power,
+LLRF Tasarım Hizmeti,TARLA-2017TSHZ008,Hizmet,"1365046,8",Türk Lirası,23.03.2017-22.06.2017,Onay,03.08.2017,,1400000,,Mal Mukabili olduğu için sözleşme yapılmıyor.,Desy,
+Demet Görüntüleme Sistemi Tutucusu İmalatı Hizmeti,TARLA-2017TSHZ010,Hizmet,21000,Türk Lirası,3.4.2017,Ödeme Emri,29.05.2017,15:00:00,11800,121592,30.05.2017-30.06.2017,Zenotek,
+28 kalem sarf  malzeme alımı,TARLA-2017TSRF004,Sarf,29760,Türk Lirası,10.04.2017-22.06.2017,Ödeme Emri Strateji Onayı,28.07.2017,11:00:00,43542,122315,,LFC,"Alımın İçeriği
+
+1 300x40x1,50 mm kablo kanalı 350 Adet 
+2 Kablo kanalı ek parçası (H=40) 300 Adet 
+3 Kablo tavası U destek L=2400 mm 50 Adet 
+4 Kablo tavası U konsol L=325 mm 700 Adet 
+5 M8 tava civatası 3000 Adet
+6 M8 flanşlı somun 3000 Adet 
+7 M6 tava civatası 5000 Adet 
+8 M6 flanşlı somun 5000 Adet 
+9 M8 tij (2 metre) 50 Adet 
+10 Kablo tavası 300 mm 90 derece dönüş 200 Adet 
+11 Kablo tavası 300 mm T bağlantı 50 Adet 
+12 Kablo tavası 300 mm dörtlü kavşak (delikli tip) 25 Adet
+13 Kablo tavası 300 mm için dikey T elemanı 50 Adet
+14 Kablo tavası 300 mm dikey dönüş (ayarlanabilir, standart delikli) 200 Adet
+15 Priz montaj elemanı 10 Adet 
+16 200x40x1,50 mm kablo kanalı 150 Adet 
+17 Kablo tavası U konsol L=225 mm 200 Adet 
+18 Kablo tavası 200 mm 90 derece dönüş 30 Adet 
+19 Kablo tavası 200 mm T bağlantı 10 Adet 
+20 Kablo tavası 200 mm için dikey T elemanı 25 Adet 
+21 Kablo tavası 200 mm dikey dönüş (ayarlanabilir, standart delikli) 50 adet
+22 100x40x1,50 mm kablo kanalı 50 Adet 
+23 Kablo tavası U konsol L=125 mm 50 Adet 
+24 Kablo tavası 100 mm 90 derece dönüş 30 Adet 
+25 Kablo tavası 100 mm T bağlantı 10 Adet 
+26 Kablo tavası 100 mm için dikey T elemanı 15 Adet 
+27 Kablo tavası 100 mm dikey dönüş (ayarlanabilir, standart delikli) 10 Adet 
+28 M8 tij (2 metre) 50 Adet "
+Tarla Tesisi Misafirhane ve Laboratuvar Mekanları Mutfak tadilat ve Kurulum Hizmeti,TARLA-2017TSHZ004,Hizmet,107783,,10.4.2017, Ödeme Emri Strateji Onayı,04.07.2017,15:00:00,88500,121871,14.07.2017-24.08.2017 (30 iş günü),Ertsan  Endüstriyel (fayans+batarya yapılacak),
+Havalandırma Sistemi ve Kazan Brulör Bakım ve Tadilatı Hizmeti,TARLA-2017TSHZ007,Hizmet,54000,Türk Lirası,11.4.2017,Ödeme Emri   Strateji Onayı,29.05.2017,14:20:00,56640,121577,30.05.2017-15.12.2017,Barış Isıtma-Soğutma,
+RF Sinyal Üreteci,TARLA-2017TSDN002,Donanım,184118,Türk Lirası,19.04.2017-22.11.2017,İhalesi Yapıldı,12.12.2017,11:00:00,113900,122914,25.12.2017-04.04.2018,SPARK,
+4 kalem Optik Donanım Listesi,TARLA-2017TSDN003,Donanım,64410,Türk Lirası,20.04.2017-29.06.2017,İhalesi Yapıldı-Faturası Ödendi,03.08.2017,14:00:00,56050,122324,8 hafta=2 ay-17.11.2017,OPTOMEK,"Alımın İçeriği
+
+1. 1(bir) adet Optik masa sehpası
+2. 1(bir) adet 300mm doğrusal kızak (Motor Dahil)
+3. 5(beş) adet fotodiode detektör
+4. 5(beş) adet fototüp detektör"
+Azot Transfer Hattı İmalat Hizmeti ,TARLA-2017TSHZ011,Hizmet,152650,Türk Lirası,27.04.2017,İhalesi Yapıldı-Faturası Ödendi,12.10.2017,15:00:00,114330,122704,26.10.2017- 10.12.2017,Zenotek,
+3 Kalem İmalat Hizmeti ,TARLA-2017TSHZ012,Hizmet,,Türk Lirası,2.5.2017,İhalesi Yapıldı-İPTAL EDİLDİ,19.06.2017,10:00:00,123900,121868,03.07.2017-60 gün-01.09.2017,Kenar Mühendislik,"Alımın İçeriği
+
+6 Adet Solenoid Magnet İmalat Hizmeti
+2 Adet Enjektör Dipole Magnet İmalat Hizmeti
+2 Adet Enjektör Spekrtrometre İmalat Hizm"
+ Güçmetre ,TARLA-2017TSDN006,Donanım,54499,Türk Lirası,2.5.2017,Ödeme Emri Strateji Onayı,29.05.2017,15:10:00,59000,121595,,Rohde & Schwarz Elektronik ve Telekomünikasyon Sistemleri ,
+250 keV Normal İletken Hızlandırıcı Yüksek Gerilim Hattının Elektrik Altyapısı ,TARLA-2017TSHZ015,Hizmet,52100,Türk Lirası,5.5.2017,Ödeme Emri Strateji Onayı,29.05.2017,15:30:00,48380,121601,,ARES,
+Mekanik Tasarım Destek Hizmeti,TARLA-2017TSHZ013,Hizmet,52150,Türk Lirası,5.5.2017,Ödeme Emri Strateji Onayı,29.05.2017,15:20:00,40710,121598,30.05.2017-30.08.2017,Kenar Mühendislik,
+Kişisel Doz Takip Sistemi Yazılım Hizmeti ,TARLA-2017TSHZ014,Hizmet,54000,Türk Lirası,5.5.2017,Ödeme Emri   Strateji Onayı,06.07.2017,14:00:00,33984," 122018
+",07.07.2017-07.08.2017,Zenotek,
+Özel Elektronik Devre Tasarım Destek Hizmeti ,TARLA-2017TSHZ016,Hizmet,52200,Türk Lirası,5.5.2017,Ödeme Emri   Strateji Onayı,06.07.2017,14:10:00,56640,122021,07.07.2017-05.09.2017,Ares,
+10 Kalem Malzeme Alımı,TARLA-2017TSDN005,Donanım,,,9.5.2017,Ödeme Emri   Strateji Onayı,01.06.2017,14:40:00,16107,121721,,Üçtuğ,"Alımın İçeriği
+
+Avuç İçi Taşlama Makinası(2 adet)
+Büyük Taşlama Makinası (2 adet)
+Akülü Darbeli Matkap Vidalama Aleti (2 adet)
+Pah kırma makinası (1 adet)(Mengene ve 3 açılı freze mengenesi)
+Hassas mengene (1 adet)
+Plastik Boru Kaynak Makinası(1 adet)
+Çanta tipi oksijen kaynağı seti 6lt (1 adet)
+Takım Arabası (2 adet)
+Takım Arabası (1 adet)
+Test ve Ölçüm Cihazı Taşıma Arabası (1 adet)"
+Monitör Askı Aparatı,TARLA-2017TSDN009,Donanım,,,10.5.2017,Ödeme Emri   Strateji Onayı,01.06.2017,14:50:00,17110,121724,,TeknoPark,"Alımın İçeriği
+
+1. Masa Tipi Tek Kollu Monitör Askı Aparatı
+2. Masa Tipi Çift Kollu Monitör Askı Aparatı
+3. Duvar Tipi Tek Kollu Monitör Askı Aparatı
+4. Profil Tipi Tek Kollu Monitör Askı Aparatı"
+30 Kalem Sarf Malzeme Alımı ,,Sarf,,,8.5.2017,Ödeme Emri   Strateji Onayı,29.05.2017,15:40:00,44250,121610,,Barış Isıtma-Soğutma,"Alımın İçeriği
+
+22x1mm bakır boru (boy)20Adet
+28x1 mm bakır boru (boy)20Adet
+22mm bakır manşon50Adet
+28 mm bakır manşon50Adet
+15 mm bakır manşon50Adet
+22 mm bakır dirsek50Adet
+28 mm bakır dirsek 50Adet
+15 mm bakır dirsek50Adet
+22 mm bakır Tel50Adet
+28 mm bakır Tel50Adet
+15 mm bakır Tel50Adet
+22x15x22 mm bakır inegal Tel20Adet
+28x15x28 mm bakır inegal Tel20Adet
+15x12 mm bakır redüksyon20Adet
+15 mm kaynaklı küresel vana10Adet
+Rotherm 2000 bakır boru lehim makinası kömürü (çift)5Adet
+3 mm lehim teli5Adet
+Gri lehim pastası6Adet
+DIN EN 1044 2 mm bakır kaynak teli3paket
+DIN EN 1044 1 mm %30 Gümüş kaynak teli3paket
+asetilen 6Kg
+oksijen gazı18lt
+monoetilen 1Ton
+LPG (12 lt tüp)3Adet
+Argon gazı 150lt
+Helyum gazı250lt
+Balık sırtı alimimyum kablo kanalı 100boy
+Balık Sırtı alimimyum kablo kanalı düz bağlantı30Adet
+Balık Sırtı alimimyum kablo kanalı dirsek bağlantı30Adet
+Su ve hava tesissat koruma kasisi (1m)20Adet"
+14 Kalem Yazılım Malzeme Alımı,,Yazılım,,,8.5.2017, Ödeme Emri Strateji Onayı,29.05.2017,15:50:00,17700,121613,2 hafta,ADESİS,"Alımın İçeriği
+E-draw1Adet
+ASME Section IX Kaynak Sertifikası1Adet
+ASME B31.3: Borulama Proses Sertifikası1Adet
+ISO 15614-1 Standart1Adet
+ISO 14644-1:2015 Standart1Adet
+ISO 14644-2:2015 Standart1Adet
+ISO 14644-4:2001 Standart1Adet
+ISO 14644-9:2012 Standart1Adet
+ISO/FDIS 14644-13 Standart1Adet
+ISO 11625:2007 Standart1Adet
+IEC EN 61511-1 Standart1Adet
+IEC EN 61511-2 Standart1Adet
+IEC EN 61511-3 Standart1Adet
+E-plan1Adet"
+Rogar Kapağı Tadilat Hizmeti,TARLA-2017TSHZ017,Hizmet,,,11.05.2017,Ödeme Emri Strateji Onayı,01.06.2017,15:40:00,57230,121754,12.06.2017-17.07.2017,Olca,
+Dizel  Jeneratörler için Dizel Yakıt Alımı,"TARLA-2017TSRF003
+",Sarf,"29151,2",Türk Lirası,10.04.2017,Ödeme Emri   Strateji Onayı,29.05.2017,14:40:00,34220,121586,,Özdemir,
+32 Kalem Sarf Malzeme Alımı,TARLA-2017TSRF004,Sarf,,,12.05.2017,Ödeme Emri Strateji Onayı,01.06.2017,15:30:00,51861,121736,,TCS Makina-Hırdavat,"Alımın İçeriği
+
+Parelel set (1 adet)
+Rutil elektrot (10 kutu)
+Elmas eğe seti (1 adet)
+Karbür kalıpçı freze seti (1 adet)
+T kanal freze çakısı (22 adet)
+Çok amaçlı pas sökücü (10 adet)
+Kademeli matkap ucu (6 adet)
+İnşaat spatulası (2 adet)
+Taşlama taşı (6 adet)
+Kesme taşı (20 kutu)
+Flap disk zımpara (5 kutu)
+3D tester (1 adet)
+Kombine gaz taşı (20 adet)
+Su zımparası (20 adet)
+Elmas çanak taş (2 adet)
+Süngerli su zımparası (5 adet)
+Taş düzeltme elması (2 adet)
+Freze tarama kafası (5 adet)
+Freze şaftlı tarama kafası (10 adet)
+Makine rayba seti (2 adet)
+Seramik kesici uç takımı (20 adet)
+Karbür kesici uç takımı (20 adet)
+Parmak freze seti (3 adet)
+Bahçe testeresi (2 adet)
+Budama makası küçük (2 adet)
+Budama makası büyük (2 adet)
+Tırmık (3 adet)
+Kürek (3 adet)
+Bel (3 adet)
+Kazma (3 adet)
+Sarhoş tekerlek tip 1 (2 adet)
+Düz ray tekerlek tip 1 (4 adet)"
+11 Kalem Sarf Malzeme Alımı (Temiz Oda Sarfları),TARLA-2017TSRF007,Sarf,,,22.05.2017,Ödeme Emri   Strateji Onayı,01.06.2017,15:10:00,20156,121730,,Öztürk Medikal  Oguz Öztürk 0312 230 01 75 ,
+Etiket Makinası,TARLA-2017TSDN010,Donanım,,,22.05.2017,Ödeme Emri   Strateji Onayı,01.06.2017,15:20:00,15930,121733,,Vorterks,
+"
+                                                                                                                                                                                                    Baca Gazı İyonize Hava Monitor Sistemi Tasarım Hizmeti",TARLA-2017TSHZ018,Hizmet,81000,Türk Lirası,23.05.2017,Onay,,,65256,,Doğrudan Temin ve mal mukabili olduğu için sözleşme yapılmadı.işin süresi toplam 18 ay,SAAS Gmbh,
+3 Kalem Optik Masa,TARLA-2017TSDN011,Donanım,257204,Türk Lirası,19.09.2017-22.11.2017,İhalesi Yapıldı,12.12.2017,10:00:00,330900,122913,Teslim süresi:16 hafta,OPTOMEK,"Alımın İçeriği:
+Malzemenin Cinsi MiktarıÖlçü Birimi
+Optik Masa Tip 1   1Adet
+Optik Masa Tip 2   1Adet
+Optik Masa Tip 3       1Adet"
+Frekans Kontrollü AC Motor Sürücü Alımı,TARLA-2017TSDN012,Donanım,,,22.05.2017,Ödeme Emri Strateji Onayı,06.07.2017,14:20:00,11505,"122024
+",,Metsim,
+Vakum sensörü,TARLA-2017TSDN013,Donanım,,,22.05.2017,Ödeme Emri   Strateji Onayı,01.06.2017,15:00:00,"6690,6",121727,,Sem Bio,
+Master Osilatör,TARLA-2017TSDN007,Donanım,310000,Türk Lirası,42878,Akreditif Ödeme Emri Strateji Onayı,19.06.2017,,"306013,94",,,A.Ü. BAP LAURIN AG,
+Nano Boyutlu FTIR Spektroskopi Sistemi,TARLA-2017TSDN008,Donanım,2700000,Türk Lirası,23.05.2017,Akreditif Ödeme Emri Strateji Onayı,19.06.2017,,2700000,,03.04.2018 (son yükleme tarihi),NEASPEC GmbH,
+170 Kalem Sarf Malzeme Alımı,TARLA-2017TSRF014,Sarf,"265578,33",Türk Lirası,01.06.2017,İhalesi Yapıldı,12.10.2017,14:00:00,218450,122703,26.10.2017- 10.12.2017-15.02.2018,ZENOTEK,
+,,,,,,,,,,,,,
+Elemental Analiz Spektrometresi,TARLA-2017TSDN014,Donanım,"73985,54",Türk Lirası,06.06.2017,Akreditif Ödeme Emri Strateji Onayı,,,"83655,61",,,AMPTEK INC.,
+Çözünmüş Oksijen sensörü,TARLA-2017TSDN015,Donanım,57415,Türk Lirası,06.06.2017, Ödeme Emri,06.07.2017,14:50:00,60355," 122033
+",,Mettler Toledo,
+İnternet Kenar Anahtar,,Donanım,86799,Türk Lirası,13.06.2017,Ödeme Emri   Strateji Onayı,,,102422,,,BİLGİBİM BİLGİSAYAR ,DMO’dan alındı.Avans olarak alındı
+Kontrol odası tasarım üretim ve kurulum hizmeti,TARLA-2017TSHZ019,Hizmet,57850,Türk Lirası,14.06.2017,Ödeme Emri,06.07.2017,14:40:00,57525,122030,07.07.2017-04.10.2017,Linda Grup,
+Seminer Salonu Tadilatı ve Onarımı Hizmeti ,TARLA-2017TSHZ020,Hizmet,57500,Türk Lirası,16.06.2017,İhalesi Yapıldı,06.07.2017,14:30:00,46964," 122027
+",sözleşme imzalanmadı,Barış Isıtma,
+23 Kalem Sarf Malzeme Elektrik Alımı,TARLA-2017TSRF005,Sarf,36444.64,Türk Lirası,21.06.2017,İhalesi Yapıldı-Faturası ödendi,17.08.2017,14:00:00,33000,"122477
+",teslim süresi:15 gün,OLCA Enerji ,"Alımın İçeriği   1Termik manyetik koruma, 3 kutuplu , 32 A Termik Manyetik Şalter (tam takım halinde, düşük gerilim bobini kapama bobini)10Adet
+2Termik manyetik koruma, 3 kutuplu , 63 A Motorlu Termik Manyetik Şalter (tam takım halinde, düşük gerilim bobini kapama bobini)10Adet
+3Termik manyetik koruma, 3 kutuplu , 80 A Termik Manyetik Şalter (tam takım halinde, düşük gerilim bobini kapama bobini)5Adet
+4Termik manyetik koruma, 3 kutuplu , 125 A Termik Manyetik Şalter (tam takım halinde, düşük gerilim bobini kapama bobini)5Adet
+5Termik manyetik koruma, 3 kutuplu , 250 A Termik Manyetik Şalter (tam takım halinde, düşük gerilim bobini kapama bobini)3Adet
+6Termik manyetik koruma, 3 kutuplu , 400 A Termik Manyetik Şalter (tam takım halinde, düşük gerilim bobini kapama bobini)2Adet
+7Pano tipi enerji analizörleri15Adet
+8Şeffaf makaron tip13Adet
+9Şeffaf makaron tip23Adet
+10Şeffaf makaron tip33Adet
+11Şeffaf makaron tip43Adet
+12Kaçak akım rölesi 4x25 mA 10Adet
+13Kaçak akım rölesi 4x32 mA 10Adet
+14Kaçak akım rölesi 4x50 mA 5Adet
+15Kaçak akım rölesi 4x63 mA 5Adet
+16Darbe akım anahtarı (kanal tipi)50Adet
+17Darbe akım rölesi (24 VDC)20Adet
+18Darbe akım rölesi (220 VAC)20Adet
+19Çift taraflı köpük bant50Adet
+20Astronomik zamanlayıcı2Adet
+21Sigorta tipi faz baraları (2 metre)10Adet
+224000 A Bus-Bar için Akım alma kutusu(63 A)3Adet
+234000 A Bus-Bar için Akım alma kutusu(160 A) 3Adet
+"
+Femto Saniye Lazer Yükselteç Sistemi,TARLA-2017TSDN016,Donanım,"4947660,08",Türk Lirası,22.06.2017,Onay,10.10.2017,10:00:00,798900,,teslim süresi:200 gün,Spektra,
+Trafo Bakım Onarım İşleri,TARLA-2017TSBO002,Bakım Onarım,18900,Türk Lirası,29.06.2017,İhalesi Yapıldı,17.08.2017,14:10:00,19765,122480,18.08.2017-18.08.2018 (1.hakediş ödemesi yapıldı),OZAY Grup,
+2 adet dijital veri toplama kartı,TARLA-2017TSRF006,Sarf,9300,Türk Lirası,29.06.2017,İhale iptal edildi,03.08.2017,14:10:00,,122327,,,
+Muhtelif Kimyasal Sıvı ve Gazlar(Helyum=25 adet),,Sarf,24000,Türk Lirası,30.06.2017,Ödeme Emri   Strateji Onayı,06.07.2017,16:00:00,23411,122057,,Airliquide,
+10 Kalem Malzeme Alımı (Step Motor Tip 1 ve Tip2),TARLA-2017TSRF008,Sarf,32000,Türk Lirası,11.07.2017,Ödeme Emri  ,03.08.2017,14:20:00,33040,122330,,OTKON Mühendislik,
+Kompanzasyon Bakım Onarım İşleri,TARLA-2017TSBO003,Bakım Onarım,14000,Türk Lirası,12.07.2017,İhalesi Yapıldı,17.08.2017,14:20:00,13924,122483,18.08.2017-18.08.2018,ERBAYGES,
+2 Kalem Kontrol Donanım Alımı (Endüstriyel Sunucu ve Endüstriyel Medya Çevirici),TARLA-2017TSDN018,Donanım,31630,Türk Lirası,18.07.2017,İhale iptal edildi,03.08.2017,14:30:00,,122333,,,
+30 Kalem Sarf Malzeme Alımı ,TARLA-2017TSRF009,Sarf,"246812,5",Türk Lirası,26.07.2017,İhalesi Yapıldı,01.11.2017,14:00:00,198000,122790,13.11.2017-10.12.2017-24.02.2018,ZENOTEK,"Alımın İçeriği
+
+UHV elektrik feedthrough tip 2 (30 adet)
+UHV elektrik izolator tip 1 (8 adet)
+UHV elektrik izolator tip 2 (4 adet)
+DN63-DN63 UHV elektrik izolator (5 adet)
+DN63 UHV köşe kaynaklı körük (5 adet)
+DN40 UHV köşe kaynaklı körük (5 adet)
+DN63 UHV bükme körük tip 1 (6 adet)
+DN63 UHV bükme körük tip 2 (6 adet)
+Zirkonia Allen Basli civata M3x15 (25 adet)
+Zirkonia Allen Basli civata M3x20 (50 adet)
+Zirkonia Allen Basli civata M3x25 (10 adet)
+Zirkonia Allen Basli civata M4x15 (10 adet)
+Zirkonia Allen Basli civata M4x20 (10 adet)
+Zirkonia Allen Basli civata M4x25 (10 adet)
+Zirkonia M3 pull (100 adet)
+Zirkonia M4 pull (50 adet)
+Zirkonia M3 somun (50 adet)
+Zirkonia M4 somun (50 adet)
+Sermik Elektrik izaolatör ayıraç (standoff) tip 1 (15 adet)
+Sermik izaolatör ayıraç (standoff) tip 1 (15 adet)
+Aluminyum nitrat levha tip 1 (5 adet)
+Aluminyum nitrat levha tip 2 (5 adet)
+Aluminyum nitrat levha tip 3 (5 adet)
+OFHC Bakır rot tip 1 (1,8m) (1 adet)
+S 316 L çelik rot tip 1 (2 adet)
+S 316 L çelik rot tip 2 (2 adet)
+S 316 L çelik rot tip 3 (2 adet)
+Aluminyum blok tip 1 (100 adet)
+Aluminyum blok tip 2 (100 adet)
+Aluminyum blok tip 3 (100 adet)"
+Güçmetre,TARLA-2017TSDN019,Donanım,57950,Türk Lirası,27.07.2017,İhalesi Yapıldı-Faturası ödendi,17.08.2017,14:30:00,"61542,9",122486,8 hafta=2 ay,Rohde & Schwarz Elektronik ve Telekomünikasyon Sistemleri ,
+Muhtelif Kimyasal Sıvı ve Gazlar(Helyum=70 adet),,Sarf,56000,Türk Lirası,28.07.2017,Ödeme Emri Strateji Onayı,03.08.2017,14:40:00,64428,122351,,Airliquide,
+Güvenlik Giriş Kapısı ve Çevre Düzenlemesi Kurulum Hizmeti,TARLA-2017TSHZ021,Hizmet,585000,Türk Lirası,08.08.2017,İhalesi Yapıldı,22.11.2017,11:00:00,545000,122850,05.12.2017-05.03.2018,EMK,
+TARLA Tesisi Misafirhane Tadilat Hizmeti,TARLA-2017TSHZ022,Hizmet,57800,Türk Lirası,09.08.2017,Ödeme Emri Strateji Onayı,17.08.2017,14:40:00,50622,122489,18.08.2017-26.09.2017 (30 gün),Gönülsan,
+4 Kalem Sarf Malzeme Alımı,TARLA-2017TSRF010,Sarf,,,18.08.2017,İhalesi Yapıldı,20.09.2017,10:00:00,200000,,Teslim süresi:30 hafta,MEGA,"Alımın İçeriği
+
+1. 8 adet Bidireksiyonel Kuplör
+2. 2 adet 3 kademeli RF empedans ayarlayıcı (3stub_tuner) tip 1
+3. 2 adet 3 kademeli RF empedans ayarlayıcı (3stub_tuner) tip 2
+4. 4 adet Yüksek güç RF yük"
+53 Kalem Sarf Malzeme Alımı,,Sarf,"96077,83",Türk Lirası,18.08.2017,Bap- İlgili memurda,,,,,,,"DN40CF/DN40KF adaptör15adet
+DN100CF/DN40CF adaptör10adet
+ISO100/DN40KF adaptör10adet
+ISO100/DN100CF adaptör5adet
+ISO63/DN40KF adaptör5adet
+ISO63/DN50KF adaptör8adet
+ISO100/ISO63 adaptör4adet
+ISO100/DN25KF adaptör6adet
+ISO63/DN25KF adaptör6adet
+DN16CF/DN25KF adaptör6adet
+DN40KF/DN25KF adaptör10adet
+DN25KF T-cross4adet
+DN25KF 4-cross4adet
+DN40KF T-cross6adet
+DN40KF 4-cross6adet
+DN50KF T-cross6adet
+DN50KF 4-cross4adet
+DN50KF 900 dirsek8adet
+DN40KF esnek bağlantı 1m10adet
+DN25KF esnek bağlantı 1m10adet
+DN25KF esnek bağlantı 0.5m10adet
+DN50KF esnek bağlantı 0.5m3adet
+DN50KF esnek bağlantı 0.75m3adet
+ISO100 merkezleme halkası20adet
+ISO100 kör flanş10adet
+ISO100 o-ring, tip150adet
+ISO100 o-ring, tip250adet
+ISO63 merkezleme halkası20adet
+ISO63 kör flanş10adet
+ISO63 o-ring, tip150adet
+ISO63 o-ring, tip250adet
+DN40KF merkezleme halkası25adet
+DN40KF kör flanş20adet
+DN40KF o-ring75adet
+DN50KF merkezleme halkası20adet
+DN50KF kör flanş10adet
+DN50KF o-ring, tip150adet
+DN50KF o-ring, tip250adet
+DN25KF merkezleme halkası20adet
+DN25KF kör flanş10adet
+DN25KF o-ring, tip150adet
+DN25KF o-ring, tip250adet
+DN25KF clamp25adet
+DN40KF clamp25adet
+DN50KF clamp25adet
+ISO-K clamp (63-100)150adet
+ISO-F clamp (63-100)100adet
+DN63CF 90 dirsek4adet
+DN16CF bakır gasket25adet
+DN25CF bakır gasket10adet
+DN40CF bakır gasket100adet
+DN63CF bakır gasket50adet
+DN100CF bakır gasket25adet
+"
+"Sirkülatör Tip 1,Sirkülatör Tip 2",TARLA-2017TSRF011,Sarf,"108382,82",Türk Lirası,23.08.2017,İhalesi Yapıldı-İhale iptali istendi,20.09.2017,10:00:00,130000,,Taahhüt ettiği süre: 16-18 hafta,"Ferrite Microwave Technologies
+",
+3 Kalem Hizmet Alımı,TARLA-2017TSHZ023,Hizmet,271400,Türk Lirası,05.09.2017,İhalesi Yapıldı,01.11.2017,15:00:00,"211864,4",122791,13.11.2017-12.01.2018,ZENOTEK,"                          Alımın İçeriği                                   KF25/ISO100 Dönüştürücü Port İmalatı 2 Adet 
+ Vakum Kazanı İmalatı Tip1 2 Adet 
+ Vakum Kazanı İmalatı Tip2 2 Adet"
+Ayarlanabilir Yüksek Gerilim Güç Kaynağı Tip 1 ,TARLA-2017TSDN017,Donanım,33937,Türk Lirası,06.09.2017,İhalesi Yapıldı,26.09.2017,14:00:00,31000,122650,temin süresi:60 gün-25.11.2017-(ek süre verildi 15.12.2017-25.12.2017),Iradets,
+118 Kalem Sarf Malzeme Alımı,TARLA-2017TSRF012,Sarf,"2311859,44",Türk Lirası,18.08.2017,İhalesi Yapıldı,10.10.2017,11:00:00,2278695,,Temin süresi:12 hafta,HVP,"NoGiderin AçıklamasıMiktarıÖlçü Birimi
+1Adaptör 1-5/8 to N female20-10adet
+2Adaptör  7/8 to N male10adet
+37/8 to 1-5/8 düşürücü dönüştürücü10adet
+4SMA male to N female dönüştürücü50adet
+5SMA male to N male dönüştürücü50adet
+6SMA female to N female dönüştürücü50adet
+7SMA female to N male dönüştürücü50adet
+8N male to N male dönüştürücü50adet
+9N male to N male 90 deg dönüştürücü20adet
+10N female to N female 90 deg dönüştürücü20adet
+117/16 DIN male to N female 50adet
+127/16 DIN male to N male50adet
+137/16 DIN female to N female50adet
+147/16 DIN female to N male50adet
+15Kıvrımlı RF kablo tipi 90 deg N male konnector sıkıştırmalı tip (1/2 inç kablo için)100-15adet
+16Kıvrımlı RF kablo tipi N female konnector sıkıştırmalı tip (1/2 inç kablo için)100adet
+17Kıvrımlı RF kablo tipi 7/16 DIN male konnector sıkıştırmalı tip (7/8 inç kablo için)100-50adet
+18Kıvrımlı RF kablo tipi N male konnector sıkıştırmalı tip (7/8 inç kablo için)100adet
+19Kıvrımlı RF kablo tipi N female konnector sıkıştırmalı tip (7/8 inç kablo için)100-25adet
+20Kıvrımlı RF kablo tipi N female konnector lehimsiz sıkıştırmalı tip (7/8 inç kablo için)100adet
+21Zayıflatıcı 1 dB 10 Watt10adet
+22Zayıflatıcı 2 dB  10 Watt10adet
+23Zayıflatıcı 3 dB  10 Watt10adet
+24Zayıflatıcı 4 dB  2 Watt10adet
+25Zayıflatıcı 6 dB  10 Watt10adet
+26Zayıflatıcı 9 dB 2 Watt10adet
+27Zayıflatıcı 10 dB  10 Watt10adet
+28Zayıflatıcı 12 dB  2 Watt10adet
+29Zayıflatıcı 18 dB  2 Watt10adet
+30Zayıflatıcı 20 dB  10 Watt10adet
+31Zayıflatıcı 30 dB  10 Watt10adet
+32Zayıflatıcı 1 dB 25 Watt10adet
+33Zayıflatıcı 2 dB  25 Watt10adet
+34Zayıflatıcı 3 dB  25 Watt10adet
+35Zayıflatıcı 6 dB  25 Watt10adet
+36Zayıflatıcı 10 dB  25 Watt10adet
+37Zayıflatıcı 20 dB  25 Watt10adet
+38Zayıflatıcı 30 dB  25 Watt10adet
+39Zayıflatıcı 2 dB  50 Watt5adet
+40Zayıflatıcı 3 dB  50 Watt5adet
+41Zayıflatıcı 6 dB  50 Watt5adet
+42Zayıflatıcı 10 dB  50 Watt5adet
+43Zayıflatıcı 20 dB  50 Watt5adet
+44Zayıflatıcı 30 dB  50 Watt5adet
+45Zayıflatıcı Direnç Serisi (0-50 dB)14adet
+46Zayıflatıcı Direnç Serisi (0-90 dB)14adet
+47Yüksek güç zayıflatıcı (100W) 3dB15adet
+48Yüksek güç zayıflatıcı (100W) 6dB15adet
+49Yüksek güç zayıflatıcı (100W) 10dB15adet
+50Yüksek güç zayıflatıcı (100W) 20dB15adet
+51Yüksek güç zayıflatıcı (100W) 30dB15adet
+52Yüksek güç zayıflatıcı (100W) 40dB15adet
+53Yüksek güç zayıflatıcı (200W) 3dB2adet
+54Yüksek güç zayıflatıcı (200W) 6dB2adet
+55Yüksek güç zayıflatıcı (200W) 10dB2adet
+56Yüksek güç zayıflatıcı (200W) 20dB2adet
+57Yüksek güç zayıflatıcı (200W) 30dB2adet
+58Yüksek güç zayıflatıcı (300W) 3dB2adet
+59Yüksek güç zayıflatıcı (300W) 6dB2adet
+60Yüksek güç zayıflatıcı (300W) 10dB2adet
+61Yüksek güç zayıflatıcı (300W) 20dB2adet
+62Yüksek güç zayıflatıcı (300W) 30dB2adet
+63RF yük 8adet
+64Düşük Güç Düşük Sönüm Hafif RF koaksiyel kablo tip 1  2-1adet
+65Düşük Güç Düşük Sönüm Hafif RF koaksiyel kablo tip 22-1adet
+66Düşük Güç Düşük Sönüm Hafif RF koaksiyel kablo tip 328-1adet
+67Düşük Güç Düşük Sönüm Hafif RF koaksiyel kablo tip 428-1adet
+68Düşük Güç Düşük Sönüm Hafif RF koaksiyel kablo tip 512-1adet
+69Düşük Güç Düşük Sönüm Hafif RF koaksiyel kablo tip 612-1adet
+70Düşük Güç Düşük Sönüm Hafif RF koaksiyel kablo tip 72-1adet
+71Düşük Güç Düşük Sönüm Hafif RF koaksiyel kablo tip 82-1adet
+72Düşük Güç Düşük Sönüm Hafif RF koaksiyel kablo tip 92-1adet
+73Yüksek Güç Düşük Sönüm Hafif RF koaksiyel kablo tip 1  2-1adet
+74Yüksek Güç Düşük Sönüm Hafif RF koaksiyel kablo tip 2  2-1adet
+75Yüksek Güç Düşük Sönüm Hafif RF koaksiyel kablo tip 3  2-1adet
+76Yüksek Güç Düşük Sönüm Hafif RF koaksiyel kablo tip 4  2-1adet
+77Kıvrımlı RF kablo tipi N male konnektor lehimsiz sıkıştırmalı tip (1/2 inç kablo için)100Adet
+78Kıvrımlı RF kablo tipi N female konnektor lehimsiz sıkıştırmalı tip (1/2 inç kablo için)100Adet
+79Kablo Konnektör Hazırlama Malzemeleri Tip 420Adet
+80Kıvrımlı RF kablo tipi 7/16 DIN male 90 deg konnektor sıkıştırmalı tip (7/8 inç kablo için)15Adet
+81Kıvrımlı RF kablo tipi N female konnektor sıkıştırmalı tip (3/8 inç kablo için)250-200Adet
+82Kablo Konnektör Hazırlama Malzemeleri Tip 120Adet
+83Kablo Konnektör Hazırlama Malzemeleri Tip 220Adet
+84Kablo Konnektör Hazırlama Malzemeleri Tip 320Adet
+85N female to N female dönüştürücü75Adet
+86N male to N female250Adet
+87Kıvrımlı RF kablo tipi N male konnector sıkıştırmalı tip (1/2 inç kablo için)400Adet
+88Kıvrımlı RF kablo tipi N male konnektor sıkıştırmalı tip (3/8 inç kablo için)500Adet
+89Kıvrımlı RF kablo tipi N male 90 deg konnektor sıkıştırmalı tip (3/8 inç kablo için)100Adet
+90Kıvrımlı RF kablo tipi N male konnektor sıkıştırmalı tip (1/4 inç kablo için)200Adet
+91Kıvrımlı RF kablo tipi N female konnektor sıkıştırmalı tip (1/4 inç kablo için)100Adet
+92Kıvrımlı RF kablo tipi N male 90 deg konnektor sıkıştırmalı tip (1/4 inç kablo için)50Adet
+93Kıvrımlı RF kablo tipi 7/8 EIA konnektor sıkıştırmalı tip (7/8 inç kablo için)75Adet
+94N  Konnektor için tork anahtarı4Adet
+957/16  Konnektor için tork anahtarı4Adet
+96Terminatör 6 W N( f)2Adet
+97Terminatör 6 W N( m)2Adet
+98Terminatör 10 W N( f)2Adet
+99Terminatör 10 W N( m)2Adet
+100Terminatör 15 W N( f)2Adet
+101Terminatör 15 W N( m)2Adet
+102Terminatör 25 W N( f)2Adet
+103Terminatör 60 W N( f)2Adet
+104Terminatör 60 W N( m)2Adet
+105Direksiyonel Kuplör 6 dB2Adet
+106Direksiyonel Kuplör 10 dB2Adet
+107Direksiyonel Kuplör 20 dB2Adet
+108Direksiyonel Kuplör 30 dB2Adet
+109Bidireksiyonel Kuplör 40 dB2Adet
+110Bidireksiyonel Kuplör 50 dB Tip12Adet
+111Bidireksiyonel Kuplör 50 dB Tip22Adet
+112Faz kilitli tespitleyici  entegre tip 12Adet
+113Faz kilitli tespitleyici entegre tip 210Adet
+114Faz kaydırıcı2Adet
+115RF üreteç entegre tip 12Adet
+116RF üreteç entegre tip 210Adet
+1171-5/8 to 7/8 düşürücü dönüştürücü10adet
+"
+Dizel Jeneratörler İçin Dizel Yakıt Alımı,TARLA-2017TSRF013,Sarf,57900,Türk Lirası,14.09.2017,Ödeme Emri,26.09.2017,14:10:00,68322,122653,temin süresi:1 hafta,Özdemir Petrol,
+Leak Dedektörü Bakım Onarım ve Kalibrasyonu,TARLA-2017TSBO004,Bakım Onarım,57200,Türk Lirası,18.09.2017,İhalesi Yapıldı-Faturası ödendi,06.10.2017,14:00:00,49000+KDV,122677,13.10.2017-12.12.2017,ARES,
+Muhtelif Hizmet Alımı 1,TARLA-2017TSHZ024,Hizmet,56240,Türk Lirası,18.09.2017,İhalesi Yapıldı-Faturası ödendi,06.10.2017,14:10:00,48500,122679,13.10.2017-28.10.2017,ARES,"Alımın İçeriği:
+su soğutma sisteminin sürekli operasyonda düzenli çalışabilirliği için hizmet alımına ihtiyaç duyulmaktadır"
+Yaka tipi oksijen dedektörü (3 adet) ve Duvar tipi oksijen dedektörü (5 adet),TARLA-2017TSDN020,Donanım,57800,Türk Lirası,19.09.2017,İhalesi Yapıldı-Faturası ödendi,06.10.2017,14:20:00,40000,122680,8 hafta-2.12.2017,ARES,
+Demet Taşınım Hattı Sehpası İmalat Hizmeti,TARLA-2017TSHZ027,Hizmet,57600,Türk Lirası,20.09.2017,İhalesi Yapıldı-Faturası ödendi,06.10.2017,14:30:00,50000,122695,13.10.2017-28.10.2017 (7 gün süre verildi 7.11.2017),Enomak ,
+Yük Asansörleri İmalatı ve Kurulum Hizmeti ,TARLA-2017TSHZ029,Hizmet,315000,Türk Lirası,20.09.2017,Onayı alındı-İhalesi Yapılacak,,,,,,,
+Mekanik İmalat ve Montaj Destek Hizmeti,TARLA-2017TSHZ025,Hizmet,48900,Türk Lirası,21.09.2017,İhalesi Yapıldı-Faturası Ödendi,06.10.2017,14:50:00,42300,122705,13.10.2017-28.10.2017 (ek süre verildi 17.11.2017),ZENOTEK,
+Demet Hattı Elemanları İmalatı Hizmeti,TARLA-2017TSHZ028,Hizmet,50200,Türk Lirası,22.09.2017,İhalesi Yapıldı,06.10.2017,14:40:00,44000,122701,13.10.2017-12.12.2017-(ek süre verildi -28.01.2018 ,ZENOTEK,
+Diagnostik Donanımları İmalatı Hizmeti,TARLA-2017TSHZ031,Hizmet,47500,Türk Lirası,22.09.2017,İhalesi Yapıldı,06.10.2017,15:00:00,35000,122707,13.10.2017-12.12.2017-(90 gün süre verildi 12.03.2018,ATAG MAKİNE,
+33 Kalem Sarf Malzeme Alımı,,Sarf,"33805,13",Türk Lirası,25.09.2017,İhalesi Yapıldı-Faturası ödendi,03.11.2017,14:40:00,46500+ KDV,122808,4 HAFTA-02.12.2017-11.12.2017,RATEST,"No""Malzemenin Cinsi          Miktarı               Ölçü Birimi
+13x6 Düşük gerilim kablosu (NYY- J BK )100Metre
+21x6 Düşük gerilim kablosu (NYY BK )100Metre
+3""3x2.5 Düşük gerilim kablosu (NYY-J BK )""100Metre
+41x16 Düşük gerilim kablosu (NYY BK )100Metre
+5""3x1.5 Düşük gerilim kablosu (NYY-J BK )""140Metre
+6""4x25 Düşük gerilim kablosu (NYY-J BK )""100Metre
+75x6 Düşük gerilim kablosu (NYY- J BK )100Metre
+8""3x0.75 Kontrol kablosu (JZ-500  GY G)""460Metre
+95x1 Kontrol kablosu (JZ-500 GY G)260Metre
+103x1 Kontrol kablosu (JZ-500 GY G)360Metre
+1110x1 Kontrol kablosu (JZ-500 GY G)100Metre
+1220x2x0.8 Elektronik kablo (JE-Y (St)Y)450Metre
+132x0.8 Elektronik kablo (JE-Y(St) Y)650Metre
+142x2x0.8 Elektronik kablo (JE-Y (St)Y)2000Metre
+154x2x0.8 Elektronik kablo (JE-Y (St)Y)1200Metre
+168x2x0.8 Elektronik kablo (JE-Y (St)Y)100Metre
+17""12x0.75 Elektronik kablo (TRONIC-CY / LİY-CY)""   100Metre
+182x0.75 Kontrol kablosu (F-CY- OZ)(LiY-CY)100Metre
+192x1 Kontrol kablosu (F-CY-OZ) (LiY-CY)100Metre
+203x0.75 Kontrol kablosu (H05VV5- F  GY G)130Metre
+217x0.75 Kontrol kablosu (H05VV5- F GY G)100Metre
+224x0.5 Kontrol kablosu (H05VV5-F GY G)100Metre
+23PATCH2 FL CAT 6 kablo36Adet
+24PATCH15 FL CAT 6 kablo3Adet
+252x1.5 Hoparlör kablosu380Metre
+26Fiber optik kablo (AT-VYY Multimode 2G62.5/125)100Metre
+27""4x16 Düşük gerilim kablosu (2YSLCYK-J)""100Metre
+28""4x1.5 Düşük gerilim kablosu (2YSLCYK-J)""100Metre
+29""4x4 Düşük gerilim kablosu (2YSLCYK-J)""100Metre
+30""5x1.5 Düşük gerilim kablosu (YSLYCY-JZ/-JB/-OZ/-OB)""300Metre
+31""7x1.5 Düşük gerilim kablosu (YSLY-JZ/-JB/-OZ/-OB)"" 100Metre
+321x6 H07 RN-F Kablo500Metre
+33CAT 7 Kablo (24 AWG)1400Metre"
+Helyum Odası Sıcak Hava Tahliye Sistemi Kurulumu Hizmeti,TARLA-2017TSHZ026,Hizmet,11250,Türk Lirası,22.09.2017,Avansla alındı- Mahsup Ödeme Emri,,,,,,,
+Seminer Salonu Tadilatı ve Onarımı Hizmeti ,TARLA-2017TSHZ030,Hizmet,57200,Türk Lirası,28.09.2017,İhalesi Yapıldı,03.11.2017,14:10:00,38850,122805,06.11.2017-15.12.2017-31.12.2017,Linda Grup,
+"Kontrol Sistemi Donanımları (Ağ Anahtarları, Server, Endüstriyel PC, İş İstasyonları, Bilgisayarlar, ADC vb) ",TARLA-2017TSDN021,Donanım,50818,Türk Lirası,05.10.2017,İhalesi Yapıldı-Faturası ödendi,03.11.2017,14:20:00,45620,122806,2 hafta-17.11.2017,TeknoPark,
+Radyasyon Ölçüm Cihazları ve Ekipmanları,TARLA-2017TSDN022,Donanım,220000,Türk Lirası,09.10.2017,Onayı alındı-İhalesi Yapılacak,,,,,,,"Alımın İçeriği
+
+1. 1 adet dozimetre elektrometresi
+2. 2 adet İyon Odası tip 1
+3. 6 adet İyon Odası tip 2"
+20 Kalem Sarf Malzeme,TARLA-2017TSRF015,Sarf,297360,Türk Lirası,10.10.2017,Onayı alındı-İhalesi Yapılacak,,,,,,,"
+Malzemenin CinsiMiktarıÖlçü Birimi
+mantar buton seti, tip11 Adet
+acil durum düğmesi, tip1 8 Adet
+limit anahtarı tip 120 Adet
+limit anahtarı tip 23 Adet
+acil durum düğmesi, tip25 Adet
+mekanik kilitli elektriksel anahtar, tip1     3 Adet
+mekanik kilitli elektriksel anahtar, tip 2   7 Adet
+hava damper motoru 22Adet
+3 yollu vana motoru1Adet
+kanal tipi sıcaklık sensörü, tip16 Adet
+diferansiyel basınç sensörü, tip14 Adet
+kanal tipi sıcaklık sensörü, tip25 Adet
+donma koruma ünites i3 Adet
+boru tipi sıcaklık sensörü 4 Adet
+limit anahtarı, tip4  5 Adet
+mantar buton seti, tip25 Adet
+acil durum düğmesi, tip3 5 Adet
+limit anahtarı, tip 55 Adet
+pnomatik basınç anahtarı5 Adet
+hidrolik basınç anahtarı2 Adet"
+Yüksek Voltaj Dirençleri ,TARLA-2017TSRF016,Sarf,"31623,82",Türk Lirası,12.10.2017,Onayı alındı-İhalesi Yapılacak,,,,,,,"Alımın İçeriği                                                                               1 Yüksek Voltaj Dirençleri  Tip1 30 Adet
+2 Yüksek Voltaj Dirençleri  Tip2 20 Adet
+3 Yüksek Voltaj Dirençleri  Tip3 30 Adet
+4 Yüksek Voltaj Dirençleri  Tip4 30 Adet"
+Üyelik Aidatı,,Hizmet,"5629,52",Türk Lirası,13.10.2017,Onayı alındı-Ödemesi yapıldı,,,,,,,
+Muhtelif Hizmet Alımı 1,TARLA-2017TSHZ032,Hizmet,58000,Türk Lirası,17.10.2017,İhalesi Yapıldı-Faturası ödendi,03.11.2017,14:30:00,44650,122807,20 gün-26.11.2017-04.12.2017-yazısı yazıldı,Linda Grup,"Almıın İçeriği:
+Kapı Değişimi ve Onarımı"
+Radyasyon Donanımları,TARLA-2017TSDN024,Donanım,1126440,Türk Lirası,17.10.2017,İhalesi Yapıldı,19.12.2017,15:00:00,815000,,,Tehnocenter,"Alımın İçeriği
+
+Malzemenin Cinsi     Miktarı Ölçü Birimi
+duvar tipi geiger-muller sayacı  10 Adet
+duvar tipi iyon odası5 Adet
+duvar tipi veri toplama ünitesi  8 Adet
+portatif gama dedektörü1 Adet
+portatif kontaminasyon dedektörü1 Adet
+Duvar Tipi Geiger-Muller Sayacı 2 Adet
+Duvar Tipi Veri Toplama Ünitesi 2 Adet
+Kişisel Kontaminasyon Dedektörü  2 Adet
+Duvar Tipi Veri Toplama Ünitesi1 Adet
+Duvar Tipi İyon Odası2 Adet
+Duvar Tipi Geiger Müller Sayacı 1 Adet"
+Elektrik Altyapı Otomasyon Bakım Hizmeti,TARLA-2017TSHZ033,Hizmet,572500,Türk Lirası,18.10.2017,İhale iptal edildi,22.11.2017,10:00:00,,122849,,,
+Muhtelif Hizmet Alımı1 ,TARLA-2017TSHZ034,Hizmet,48000,Türk Lirası,18.10.2017,İhalesi Yapıldı-Faturası ödendi,03.11.2017,14:00:00,40000,122804,2 hafta-16.11.2017,ADESİS,"Alımın İçeriği:                                                   temiz oda sistemi dahilindeki filtre kaçaklarının ölçümü ve vakum ısıtıcılarının testleri,temiz oda hava kalitesi analizi...vs"
+7 Kalem Sarf Malzeme Alımı,,Sarf,51550,Türk Lirası,19.10.2017,İhalesi Yapıldı-Faturası ödendi,03.11.2017,14:50:00,"40627,4",122809,4 HAFTA-03.12.2017-15.12.2017,ADESİS,"Alımın İçeriği 
+Malzemenin Cinsi    Miktarı Ölçü Birimi
+Teflon Sprey50 Adet
+M6 Bakır Somun     2000Adet
+M8 Bakır Somun     2000Adet
+M6 Gümüş Kaplama Somun  500 Adet
+M8 Gümüş Kaplama Somun  500 Adet
+M6 x 20 Gümüş Kaplı Cıvata 1500 Adet
+M8 x 25 Gümüş Kaplı Cıvata 500  Adet"
+Kesintisiz Güç Kaynağı Sistemi,TARLA-2017TSDN025,Donanım,1290000,Türk Lirası,23.10.2017,Onayı alındı-İhalesi Yapılacak,19.12.2017,14:00:00,,,,,
+Kütle Spektrometresi,TARLA-2017TSDN023,Donanım,"444306,91",Türk Lirası,23.10.2017,İhalesi Yapıldı,12.12.2017,09:00:00,438383,,teslim süresi:14-16 hafta,Hiden Analytical,
+CNC torna tezgahı,TARLA-2017TSDN026,Donanım,215000,Türk Lirası,24.10.2017,Onayı alındı-İhalesi Yapılacak,,,,,,,
+UniGraphics NX,,Yazılım,"49996,6",Türk Lirası,24.10.2017,İhalesi Yapıldı-Faturası Ödendi,16.11.2017,09:50:00,35000,122865,3 hafta ,Boğaziçi Yazılım,
+36 Kalem Sarf Malzeme Alımı,,Sarf,56270,Türk Lirası,25.10.2017,İhalesi Yapıldı,16.11.2017,10:00:00,50000+KDV,122867,16.12.2017,ADESİS,"Alımın İçeriği
+Malzemenin Cinsi MiktarıÖlçü Birimi
+Zemin Tipi Kablo Koruma Kanalı 20 Boy
+Nitril Eldiven (pudrasız ve latexsiz)100Adet
+2 yollu 304 Paslanmaz Çelik Küresel Vana, 10mm OD Tüp Swagelok Tip Vana10Adet
+2 yollu 304 Paslanmaz Çelik Küresel Vana, 8mm OD Tüp Swagelok Tip Vana10Adet
+Paslanmaz Çelik 304, Hızlı Bağlantı Elemanı Adaptörü, Tüp OD 10”, DN16KF10Adet
+Paslanmaz Çelik 304, Hızlı Bağlantı Elemanı Adaptörü, Tüp OD 8”, DN16KF10Adet
+304 Paslanmaz Çelik Tüp 10mm OD 2Boy
+304 Paslanmaz Çelik Tüp 8mm OD 2Boy
+304 Paslanmaz Çelik Tüp OD 1/4""2Boy
+EN 10305-4 Standartlarında E235 Dikişsiz  Çelik Boru Çap 16mm Et Kalınlığı 2mm 10Boy
+EN 10305-4 Standartlarında E235 Dikişsiz  Çelik Boru Çap 18mm Et Kalınlığı 2mm  10Boy
+EN 10305-4 Standartlarında E235 Dikişsiz Çelik Boru Çap 20mm Et Kalınlığı 2mm  10Boy
+90 Derece Yüksüklü Dirsek Bağlantı Elemanı Boru Çapı 16mm15Adet
+90 Derece Yüksüklü Dirsek Bağlantı Elemanı Boru Çapı 18mm15Adet
+90 derece Yüksüklü Dirsek Bağlantı Elemanı Boru Çapı 20mm15Adet
+Yüksüklü TEE  Bağlantı Elemanı Boru Çapı 16mm15Adet
+Yüksüklü TEE  Bağlantı Elemanı Boru Çapı 18mm15Adet
+Yüksüklü TEE  Bağlantı Elemanı Boru Çapı 20mm15Adet
+Yüksüklü Ekleme Nipeli Bağlantı Elemanı Boru Çapı 16mm10Adet
+Yüksüklü Ekleme Nipeli Bağlantı Elemanı Boru Çapı 18mm10Adet
+Yüksüklü Ekleme Nipeli Bağlantı Elemanı Boru Çapı 20mm10Adet
+Yüksüklü Nipel Redüksiyon Bağlantı Elemanı 16mmx18mm5Adet
+Yüksüklü Nipel Redüksiyon Bağlantı Elemanı 16mmx20mm5Adet
+Yüksüklü Nipel Redüksiyon Bağlantı Elemanı 18mmx20mm5Adet
+Çelik Boru Kelepçesi Boru Çap 16mm50Adet
+Çelik Boru Kelepçesi Boru Çap 18mm50Adet
+Çelik Boru Kelepçesi Boru Çap 20mm50Adet
+Flex Cryogenics Hortum Tip 12Adet
+Flex Cryogenics Hortum Tip 22Adet
+Vakum Macunu Tip110Adet
+Vakum Macunu Tip210Adet
+Boru Tipi Süperyalıtım Tabakası 100Metretül
+Elektronik Test Bandı 30Adet
+Pnömatik Solenoid 3 yollu vana3Adet
+Zaman roleli pnömatik vana2Adet
+Pencere Sinekliği24Adet
+
+
+"
+8 Kalem Donanım Alımı,TARLA-2017TSDN027,Donanım,9982,Türk Lirası,01.11.2017,İhalesi Yapıldı,16.11.2017,10:10:00,11092,122869,4 hafta-16.12.2017,ADESİS,"Alımın İçeriği:
+Malzemenin Cinsi MiktarıÖlçü Birimi
+1 ton Taşıma Kapasiteli Endüstriyel Kabinet Taşıma Arabası 1 Adet
+Mikrometre Tip12 Adet
+Mikrometre Tip25 Adet
+Mikrometre Tip32 Adet
+3 Basamaklı Pyramid Tipi Merdiven2  Adet
+2 Basamaklı Pyramid Tipi Merdiven2 Adet
+Kapsül Tip Düşük Basınç Ölçer3 Adet
+Tekerlekli Yer Tipi Dispenser Mobil Metal Ayaklı Dispenser Çöp Torbalı 2 Adet"
+Network Analizör ve Spektrum Analizör,TARLA-2017TSDN028,Donanım,"809878,03",Türk Lirası,01.11.2017,İhalesi Yapıldı,21.12.2017,14:00:00,491130+KDV,,,Rohde&Schwarz,
+Test Ölçüm ve Bağlantı Sistemleri,TARLA-2017TSDN029,Donanım,58500,Türk Lirası,01.11.2017,İhalesi Yapıldı-Faturası ödendi,16.11.2017,10:20:00,53500,122871,2 hafta,Nanomanyetik Cihazlar,
+7 Kalem Donanım Alımı ,TARLA-2017TSDN030,Donanım,35910,Türk Lirası,02.11.2017,İhalesi Yapıldı-Faturası ödendi,16.11.2017,10:30:00,32250,122872,işe başladıktan itibaren 25 iş günü-11.12.2017,HAKTAN Grup,"Alımın İçeriği:
+Malzemenin Cinsi MiktarıÖlçü Birimi
+Motorlu Havalandırma Damperi Tip 13 Adet
+Motorlu Havalandırma Damperi Tip 21 Adet
+Motorlu Havalandırma Damperi Tip 32 Adet
+Motorlu Havalandırma Damperi Tip 42 Adet
+Motorlu Havalandırma Damperi Tip 52 Adet
+Motorlu Havalandırma Damperi Tip 61 Adet
+Motorlu Havalandırma Damperi Tip 73 Adet"
+Dipole Magnet Üretim Hizmeti,TARLA-2017TSHZ035,Hizmet,57770,Türk Lirası,02.11.2017,İhalesi Yapıldı,21.11.2017,11:40:00,54850,122889,26.01.2018,ATAG MAKİNE,
+Solenoid Magnet Üretim Hizmeti ,TARLA-2017TSHZ037,Hizmet,57600,Türk Lirası,03.11.2017,İhalesi Yapıldı,21.11.2017,11:20:00,55084,122887,26.01.2018,ATAG MAKİNE,
+Muhtelif İş Güvenliği Ekipmanları ve Güvenlik Uyarı Levhaları,TARLA-2017TSRF017,Sarf,19935,Türk Lirası,03.11.2017,İhalesi Yapıldı,30.11.2017,11:10:00,16500,122916,sözleşme tarihinden itibaren 6 hafta,AKTUG (Mustafa Bey: 0532 176 58 79),
+Enjektör Spektrometre İmalat Hizmeti ,TARLA-2017TSHZ039,Hizmet,58242,Türk Lirası,06.11.2017,İhalesi Yapıldı,21.11.2017,11:00:00,56500,122885,26.01.2018,ATAG MAKİNE,
+Mekanik İmalat İşleri- Korkuluk,TARLA-2017TSHZ036,Hizmet,57950,Türk Lirası,06.11.2017,İhalesi Yapıldı,30.11.2017,11:30:00,55100,122918,sözleşme tarihinden itibaren 30 gün,LİNDA,
+ANSYS ,TARLA-2017TSYZ002,Yazılım,58500,Türk Lirası,07.11.2017,İhalesi Yapıldı-Faturası ödendi,21.11.2017,11:30:00,51694,122888,1 hafta-05.12.2017,FİGES,
+Fiber Optik Fusion Cihazı,TARLA-2017TSDN031,Donanım,28350,Türk Lirası,07.11.2017,İhalesi Yapıldı-Faturası ödendi,21.11.2017,11:10:00,25423,122886,6 hafta,OPTOMEK,
+Muhtelif Hizmet Alımı1 ,TARLA-2017TSHZ038,Hizmet,52500,Türk Lirası,09.11.2017,İhalesi Yapıldı-Faturası  ödendi,30.11.2017,11:20:00,47450,122917,sözleşme tarihinden itibaren 30 gün,MET Isıtma,"Alımın İçeriği
+
+1. Soğutma Kulesi ıslak mod sirkülasyon tankı kurulumu
+2. Helyum ve RF by-pass ve debimetre kesici vanalarının değişimi
+3. 1 adet duvar tipi 9000btu fancoil montajı
+4. Beamdump bağlantı noktalarının MSS tipA tipi flanş ile değiştirilmesi
+5. FEL ve hızlandırıcı odalarına birer adet beamdump hattı çıkışı eklenmesi
+6. Brems. Odasındaki beamdump hattına MSS tipA tipi by-pass hattı kurulması
+7. Ana MCP panosu pompa TMŞ’lerinin ayrılması
+8. Helyum kollektörü duvar konsollarının sağlamlaştırılması ve kollektör üzerindeki pas lekelerinin temizlenmesi
+9. Helyum odasındaki kırık taşların tamiri
+10. Helyum kollektörü üzerine tahliye vanaları konması
+11. BL ve BD hattı tünellere tahliye kovaları yapılması
+12. Hava purjorlerinin değiştirilmesi
+13. CB1 esnek bağlantısının boyunun uzatılması
+14. Helyum hattı debimetresinin revizyonu
+15. Beamline ve beamdump buffer tanklarına harici ısıtıcı rezistansların montajı
+16. Sistem genelinde ızgaralı pislik tutucuların ızgaralarının değişimi
+17. D001 logar pompalarının tamiratı"
+16 Kalem Sarf Malzeme Alımı,TARLA-2017TSRF018,Sarf,30155,Türk Lirası,15.11.2017,İhalesi Yapıldı-Faturası ödendi,30.11.2017,11:00:00,26500+KDV,122915,10 iş günü,OLCA,"Alımın İçeriği:Malzeme CinsiBirimMiktarı
+100x40x1,5 mm pregalvaniz 2,4 m boy kablo kanalıAdet20
+200x40x1,5 mm pregalvaniz 2,4 m boy kablo kanalıAdet100
+300x40x1,5 mm pregalvaniz 2,4 m boy kablo kanalıAdet100
+H40 ekleme parçasıAdet1000
+100 mm pregalvaniz standart 90° H40 dönüşAdet30
+200 mm pregalvaniz standart 90° H40 dönüşAdet30
+300 mm pregalvaniz standart 90° H40 dönüşAdet30
+U destek , L = 2400 t=2,0 mm.Adet100
+U Konsol 125 mm.Adet50
+U Konsol 225 mm.Adet200
+U Konsol 325 mm.Adet200
+M8 * 15 mm.b.b.civata+flanşlı somunAdet1000
+M6 * 15 mm.b.b.civata+flanşlı somunAdet1000
+Yüksek gerilim topraklama ıstakasıAdet2
+54 W floüresan armatür, elektronik balastlı takım halindeAdet40
+Kombine priz (en az 2xelektrik, 2xethernet hattı üstünde)Adet20"
+7 Kalem Sarf Malzeme Alımı ,TARLA-2017TSRF023,Sarf,58299,Türk Lirası,15.11.2017,İhalesi yapıldı,22.12.2017,10:30:00,43500+KDV,122973,,SİSTEK,"Alımın İçeriği:
+
+Malzemenin Cinsi MiktarıÖlçü Birimi
+PLC işlemcisi2 Adet
+PLC analog modül   10 Adet
+PLC dijital modül11Adet
+PLC haberleşme modülü4 Adet
+PLC analog röle5 Adet
+PLC dijital röle5 Adet
+HMI 2 Adet"
+1000 lt Tekerlekli Sıvı Helyum Taşıma Saklama Tankı,TARLA-2017TSDN033,Donanım,220422,Türk Lirası,16.11.2017,İhalesi yapıldı,12.12.2017,09:30:00,197156,,teslim süresi:5 ay,Cryotherm,
+Yazılım Destek Hizmeti,TARLA-2017TSHZ041,Hizmet,57500,Türk Lirası,16.11.2017,İhalesi Yapıldı,07.12.2017,15:00:00,50700,122933,"11.12.2017-09.06.2018---05.01.2018,30.01.2018,24.02.2018,21.03.2018,15.04.2018,09.06.2018",Creworker -Bilal Tonga,
+74 Kalem Sarf Malzeme Alımı,TARLA-2017TSRF019,Sarf,455373,Türk Lirası,17.11.2017,Onayı alındı-İhalesi Yapılacak,,,,,,,
+KGS Kontrol Panoları,TARLA-2017TSDN034,Donanım,"959528,97",Türk Lirası,17.11.2017,İhalesi Yapıldı,12.12.2017,11:30:00,959528,,teslim süresi:90 gün,SAAS Gmbh,
+Dozimetre doğrulama ve kalibrasyon hizmeti,TARLA-2017TSHZ040,Hizmet,34026,Türk Lirası,20.11.2017,Onayı alındı-İhalesi Yapılacak,,,,,,,
+8 Kalem Sarf Malzeme Alımı,TARLA-2017TSRF020,Sarf,55552,Türk Lirası,24.11.2017,İhalesi Yapıldı-Faturası  ödendi,07.12.2017,14:50:00,52000,122932,14.12.2017,Elysium,"Alımın İçeriği
+CAT7 Kablo3500 Metre
+300 VOLT izolasyon seviyeli,6 core, blendajlı ve zırhlı data kablosu 50Metre
+300 VOLT izolasyon seviyeli,25 core, blendajlı ve zırhlı data kablosu GENEX CABLING G40425 50Metre
+RS232 düşük kapasiteli bilgisayar kablosu200Metre
+RG11 triaksiyal kablo600Metre
+RG-58 koaksiyel kablo600Metre
+K-Tipi termokupl kablosu600Metre
+2x0,75 mm2 zırhlı bükülmüş çift kablo1000Metre"
+19 Kalem Sarf Malzeme Alımı,TARLA-2017TSRF024,Sarf,58211,Türk Lirası,23.11.2017,İhalesi Yapıldı,22.12.2017,11:00:00,55000,122970,,TCS Makina-Hırdavat,"Malzemenin Cinsi MiktarıÖlçü Birimi
+Basınçlı Tesisat Sarf Malzemeleri  ( Borular, Fittingler, vb 7 Adet
+Muhtelif Mekanik Sarf Malzemeler (Civata, Çelik, Alüminyum, Teflon Sarf Malzemeleri)  7Adet
+Kaynak camı30Adet
+Şeffaf Sıvı silikon20Adet
+Beyaz sıvı silikon20Adet
+Çekomastik silikon20Adet
+Parmak rulo50Adet
+Rulo5Adet
+3 kg çelik macun3Adet
+Gazaltı kaynak torcu1Adet
+Gazaltı kaynak torç başlığı10Adet
+Gazaltı kaynak kontak memesi50Adet
+Kaynak Torcu2Adet
+Tig Kaynak-Tungsten Uc30Adet
+Tig Kaynak Teli20kutu
+Mig-Mag Kaynak Meme Tutucu50Adet
+45x45 Sigma Profil15Adet
+30x30x3 Köşebent18Adet
+Paslanmaz Çelik Makine Ayağı60Adet"
+Vakum Fırın,TARLA-2017TSDN035,Donanım,55780,Türk Lirası,23.11.2017,ihale iptal edildi,07.12.2017,15:10:00,,122934,,,
+Solvent Kabini,TARLA-2017TSDN037,Donanım,46610,Türk Lirası,23.11.2017,ihale iptal edildi,07.12.2017,15:20:00,,122935,,,
+10 Kalem Sarf Malzeme Alımı,TARLA-2017TSRF022,Sarf,45400,Türk Lirası,23.11.2017,İhalesi Yapıldı,07.12.2017,14:40:00,40000,122931,14.12.2017,Elysium,
+Solvent Uçurma Amaçlı Vakum Pompası,TARLA-2017TSDN039,Donanım,58310,Türk Lirası,24.11.2017,ihale iptal edildi,07.12.2017,15:30:00,,122936,,,
+"Dozimetre Okuyucuları(Dozimetre Okuyucu Tip1, Dozimetre Okuyucu Tip2",TARLA-2017TSDN036,Donanım,"236829,97",Türk Lirası,24.11.2017,Onayı alındı-İhalesi Yapılacak,,,,,,,
+Azot Tankı Tip1,TARLA-2017TSDN032,Donanım,250800,Türk Lirası,29.11.2017,İhalesi Yapıldı,21.12.2017,15:00:00,175000,122939,işe başlama tarihinden itibaren 14 gün,Croyocan,
+Araç Kiralama Hizmeti,TARLA-2017TSHZ042,Hizmet,40800,Türk Lirası,30.11.2017,İhalesi Yapıldı,22.12.2017,10:40:00,33600,122972,,Özerbey,
+ Konferans Salonu Sandalyesi,,Donanım,44604,Türk Lirası,04.12.2017,Harcama Talimatı,,,,,,,
+33 Kalem Sarf Malzeme Alımı,,Sarf,"56979,25",Türk Lirası,07.12.2017,İhalesi Yapıldı,22.12.2017,10:50:00,50800+KDV,122971,,Yıldırım,"Malzemenin Cinsi MiktarıÖlçü Birimi
+CAT 7 Erkek RJ45 Konnektor100Adet
+CAT 7 Erkek RJ45 Konnektor150Adet
+SMB erkek-SMB erkek konnektörlü 50Ohm RG142 kablo (1metre)  40   Adet
+BNC erkek-SMA erkek konnektörlü 50Ohm RG316 kablo (2 metre)  40  Adet
+BNC erkek-SMA erkek konnektörlü 50Ohm RG316 kablo (3 metre)  40  Adet
+BNC erkek-SMB erkek konnektörlü 50Ohm RG142 kablo (3 metre)   20  Adet
+BNC erkek-SMB erkek konnektörlü 50Ohm RG58 kablo (3 metre)     40   Adet
+BNC erkek-SMB erkek konnektörlü 50Ohm RG316 kablo (3 metre)   30   Adet
+AD7711 ADC Entegresi35Adet
+BNC erkek-BNC erkek konnektörlü 50Ohm RG 316 kablo 5 metre    20   Adet
+BNC erkek-SMA erkek konnektörlü 50Ohm RG 58 kablo  20 metre  5          Adet
+BNC erkek-SMA erkek konnektörlü 50Ohm RG 316 kablo 20 metre   5  Adet
+N erkek-BNC erkek konnektörlü  50Ohm RG 58 kablo 20 metre5Adet
+N erkek-BNC erkek konnektörlü
+50Ohm RG 316 kablo 20 metre5 Adet
+Dijital Ayarli Havya3Adet
+Breadboard10Adet
+SMA Dişi 90 derece PCB Tipi50Adet
+RG316/174 SMA Erkek Gold Konnektör 50 Adet
+RG316 Dişi BNC Kablo Tipi Konnektör 20Adet
+RG142 Kablo Konnektörü50Adet
+RG142 Kablo100Metre
+RG316 Kablo100Metre
+SMA Erkek Crimp RG58 Kablo İçin Konnektör60Adet
+SMB Erkek Sıkmalı Konnektör20Adet
+434 MHZ Alici Verici Modül5Adet
+Lantronix Seri-Ethernet dönüştürücü modülü 20Adet
+ZFL-1000LN+ Düşük gürültülü yükselteç4 Adet
+ZHL-1217MLN Düşük gürültülü yükselteç  2 Adet
+74LVCC 3245 8 bit çift kaynaklı voltaj arayüzü alıcıvericisi 200 Adet
+74LVC 1T45 çift kaynaklıvoltaj arayüzü alıcıvericisi 200 Adet
+Aşırı Gerilim Koruyucusu (Surge Protector)200Adet
+PCA9555A düşük voltaj I2C bus giriş çıkış portu100Adet
+INA219 I2C arayüzlü çift yönlü akım/güç monitörü  20Adet
+"
