@@ -2232,14 +2232,14 @@ a:focus {
   display: block;
 }
 .btn-default {
-  background-color: #f4f4f4;
-  color: #444;
+  background-color: #696969;
+  color: #3A3333;
   border-color: #ddd;
 }
 .btn-default:hover,
 .btn-default:active,
 .btn-default.hover {
-  background-color: #e7e7e7;
+  background-color: #707070;
 }
 .btn-primary {
   background-color: #3c8dbc;
