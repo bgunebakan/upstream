@@ -46,7 +46,7 @@ urlpatterns = [
     url(r'^select2/', include('django_select2.urls')),
     url(r'^project/', include('projectManager.urls'),name='project'),
     url(r'^mail/', include('webmail.urls')),
-    url(r'^access/', include('tarlaguard.urls')),
+    url(r'^portunes/', include('portunes.urls')),
     url(r'^inventory/', include('inventory.urls', namespace='inventory-urls', app_name='inventory')),
     url(r'^ldapconnect/', include('ldapconnect.urls')),
     url(r'^select2/', include('django_select2.urls')),

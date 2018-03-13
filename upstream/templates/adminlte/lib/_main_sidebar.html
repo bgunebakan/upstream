@@ -73,9 +73,9 @@
             </li>
             {%endif%}
 
-            {%if '/access/' in request.path %}
-            {% load menubuilder %}{% menu access %}
-            <li class="treeview {% add_active '/access/' request %}" id="active">
+            {%if '/portunes/' in request.path %}
+            {% load menubuilder %}{% menu portunes %}
+            <li class="treeview {% add_active '/portunes/' request %}" id="active">
                 <a href="#">
                   <i class="fa fa-credit-card"></i>
                   <span>Kartlı Geçiş</span>

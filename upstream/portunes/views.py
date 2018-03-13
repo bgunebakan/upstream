@@ -3,7 +3,7 @@ from django.shortcuts import render,get_object_or_404
 from django.http import HttpResponse
 from .models import *
 from django.template import loader
-from tarlaguard.tables import *
+from .tables import *
 from .forms import *
 from django.http import HttpResponseRedirect
 from django.http import Http404
@@ -30,7 +30,7 @@ from django.db.models import Max
 
 @login_required
 def index(request):
-    if request.user.groups.filter(name='admin').exists():
+    if request.user.groups.filter(name='portunes').exists():
         table = ActionTable(Action.objects.filter(Q(action_type__action_type=1)|Q(action_type__action_type=2)|Q(action_type__action_type=4)), order_by='-created_date')
         RequestConfig(request, paginate={'per_page': 15}).configure(table)
         controllers = Controller.objects.filter(health=False)
@@ -39,14 +39,14 @@ def index(request):
         controllers = Controller.objects.all()
         print controllers
 
-        return render(request, 'guard/dashboard.html', {'table_list': table,'controllers': controllers})
+        return render(request, 'portunes/dashboard.html', {'table_list': table,'controllers': controllers})
 
     if request.user.groups.filter(name='guard').exists():
         form = GuestForm(request.POST,request.FILES)
         if form.is_valid():
             form.save()
             return HttpResponseRedirect('/users/list/guest/')
-        return render(request, 'guard/guard_main.html', {'user_menu':'active'})
+        return render(request, 'portunes/guard_main.html', {'user_menu':'active'})
 
     return HttpResponseRedirect('/accounts/logout/')
 
@@ -61,7 +61,7 @@ def actions(request,actiontype):
         table_label = 'Tüm Hareketler'
 
     RequestConfig(request, paginate={'per_page': 20}).configure(table)
-    return render(request, 'guard/table.html', {'table_list': table,'table_label': table_label,'action_menu':'active'})
+    return render(request, 'portubes/table.html', {'table_list': table,'table_label': table_label,'action_menu':'active'})
 
 @login_required
 def logs(request):
@@ -143,18 +143,18 @@ def users(request,usertype):
     if usertype == 'personnel':
         table = PersonnelTable(Personnel.objects.filter( identifier__identifier_type=1 ))
         RequestConfig(request).configure(table)
-        return render(request, 'guard/table.html', {'table_list': table,'table_label': 'Personeller','user_menu':'active'})
+        return render(request, 'portunes/table.html', {'table_list': table,'table_label': 'Personeller','user_menu':'active'})
     elif usertype == 'guest':
         table = GuestTable(Personnel.objects.filter(identifier__identifier_type=2))
         RequestConfig(request).configure(table)
-        return render(request, 'guard/table.html', {'table_list': table,'table_label': 'Ziyaretçiler','user_menu':'active'})
+        return render(request, 'portunes/table.html', {'table_list': table,'table_label': 'Ziyaretçiler','user_menu':'active'})
 
 
 @login_required
 def controller_status(request):
     controllers = Controller.objects.all().order_by('ip_address')
 
-    return render(request, 'guard/controller/status.html', {'controller_menu':'active','controllers':controllers,'system_menu':'active'})
+    return render(request, 'portunes/controller/status.html', {'controller_menu':'active','controllers':controllers,'system_menu':'active'})
 
 
 @login_required
@@ -186,7 +186,7 @@ def controller_permission(request, mac):
             messages.success(request, unicode(permission.door.name) + ' icin Yetki GUNCELLENEMEDi!.')
 
     return HttpResponseRedirect('/users/access/' + permission.personnel.nat_id)
-    #return render(request, 'guard/user/access.html' )
+    #return render(request, 'portunes/user/access.html' )
 	#    	return HttpResponseRedirect('/users/list/personnel/')
 
 def controller_startup(request, mac):
@@ -231,7 +231,7 @@ def sorting(L):
 from datetime import datetime, timedelta
 from django.db.models import Sum
 @login_required
-def user_detail(request, nat_id, template_name='guard/user/profile.html'):
+def user_detail(request, nat_id, template_name='portunes/user/profile.html'):
     if request.method=='POST':
         personnel = Personnel.objects.get(nat_id=nat_id)
         if personnel.identifier.identifier_type == 1:
@@ -343,7 +343,7 @@ def user_access(request, nat_id):
                 else:
                     messages.info(request, unicode(personnel.name) + " - " + unicode(door.entrance) + " kontrolcuye KAYDEDiLEMEDi!")
         return HttpResponseRedirect('#')
-        #return render(request, 'guard/user/access.html', {'personnel': personnel,'controllers': controllers,'doors': doors,'permissions':permissions,'table_label':'Yetkilendirme','user_menu':'active'})
+        #return render(request, 'portunes/user/access.html', {'personnel': personnel,'controllers': controllers,'doors': doors,'permissions':permissions,'table_label':'Yetkilendirme','user_menu':'active'})
     else:
         try:
             controllers = Controller.objects.filter(health=True).order_by('name')
@@ -353,10 +353,10 @@ def user_access(request, nat_id):
         except Personnel.DoesNotExist:
             raise Http404("Personnel Bulunamadi")
 
-        return render(request, 'guard/user/access.html', {'personnel': personnel,'controllers': controllers,'doors': doors,'permissions':permissions,'table_label':'Yetkilendirme','user_menu':'active'})
+        return render(request, 'portunes/user/access.html', {'personnel': personnel,'controllers': controllers,'doors': doors,'permissions':permissions,'table_label':'Yetkilendirme','user_menu':'active'})
 
 @login_required
-def user_new(request,usertype, template_name='guard/form.html'):
+def user_new(request,usertype, template_name='portunes/form.html'):
 
     if usertype == 'personnel':
         nat_id = request.POST.get("nat_id", "")
@@ -392,7 +392,7 @@ def user_new(request,usertype, template_name='guard/form.html'):
 
 
 @login_required
-def user_delete(request, nat_id, template_name='guard/form.html'):
+def user_delete(request, nat_id, template_name='portunes/form.html'):
     personnel = get_object_or_404(Personnel, nat_id=nat_id)
     user_type = personnel.identifier.identifier_type
 
@@ -409,7 +409,7 @@ def user_delete(request, nat_id, template_name='guard/form.html'):
     return HttpResponseRedirect('/users/list/personnel/'  )
 
 @login_required
-def controller_detail(request, mac, template_name='guard/form.html'):
+def controller_detail(request, mac, template_name='portunes/form.html'):
     controller = get_object_or_404(Controller, mac=mac)
     form = ControllerForm(request.POST or None, instance=controller)
     if form.is_valid():
@@ -421,13 +421,13 @@ def controller_detail(request, mac, template_name='guard/form.html'):
 def controller_all(request):
     table = ControllerTable(Controller.objects.all())
     RequestConfig(request).configure(table)
-    return render(request, 'guard/table.html', {'table_list': table,'table_label': 'Kontrolcüler','system_menu':'active'})
+    return render(request, 'portunes/table.html', {'table_list': table,'table_label': 'Kontrolcüler','system_menu':'active'})
 
 @login_required
 def door_all(request):
     table = DoorTable(Door.objects.all())
     RequestConfig(request).configure(table)
-    return render(request, 'guard/table.html', {'table_list': table,'table_label': 'Kapılar','system_menu':'active'})
+    return render(request, 'portunes/table.html', {'table_list': table,'table_label': 'Kapılar','system_menu':'active'})
 
 @login_required
 def door_new(request):
@@ -445,10 +445,10 @@ def door_new(request):
     else:
         form = DoorForm()
 
-    return render(request, 'guard/form.html', {'form': form,'form_label': 'Kapı Oluştur','system_menu':'active'})
+    return render(request, 'portunes/form.html', {'form': form,'form_label': 'Kapı Oluştur','system_menu':'active'})
 
 @login_required
-def door_detail(request, id, template_name='guard/form.html'):
+def door_detail(request, id, template_name='portunes/form.html'):
     door = get_object_or_404(Door, id=id)
     form = DoorForm(request.POST or None, instance=door)
     if form.is_valid():
@@ -459,7 +459,7 @@ def door_detail(request, id, template_name='guard/form.html'):
 @login_required
 def door_group_all(request):
     door_groups = Door_group.objects
-    return render(request, "guard/door/door_groups.html", {'door_groups': door_groups,'system_menu':'active'})
+    return render(request, "portunes/door/door_groups.html", {'door_groups': door_groups,'system_menu':'active'})
 
 @login_required
 def door_group_new(request):
@@ -477,16 +477,16 @@ def door_group_new(request):
     else:
         form = DoorGroupForm()
 
-    return render(request, 'guard/door/newdoorgroup.html', {'form': form})
+    return render(request, 'portunes/door/newdoorgroup.html', {'form': form})
 
 @login_required
 def identifier_all(request):
     table = IdentifierTable(Identifier.objects.all())
     RequestConfig(request).configure(table)
-    return render(request, 'guard/table.html', {'table_list': table,'table_label': 'Kartlar','identifier_menu':'active'})
+    return render(request, 'portunes/table.html', {'table_list': table,'table_label': 'Kartlar','identifier_menu':'active'})
 
 @login_required
-def identifier_new(request, template_name='guard/form.html'):
+def identifier_new(request, template_name='portunes/form.html'):
     key = request.POST.get("key", "")
 
     try:
@@ -503,7 +503,7 @@ def identifier_new(request, template_name='guard/form.html'):
     return render(request, template_name, {'form':form,'form_label':'Yeni Kart','identifier_menu':'active'})
 
 @login_required
-def identifier_edit(request, card_id, template_name='guard/form.html'):
+def identifier_edit(request, card_id, template_name='portunes/form.html'):
     identifier = get_object_or_404(Identifier, key=card_id)
     form = IdentifierForm(request.POST or None, instance=identifier)
     form.fields['key'].disabled = True
@@ -514,7 +514,7 @@ def identifier_edit(request, card_id, template_name='guard/form.html'):
     return render(request, template_name, {'form':form,'form_label': 'Kart Düzenle','identifier_menu':'active'})
 
 @login_required
-def identifier_delete(request, card_id, template_name='guard/form.html'):
+def identifier_delete(request, card_id, template_name='portunes/form.html'):
     identifier = get_object_or_404(Identifier, key=card_id)
     if request.method=='GET':
         identifier.delete()
@@ -538,16 +538,16 @@ def identifier_guest(request):
     else:
         form = IdentifierGuestForm()
 
-    return render(request, 'guard/form.html', {'form': form,'form_label': 'Misafir Kartı Tanımlama','user_menu':'active'})
+    return render(request, 'portunes/form.html', {'form': form,'form_label': 'Misafir Kartı Tanımlama','user_menu':'active'})
 
 @login_required
 def identifier_type_all(request):
     table = IdentifierTypeTable(IdentifierType.objects.all())
     RequestConfig(request).configure(table)
-    return render(request, 'guard/table.html', {'table_list': table,'table_label': 'Kart Tipleri','identifier_menu':'active'})
+    return render(request, 'portunes/table.html', {'table_list': table,'table_label': 'Kart Tipleri','identifier_menu':'active'})
 
 @login_required
-def identifier_type_new(request, template_name='guard/form.html'):
+def identifier_type_new(request, template_name='portunes/form.html'):
     form = IdentifierTypeForm(request.POST or None)
     if form.is_valid():
         form.save()
@@ -555,7 +555,7 @@ def identifier_type_new(request, template_name='guard/form.html'):
     return render(request, template_name, {'form':form,'form_label':"Yeni Kart Tipi",'identifier_menu':'active'})
 
 @login_required
-def identifier_type_edit(request, card_id, template_name='guard/form.html'):
+def identifier_type_edit(request, card_id, template_name='portunes/form.html'):
     identifiertype = get_object_or_404(IdentifierType, name=card_id)
     form = IdentifierTypeForm(request.POST or None, instance=identifiertype)
     if form.is_valid():
@@ -564,7 +564,7 @@ def identifier_type_edit(request, card_id, template_name='guard/form.html'):
     return render(request, template_name, {'form':form,'form_label':"Kart Tipi Güncelleme",'identifier_menu':'active'})
 
 @login_required
-def identifier_type_delete(request, card_id, template_name='guard/form.html'):
+def identifier_type_delete(request, card_id, template_name='portunes/form.html'):
     identifiertype = get_object_or_404(IdentifierType, name=card_id)
     if request.method=='GET':
         identifiertype.delete()

@@ -48,11 +48,11 @@ INSTALLED_APPS = [
     'easy_thumbnails',
     'image_cropping',
     'cruds_adminlte',
-    'procurement.apps.ProcurementConfig',
+    'procurement',
     'personnel',
     'projectManager',
     'django_mailbox',
-    'tarlaguard',
+    'portunes',
     'inventory',
     #'procurement',
     'django_ajax',
@@ -60,6 +60,7 @@ INSTALLED_APPS = [
     'django_python3_ldap',
     'auditlog',
     'csvimport.app.CSVImportConf',
+    'django_tables2',
 #    'raven.contrib.django.raven_compat',
 ]
 
