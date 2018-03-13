@@ -32,7 +32,43 @@
         </div>
         {%endfor%}
 
+        <div class="col-md-6">
+          <div class="box box-default">
+              <div class="box-header with-border">
+                <h3 class="box-title">Hareketler</h3>
+              </div>
+              <!-- /.box-header -->
+              <div class="box-body">
+                {%action_logs 10 as actions%}
+                {{actions|safe}}
+              </div>
+          </div>
+        <!-- ./col -->
+        </div>
+        <div class="col-md-6">
+          <div class="box box-default">
+              <div class="box-header with-border">
+                <h3 class="box-title">Güncellenecek Kullanıcılar</h3>
+              </div>
+              <!-- /.box-header -->
+              <div class="box-body">
+                {%for personnel in personnels%}
+                  {%if personnel.personnel_type is None %}
+                    <div class="icon">
+                      <i class="fa fa-user">
+                        <a href="/personnel/personnel/{{personnel.id}}">{{personnel.user.username}}</a>
+                      </i>
+                    </div>
+                  {%endif%}
+                {%endfor%}
+              </div>
+          </div>
+        <!-- ./col -->
+        </div>
+
       </div>
+
+
   </div>
   <div class="col-md-2">
     <div class="box box-default">
@@ -41,7 +77,8 @@
         </div>
         <!-- /.box-header -->
         <div class="box-body">
-          {%for personnel in personnels%}
+          {%last_personnels 10 as last_personnels%}
+          {%for personnel in last_personnels%}
             <div class="icon">
               <i class="fa {{personnel.personnel_type.icon}}">
                 <a href="/personnel/personnel/{{personnel.id}}">{{personnel}}</a>
@@ -52,42 +89,7 @@
     </div>
   <!-- ./col -->
   </div>
-</div>
 
-<div class="row">
-  <div class="col-md-5">
-    <div class="box box-default">
-        <div class="box-header with-border">
-          <h3 class="box-title">Hareketler</h3>
-        </div>
-        <!-- /.box-header -->
-        <div class="box-body">
-          {%action_logs 10 as actions%}
-          {{actions|safe}}
-        </div>
-    </div>
-  <!-- ./col -->
-  </div>
-  <div class="col-md-5">
-    <div class="box box-default">
-        <div class="box-header with-border">
-          <h3 class="box-title">Güncellenecek Kullanıcılar</h3>
-        </div>
-        <!-- /.box-header -->
-        <div class="box-body">
-          {%for personnel in personnels%}
-            {%if personnel.personnel_type is None %}
-              <div class="icon">
-                <i class="fa fa-user">
-                  <a href="/personnel/personnel/{{personnel.id}}">{{personnel.user.username}}</a>
-                </i>
-              </div>
-            {%endif%}
-          {%endfor%}
-        </div>
-    </div>
-  <!-- ./col -->
-  </div>
 </div>
 
 {% endblock %}

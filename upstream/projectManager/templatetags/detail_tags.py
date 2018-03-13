@@ -19,6 +19,8 @@ def appname(request):
         return 'Kartlı Geçiş'
     elif '/procurement/' in request.path:
         return 'İhale Yönetimi'
+    else:
+        return 'Web services'
 
 @register.simple_tag
 def add_active(url,request):

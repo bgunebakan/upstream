@@ -29,7 +29,7 @@ def select_personnel(id):
 @register.simple_tag
 def action_logs(count):
     try:
-        logentries = LogEntry.objects.all().order_by('-timestamp')[:10:1]
+        logentries = LogEntry.objects.all().order_by('-timestamp')[:count:1]
     except ObjectDoesNotExist:
         return "<b>Log Bulunamadı!</b>"
 	print "log bulunamadı"
@@ -53,3 +53,11 @@ def action_logs(count):
         html = html + ' <b>' + changed_obj.name + ' ' + changed_obj.surname + '</b> kullanıcısını düzenledi.'.decode('utf-8')
         html = html + ' <br>' + unicode(log.timestamp.strftime("%Y-%m-%d %H:%M:%S"))
     return html #.decode('utf-8')
+
+@register.simple_tag
+def last_personnels(count):
+    try:
+        personnels = Personnel.objects.all().order_by('-created_date')[:count:1]
+    except ObjectDoesNotExist:
+        return "Personnel bulunamadı!"
+    return personnels
