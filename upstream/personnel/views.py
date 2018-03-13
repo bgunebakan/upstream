@@ -17,6 +17,13 @@ from django.http import HttpResponseRedirect
 
 
 
+def count_personnel():
+    personnel_types = Personnel_type.objects.all()
+
+    for personnel_type in personnel_types:
+        personnels = Personnel.objects.filter(personnel_type=personnel_type)
+        personnel_type.total = personnels.count()
+        personnel_type.save()
 
 class IndexView(TemplateView):
     template_name = 'index.html'
@@ -75,7 +82,7 @@ class PersonnelCRUD(CRUDView):
 
     search_fields = ['name','surname','nat_id']
     split_space_search = True
-    paginate_by = 5
+    paginate_by = 15
     paginate_position = 'Bottom' # Both | Bottom
     paginate_template = 'cruds/pagination/enumeration.html'
 
@@ -97,6 +104,7 @@ class Personnel_typeCRUD(CRUDView):
 @login_required
 def dashboard(request,template_name='personnel/personnel/dashboard.html'):
 
+    count_personnel()
     personnels = Personnel.objects.all()
     total_personnels = 0
     for personnel in personnels:

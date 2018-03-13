@@ -35,3 +35,4 @@ def count_personnel(sender, instance, **kwargs):
         personnels = Personnel.objects.filter(personnel_type=personnel_type)
         personnel_type.total = personnels.count()
         personnel_type.save()
+

@@ -51,7 +51,7 @@ class PersonnelForm(forms.ModelForm):
 
         widgets = {
 
-            'birth_date': DatePickerWidget(attrs={'format': 'd/m/yyyy',
+            'birth_date': DatePickerWidget(attrs={'format': 'm/d/yyyy',
                                             'icon': 'fa-calendar'}),
             'cv': CKEditorWidget(attrs={'lang': 'tr'}),
         }
