@@ -100,8 +100,8 @@ class Personnel(models.Model):
     department = models.CharField(max_length=30,null=True,blank=True,verbose_name = "Departman")
     title = models.CharField(max_length=30,verbose_name = "Ünvan",null=True,blank=True)
     job = models.CharField(max_length=30,verbose_name = "Görev",null=True,blank=True)
-    phone_number1 = PhoneNumberField(blank=True,verbose_name = "Şirket Telefonu",null=True,default='+90')
-    phone_number2 = PhoneNumberField(blank=True,verbose_name = "Cep Telefonu",null=True,default='+90')
+    phone_number1 = PhoneNumberField(blank=True,verbose_name = "Şirket Telefonu",null=True)
+    phone_number2 = PhoneNumberField(blank=True,verbose_name = "Cep Telefonu",null=True)
     email = models.EmailField(max_length=30,verbose_name = "E-posta",null=True,blank=True)
     address = models.TextField(max_length=50,null=True,verbose_name = "Adres",blank=True)
     marital_status = models.IntegerField(choices=Marital_status, default=1,verbose_name = "Medeni hali")
@@ -132,7 +132,7 @@ class Personnel(models.Model):
         verbose_name_plural = _(u'Kullanıcılar')
 
     def __unicode__(self):
-        return self.name+" "+self.surname
+        return self.name + " " + self.surname
 
     def delete(self, *args, **kwargs):
         self.deleted=True
