@@ -31,20 +31,20 @@ class Personnel_type(models.Model):
         error_messages={
         'unique': 'That personnel type is already saved.'
         }
-        ,verbose_name = "Personel Türü"
+        ,verbose_name = "Personnel Type"
     )
-    slug = models.CharField(max_length=30,verbose_name = "Kısa isim")
+    slug = models.CharField(max_length=30,verbose_name = "Slug")
     icon = models.CharField(max_length=20,default="fa-users",verbose_name = "Icon",help_text=_('<a target="_blank" href="http://fontawesome.com/icons">Icon Seçenekleri</a>'))
-    color = models.CharField(max_length=20,default="bg-yellow",verbose_name = "Renk",help_text=_('<a target="_blank" href="http://basscss.com/v7/docs/background-colors/">Renk Seçenekleri</a>'))
-    total = models.IntegerField(verbose_name="Toplam Kullanıcı",default=0)
+    color = models.CharField(max_length=20,default="bg-yellow",verbose_name = "Color",help_text=_('<a target="_blank" href="http://basscss.com/v7/docs/background-colors/">Renk Seçenekleri</a>'))
+    total = models.IntegerField(verbose_name="Total user",default=0)
     created_date = models.DateTimeField(default=timezone.now)
-    deleted = models.BooleanField(default=False,verbose_name = "Silinmiş")
+    deleted = models.BooleanField(default=False,verbose_name = "deleted")
 
     objects = SoftDeleteManager()
     class Meta:
         ordering = ['name']
-        verbose_name = _(u'Kullanıcı Türü')
-        verbose_name_plural = _(u'Kullanıcı Türleri')
+        verbose_name = _(u'User type')
+        verbose_name_plural = _(u'User types')
 
     def delete(self, *args, **kwargs):
 #        self.total = total - 1
@@ -72,12 +72,12 @@ class Personnel(models.Model):
             (2, 'Evli'),
             (3, 'Bekar')
     )
-    Military_situation = (
-            (1, 'Belirtilmemiş'),
-            (2, 'Yaptı'),
-            (3, 'Yapmadı'),
-            (4, 'Tecilli')
-    )
+    #Military_situation = (
+    #        (1, 'Belirtilmemiş'),
+    #        (2, 'Yaptı'),
+    #        (3, 'Yapmadı'),
+    #        (4, 'Tecilli')
+    #)
     Drive_licence = (
             (1, 'Belirtilmemiş'),
             (2, 'A'),
@@ -91,45 +91,45 @@ class Personnel(models.Model):
     )
 
     user = models.OneToOneField(User,null=True,blank=True, on_delete=models.CASCADE,verbose_name="Ldap")
-    name = models.CharField(max_length=30,verbose_name = "İsim")
-    surname = models.CharField(max_length=30,verbose_name = "Soyisim")
-    country = CountryField(verbose_name = "Uyruğu",null=True,blank=True)
-    nat_id = models.CharField(max_length=12,unique=True,verbose_name = "TC No")
-    gender = models.IntegerField(choices=Gender, default=1,verbose_name = "Cinsiyet")
-    birth_date = models.DateField(null=True,blank=True)
-    department = models.CharField(max_length=30,null=True,blank=True,verbose_name = "Departman")
-    title = models.CharField(max_length=30,verbose_name = "Ünvan",null=True,blank=True)
-    job = models.CharField(max_length=30,verbose_name = "Görev",null=True,blank=True)
-    phone_number1 = PhoneNumberField(blank=True,verbose_name = "Şirket Telefonu",null=True)
-    phone_number2 = PhoneNumberField(blank=True,verbose_name = "Cep Telefonu",null=True)
-    email = models.EmailField(max_length=30,verbose_name = "E-posta",null=True,blank=True)
-    address = models.TextField(max_length=50,null=True,verbose_name = "Adres",blank=True)
-    marital_status = models.IntegerField(choices=Marital_status, default=1,verbose_name = "Medeni hali")
-    military_situation = models.IntegerField(choices=Military_situation, default=1,verbose_name = "Askerlik Durumu")
-    drive_licence = models.IntegerField(choices=Drive_licence, default=1,verbose_name = "Sürücü Belgesi")
-    health_status = profile_picture = models.ImageField(upload_to='health_status/',null=True,blank=True,verbose_name = "Sağlık Raporu")
+    name = models.CharField(max_length=30,verbose_name = "Name")
+    surname = models.CharField(max_length=30,verbose_name = "Surname")
+    country = CountryField(verbose_name = "Country",null=True,blank=True)
+    nat_id = models.CharField(max_length=12,unique=True,verbose_name = "Nat ID")
+    gender = models.IntegerField(choices=Gender, default=1,verbose_name = "Gender")
+    birth_date = models.DateField(null=True,blank=True,verbose_name="Birth date")
+    department = models.CharField(max_length=30,null=True,blank=True,verbose_name = "Department")
+    title = models.CharField(max_length=30,verbose_name = "Title",null=True,blank=True)
+    job = models.CharField(max_length=30,verbose_name = "Job",null=True,blank=True)
+    phone_number1 = models.CharField(max_length=30,blank=True,verbose_name = "Job Phone",null=True)
+    phone_number2 = models.CharField(max_length=30,blank=True,verbose_name = "Mobile Phone",null=True)
+    email = models.EmailField(max_length=30,verbose_name = "E-mail",null=True,blank=True)
+    address = models.TextField(max_length=50,null=True,verbose_name = "Address",blank=True)
+    marital_status = models.IntegerField(choices=Marital_status, default=1,verbose_name = "Marital Status")
+    #military_situation = models.IntegerField(choices=Military_situation, default=1,verbose_name = "Askerlik Durumu")
+    drive_licence = models.IntegerField(choices=Drive_licence, default=1,verbose_name = "Drive Licence")
+    health_status = profile_picture = models.ImageField(upload_to='health_status/',null=True,blank=True,verbose_name = "Health Status")
 
     #identifier = models.OneToOneField('tarlaguard.Identifier',null=True,blank=True,on_delete=models.CASCADE,verbose_name = "Kart No")
-    profile_picture = models.ImageField(upload_to='profile_pictures/',null=True,default='profile_pictures/profile.png',verbose_name = "Profil Fotoğrafı")
-    user_file = models.FileField(upload_to='personnel_pdf/',null=True,blank=True,verbose_name = "Personel PDF")
-    notes = models.TextField(verbose_name = "Notlar",null=True,blank=True)
+    profile_picture = models.ImageField(upload_to='profile_pictures/',null=True,default='profile_pictures/profile.png',verbose_name = "Profile Picture")
+    user_file = models.FileField(upload_to='personnel_pdf/',null=True,blank=True,verbose_name = "Personnel PDF")
+    notes = models.TextField(verbose_name = "Notes",null=True,blank=True)
     cv = models.TextField(verbose_name = "CV",null=True,blank=True)
-    total_workday = models.IntegerField(verbose_name = "Toplam iş günü",default=0)
-    total_workhour = models.IntegerField(verbose_name = "Toplam iş saati",default=0)
-    total_dose = models.IntegerField(verbose_name = "Toplam doz",default=0)
+    total_workday = models.IntegerField(verbose_name = "Total work day",default=0)
+    total_workhour = models.IntegerField(verbose_name = "Total work hour",default=0)
+    total_dose = models.IntegerField(verbose_name = "Total dose",default=0)
 
-    personnel_type = models.ForeignKey(Personnel_type, null=True,on_delete=models.SET_NULL,verbose_name = "Personel Tipi")
+    personnel_type = models.ForeignKey(Personnel_type, null=True,on_delete=models.SET_NULL,verbose_name = "User Type")
 
-    created_date = models.DateTimeField(default=timezone.now,verbose_name="Kayıt Tarihi")
+    created_date = models.DateTimeField(default=timezone.now,verbose_name="Created date")
 
-    deleted = models.BooleanField(default=False,verbose_name = "Silinmiş")
+    deleted = models.BooleanField(default=False,verbose_name = "Deleted")
 
 
     objects = SoftDeleteManager()
     class Meta:
         ordering = ['name']
-        verbose_name = _(u'Kullanıcı')
-        verbose_name_plural = _(u'Kullanıcılar')
+        verbose_name = _(u'User')
+        verbose_name_plural = _(u'Users')
 
     def __unicode__(self):
         return self.name + " " + self.surname

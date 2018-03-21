@@ -5,11 +5,11 @@ import django_tables2 as tables
 class ActionTable(tables.Table):
 
     #Identifier = tables.Column(accessor='personnel.identifier.key')
-    Profil = tables.TemplateColumn('<a href="/personnel/profile/{{record.personnel.user.username}}" ><i class="fa  fa-edit"></i></a>')
+    #Profil = tables.TemplateColumn('<a href="/personnel/profile/{{record.personnel.user.username}}" ><i class="fa  fa-edit"></i></a>')
     #Personnel = tables.Column(accessor='personnel.name')
     class Meta:
         model = Action
-        fields = ('personnel','identifier', 'door', 'action_type','created_date')
+        fields = ('user','identifier', 'door', 'action_type','created_date')
 
         attrs = {'class': 'table table-bordered table-hover'}
 

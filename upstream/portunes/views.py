@@ -2,66 +2,80 @@
 from django.shortcuts import render,get_object_or_404
 from django.http import HttpResponse
 from .models import *
-from django.template import loader
-from .tables import *
 from .forms import *
-from django.http import HttpResponseRedirect
-from django.http import Http404
-from django.contrib import messages
-from django.contrib.auth.decorators import login_required
-from django_tables2 import RequestConfig
-from django.views.generic.edit import CreateView, UpdateView, DeleteView
-from django.db.models import F
-from django.utils import timezone
-from dateutil import parser
-from datetime import datetime
-import time
+from .tables import *
 from django.db.models import Q
-from collections import defaultdict
-from graphos.sources.simple import SimpleDataSource
-from graphos.renderers import gchart, yui, flot, morris, highcharts, c3js, matplotlib_renderer
-import json
-from django.http import JsonResponse
-from django.views.decorators.csrf import csrf_exempt
-from operator import itemgetter
-from collections import OrderedDict
-from itertools import izip
-from django.db.models import Max
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth.decorators import permission_required
+
+from cruds_adminlte.crud import CRUDView
+from cruds_adminlte.inline_crud import InlineAjaxCRUD
+from cruds_adminlte.filter import FormFilter
+from django.contrib import messages
+
+from django_tables2 import RequestConfig
 
 @login_required
-def index(request):
-    if request.user.groups.filter(name='portunes').exists():
-        table = ActionTable(Action.objects.filter(Q(action_type__action_type=1)|Q(action_type__action_type=2)|Q(action_type__action_type=4)), order_by='-created_date')
-        RequestConfig(request, paginate={'per_page': 15}).configure(table)
-        controllers = Controller.objects.filter(health=False)
-        for controller in controllers:
-            messages.error(request, controller.name + ' Sinyal alinamiyor.')
-        controllers = Controller.objects.all()
-        print controllers
+@permission_required('portunes.can_add_permission', login_url='/portunes/guard/dashboard/')
+def dashboard(request):
+    table = ActionTable(Action.objects.filter(Q(action_type__action_type=1)|Q(action_type__action_type=2)|Q(action_type__action_type=4)), order_by='-created_date')
+    RequestConfig(request, paginate={'per_page': 15}).configure(table)
+    #controllers = Controller.objects.filter(health=False)
+    #for controller in controllers:
+        #messages.error(request, controller.name + ' Sinyal alinamiyor.')
+    controllers = Controller.objects.all()
+    print controllers
 
-        return render(request, 'portunes/dashboard.html', {'table_list': table,'controllers': controllers})
-
-    if request.user.groups.filter(name='guard').exists():
-        form = GuestForm(request.POST,request.FILES)
-        if form.is_valid():
-            form.save()
-            return HttpResponseRedirect('/users/list/guest/')
-        return render(request, 'portunes/guard_main.html', {'user_menu':'active'})
-
-    return HttpResponseRedirect('/accounts/logout/')
+    return render(request, 'portunes/dashboard.html', {'table_list': table,'controllers': controllers})
 
 @login_required
-def actions(request,actiontype):
+#@permission_required('portunes.can_see_avaliable_', login_url='/portunes/')
+def guard_dashboard(request):
+    #form = GuestForm(request.POST,request.FILES)
+    #if form.is_valid():
+    #    form.save()
+    #return HttpResponseRedirect('/users/list/guest/')
+    return render(request, 'portunes/guard_main.html', {'user_menu':'active'})
 
-    if actiontype == "error":
-        table = ActionTable(Action.objects.filter(Q(action_type__action_type=3)|Q(action_type__action_type=4)), order_by='-created_date')
-        table_label = 'Hatalı Hareketler'
-    else:
-        table = ActionTable(Action.objects.filter(Q(action_type__action_type=1)|Q(action_type__action_type=2)|Q(action_type__action_type=2)), order_by='-created_date')
-        table_label = 'Tüm Hareketler'
+class ControllerCRUD(CRUDView):
+    model = Controller
+    template_name_base='crud'  #customer cruds => ccruds
+    namespace = None
+    check_login = True
+    check_perms = True
+    add_form = ControllerForm
+    update_form = ControllerForm
 
-    RequestConfig(request, paginate={'per_page': 20}).configure(table)
-    return render(request, 'portubes/table.html', {'table_list': table,'table_label': table_label,'action_menu':'active'})
+    views_available=['create', 'list', 'update', 'detail']
+    fields = ['name','mac','ip_address','health','created_date','updated_date','deleted']
+    list_fields = ['name','mac','health']
+    display_fields = ['name','mac','ip_address','health','created_date','updated_date','deleted']
+
+    search_fields = ['name','ip','mac']
+    split_space_search = True
+    paginate_by = 15
+    paginate_position = 'Bottom' # Both | Bottom
+    paginate_template = 'cruds/pagination/enumeration.html'
+
+class DoorCRUD(CRUDView):
+    model = Door
+    template_name_base='crud'  #customer cruds => ccruds
+    namespace = None
+    check_login = True
+    check_perms = True
+    add_form = DoorForm
+    update_form = DoorForm
+
+    views_available=['create', 'list', 'update','delete','detail']
+    fields = ['name','entrance','entrance_controller_pin','antipassback','enter','description','created_date','updated_date' ,'deleted' ]
+    list_fields = ['name','entrance_controller_pin','enter']
+    display_fields = ['name','entrance','entrance_controller_pin','antipassback','enter','description','created_date','updated_date' ,'deleted' ]
+
+    search_fields = ['name','entrance','entrance_controller_pin']
+    split_space_search = True
+    paginate_by = 15
+    paginate_position = 'Bottom' # Both | Bottom
+    paginate_template = 'cruds/pagination/enumeration.html'
 
 @login_required
 def logs(request):
@@ -137,18 +151,6 @@ def settime(request):
 
 
     return HttpResponseRedirect('/controllers/status/')
-
-@login_required
-def users(request,usertype):
-    if usertype == 'personnel':
-        table = PersonnelTable(Personnel.objects.filter( identifier__identifier_type=1 ))
-        RequestConfig(request).configure(table)
-        return render(request, 'portunes/table.html', {'table_list': table,'table_label': 'Personeller','user_menu':'active'})
-    elif usertype == 'guest':
-        table = GuestTable(Personnel.objects.filter(identifier__identifier_type=2))
-        RequestConfig(request).configure(table)
-        return render(request, 'portunes/table.html', {'table_list': table,'table_label': 'Ziyaretçiler','user_menu':'active'})
-
 
 @login_required
 def controller_status(request):
@@ -228,76 +230,7 @@ def sorting(L):
     splitup = L.split('-')
     return splitup[2],splitup[1], splitup[0]
 
-from datetime import datetime, timedelta
-from django.db.models import Sum
-@login_required
-def user_detail(request, nat_id, template_name='portunes/user/profile.html'):
-    if request.method=='POST':
-        personnel = Personnel.objects.get(nat_id=nat_id)
-        if personnel.identifier.identifier_type == 1:
-            form = PersonnelForm(request.POST,request.FILES, instance=personnel)
-        elif personnel.identifier.identifier_type == 2:
-            form = GuestForm(request.POST, instance=personnel)
 
-        if form.is_valid():
-            form.save()
-            messages.success(request, 'Personel Güncellendi.')
-        return HttpResponseRedirect('/users/detail/' + personnel.nat_id)
-    else:
-        try:
-            personnel = Personnel.objects.get(nat_id=nat_id)
-        except Personnel.DoesNotExist:
-            messages.success(request, nat_id + ' TC kimlik nolu Kullanici Bulunamadi!')
-            return HttpResponseRedirect('/')
-        #workhour calculations
-        actions = Action.objects.filter(personnel=personnel).order_by('-created_date')
-        #---------------
-
-        d = defaultdict(list)
-
-        for action in actions:
-            key, _ = str(action.created_date).split()
-            d[key].append(str(action.created_date))
-        workday = 0
-        workhour = 0
-        data =  [['Tarih', 'Saat']]
-
-        #sort list by date reverse
-        date_list = sorted(d, key=lambda x: datetime.strptime(x, '%Y-%m-%d'),reverse=True)
-        i=0
-        for date in date_list:
-            dt_max = parser.parse(max(d[date]))
-            dt_min = parser.parse(min(d[date]))
-            if i < 10:
-                data.append([date,int(dt_max.hour)-int(dt_min.hour)])
-            workhour = workhour + int(dt_max.hour)-int(dt_min.hour)
-            workday = workday + 1
-            i = i + 1
-
-        personnel.total_workday = workday
-        personnel.total_workhour = workhour
-        personnel.save()
-
-        # DataSource object
-        data_source = SimpleDataSource(data=data)
-
-        # Chart object
-        chart = gchart.ColumnChart(data_source,options={'title': 'Son 10 gün çalışma saati'})
-
-
-        if personnel.identifier.identifier_type == 1:
-            form = PersonnelForm(request.POST or None, instance=personnel)
-        elif personnel.identifier.identifier_type == 2:
-            form = GuestForm(request.POST or None, instance=personnel)
-
-
-        table = ActionTable(Action.objects.filter(personnel=personnel), order_by='-created_date')
-        RequestConfig(request, paginate={'per_page': 15}).configure(table)
-
-        if form.is_valid():
-            form.save()
-            return HttpResponseRedirect('/users/all/')
-        return render(request, template_name, {'chart': chart,'table_list': table,'personnel': personnel,'form':form,'form_label':"Kart Tipi Güncelleme",'user_menu':'active'})
 
 @login_required
 def user_access(request, nat_id):
@@ -354,246 +287,3 @@ def user_access(request, nat_id):
             raise Http404("Personnel Bulunamadi")
 
         return render(request, 'portunes/user/access.html', {'personnel': personnel,'controllers': controllers,'doors': doors,'permissions':permissions,'table_label':'Yetkilendirme','user_menu':'active'})
-
-@login_required
-def user_new(request,usertype, template_name='portunes/form.html'):
-
-    if usertype == 'personnel':
-        nat_id = request.POST.get("nat_id", "")
-
-        try:
-            personnel = Personnel.objects.get(nat_id=nat_id)
-            personnel.deleted = False
-            form = PersonnelForm(request.POST,request.FILES or None, instance=personnel)
-        except Personnel.DoesNotExist:
-            form = PersonnelForm(request.POST or None)
-
-        if form.is_valid():
-            new_form = form.save(commit=False)
-            new_form.save()
-            return HttpResponseRedirect('/users/list/personnel/')
-        return render(request, template_name, {'form':form,'form_label':"Yeni Personel",'user_menu':'active'})
-
-    elif usertype == 'guest':
-        nat_id = request.POST.get("nat_id", "")
-
-        try:
-            personnel = Personnel.objects.get(nat_id=nat_id)
-            personnel.deleted = False
-            form = GuestForm(request.POST or None, instance=personnel)
-        except Personnel.DoesNotExist:
-            form = GuestForm(request.POST or None)
-
-        if form.is_valid():
-            new_form = form.save(commit=False)
-            new_form.save()
-            return HttpResponseRedirect('/users/list/guest/')
-        return render(request, template_name, {'form':form,'form_label':"Yeni Ziyaretçi",'user_menu':'active'})
-
-
-@login_required
-def user_delete(request, nat_id, template_name='portunes/form.html'):
-    personnel = get_object_or_404(Personnel, nat_id=nat_id)
-    user_type = personnel.identifier.identifier_type
-
-    personnel_type = personnel.identifier.identifier_type
-    if request.method=='GET':
-        personnel.identifier = None
-        personnel.delete()
-        if user_type is 1:
-            messages.info(request, 'Personel Silindi.')
-            return HttpResponseRedirect('/users/list/personnel/' )
-        else:
-            messages.info(request, 'Ziyaretçi Silindi.')
-            return HttpResponseRedirect('/users/list/guest/' )
-    return HttpResponseRedirect('/users/list/personnel/'  )
-
-@login_required
-def controller_detail(request, mac, template_name='portunes/form.html'):
-    controller = get_object_or_404(Controller, mac=mac)
-    form = ControllerForm(request.POST or None, instance=controller)
-    if form.is_valid():
-        form.save()
-        return HttpResponseRedirect('/controllers/all/')
-    return render(request, template_name, {'form':form,'form_label': 'Kontrolcü Düzenle','system_menu':'active'})
-
-@login_required
-def controller_all(request):
-    table = ControllerTable(Controller.objects.all())
-    RequestConfig(request).configure(table)
-    return render(request, 'portunes/table.html', {'table_list': table,'table_label': 'Kontrolcüler','system_menu':'active'})
-
-@login_required
-def door_all(request):
-    table = DoorTable(Door.objects.all())
-    RequestConfig(request).configure(table)
-    return render(request, 'portunes/table.html', {'table_list': table,'table_label': 'Kapılar','system_menu':'active'})
-
-@login_required
-def door_new(request):
-    if request.method == 'POST':
-        # create a form instance and populate it with data from the request:
-        form = DoorForm(request.POST)
-        # check whether it's valid:
-        if form.is_valid():
-            form.save()
-            messages.info(request, 'Yeni Kapı Oluşturuldu!')
-            print form.cleaned_data.get('id')
-            return HttpResponseRedirect('/doors/all/' + unicode(form.cleaned_data.get('id')))
-
-    # if a GET (or any other method) we'll create a blank form
-    else:
-        form = DoorForm()
-
-    return render(request, 'portunes/form.html', {'form': form,'form_label': 'Kapı Oluştur','system_menu':'active'})
-
-@login_required
-def door_detail(request, id, template_name='portunes/form.html'):
-    door = get_object_or_404(Door, id=id)
-    form = DoorForm(request.POST or None, instance=door)
-    if form.is_valid():
-        form.save()
-        return HttpResponseRedirect('/doors/all/')
-    return render(request, template_name, {'form':form,'form_label': 'Kapı Düzenle','system_menu':'active'})
-
-@login_required
-def door_group_all(request):
-    door_groups = Door_group.objects
-    return render(request, "portunes/door/door_groups.html", {'door_groups': door_groups,'system_menu':'active'})
-
-@login_required
-def door_group_new(request):
-    if request.method == 'POST':
-        # create a form instance and populate it with data from the request:
-        form = DoorGroupForm(request.POST)
-        # check whether it's valid:
-        if form.is_valid():
-            form.save()
-            messages.info(request, 'Yeni Kapı Grubu Oluşturuldu!')
-            print form.cleaned_data.get('id')
-            return HttpResponseRedirect('/doors/group/all/' + unicode(form.cleaned_data.get('id')))
-
-    # if a GET (or any other method) we'll create a blank form
-    else:
-        form = DoorGroupForm()
-
-    return render(request, 'portunes/door/newdoorgroup.html', {'form': form})
-
-@login_required
-def identifier_all(request):
-    table = IdentifierTable(Identifier.objects.all())
-    RequestConfig(request).configure(table)
-    return render(request, 'portunes/table.html', {'table_list': table,'table_label': 'Kartlar','identifier_menu':'active'})
-
-@login_required
-def identifier_new(request, template_name='portunes/form.html'):
-    key = request.POST.get("key", "")
-
-    try:
-        identifier = Identifier.objects.get(key=key)
-        identifier.deleted = False
-        form = IdentifierForm(request.POST or None, instance=identifier)
-    except Identifier.DoesNotExist:
-        form = IdentifierForm(request.POST or None)
-
-    if form.is_valid():
-        new_form = form.save(commit=False)
-        new_form.save()
-        return HttpResponseRedirect('/identifiers/all/')
-    return render(request, template_name, {'form':form,'form_label':'Yeni Kart','identifier_menu':'active'})
-
-@login_required
-def identifier_edit(request, card_id, template_name='portunes/form.html'):
-    identifier = get_object_or_404(Identifier, key=card_id)
-    form = IdentifierForm(request.POST or None, instance=identifier)
-    form.fields['key'].disabled = True
-    form.fields['key'].help_text = 'Kart numarası güncellenemez.Lütfen Yeni kart oluşturun.'
-    if form.is_valid():
-        form.save()
-        return HttpResponseRedirect('/identifiers/all/')
-    return render(request, template_name, {'form':form,'form_label': 'Kart Düzenle','identifier_menu':'active'})
-
-@login_required
-def identifier_delete(request, card_id, template_name='portunes/form.html'):
-    identifier = get_object_or_404(Identifier, key=card_id)
-    if request.method=='GET':
-        identifier.delete()
-        messages.info(request, 'Kart Silindi.')
-        return HttpResponseRedirect('/identifiers/all/')
-    return HttpResponseRedirect('/identifiers/all/')
-
-@login_required
-def identifier_guest(request):
-    if request.method == 'POST':
-        # create a form instance and populate it with data from the request:
-        form = IdentifierGuestForm(request.POST)
-        # check whether it's valid:
-        if form.is_valid():
-            form.save()
-            messages.info(request, 'Misafir kartı atandı!')
-            print form.cleaned_data.get('key')
-            return HttpResponseRedirect('/identifier/guest/all/' + unicode(form.cleaned_data.get('key')))
-
-    # if a GET (or any other method) we'll create a blank form
-    else:
-        form = IdentifierGuestForm()
-
-    return render(request, 'portunes/form.html', {'form': form,'form_label': 'Misafir Kartı Tanımlama','user_menu':'active'})
-
-@login_required
-def identifier_type_all(request):
-    table = IdentifierTypeTable(IdentifierType.objects.all())
-    RequestConfig(request).configure(table)
-    return render(request, 'portunes/table.html', {'table_list': table,'table_label': 'Kart Tipleri','identifier_menu':'active'})
-
-@login_required
-def identifier_type_new(request, template_name='portunes/form.html'):
-    form = IdentifierTypeForm(request.POST or None)
-    if form.is_valid():
-        form.save()
-        return HttpResponseRedirect('/identifiers/type/all/')
-    return render(request, template_name, {'form':form,'form_label':"Yeni Kart Tipi",'identifier_menu':'active'})
-
-@login_required
-def identifier_type_edit(request, card_id, template_name='portunes/form.html'):
-    identifiertype = get_object_or_404(IdentifierType, name=card_id)
-    form = IdentifierTypeForm(request.POST or None, instance=identifiertype)
-    if form.is_valid():
-        form.save()
-        return HttpResponseRedirect('/identifiers/type/all/')
-    return render(request, template_name, {'form':form,'form_label':"Kart Tipi Güncelleme",'identifier_menu':'active'})
-
-@login_required
-def identifier_type_delete(request, card_id, template_name='portunes/form.html'):
-    identifiertype = get_object_or_404(IdentifierType, name=card_id)
-    if request.method=='GET':
-        identifiertype.delete()
-        messages.info(request, 'Kart Tipi Silindi.')
-        return HttpResponseRedirect('/identifiers/type/all/')
-    return HttpResponseRedirect('/identifiers/type/all/')
-
-
-def api(request):
-    if request.method=='GET':
-
-        if 'key' in request.GET:
-            try:
-                personnel = Personnel.objects.get(identifier__key=request.GET['key'])
-            except Personnel.DoesNotExist:
-                response_data = {}
-                response_data['error'] = 'Personnel not exist with key'
-                return JsonResponse(response_data)
-            response_data = {}
-            response_data['nat_id'] = personnel.nat_id
-            response_data['name'] = personnel.name
-            response_data['surname'] = personnel.surname
-
-            return JsonResponse(response_data)
-        else:
-            response_data = {}
-            response_data['error'] = 'Use key to get personnel data'
-    else:
-        response_data = {}
-        response_data['error'] = 'Send with GET request'
-
-    return HttpResponseRedirect('/')

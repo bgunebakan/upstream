@@ -28,13 +28,16 @@ from cruds_adminlte.urls import crud_for_model
 from cruds_adminlte.urls import crud_for_app
 from personnel.models import Personnel
 from procurement.views import TenderCRUD,Tender_end_dateCRUD
+from portunes.views import ControllerCRUD,DoorCRUD
 
 usercrud = UserCRUD()
 personnelcrud = PersonnelCRUD()
 personnel_typecrud = Personnel_typeCRUD()
 
-
 tendercrud = TenderCRUD()
+
+controllercrud = ControllerCRUD()
+doorcrud = DoorCRUD()
 
 ns = crud_for_app('personnel', check_perms=True, namespace="up")
 
@@ -46,7 +49,7 @@ urlpatterns = [
     url(r'^select2/', include('django_select2.urls')),
     url(r'^project/', include('projectManager.urls'),name='project'),
     url(r'^mail/', include('webmail.urls')),
-    url(r'^portunes/', include('portunes.urls')),
+
     url(r'^inventory/', include('inventory.urls', namespace='inventory-urls', app_name='inventory')),
     url(r'^ldapconnect/', include('ldapconnect.urls')),
     url(r'^select2/', include('django_select2.urls')),
@@ -58,6 +61,10 @@ urlpatterns = [
     #procurement
     url(r'^procurement/', include('procurement.urls')),
     url(r'', include(tendercrud.get_urls())),
+    #portunes
+    url(r'^portunes/', include('portunes.urls')),
+    url(r'', include(controllercrud.get_urls())),
+    url(r'', include(doorcrud.get_urls())),
 
 ]
 if settings.DEBUG:

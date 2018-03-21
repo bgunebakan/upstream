@@ -6,6 +6,7 @@ from django.contrib import admin
 from .utils import *
 from django.db.models.query import QuerySet
 from django.contrib.auth.models import User,Group
+from django.utils.translation import ugettext_lazy as _
 
 from personnel.models import Personnel
 
@@ -50,14 +51,20 @@ class Controller(models.Model):
     deleted = models.BooleanField(default=False,verbose_name = "Silinmiş")
 
     objects = SoftDeleteManager()
+    class Meta:
+        ordering = ['name']
+        verbose_name = _(u'Controller')
+        verbose_name_plural = _(u'Controllers')
 
     def delete(self, *args, **kwargs):
         self.deleted=True
         self.save()
         return
 
-    def __str__(self):
-        return self.name+" - "+self.mac
+    def __unicode__(self):
+        return unicode(self.name) + " - "+unicode(self.mac)
+
+
 
 class Door(models.Model):
     class Meta:
@@ -98,12 +105,17 @@ class Door(models.Model):
 
     objects = SoftDeleteManager()
 
+    class Meta:
+        ordering = ['name']
+        verbose_name = _(u'Door')
+        verbose_name_plural = _(u'Doors')
+
 #    def delete(self, *args, **kwargs):
 #        self.deleted=True
 #        self.save()
 #        return
-    def __str__(self):
-        return self.entrance.name + ' -- ' + self.name
+    def __unicode__(self):
+        return self.entrance.name + ' -- ' + unicode(self.name)
 
     class Meta:
         permissions = (
@@ -124,7 +136,7 @@ class Door_group(models.Model):
     created_date = models.DateTimeField(default=timezone.now)
 
 
-    def __str__(self):
+    def __unicode__(self):
         return self.name
 
     class Meta:
@@ -134,12 +146,12 @@ class Door_group(models.Model):
 
 class Action(models.Model):
 
-    user = models.ForeignKey(User,blank=True,null=True,on_delete=models.SET_NULL,verbose_name = "Personel")
-    identifier = models.ForeignKey('Identifier',null=True,verbose_name = "Kart No",on_delete=models.SET_NULL)
-    door = models.ForeignKey('door',null=True,blank=True,verbose_name = "Kapı",on_delete=models.SET_NULL)
-    action_type = models.ForeignKey('Action_type',verbose_name = "Hareket",null=True,on_delete=models.SET_NULL)
-    created_date = models.DateTimeField(default=timezone.now,verbose_name = "Tarih-Saat")
-    deleted = models.BooleanField(default=False,verbose_name = "Silinmiş")
+    user = models.ForeignKey(User,blank=True,null=True,on_delete=models.SET_NULL,verbose_name = "User")
+    identifier = models.ForeignKey('Identifier',null=True,verbose_name = "Identifier",on_delete=models.SET_NULL)
+    door = models.ForeignKey('door',null=True,blank=True,verbose_name = "Door",on_delete=models.SET_NULL)
+    action_type = models.ForeignKey('Action_type',verbose_name = "Action Type",null=True,on_delete=models.SET_NULL)
+    created_date = models.DateTimeField(default=timezone.now,verbose_name = "Date-time")
+    deleted = models.BooleanField(default=False,verbose_name = "Deleted")
 
     objects = SoftDeleteManager()
 
@@ -147,7 +159,7 @@ class Action(models.Model):
         self.deleted=True
         self.save()
         return
-    def __str__(self):
+    def __unicode__(self):
         message = str(self.id) + ':'
         if self.door:
             message += 'Door ' + self.door.name + ' | '
@@ -189,7 +201,7 @@ class Action_type(models.Model):
         self.save()
         return
 
-    def __str__(self):
+    def __unicode__(self):
         return self.message
 
 class Identifier(models.Model):
@@ -238,8 +250,8 @@ class Identifier(models.Model):
         self.save()
         return
 
-    def __str__(self):
-        return self.name+"-"+self.key
+    def __unicode__(self):
+        return unicode(self.name) + "-" + self.key
 
     class Meta:
         permissions = (
