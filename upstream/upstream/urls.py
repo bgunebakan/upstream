@@ -22,7 +22,7 @@ from django.contrib.auth import views as auth_views
 #import django_bootstrap_calendar
 from django.conf import settings
 from django.conf.urls.static import static
-from personnel.views import IndexView, PersonnelCRUD,Personnel_typeCRUD,UserCRUD
+from personnel.views import PersonnelCRUD,Personnel_typeCRUD,UserCRUD
 from django.apps import apps
 from cruds_adminlte.urls import crud_for_model
 from cruds_adminlte.urls import crud_for_app

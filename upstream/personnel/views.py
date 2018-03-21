@@ -14,7 +14,7 @@ from django.contrib.auth.decorators import login_required
 from .forms import *
 from django.shortcuts import render
 from django.http import HttpResponseRedirect
-
+from django.contrib.auth.decorators import permission_required
 
 
 def count_personnel():
@@ -24,12 +24,6 @@ def count_personnel():
         personnels = Personnel.objects.filter(personnel_type=personnel_type)
         personnel_type.total = personnels.count()
         personnel_type.save()
-
-class IndexView(TemplateView):
-    template_name = 'index.html'
-
-def handler403(request, exception):
-    return render(request, 'errors/403.html', locals())
 
 class UserCRUD(CRUDView):
     model = User
@@ -63,7 +57,7 @@ class PersonnelCRUD(CRUDView):
     namespace = None
     check_login = True
     check_perms = True
-    views_available=['create', 'list', 'update','delete','detail']
+    views_available=['list', 'update','delete','detail']
 
     fields = ['personnel_type','name', 'surname','birth_date', 'country','nat_id','gender','department','title',
     'job','phone_number1','phone_number2','email','address','marital_status','military_situation',
@@ -102,6 +96,7 @@ class Personnel_typeCRUD(CRUDView):
 
 #@group_required(('personnel','admin'), login_url='/personnel/profile/')
 @login_required
+@permission_required('personnel.can_see_avaliable_personnel', login_url='/personnel/profile/')
 def dashboard(request,template_name='personnel/personnel/dashboard.html'):
 
     count_personnel()

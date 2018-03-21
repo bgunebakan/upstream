@@ -33,28 +33,33 @@ DEBUG = True
 ALLOWED_HOSTS = ['login.tarla.org.tr','127.0.0.1']
 
 # Application definition
+ADMIN_VIEW_PERMISSION_MODELS = [
+    'auth.User',
+]
 
 INSTALLED_APPS = [
+    'constance',
+    'constance.backends.database',
+    #'admin_view_permission',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'constance',
-    'constance.backends.database',
     'crispy_forms',
     'django_select2',
     'easy_thumbnails',
     'image_cropping',
     'cruds_adminlte',
+    'django_mailbox',
+
     'procurement',
     'personnel',
     'projectManager',
-    'django_mailbox',
     'portunes',
     'inventory',
-    #'procurement',
+
     'django_ajax',
     'menu',
     'django_python3_ldap',
@@ -64,12 +69,14 @@ INSTALLED_APPS = [
 #    'raven.contrib.django.raven_compat',
 ]
 
+
+
 CRISPY_TEMPLATE_PACK = 'bootstrap3'
 IMAGE_CROPPING_JQUERY_URL = None
 
-TIME_FORMAT = 'h:i A'
-DATETIME_FORMAT = 'd.m.Y H:i'
-DATE_FORMAT = 'd.m.Y'
+TIME_FORMAT= 'H:i'
+DATETIME_FORMAT='d/m/Y H:i'
+DATE_FORMAT="d/m/Y"
 
 TIME_INPUT_FORMATS = ['%I:%M %p']
 
@@ -214,7 +221,7 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/1.9/topics/i18n/
 
-LANGUAGE_CODE = 'en-US'#'en-US'
+LANGUAGE_CODE = 'tr-TR'#'en-US'
 
 TIME_ZONE = 'Europe/Istanbul'
 

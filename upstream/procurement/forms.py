@@ -20,12 +20,12 @@ class TenderForm(forms.ModelForm):
         fields = ['name','no','tender_type','approximate_price','currency','tender_status','notes',
                     'apply_date','auction_date','auction_time','auction_price','auction_no','supplier','user','contract_date']
         widgets = {
-            'apply_date': DatePickerWidget(attrs={'format': 'd/m/yyyy',
-                                            'icon': 'fa-calendar','lang': 'tr-TR'}),
-            'contract_date': DatePickerWidget(attrs={'format': 'd/m/yyyy',
+            'apply_date': DatePickerWidget(attrs={'format': 'dd/mm/yyyy',
+                                            'icon': 'fa-calendar'}),
+            'contract_date': DatePickerWidget(attrs={'format': 'dd/mm/yyyy',
                                             'icon': 'fa-calendar'}),
             'auction_date': DatePickerWidget(
-                attrs={'format': 'd/m/yyyy',
+                attrs={'format': 'dd/mm/yyyy',
                        'icon': 'fa-calendar'}),
             'auction_time': TimePickerWidget(
                 attrs={'format': 'hh:ii',

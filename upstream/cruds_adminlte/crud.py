@@ -10,6 +10,7 @@ Free as freedom will be 26/8/2016
 from django.conf.urls import url, include
 from django.contrib.auth.decorators import login_required
 from django.http.response import HttpResponseRedirect, HttpResponseForbidden
+from django.core.exceptions import PermissionDenied
 from django.urls.base import reverse_lazy, reverse
 from django.urls.exceptions import NoReverseMatch
 from django.views import View
@@ -158,7 +159,8 @@ class CRUDMixin(object):
             self.getparams = "&".join(getparams)
         for perm in self.perms:
             if not request.user.has_perm(perm):
-                return HttpResponseForbidden()
+                #return HttpResponseForbidden()
+                raise PermissionDenied
         return View.dispatch(self, request, *args, **kwargs)
 
 

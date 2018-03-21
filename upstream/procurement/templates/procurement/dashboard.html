@@ -59,7 +59,7 @@
                             <td class="sorting_1"><a href="/procurement/tender/{{tender.id}}/update">
                               {{tender.name}}</a></td>
                   	         <td>{{tender.tender_type}}</td>
-                  	         <td>{{tender.auction_date}}</td>
+                  	         <td>{{tender.apply_date|date:"d M Y"}}</td>
                   	         <td>{{tender.user}}</td>
                   	         <td class="bg bg-{{tender.tender_status.bgcolor}}">{{tender.tender_status}}</td>
 

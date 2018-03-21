@@ -53,9 +53,10 @@ class Tender_end_date_AjaxCRUD(InlineAjaxCRUD):
 
 class TenderCRUD(CRUDView):
     model = Tender
+    template_name_base='crud'
     check_login = True
     check_perms = True
-    fields = ['name','no','auction_date']
+    fields = ['name','no','apply_date']
     list_fields = ['name','no','tender_status','tender_type']
     display_fields = ['name','no','tender_type','tender_status','auction_no']
 

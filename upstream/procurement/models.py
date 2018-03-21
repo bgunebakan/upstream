@@ -71,7 +71,7 @@ class Supplier(models.Model):
 
 class Tender(models.Model):
     name = models.CharField(verbose_name=_(u'İhale Adı'), max_length=64)
-    no = models.CharField(verbose_name=_(u'No'), max_length=32, null=True, blank=True)
+    no = models.CharField(verbose_name=_(u'Şartname No'), max_length=32, null=True, blank=True)
     tender_type = models.ForeignKey(TenderType, verbose_name=_(u'İhale türü'),null=True,on_delete=models.SET_NULL)
 
     approximate_price = models.FloatField(verbose_name=_(u'Yaklaşık Bedel'),default=0,null=True)

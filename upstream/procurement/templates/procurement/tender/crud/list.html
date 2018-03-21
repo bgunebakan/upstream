@@ -3,7 +3,7 @@
 {% load crud_tags %}
 
 {% block title %} {{ model_verbose_name_plural }}{% trans " listesi" %}{% endblock %}
-{% block bodyclass %}skin-blue {%if config.hide_sidebar %}sidebar-collapse{%endif%} {% endblock %}
+{% block bodyclass %}skin-red {%if config.hide_sidebar %}sidebar-collapse{%endif%} {% endblock %}
 {% block page_name %}{{ model_verbose_name_plural }}{% endblock %}
 {% block page_description %}{{ model_verbose_name_plural }}{% trans " listesi" %}{% endblock %}
 
@@ -28,7 +28,7 @@
                     <div class="col-lg-6">
                         <form action="" method="get">
                             <div class="input-group">
-                                <input type="text" name="q" value="{{q}}" class="form-control" placeholder="{% trans 'Search for...' %}">
+                                <input type="text" name="q" value="{{q}}" class="form-control" placeholder="{% trans 'Ara...' %}">
                                 <span class="input-group-btn">
                                     <button class="btn btn-flat" type="submit">
                                         <i class="fa fa-search"></i>
@@ -45,7 +45,7 @@
 
                 <div class="box box-warning collapsed-box">
                     <div class="box-header with-border">
-                        <h3 class="box-title">{% trans 'Filters' %}</h3>
+                        <h3 class="box-title">{% trans 'Filtrele' %}</h3>
                         <div class="box-tools pull-right">
                             <button data-widget="collapse" class="btn btn-box-tool btn-success" type="button">
                                 <i class="fa fa-plus"></i>
@@ -103,7 +103,7 @@
                                 {% block actions %}
                                   {% crud_url object "detail" namespace as url %}
                                     {% if url and 'detail' in views_available and crud_perms.detail %}
-                                    <a href="{{ url }}{{getparams}}" class="btn btn-success">{% trans "Profil" %}</a>
+                                    <a href="{{ url }}{{getparams}}" class="btn btn-success">{% trans "Detay" %}</a>
                                     {% endif %}
                                     {% crud_url object "update" namespace as url %}
                                     {% if url and 'update' in views_available and crud_perms.update %}
