@@ -10,7 +10,7 @@ register = template.Library()
 @register.simple_tag
 def appname(request):
     if '/personnel/' or '/user/' in request.path :
-        return 'Kullanıcı Yönetimi'
+        return 'User Management'
 
 
 @register.simple_tag

@@ -11,14 +11,6 @@ register = template.Library()
 def appname(request):
     if '/project/' in request.path:
         return 'Proje Yönetimi'
-    elif '/personnel/' in request.path :
-        return 'Kullanıcı Yönetimi'
-    elif '/inventory/' in request.path:
-        return 'Stok Takip'
-    elif '/access/' in request.path:
-        return 'Kartlı Geçiş'
-    elif '/procurement/' in request.path:
-        return 'İhale Yönetimi'
     else:
         return 'Web services'
 

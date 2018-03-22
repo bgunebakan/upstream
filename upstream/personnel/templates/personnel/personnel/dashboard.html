@@ -3,10 +3,10 @@
 {% load crispy_forms_tags %}
 {% load crud_tags %}
 {% load static %}
-{% load personnel_tags %}
-{% block title %}User Manager{% endblock %}
+{% load personnel_tags2 %}
+{% block title %}User Management{% endblock %}
 
-{% block page_name %}User Manager{% endblock %}
+{% block page_name %}User Management{% endblock %}
 {% block page_description %}Dashboard{% endblock %}
 
 {% block bodyclass %}skin-blue {%if config.hide_sidebar %}sidebar-collapse{%endif%} {% endblock %}
@@ -27,7 +27,7 @@
           <div class="icon">
             <i class="fa {{ personnel_type.icon }}"></i>
           </div>
-          <a href="/personnel/personnel/list?name=&personnel_type={{personnel_type.id}}" class="small-box-footer">Listele <i class="fa fa-arrow-circle-right"></i></a>
+          <a href="/personnel/personnel/list?name=&personnel_type={{personnel_type.id}}" class="small-box-footer">List <i class="fa fa-arrow-circle-right"></i></a>
         </div>
         </div>
         {%endfor%}
@@ -35,12 +35,12 @@
         <div class="col-md-6">
           <div class="box box-default">
               <div class="box-header with-border">
-                <h3 class="box-title">Hareketler</h3>
+                <h3 class="box-title">Actions</h3>
               </div>
               <!-- /.box-header -->
               <div class="box-body">
-                {%action_logs 10 as actions%}
-                {{actions|safe}}
+                  {% action_logs 3 as actions%}
+                  {{actions|safe}}
               </div>
           </div>
         <!-- ./col -->
@@ -48,7 +48,7 @@
         <div class="col-md-6">
           <div class="box box-default">
               <div class="box-header with-border">
-                <h3 class="box-title">Güncellenecek Kullanıcılar</h3>
+                <h3 class="box-title">New Users</h3>
               </div>
               <!-- /.box-header -->
               <div class="box-body">
@@ -73,7 +73,7 @@
   <div class="col-md-2">
     <div class="box box-default">
         <div class="box-header with-border">
-          <h3 class="box-title">Son Eklenenler</h3>
+          <h3 class="box-title">Last Users</h3>
         </div>
         <!-- /.box-header -->
         <div class="box-body">

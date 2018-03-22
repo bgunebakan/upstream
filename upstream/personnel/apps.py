@@ -6,7 +6,7 @@ from django.utils.translation import ugettext_lazy as _
 
 class PersonnelConfig(AppConfig):
     name = 'personnel'
-    verbose_name = _('Kullanıcı Yönetimi')
+    verbose_name = _('User Management')
 
     def ready(self):
         import personnel.signals  # noqa
