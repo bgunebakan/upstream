@@ -47,6 +47,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django.contrib.sites',
     'crispy_forms',
     'django_select2',
     'easy_thumbnails',
@@ -60,6 +61,11 @@ INSTALLED_APPS = [
     'portunes',
     'inventory',
 
+    'user_media',
+    #'easy_thumbnails',
+    'django_libs',
+    'generic_positions',
+
     'django_ajax',
     'menu',
     'django_python3_ldap',
@@ -69,7 +75,7 @@ INSTALLED_APPS = [
 #    'raven.contrib.django.raven_compat',
 ]
 
-
+SITE_ID = 1
 
 CRISPY_TEMPLATE_PACK = 'bootstrap3'
 IMAGE_CROPPING_JQUERY_URL = None

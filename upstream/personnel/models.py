@@ -2,6 +2,9 @@
 from __future__ import unicode_literals
 
 from django.db import models
+import os
+from uuid import uuid4
+from django.utils.deconstruct import deconstructible
 
 from django.contrib.auth.models import User
 from django_countries.fields import CountryField
@@ -61,6 +64,23 @@ class Personnel_type(models.Model):
     def __unicode__(self):
         return self.name
 
+@deconstructible
+class UploadToPathAndRename(object):
+
+    def __init__(self, path):
+        self.sub_path = path
+
+    def __call__(self, instance, filename):
+        ext = filename.split('.')[-1]
+        # get filename
+        if instance.pk:
+            filename = '{}.{}'.format(instance.nat_id, ext)
+        else:
+            # set filename as random string
+            filename = '{}.{}'.format(uuid4().hex, ext)
+        # return the whole path to the file
+        return os.path.join(self.sub_path, filename)
+
 class Personnel(models.Model):
     Gender = (
             (1, 'Belirtilmemiş'),
@@ -103,16 +123,17 @@ class Personnel(models.Model):
     phone_number1 = models.CharField(max_length=30,blank=True,verbose_name = "Job Phone",null=True)
     phone_number2 = models.CharField(max_length=30,blank=True,verbose_name = "Mobile Phone",null=True)
     email = models.EmailField(max_length=30,verbose_name = "E-mail",null=True,blank=True)
-    address = models.TextField(max_length=50,null=True,verbose_name = "Address",blank=True)
+    address = models.TextField(max_length=300,null=True,verbose_name = "Address",blank=True)
     marital_status = models.IntegerField(choices=Marital_status, default=1,verbose_name = "Marital Status")
     #military_situation = models.IntegerField(choices=Military_situation, default=1,verbose_name = "Askerlik Durumu")
     drive_licence = models.IntegerField(choices=Drive_licence, default=1,verbose_name = "Drive Licence")
-    health_status = profile_picture = models.ImageField(upload_to='health_status/',null=True,blank=True,verbose_name = "Health Status")
+    health_status = models.FileField(upload_to=UploadToPathAndRename(os.path.join('health_status')),null=True,blank=True,verbose_name = "Health Status")
 
     #identifier = models.OneToOneField('tarlaguard.Identifier',null=True,blank=True,on_delete=models.CASCADE,verbose_name = "Kart No")
-    profile_picture = models.ImageField(upload_to='profile_pictures/',null=True,default='profile_pictures/profile.png',verbose_name = "Profile Picture")
-    user_file = models.FileField(upload_to='personnel_pdf/',null=True,blank=True,verbose_name = "Personnel PDF")
-    notes = models.TextField(verbose_name = "Notes",null=True,blank=True)
+    profile_picture = models.ImageField(upload_to=UploadToPathAndRename(os.path.join('profile_pictures')),null=True,default='profile_pictures/profile.png',verbose_name = "Profile Picture")
+
+    user_file = models.FileField(upload_to=UploadToPathAndRename(os.path.join('personnel_cv')),null=True,blank=True,verbose_name = "Personnel PDF")
+    notes = models.TextField(max_length=300,verbose_name = "Notes",null=True,blank=True)
     cv = models.TextField(verbose_name = "CV",null=True,blank=True)
     total_workday = models.IntegerField(verbose_name = "Total work day",default=0)
     total_workhour = models.IntegerField(verbose_name = "Total work hour",default=0)

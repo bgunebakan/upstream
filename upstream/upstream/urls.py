@@ -43,6 +43,7 @@ ns = crud_for_app('personnel', check_perms=True, namespace="up")
 
 urlpatterns = [
     url(r'^$', views.index),
+    url(r'^umedia/', include('user_media.urls')),
     url(r'^admin/', admin.site.urls),
     url(r'^accounts/login/', auth_views.login, {'template_name': 'adminlte/login.html'}, name='login'),
     url(r'^accounts/logout/', auth_views.logout, {'next_page': '/'}, name='logout'),
