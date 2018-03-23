@@ -39,7 +39,7 @@
               </div>
               <!-- /.box-header -->
               <div class="box-body">
-                  {% action_logs 3 as actions%}
+                  {% action_logs 4 as actions%}
                   {{actions|safe}}
               </div>
           </div>
@@ -77,10 +77,10 @@
         </div>
         <!-- /.box-header -->
         <div class="box-body">
-          {%last_personnels 10 as last_personnels%}
+          {%last_personnels 30 as last_personnels%}
           {%for personnel in last_personnels%}
             <div class="icon">
-              <i class="fa {{personnel.personnel_type.icon}}">
+              <i class="fa {{personnel.personnel_type.icon}}"> -
                 <a href="/personnel/personnel/{{personnel.id}}">{{personnel}}</a>
               </i>
             </div>

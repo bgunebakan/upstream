@@ -36,6 +36,18 @@ class Tender_end_dateCRUD(CRUDView):
     cruds_url= 'lte'
     views_available=['create', 'list', 'delete', 'update', 'detail']
 
+class Tender_content_AjaxCRUD(InlineAjaxCRUD):
+    model = TenderContent
+    base_model = Tender
+    inline_field = 'tender'
+    display_fields = ['name','quantity','unit','price','currency']
+    list_fields = ['name','quantity','unit','price','currency']
+
+    add_form = Tender_contentForm
+    update_form = Tender_contentForm
+
+    title = _("Tender Contents")
+
 class Tender_end_date_AjaxCRUD(InlineAjaxCRUD):
     model = Tender_end_date
     base_model = Tender
@@ -49,7 +61,7 @@ class Tender_end_date_AjaxCRUD(InlineAjaxCRUD):
     #    'timedate': DatePickerWidget(attrs={'format': 'mm/dd/yyyy',
     #                                    'icon': 'fa-calendar'}),
     #}
-    title = _("İş teslim tarihleri")
+    title = _("Deadlines")
 
 class TenderCRUD(CRUDView):
     model = Tender
@@ -65,7 +77,7 @@ class TenderCRUD(CRUDView):
     add_form = TenderForm
     update_form = TenderForm
 
-    inlines = [Tender_end_date_AjaxCRUD]
+    inlines = [Tender_end_date_AjaxCRUD,Tender_content_AjaxCRUD]
 
     search_fields = ['name','no','notes','auction_no']
     split_space_search = True

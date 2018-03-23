@@ -20,6 +20,8 @@ class TenderAdmin(admin.ModelAdmin):
 admin.site.register(Tender,TenderAdmin)
 #admin.site.register(Tender_end_date)
 admin.site.register(TenderType)
+admin.site.register(TenderContent)
+admin.site.register(Unit)
 admin.site.register(Currency)
 admin.site.register(TenderStatus)
 admin.site.register(Supplier)

@@ -20,9 +20,24 @@ class TenderType(models.Model):
     def __unicode__(self):
         return self.name
 
+class Unit(models.Model):
+    name = models.CharField(max_length=50, verbose_name=_(u'Unit name'))
+    short_name = models.CharField(max_length=5, verbose_name=_(u'slug'))
+    created_date = models.DateTimeField(default=timezone.now,verbose_name='Created date', editable=False)
+
+    class Meta:
+        ordering = ['name']
+        verbose_name = _(u'Unit')
+        verbose_name_plural = _(u'Units')
+
+    def __unicode__(self):
+        return self.name
+
+
+
 class TenderStatus(models.Model):
     name = models.CharField(max_length=50, verbose_name=_(u'İhale Durumu'))
-    bgcolor = models.CharField(default="",max_length=10, verbose_name=_(u'Arkaplan rengi'))
+    bgcolor = models.CharField(default="",max_length=20, verbose_name=_(u'Arkaplan rengi'),help_text=_('<a target="_blank" href="http://basscss.com/v7/docs/background-colors/">Renk Seçenekleri</a>'))
     created_date = models.DateTimeField(default=timezone.now,verbose_name='Oluşturma tarihi', editable=False)
     description = models.TextField(max_length=200,null=True,blank=True, verbose_name=_(u'Açıklama'))
 
@@ -124,6 +139,23 @@ class Tender_end_date(models.Model):
 
     def __unicode__(self):
         return unicode(self.timedate)
+
+class TenderContent(models.Model):
+    name = models.CharField(max_length=50, verbose_name=_(u'Name'))
+    tender = models.ForeignKey(Tender, verbose_name=_(u'Tender'),null=True,on_delete=models.SET_NULL)
+    quantity = models.FloatField(default=0, verbose_name=_(u'Quantity'))
+    unit = models.ForeignKey(Unit, verbose_name=_(u'Unit'),null=True,on_delete=models.SET_NULL)
+    price = models.FloatField(default=0, verbose_name=_(u'Price'))
+    currency = models.ForeignKey(Currency, verbose_name=_(u'Currency'),null=True,on_delete=models.SET_NULL)
+    created_date = models.DateTimeField(default=timezone.now,verbose_name='Created date', editable=False)
+
+    class Meta:
+        ordering = ['name']
+        verbose_name = _(u'Alım türü')
+        verbose_name_plural = _(u'Alım Türleri')
+
+    def __unicode__(self):
+        return self.name
 
 class Log(models.Model):
     timedate = models.DateTimeField(auto_now_add=True, verbose_name=_(u'Tarih-Saat'))

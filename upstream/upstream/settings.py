@@ -39,6 +39,7 @@ ADMIN_VIEW_PERMISSION_MODELS = [
 
 INSTALLED_APPS = [
     #'admin_view_permission',
+    'homepage',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',

@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 from django import forms
 
-from .models import Tender,Tender_end_date
+from .models import Tender,Tender_end_date,TenderContent
 from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Layout, Field, Submit, HTML
 from crispy_forms.bootstrap import TabHolder, Tab, FormActions
@@ -80,6 +80,36 @@ class TenderForm(forms.ModelForm):
             )
         )
 
+class Tender_contentForm(forms.ModelForm):
+
+    class Meta:
+        model = TenderContent
+        fields = ['name','quantity','unit','price','currency']
+
+    def __init__(self, *args, **kwargs):
+        super(TenderForm, self).__init__(*args, **kwargs)
+        self.helper = FormHelper(self)
+        self.helper.form_tag = False
+        self.helper.layout = Layout(
+            Field('name', wrapper_class="col-md-3"),
+            Field('quantity', wrapper_class="col-md-3"),
+            Field('unit', wrapper_class="col-md-3"),
+            Field('price', wrapper_class="col-md-3"),
+            Field('currency', wrapper_class="col-md-3"),
+        )
+
+        self.helper.layout.append(
+            FormActions(
+                Submit('submit', _('Submit'), css_class='btn btn-primary'),
+                HTML("""{% load i18n %}<a class="btn btn-danger"
+                        href="{{ url_delete }}">{% trans 'Delete' %}</a>"""),
+            )
+        )
+
+    def __init__(self, *args, **kwargs):
+        super(Tender_contentForm, self).__init__(*args, **kwargs)
+        self.helper = FormHelper(self)
+        self.helper.form_tag = False
 
 class Tender_end_dateForm(forms.ModelForm):
 

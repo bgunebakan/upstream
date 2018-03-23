@@ -40,7 +40,7 @@ def action_logs(count):
             personnel = Personnel.objects.get(user=user)
             actor_personnel = Personnel.objects.get(user=log.actor)
         except ObjectDoesNotExist:
-            return "<b>Log Bulunamadı!</b>"
+            #return "<b>Log Bulunamadı!</b>"
             pass
 
 

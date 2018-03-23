@@ -15,7 +15,7 @@ from django.db.models.signals import post_save
 from django.dispatch import receiver
 from django.utils.translation import ugettext_lazy as _
 from image_cropping import ImageCropField, ImageRatioField
-#from auditlog.registry import auditlog
+from auditlog.registry import auditlog
 
 class SoftDeleteManager(models.Manager):
 
@@ -169,5 +169,5 @@ class Personnel(models.Model):
         self.save()
         return
 
-#auditlog.register(Personnel)
+auditlog.register(Personnel)
 #auditlog.register(Personnel_type)
