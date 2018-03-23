@@ -12,7 +12,7 @@ urlpatterns=[
     #url(r'^$',
     #    permission_required('personnel.can_see_avaliable_personnel', login_url='profile/')(views.dashboard)),
 
-    url(r'^profile/(?P<username>.*)', views.profile, name='profile'),
+    url(r'^profile/', views.profile, name='profile'),
 ]
 
 

@@ -111,44 +111,9 @@ def dashboard(request,template_name='personnel/personnel/dashboard.html'):
     return render(request, template_name,{'personnels': personnels,'personnel_types': personnel_types,'form': form ,'total_personnels': total_personnels })
 
 @login_required
-def profile(request,username, template_name='personnel/personnel/profile.html'):
+def profile(request, template_name='personnel/personnel/profile.html'):
 
-    if request.method=='POST':
-        if username == "":
-            print "no username:" + unicode(request.user.username)
-            personnel = Personnel.objects.get(user=request.user)
-        else:
-            personnel = Personnel.objects.get(user=request.user)
 
-        form = PersonnelForm(request.POST,request.FILES)
+    personnel = Personnel.objects.get(user=request.user)
 
-        if form.is_valid():
-            form.save()
-            # redirect to a new URL:
-            messages.success(request, 'Personel Güncellendi.')
-            return HttpResponseRedirect('#')
-
-        return HttpResponseRedirect('/personnel/profile/' + personnel.user.username)
-    else:
-
-        if username == "":
-            print "no username:" + unicode(request.user.username)
-            personnel_user = User.objects.get(username=request.user.username)
-            personnel,created = Personnel.objects.get_or_create(user=request.user)
-        else:
-            personnel_user = User.objects.get(username=username)
-            personnel,created = Personnel.objects.get_or_create(user=request.user)
-
-        if created:
-            personnel.name = personnel_user.first_name
-            personnel.surname = personnel_user.last_name
-            personnel.email = personnel_user.email
-            personnel.save()
-            form = PersonnelForm(request.POST or None, instance=personnel)
-        else:
-            form = PersonnelForm(request.POST or None, instance=personnel)
-        #if form.is_valid():
-        #    form.save()
-
-            #return HttpResponseRedirect('/personnel/all/')
-        return render(request, template_name, {'personnel': personnel,'form':form})
+    return HttpResponseRedirect('/personnel/personnel/' + unicode(personnel.id))

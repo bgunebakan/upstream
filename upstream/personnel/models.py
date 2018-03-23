@@ -115,7 +115,7 @@ class Personnel(models.Model):
     user = models.OneToOneField(User,null=True,blank=True, on_delete=models.CASCADE,verbose_name="Ldap")
     name = models.CharField(max_length=30,verbose_name = "Name")
     surname = models.CharField(max_length=30,verbose_name = "Surname")
-    country = CountryField(verbose_name = "Country",null=True,blank=True)
+    country = CountryField(verbose_name = "Country",null=True,blank=True,default='TR')
     nat_id = models.CharField(max_length=12,unique=True,verbose_name = "Nat ID")
     gender = models.IntegerField(choices=Gender, default=1,verbose_name = "Gender")
     birth_date = models.DateField(null=True,blank=True,verbose_name="Birth date")
