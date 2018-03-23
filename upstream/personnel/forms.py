@@ -47,7 +47,7 @@ class PersonnelForm(forms.ModelForm):
         model = Personnel
         fields = ['personnel_type','name', 'surname','birth_date', 'country','nat_id','gender','department','title',
         'job','phone_number1','phone_number2','email','address','marital_status',
-         'drive_licence','health_status','notes','cv','profile_picture','user_file']
+         'drive_licence','health_status','notes','cv','profile_picture','user_file','extra_file1','extra_file2','extra_file3']
 
         widgets = {
 
@@ -61,10 +61,6 @@ class PersonnelForm(forms.ModelForm):
         self.helper = FormHelper(self)
         self.helper.form_tag = False
 
-#'personnel_type','name', 'surname', 'country','nat_id','gender','department','title',
-#'job','phone_number1','phone_number2','email','address','marital_status','military_situation',
-# 'drive_licence','health_status','description','profile_picture','user_file')
-
         self.helper.layout = Layout(
             TabHolder(
                 Tab(
@@ -74,12 +70,10 @@ class PersonnelForm(forms.ModelForm):
                     Field('nat_id', wrapper_class="col-md-6"),
                     Field('country', wrapper_class="col-md-6"),
                     Field('personnel_type', wrapper_class="col-md-6"),
-                    Field('birth_date', wrapper_class="col-md-6"),
                     Field('gender', wrapper_class="col-md-6"),
                     Field('marital_status', wrapper_class="col-md-6"),
-                    #Field('military_situation', wrapper_class="col-md-6"),
-                    Field('health_status', wrapper_class="col-md-6"),
-                    Field('profile_picture', wrapper_class="col-md-6"),
+                    Field('birth_date', wrapper_class="col-md-6"),
+                    Field('profile_picture', wrapper_class="col-md-12"),
                 ),
                 Tab(
                     'İletişim bilgileri'.decode('utf-8'),
@@ -95,8 +89,14 @@ class PersonnelForm(forms.ModelForm):
                     Field('job', wrapper_class="col-md-6"),
                     Field('title', wrapper_class="col-md-6"),
                     Field('drive_licence', wrapper_class="col-md-6"),
-                    Field('user_file', wrapper_class="col-md-12"),
 
+                ),Tab(
+                    'Dosyalar'.decode('utf-8'),
+                    Field('user_file', wrapper_class="col-md-12"),
+                    Field('health_status', wrapper_class="col-md-12"),
+                    Field('extra_file1', wrapper_class="col-md-12"),
+                    Field('extra_file2', wrapper_class="col-md-12"),
+                    Field('extra_file3', wrapper_class="col-md-12"),
                 ),Tab(
                     'Öz Geçmiş'.decode('utf-8'),
                     Field('cv', wrapper_class="col-md-12"),

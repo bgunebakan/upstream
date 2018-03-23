@@ -61,7 +61,7 @@ class PersonnelCRUD(CRUDView):
 
     fields = ['personnel_type','name', 'surname','birth_date', 'country','nat_id','gender','department','title',
     'job','phone_number1','phone_number2','email','address','marital_status',
-     'drive_licence','health_status','notes','cv','profile_picture','user_file']
+     'drive_licence','health_status','notes','cv','profile_picture','user_file','extra_file1','extra_file2','extra_file3']
 
     list_fields = ['name','surname','personnel_type','nat_id','created_date']
 
@@ -69,7 +69,7 @@ class PersonnelCRUD(CRUDView):
 
     display_fields = ['personnel_type','name', 'surname','birth_date', 'country','nat_id','gender','department','title',
     'job','phone_number1','phone_number2','email','address','marital_status',
-     'drive_licence','health_status','notes','cv','profile_picture','user_file']
+     'drive_licence','health_status','notes','cv','profile_picture','user_file','extra_file1','extra_file2','extra_file3']
 
     add_form = PersonnelForm
     update_form = PersonnelForm

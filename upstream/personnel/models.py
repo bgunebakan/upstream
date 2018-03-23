@@ -8,14 +8,14 @@ from django.utils.deconstruct import deconstructible
 
 from django.contrib.auth.models import User
 from django_countries.fields import CountryField
-from phonenumber_field.modelfields import PhoneNumberField
+#from phonenumber_field.modelfields import PhoneNumberField
 from django.db.models.query import QuerySet
 from django.utils import timezone
 from django.db.models.signals import post_save
 from django.dispatch import receiver
 from django.utils.translation import ugettext_lazy as _
 from image_cropping import ImageCropField, ImageRatioField
-from auditlog.registry import auditlog
+#from auditlog.registry import auditlog
 
 class SoftDeleteManager(models.Manager):
 
@@ -27,6 +27,23 @@ class SoftDeleteManager(models.Manager):
 
     def all(self, *args, **kwargs):
         return self.get_query_set().filter(*args, **kwargs)
+
+@deconstructible
+class UploadToPathAndRename(object):
+
+    def __init__(self, path):
+        self.sub_path = path
+
+    def __call__(self, instance, filename):
+        ext = filename.split('.')[-1]
+        # get filename
+        if instance.pk:
+            filename = '{}.{}'.format(instance.nat_id, ext)
+        else:
+            # set filename as random string
+            filename = '{}.{}'.format(uuid4().hex, ext)
+        # return the whole path to the file
+        return os.path.join(self.sub_path, filename)
 
 class Personnel_type(models.Model):
     name = models.CharField(
@@ -64,22 +81,7 @@ class Personnel_type(models.Model):
     def __unicode__(self):
         return self.name
 
-@deconstructible
-class UploadToPathAndRename(object):
 
-    def __init__(self, path):
-        self.sub_path = path
-
-    def __call__(self, instance, filename):
-        ext = filename.split('.')[-1]
-        # get filename
-        if instance.pk:
-            filename = '{}.{}'.format(instance.nat_id, ext)
-        else:
-            # set filename as random string
-            filename = '{}.{}'.format(uuid4().hex, ext)
-        # return the whole path to the file
-        return os.path.join(self.sub_path, filename)
 
 class Personnel(models.Model):
     Gender = (
@@ -129,6 +131,9 @@ class Personnel(models.Model):
     drive_licence = models.IntegerField(choices=Drive_licence, default=1,verbose_name = "Drive Licence")
     health_status = models.FileField(upload_to=UploadToPathAndRename(os.path.join('health_status')),null=True,blank=True,verbose_name = "Health Status")
 
+    extra_file1 = models.FileField(upload_to=UploadToPathAndRename(os.path.join('extra_file1')),null=True,blank=True,verbose_name = "Extra file 1")
+    extra_file2 = models.FileField(upload_to=UploadToPathAndRename(os.path.join('extra_file2')),null=True,blank=True,verbose_name = "Extra file 2")
+    extra_file3 = models.FileField(upload_to=UploadToPathAndRename(os.path.join('extra_file3')),null=True,blank=True,verbose_name = "Extra file 3")
     #identifier = models.OneToOneField('tarlaguard.Identifier',null=True,blank=True,on_delete=models.CASCADE,verbose_name = "Kart No")
     profile_picture = models.ImageField(upload_to=UploadToPathAndRename(os.path.join('profile_pictures')),null=True,default='profile_pictures/profile.png',verbose_name = "Profile Picture")
 
@@ -164,5 +169,5 @@ class Personnel(models.Model):
         self.save()
         return
 
-auditlog.register(Personnel)
-auditlog.register(Personnel_type)
+#auditlog.register(Personnel)
+#auditlog.register(Personnel_type)

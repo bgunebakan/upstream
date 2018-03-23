@@ -38,8 +38,6 @@ ADMIN_VIEW_PERMISSION_MODELS = [
 ]
 
 INSTALLED_APPS = [
-    'constance',
-    'constance.backends.database',
     #'admin_view_permission',
     'django.contrib.admin',
     'django.contrib.auth',
@@ -55,6 +53,9 @@ INSTALLED_APPS = [
     'cruds_adminlte',
     'django_mailbox',
 
+    'constance',
+    'constance.backends.database',
+
     'procurement',
     'personnel',
     'projectManager',
@@ -62,7 +63,6 @@ INSTALLED_APPS = [
     'inventory',
 
     'user_media',
-    #'easy_thumbnails',
     'django_libs',
     'generic_positions',
 
@@ -152,12 +152,22 @@ AUTHENTICATION_BACKENDS = (
 # Database
 # https://docs.djangoproject.com/en/1.9/ref/settings/#databases
 
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.mysql',
+#         'OPTIONS': {
+#             'read_default_file': '/etc/upstream/db.conf',
+#         },
+#     }
+# }
+
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'upstream.sqlite3'),
-     },
+   'default': {
+       'ENGINE': 'django.db.backends.sqlite3',
+       'NAME': os.path.join(BASE_DIR, 'upstream.sqlite3'),
+    },
 }
+
 
 # Password validation
 # https://docs.djangoproject.com/en/1.9/ref/settings/#auth-password-validators
