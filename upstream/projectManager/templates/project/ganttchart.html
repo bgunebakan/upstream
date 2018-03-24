@@ -1,0 +1,88 @@
+{% extends 'cruds/base.html' %}
+{% load i18n %}
+{% load crispy_forms_tags %}
+{% load crud_tags %}
+{% load static %}
+{% load detail_tags %}
+{% block title %}Project{% endblock %}
+
+{% block page_name %}Project{% endblock %}
+{% block page_description %}Ganttchart{% endblock %}
+
+{% block bodyclass %}skin-yellow {%if config.hide_sidebar %}sidebar-collapse{%endif%} {% endblock %}
+
+{% block css %}
+{% endblock css %}
+
+{% block js %}
+  <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+  <script type="text/javascript">
+    google.charts.load('current', {'packages':['gantt']});
+    google.charts.setOnLoadCallback(drawChart);
+
+    function drawChart() {
+
+      var data = new google.visualization.DataTable();
+      data.addColumn('string', 'Task ID');
+      data.addColumn('string', 'Task Name');
+      data.addColumn('string', 'Status');
+      data.addColumn('date', 'Start Date');
+      data.addColumn('date', 'End Date');
+      data.addColumn('number', 'Duration');
+      data.addColumn('number', 'Percent Done');
+      data.addColumn('string', 'Dependencies');
+
+      {%for task in tasks%}
+      data.addRows([
+        ['{{task.id}}', '{{task.name}}', '{{task.task_type}}',
+         new Date({{ task.start_date|date:"Y" }},{{ task.start_date|date:"m" }},{{ task.start_date|date:"d" }},
+         {{ task.start_date|date:"H" }},{{ task.start_date|date:"i" }}),
+         new Date({{ task.end_date|date:"Y" }},{{ task.end_date|date:"m" }},{{ task.end_date|date:"d" }},
+         {{ task.end_date|date:"H" }},{{ task.end_date|date:"i" }}),
+          null, {{task.percent_done}}, null],
+      ]);
+      {%endfor%}
+
+
+
+      var options = {
+        height: 400,
+        gantt: {
+          trackHeight: 30
+        }
+      };
+
+      var chart = new google.visualization.Gantt(document.getElementById('chart_div'));
+
+      chart.draw(data, options);
+
+      chart.setAction(alert('You selected'));
+
+    }
+
+
+  </script>
+{% endblock js %}
+{% block content %}
+<!-- Small boxes (Stat box) -->
+<div class="row">
+        <div class="col-md-12">
+          <div class="box box-default">
+              <div class="box-header with-border">
+                <h3 class="box-title">Tasks</h3>
+              </div>
+              <!-- /.box-header -->
+              <div class="box-body">
+                <div class="row-fluid" style="margin:0 !important;">
+                  <div class="col-md-12">
+                    <div id="chart_div" style="width: 100%;min-height: 200px;"></div>
+                  </div>
+                  </div>
+                </div>
+              </div>
+          </div>
+        <!-- ./col -->
+        </div>
+</div>
+
+{% endblock %}

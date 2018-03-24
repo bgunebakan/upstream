@@ -15,6 +15,16 @@ from .tables import *
 from django_tables2 import RequestConfig
 
 @login_required
+def ganttchart(request):
+    try:
+        tasks = Task.objects.filter(owner=request.user)
+    except Task.DoesNotExist:
+        return HttpResponseRedirect('/project/project/list')
+    projects = Project.objects.all()
+    return render(request, 'project/ganttchart.html',{'tasks': tasks,'projects' : projects})
+
+
+@login_required
 def index(request):
     try:
         personnel = Personnel.objects.get(user=request.user)

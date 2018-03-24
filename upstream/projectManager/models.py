@@ -37,7 +37,7 @@ class Task(models.Model):
     updated_date = models.DateTimeField(auto_now=True,verbose_name='güncelleme tarihi', blank=True, editable=False)
     start_date = models.DateTimeField('başlama tarihi')
     end_date = models.DateTimeField('bitiş tarihi')
-    work_hour = models.PositiveSmallIntegerField(null=True,blank=True)
+    percent_done = models.PositiveSmallIntegerField(null=True,blank=True)
 
     top_task = models.ForeignKey('self',null=True,blank=True,on_delete=models.SET_NULL)
     project = models.ForeignKey(Project,null=True,blank=True,on_delete=models.SET_NULL)
