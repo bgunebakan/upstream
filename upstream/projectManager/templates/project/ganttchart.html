@@ -79,12 +79,12 @@
             //message += 'Task id: ' + str + '\n';
             //{% get_task 1 as task%}
             //alert('You selected ' + message);
-            document.getElementById("task_id").innerHTML = task_id;
+            //document.getElementById("task_id").innerHTML = task_id;
             document.getElementById("task_name").innerHTML = task_name;
             document.getElementById("task_status").innerHTML = task_status;
             document.getElementById("task_start").innerHTML = task_start;
             document.getElementById("task_end").innerHTML = task_end;
-            document.getElementById("task_owner").innerHTML = task_owner;
+            //document.getElementById("task_owner").innerHTML = task_owner;
             document.getElementById("task_percent").innerHTML = task_percent;
             document.getElementById("task_dependencies").innerHTML = task_dependencies;
             document.getElementById("task_url").innerHTML = task_url;
@@ -102,7 +102,7 @@
 {% block content %}
 <!-- Small boxes (Stat box) -->
 <div class="row">
-        <div class="col-md-10">
+        <div class="col-md-12">
           <div class="box box-default">
               <div class="box-header with-border">
                 <h3 class="box-title">Tasks</h3>
@@ -129,16 +129,51 @@
      <div class="modal-content">
        <div class="modal-header">
          <button type="button" class="close" data-dismiss="modal">&times;</button>
-         <h4 style="color:red;"><span class="glyphicon glyphicon-lock"></span><span id="task_id"></span></h4>
+         <h4>Details</h4>
        </div>
        <div class="modal-body">
-         <h4 style="color:red;"><span id="task_name"></span></h4>
-         <h4 style="color:red;"><span id="task_status"></span></h4>
-         <h4 style="color:red;"><span id="task_start"></span></h4>
-         <h4 style="color:red;"><span id="task_end"></span></h4>
-         <h4 style="color:red;"><span id="task_percent"></span></h4>
-         <h4 style="color:red;"><span id="task_owner"></span></h4>
-         <h4 style="color:red;"><span id="task_dependencies"></span></h4>
+            <div class="row">
+              <div class="details col-md-6">
+                <div class="panel panel-default text-center">
+                        <h3><div class="panel-title"><span class="glyphicon glyphicon-list-alt"></span>   Name</div></h3>
+                        <hr>
+                    <h4 id="task_name"></h4>
+                    </div>
+                    <div class="panel panel-default text-center">
+                    <div class="rating">
+                        <h3><div class="panel-title"><span class="glyphicon glyphicon-info-sign"></span>  Status</div></h3>
+                        <hr>
+                        <h4 id="task_status"></h4>
+                    </div>
+                    </div>
+                    <div class="panel panel-default text-center">
+                        <h3><div class="panel-title"><span class="glyphicon glyphicon-comment"></span>   Owner</div></h3>
+                        <hr>
+                        <h4 id="task_start"></h4>
+                    </div>
+                </div>
+                <div class="details col-md-6">
+                  <div class="panel panel-default text-center">
+                          <h3><div class="panel-title"><span class="glyphicon glyphicon-list-alt"></span>   Name</div></h3>
+                          <hr>
+                      <h4><span id="task_end"></span></h4>
+                      </div>
+                      <div class="panel panel-default text-center">
+                      <div class="rating">
+                          <h3><div class="panel-title"><span class="glyphicon glyphicon-info-sign"></span>  Status</div></h3>
+                          <hr>
+                          <h4><span id="task_percent"></span></h4>
+                      </div>
+                      </div>
+                      <div class="panel panel-default text-center">
+                          <h3><div class="panel-title"><span class="glyphicon glyphicon-comment"></span>   Owner</div></h3>
+                          <hr>
+                          <h4><span id="task_dependencies"></span></h4>
+                      </div>
+                  </div>
+                </div>
+
+
        </div>
        <div class="modal-footer">
          <div id="task_url"></div>

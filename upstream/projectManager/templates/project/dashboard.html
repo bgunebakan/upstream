@@ -1,15 +1,17 @@
-{% extends 'adminlte/base.html' %}
+{% extends 'cruds/base.html' %}
+{% load i18n %}
+{% load crispy_forms_tags %}
+{% load crud_tags %}
+{% load static %}
 {% load detail_tags %}
-{% load project_tags %}
-{% my_custom_tag %}
+{% load project_tags%}
 
-{% block title %}Proje Yönetimi{% endblock %}
+{% block title %}Project{% endblock %}
 
-{% block page_name %}Proje Yönetimi{% endblock %}
+{% block page_name %}Project{% endblock %}
 {% block page_description %}Dashboard{% endblock %}
 
-{% block bodyclass %}skin-yellow{% endblock %}
-
+{% block bodyclass %}skin-yellow {%if config.hide_sidebar %}sidebar-collapse{%endif%} {% endblock %}
 
 {% block page_javascript %}
 {% endblock %}
@@ -119,7 +121,7 @@
       </div>
       <div class="box-body">
         <div class="box-body">
-          
+
         </div>
       </div>
 <!-- /.box-body -->

@@ -13,9 +13,9 @@ def appname(request):
     if '/procurement/' in request.path :
         return 'Procurement'
     elif '/project/' in request.path :
-        return 'User Management'
+        return 'Project'
     elif '/portunes/' in request.path :
-        return 'User Management'
+        return 'Access Control'
     elif '/personnel/' or '/user/' in request.path :
         return 'User Management'
     else:
