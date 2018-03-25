@@ -1,8 +1,15 @@
 from django import template
 from django.core.urlresolvers import resolve
-from projectManager.models import Project
+from projectManager.models import Project,Task
 
 register = template.Library()
+
+@register.simple_tag
+def get_task(id):
+    id = int(id)
+    task = Task.objects.get(id=id)
+    print task
+    return task
 
 @register.simple_tag
 def projects():
