@@ -14,7 +14,7 @@ https://docs.djangoproject.com/en/1.9/ref/settings/
 
 import os
 #import raven
-
+from easy_thumbnails.conf import Settings as thumbnail_settings
 
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
@@ -54,6 +54,9 @@ INSTALLED_APPS = [
     'cruds_adminlte',
     'django_mailbox',
 
+    'filer',
+    'mptt',
+
     'constance',
     'constance.backends.database',
 
@@ -63,7 +66,6 @@ INSTALLED_APPS = [
     'portunes',
     'inventory',
 
-    'user_media',
     'django_libs',
     'generic_positions',
 
@@ -87,10 +89,18 @@ DATE_FORMAT="d/m/Y"
 
 TIME_INPUT_FORMATS = ['%I:%M %p']
 
-from easy_thumbnails.conf import Settings as thumbnail_settings
+FILER_CANONICAL_URL = 'sharing/'
+FILER_ENABLE_PERMISSIONS = True
 THUMBNAIL_PROCESSORS = (
     'image_cropping.thumbnail_processors.crop_corners',
+    'easy_thumbnails.processors.colorspace',
+    'easy_thumbnails.processors.autocrop',
+    #'easy_thumbnails.processors.scale_and_crop',
+    'filer.thumbnail_processors.scale_and_crop_with_subject_location',
+    'easy_thumbnails.processors.filters',
 ) + thumbnail_settings.THUMBNAIL_PROCESSORS
+
+THUMBNAIL_HIGH_RESOLUTION = True
 
 CONSTANCE_BACKEND = 'constance.backends.database.DatabaseBackend'
 

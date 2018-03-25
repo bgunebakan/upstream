@@ -19,7 +19,6 @@ from django.conf.urls import include,url
 from django.contrib import admin
 from homepage import views
 from django.contrib.auth import views as auth_views
-#import django_bootstrap_calendar
 from django.conf import settings
 from django.conf.urls.static import static
 from personnel.views import PersonnelCRUD,Personnel_typeCRUD,UserCRUD
@@ -43,7 +42,8 @@ ns = crud_for_app('personnel', check_perms=True, namespace="up")
 
 urlpatterns = [
     url(r'^$', views.index),
-    url(r'^umedia/', include('user_media.urls')),
+    url(r'^filer/', include('filer.urls')),
+    url(r'^', include('filer.server.urls')),
     url(r'^admin/', admin.site.urls),
     url(r'^accounts/login/', auth_views.login, {'template_name': 'adminlte/login.html'}, name='login'),
     url(r'^accounts/logout/', auth_views.logout, {'next_page': '/'}, name='logout'),

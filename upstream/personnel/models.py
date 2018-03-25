@@ -16,6 +16,8 @@ from django.dispatch import receiver
 from django.utils.translation import ugettext_lazy as _
 from image_cropping import ImageCropField, ImageRatioField
 from auditlog.registry import auditlog
+from filer.fields.image import FilerImageField
+from filer.fields.file import FilerFileField
 
 class SoftDeleteManager(models.Manager):
 
@@ -135,9 +137,11 @@ class Personnel(models.Model):
     extra_file2 = models.FileField(upload_to=UploadToPathAndRename(os.path.join('extra_file2')),null=True,blank=True,verbose_name = "Extra file 2")
     extra_file3 = models.FileField(upload_to=UploadToPathAndRename(os.path.join('extra_file3')),null=True,blank=True,verbose_name = "Extra file 3")
     #identifier = models.OneToOneField('tarlaguard.Identifier',null=True,blank=True,on_delete=models.CASCADE,verbose_name = "Kart No")
-    profile_picture = models.ImageField(upload_to=UploadToPathAndRename(os.path.join('profile_pictures')),null=True,default='profile_pictures/profile.png',verbose_name = "Profile Picture")
-
+    profile_picture = models.ImageField(upload_to=UploadToPathAndRename(os.path.join('profile_pictures')),null=True,blank=True,default='profile_pictures/profile.png',verbose_name = "Profile Picture")
+    #profile_picture = FilerImageField(null=True, blank=True,related_name="profile_picture")
     user_file = models.FileField(upload_to=UploadToPathAndRename(os.path.join('personnel_cv')),null=True,blank=True,verbose_name = "Personnel PDF")
+    #user_file = FilerFileField(null=True, blank=True,related_name="user_file")
+
     notes = models.TextField(max_length=300,verbose_name = "Notes",null=True,blank=True)
     cv = models.TextField(verbose_name = "CV",null=True,blank=True)
     total_workday = models.IntegerField(verbose_name = "Total work day",default=0)
@@ -169,5 +173,5 @@ class Personnel(models.Model):
         self.save()
         return
 
-auditlog.register(Personnel)
+#auditlog.register(Personnel)
 #auditlog.register(Personnel_type)
