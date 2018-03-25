@@ -6,10 +6,10 @@
 {% load detail_tags %}
 {% load project_tags%}
 
-{% block title %}Project{% endblock %}
+{% block title %}Project - [Upstream] {% endblock %}
 
-{% block page_name %}Project{% endblock %}
-{% block page_description %}Ganttchart{% endblock %}
+{% block page_name %}Ganttchart{% endblock %}
+{% block page_description %}Tasks{% endblock %}
 
 {% block bodyclass %}skin-yellow {%if config.hide_sidebar %}sidebar-collapse{%endif%} {% endblock %}
 
@@ -86,6 +86,14 @@
             document.getElementById("task_end").innerHTML = task_end;
             //document.getElementById("task_owner").innerHTML = task_owner;
             document.getElementById("task_percent").innerHTML = task_percent;
+            //$('#progressbar').attr('aria-valuenow',task_percent);
+            //$('#progressbar').attr('width',task_percent);
+            $('#progressbar').attr('aria-valuenow', task_percent+'%').css('width',task_percent+'%');
+
+
+
+
+
             document.getElementById("task_dependencies").innerHTML = task_dependencies;
             document.getElementById("task_url").innerHTML = task_url;
             $("#taskModal").modal()
@@ -133,6 +141,15 @@
        </div>
        <div class="modal-body">
             <div class="row">
+              <div class="details col-md-12">
+                <div class="progress">
+                  <div class="progress-bar progress-bar-success" id="progressbar" role="progressbar"
+                  aria-valuemin="0" aria-valuemax="100" aria-valuenow="50%" style="width: 50%">
+                  <span id="task_percent"></span>% Complete
+                  </div>
+                </div>
+              </div>
+
               <div class="details col-md-6">
                 <div class="panel panel-default text-center">
                         <h3><div class="panel-title"><span class="glyphicon glyphicon-list-alt"></span>   Name</div></h3>
@@ -157,13 +174,6 @@
                           <h3><div class="panel-title"><span class="glyphicon glyphicon-list-alt"></span>   Name</div></h3>
                           <hr>
                       <h4><span id="task_end"></span></h4>
-                      </div>
-                      <div class="panel panel-default text-center">
-                      <div class="rating">
-                          <h3><div class="panel-title"><span class="glyphicon glyphicon-info-sign"></span>  Status</div></h3>
-                          <hr>
-                          <h4><span id="task_percent"></span></h4>
-                      </div>
                       </div>
                       <div class="panel panel-default text-center">
                           <h3><div class="panel-title"><span class="glyphicon glyphicon-comment"></span>   Owner</div></h3>
