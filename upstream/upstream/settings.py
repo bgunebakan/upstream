@@ -1,4 +1,4 @@
-    # -*- coding: utf-8 -*-
+# -*- coding: utf-8 -*-
 
 """
 Django settings for upstream project.
@@ -40,6 +40,7 @@ ADMIN_VIEW_PERMISSION_MODELS = [
 INSTALLED_APPS = [
     #'admin_view_permission',
     'homepage',
+    #'django_adminlte_theme',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -62,7 +63,7 @@ INSTALLED_APPS = [
 
     'procurement',
     'personnel',
-    'projectManager',
+    'project',
     'portunes',
     'inventory',
 

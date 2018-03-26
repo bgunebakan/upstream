@@ -28,6 +28,7 @@ from cruds_adminlte.urls import crud_for_app
 from personnel.models import Personnel
 from procurement.views import TenderCRUD,Tender_end_dateCRUD
 from portunes.views import ControllerCRUD,DoorCRUD
+from project.views import ProjectCRUD,TaskCRUD
 
 usercrud = UserCRUD()
 personnelcrud = PersonnelCRUD()
@@ -37,6 +38,9 @@ tendercrud = TenderCRUD()
 
 controllercrud = ControllerCRUD()
 doorcrud = DoorCRUD()
+
+projectcrud = ProjectCRUD()
+taskcrud = TaskCRUD()
 
 ns = crud_for_app('personnel', check_perms=True, namespace="up")
 
@@ -48,7 +52,6 @@ urlpatterns = [
     url(r'^accounts/login/', auth_views.login, {'template_name': 'adminlte/login.html'}, name='login'),
     url(r'^accounts/logout/', auth_views.logout, {'next_page': '/'}, name='logout'),
     url(r'^select2/', include('django_select2.urls')),
-    url(r'^project/', include('projectManager.urls'),name='project'),
     url(r'^mail/', include('webmail.urls')),
 
     url(r'^inventory/', include('inventory.urls', namespace='inventory-urls', app_name='inventory')),
@@ -66,6 +69,10 @@ urlpatterns = [
     url(r'^portunes/', include('portunes.urls')),
     url(r'', include(controllercrud.get_urls())),
     url(r'', include(doorcrud.get_urls())),
+
+    url(r'^project/', include('project.urls'),name='project'),
+    url(r'', include(projectcrud.get_urls())),
+    url(r'', include(taskcrud.get_urls())),
 
 ]
 if settings.DEBUG:

@@ -15,7 +15,7 @@ def get_personnel(request):
         personnel = Personnel.objects.get(user=request.user)
     except ObjectDoesNotExist:
         return ""
-    return personnel
+    return unicode(personnel)
 
 @register.simple_tag
 def select_personnel(id):
