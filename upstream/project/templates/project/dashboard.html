@@ -1,0 +1,134 @@
+{% extends 'cruds/base.html' %}
+{% load i18n %}
+{% load crispy_forms_tags %}
+{% load crud_tags %}
+{% load static %}
+{% load detail_tags %}
+{% load project_tags%}
+
+{% block title %}Project{% endblock %}
+
+{% block page_name %}Project{% endblock %}
+{% block page_description %}Dashboard{% endblock %}
+
+{% block bodyclass %}skin-yellow {%if config.hide_sidebar %}sidebar-collapse{%endif%} {% endblock %}
+
+{% block page_javascript %}
+{% endblock %}
+{% block content %}
+<div class="row">
+  <div class="col-md-5">
+    <div class="box box-primary">
+
+      <div class="box-header">
+        <h3 class="box-title">Timeline</h3>
+        <div class="box-tools pull-right">
+          <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+          </button>
+          <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+        </div>
+      </div>
+
+      <div class="box-body">
+        <ul class="timeline">
+          <!-- timeline item -->
+          {% project_logs 5 as logs %}
+          {% for log in logs %}
+            <li>
+              <i class="fa fa-user bg-aqua"></i>
+
+              <div class="timeline-item">
+                <span class="time"><i class="fa fa-clock-o"></i>{{log.timedate}}</span>
+
+                <h3 class="timeline-header no-border"><b> {{log.user}}</b>  {{log.action}} <a href="{{log.url}}"> {{log.description}}</a></h3>
+              </div>
+            </li>
+          {%endfor%}
+          <!-- END timeline item -->
+        </ul>
+      </div>
+<!-- /.box-body -->
+    </div>
+    <!-- PROJECTS -->
+    <div class="box box-primary">
+
+      <div class="box-header">
+        <h3 class="box-title">Projects</h3>
+        <div class="box-tools pull-right">
+          <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+          </button>
+          <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+        </div>
+      </div>
+
+      <div class="box-body">
+        {% if projects %}
+        <ul>
+          {% for top_project in projects %}
+          {% if top_project.top_project == null %}
+            <li><a href="/project/task/list?project={{top_project.id}}&owner={{request.user.id}}">{{ top_project.name }}</a></li>
+            <ul>
+              {% for project in projects %}
+                {% if project.top_project == top_project %}
+                  <li>{{ project.name }}</li>
+                    <ul>
+                    {% for sub_project in projects %}
+                      {% if sub_project.top_project == project %}
+                        <li><a href="/project/task/list?project={{sub_project.id}}&owner={{request.user.id}}">{{ sub_project.name }}</a></li>
+                      {%endif%}
+                    {% endfor %}
+                    </ul>
+                {%endif%}
+              {% endfor %}
+            </ul>
+          {%endif%}
+          {% endfor %}
+      </ul>
+      {% endif %}
+      </div>
+      <!-- /.box-body -->
+    </div>
+  </div>
+
+  <!-- /.col (left) -->
+  <div class="col-md-7">
+    <div class="box box-primary">
+      <div class="box-header">
+        <h3 class="box-title">Tasks</h3>
+        <div class="box-tools pull-right">
+          <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+          </button>
+          <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+        </div>
+      </div>
+      <div class="box-body">
+        <div class="box-body">
+          {%tasks 5 as tasks%}
+          {%for task in tasks%}
+            <div class="info-box bg-{{task.task_type.color}}">
+              <a href="/project/task/{{task.id}}" style="color:#fff;"><span class="info-box-icon"><i class="fa fa-{{task.task_type.icon}}"></i></span></a>
+
+              <div class="info-box-content">
+                <span class="info-box-text">{{task.name}}</span>
+                <span class="info-box-number">{{task.start_date}} --> {{task.end_date}}</span>
+
+                <div class="progress">
+                  <div class="progress-bar" style="width: {{task.percent_done}}%"></div>
+                </div>
+                <span class="progress-description">
+                      {{task.description}}
+                </span>
+              </div>
+
+          </div>
+          {%endfor%}
+        </div>
+      </div>
+<!-- /.box-body -->
+    </div>
+<!-- /.box -->
+  </div>
+<!-- /.col (right) -->
+</div>
+<!-- /.row -->
+{% endblock %}

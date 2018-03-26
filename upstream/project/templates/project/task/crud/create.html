@@ -1,0 +1,28 @@
+{% extends template_father %}
+{% load i18n %}
+{% load crud_tags %}
+
+{% block title %} {{ model_verbose_name }}{% trans " Create" %}{% endblock %}
+{% block bodyclass %}skin-yellow {%if config.hide_sidebar %}sidebar-collapse{%endif%} {% endblock %}
+{% block page_name %}{{ model_verbose_name_plural }}{% endblock %}
+{% block page_description %}{{ model_verbose_name }}{% trans " create" %}{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-md-10 col-md-offset-1">
+        {% if crud_perms.list %}
+        <a href="{{ url_list }}{{getparams}}" class="btn btn-info">
+            <i class="fa fa-angle-double-left"></i>
+            {% trans "Back to" %} {{ model_verbose_name_plural|lower }}
+        </a>
+        {% endif %}
+        <br /><br />
+        <div class="box">
+            <div class="box-header with-border">
+                <h3 class="box-title">{% trans "New" %} {{ model_verbose_name }}</h3>
+            </div>
+            {% include "cruds/_form.html" with action='create' %}
+        </div>
+    </div>
+</div>
+{% endblock %}
