@@ -39,7 +39,7 @@ ADMIN_VIEW_PERMISSION_MODELS = [
 
 INSTALLED_APPS = [
     #'admin_view_permission',
-    'homepage',
+
     #'django_adminlte_theme',
     'django.contrib.admin',
     'django.contrib.auth',
@@ -61,6 +61,7 @@ INSTALLED_APPS = [
     'constance',
     'constance.backends.database',
 
+    'homepage',
     'procurement',
     'personnel',
     'project',
@@ -174,10 +175,17 @@ AUTHENTICATION_BACKENDS = (
 # }
 
 DATABASES = {
-   'default': {
-       'ENGINE': 'django.db.backends.sqlite3',
-       'NAME': os.path.join(BASE_DIR, 'upstream.sqlite3'),
-    },
+#   'default': {
+#       'ENGINE': 'django.db.backends.sqlite3',
+#       'NAME': os.path.join(BASE_DIR, 'upstream.sqlite3'),
+#    },
+    'default': {
+             'ENGINE': 'django.db.backends.mysql',
+             'OPTIONS': {
+                 'sql_mode': 'traditional',
+                 'read_default_file': '/etc/upstream/db.conf',
+             },
+         }
 }
 
 
