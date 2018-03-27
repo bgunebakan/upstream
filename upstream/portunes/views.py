@@ -12,7 +12,8 @@ from cruds_adminlte.crud import CRUDView
 from cruds_adminlte.inline_crud import InlineAjaxCRUD
 from cruds_adminlte.filter import FormFilter
 from django.contrib import messages
-
+from django.http import HttpResponseRedirect
+from django.http import Http404
 from django_tables2 import RequestConfig
 
 @login_required
@@ -128,7 +129,7 @@ def logs(request):
 
         messages.success(request, controller.name + ' hareketler sisteme yuklendi.')
 
-    return HttpResponseRedirect('/')
+    return HttpResponseRedirect('/portunes/')
 
 @login_required
 def settime(request):
@@ -150,7 +151,7 @@ def settime(request):
         controller.save()
 
 
-    return HttpResponseRedirect('/controllers/status/')
+    return HttpResponseRedirect('/portunes/')
 
 @login_required
 def controller_status(request):
@@ -233,31 +234,31 @@ def sorting(L):
 
 
 @login_required
-def user_access(request, nat_id):
+def user_access(request, user_id):
     if request.method == 'POST':
         try:
             controllers = Controller.objects.filter(health=True).order_by('name')
             doors = Door.objects.all().order_by('entrance_controller_pin')
-            personnel = Personnel.objects.get(nat_id=nat_id)
-            permissions = Permission.objects.filter(personnel=personnel)
+            user = User.objects.get(id=user_id)
+            permissions = Permission.objects.filter(user=user)
 
             checkboxes = request.POST.getlist('permissions')
-        except Personnel.DoesNotExist:
-            raise Http404("Personnel Bulunamadi")
+        except User.DoesNotExist:
+            raise Http404("Kullanici Bulunamadi")
 
         if 'clearpermission' in request.POST:
-            permissions = Permission.objects.filter(personnel=personnel)
+            permissions = Permission.objects.filter(user=user)
             for permission in permissions:
                 permission.delete()
                 if permission.id != None:
-                    messages.info(request,unicode(permission.personnel.name) + " - " + unicode(permission.door.entrance) + " kontrolcuden SiLiNEMEDi!")
+                    messages.info(request,unicode(permission.user) + " - " + unicode(permission.door.entrance) + " kontrolcuden SiLiNEMEDi!")
                 else:
-                    messages.info(request, unicode(permission.personnel.name) + " - " + unicode(permission.door.entrance) + " kontrolcuden silindi.")
+                    messages.info(request, unicode(permission.user) + " - " + unicode(permission.door.entrance) + " kontrolcuden silindi.")
             return HttpResponseRedirect('#')
 
         elif 'savepermission' in request.POST:
             #CLEAR ALL PERMISSIONS
-            permissions = Permission.objects.filter(personnel=personnel)
+            permissions = Permission.objects.filter(user=user)
             for permission in permissions:
                 permission.delete()
 
@@ -270,20 +271,20 @@ def user_access(request, nat_id):
                 #print "pin: ", door.entrance_controller_pin
                 #print "card: ", personnel.identifier.key
                 #print "----------"
-                permission, created = Permission.objects.update_or_create(personnel=personnel,door=door)
+                permission, created = Permission.objects.update_or_create(user=user,door=door)
                 if permission.id != None:
-                    messages.info(request,unicode(personnel.name) + " - " + unicode(door.entrance) + " kontrolcuye kaydedildi.")
+                    messages.info(request,unicode(user) + " - " + unicode(door.entrance) + " kontrolcuye kaydedildi.")
                 else:
-                    messages.info(request, unicode(personnel.name) + " - " + unicode(door.entrance) + " kontrolcuye KAYDEDiLEMEDi!")
+                    messages.info(request, unicode(user) + " - " + unicode(door.entrance) + " kontrolcuye KAYDEDiLEMEDi!")
         return HttpResponseRedirect('#')
         #return render(request, 'portunes/user/access.html', {'personnel': personnel,'controllers': controllers,'doors': doors,'permissions':permissions,'table_label':'Yetkilendirme','user_menu':'active'})
     else:
         try:
             controllers = Controller.objects.filter(health=True).order_by('name')
             doors = Door.objects.all().order_by('entrance_controller_pin')
-            personnel = Personnel.objects.get(nat_id=nat_id)
-            permissions = Permission.objects.filter(personnel=personnel)
-        except Personnel.DoesNotExist:
-            raise Http404("Personnel Bulunamadi")
+            user = User.objects.get(id=user_id)
+            permissions = Permission.objects.filter(user=user)
+        except User.DoesNotExist:
+            raise Http404("Kullanici Bulunamadi")
 
-        return render(request, 'portunes/user/access.html', {'personnel': personnel,'controllers': controllers,'doors': doors,'permissions':permissions,'table_label':'Yetkilendirme','user_menu':'active'})
+        return render(request, 'portunes/user/access.html', {'user': user,'controllers': controllers,'doors': doors,'permissions':permissions,'table_label':'Yetkilendirme','user_menu':'active'})

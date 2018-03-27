@@ -41,7 +41,7 @@ class Task(models.Model):
     updated_date = models.DateTimeField(auto_now=True,verbose_name='update date', blank=True, editable=False)
     start_date = models.DateTimeField(default=timezone.now,verbose_name='start date')
     end_date = models.DateTimeField('end date')
-    percent_done = models.PositiveSmallIntegerField(null=True,blank=True,verbose_name="percent done")
+    percent_done = models.PositiveSmallIntegerField(default=0,null=True,blank=True,verbose_name="percent done")
 
     top_task = models.ForeignKey('self',null=True,blank=True,on_delete=models.SET_NULL,verbose_name="Top Task")
     project = models.ForeignKey(Project,null=True,blank=True,on_delete=models.SET_NULL,verbose_name="Project")

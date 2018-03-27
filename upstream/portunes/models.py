@@ -277,7 +277,8 @@ class Permission(models.Model):
             return
 
     def delete(self, *args, **kwargs):
-        response = send_controller('D',self.door.entrance.ip_address,str(self.door.entrance_controller_pin) +","+ str(self.personnel.identifier.key))
+        identifier = Identifier.objects.get(user=self.user)
+        response = send_controller('D',self.door.entrance.ip_address,str(self.door.entrance_controller_pin) +","+ str(identifier.key))
 
         if response is True:
             super(Permission, self).delete(*args, **kwargs)

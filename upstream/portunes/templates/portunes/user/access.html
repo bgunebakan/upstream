@@ -1,12 +1,23 @@
-{% extends 'janus/index.html' %}
+{% extends 'cruds/base.html' %}
+{% load i18n %}
+{% load crispy_forms_tags %}
+{% load render_table from django_tables2 %}
+{% load crud_tags %}
 {% load static %}
+{% load personnel_tags %}
+{% block title %}Portunes Access Control{% endblock %}
+
+{% block page_name %}Portunes Access Control{% endblock %}
+{% block page_description %}Dashboard{% endblock %}
+
+{% block bodyclass %}skin-purple {%if config.hide_sidebar %}sidebar-collapse{%endif%} {% endblock %}
 
 {% block content %}
 
 <!-- Content Header (Page header) -->
 <section class="content-header">
   <h1>
-    <a href="/users/detail/{{personnel.nat_id}}/">{{personnel.name}} {{personnel.surname}}</a> Yetkileri
+    <a href="/users/detail/{{personnel.nat_id}}/">{{user.first_name}} {{user.last_name}}</a> Yetkileri
   </h1>
   <ol class="breadcrumb">
     <li><a href="/"><i class="fa fa-dashboard"></i>Ana Sayfa</a></li>

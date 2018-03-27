@@ -29,8 +29,8 @@ def projects():
     return context
 
 @register.simple_tag
-def tasks(count):
-    tasks = Task.objects.all().order_by('-start_date')[:count:1]
+def tasks(count,request):
+    tasks = Task.objects.filter(owner=request.user).order_by('-start_date')[:count:1]
     return tasks
 
 @register.inclusion_tag('project/dashboard.html')
