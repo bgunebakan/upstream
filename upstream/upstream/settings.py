@@ -30,7 +30,7 @@ SECRET_KEY = 'k3iogt1+t=udm=!i!rn_hqwk@_*y9v*#ru7r^_wq4zyfuzml%3'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['login.tarla.org.tr','127.0.0.1']
+ALLOWED_HOSTS = ['login.tarla.org.tr','92.61.14.47','127.0.0.1']
 
 # Application definition
 ADMIN_VIEW_PERMISSION_MODELS = [
@@ -75,7 +75,7 @@ INSTALLED_APPS = [
     'menu',
     'django_python3_ldap',
     'auditlog',
-    'csvimport.app.CSVImportConf',
+    #'csvimport.app.CSVImportConf',
     'django_tables2',
 #    'raven.contrib.django.raven_compat',
 ]

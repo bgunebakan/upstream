@@ -231,7 +231,7 @@ class Identifier(models.Model):
          blank=True,
          verbose_name = "Kart Tipi"
     )
-
+    user = models.ForeignKey(User,null=True,on_delete=models.SET_NULL)
     created_date = models.DateTimeField(default=timezone.now,verbose_name = "Oluşturulma tarihi")
     deleted = models.BooleanField(default=False,verbose_name = "Silinmiş")
 
@@ -259,7 +259,7 @@ class Identifier(models.Model):
         )
 
 class Permission(models.Model):
-    personnel = models.ForeignKey(User,null=True,on_delete=models.SET_NULL)
+    user = models.ForeignKey(User,null=True,on_delete=models.SET_NULL)
     door = models.ForeignKey('Door', null=True, blank=True,on_delete=models.SET_NULL)
 
     start_date = models.DateTimeField(null=True, blank=True)
@@ -267,7 +267,9 @@ class Permission(models.Model):
     created_date = models.DateTimeField(default=timezone.now)
 
     def save(self, *args, **kwargs):
-        response = send_controller('A',self.door.entrance.ip_address,str(self.door.entrance_controller_pin) +","+ str(self.personnel.identifier.key) )
+        identifier = Identifier.objects.get(user=self.user)
+
+        response = send_controller('A',self.door.entrance.ip_address,unicode(self.door.entrance_controller_pin) +","+ unicode(identifier.key) )
 
         if response is True:
             super(Permission, self).save(*args, **kwargs) # Call the "real" save() method.
@@ -281,3 +283,5 @@ class Permission(models.Model):
             super(Permission, self).delete(*args, **kwargs)
         else:
             return
+    def __unicode__(self):
+        return unicode(self.user) + "-" + unicode(self.door)

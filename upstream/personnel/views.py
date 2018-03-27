@@ -95,6 +95,7 @@ class Personnel_typeCRUD(CRUDView):
     display_fields = ['name', 'slug', 'color','icon']
 
 #@group_required(('personnel','admin'), login_url='/personnel/profile/')
+
 @login_required
 @permission_required('personnel.can_see_avaliable_personnel', login_url='/personnel/profile/')
 def dashboard(request,template_name='personnel/personnel/dashboard.html'):

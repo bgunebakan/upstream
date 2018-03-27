@@ -126,7 +126,7 @@ class Personnel(models.Model):
     job = models.CharField(max_length=30,verbose_name = "Job",null=True,blank=True)
     phone_number1 = models.CharField(max_length=30,blank=True,verbose_name = "Job Phone",null=True)
     phone_number2 = models.CharField(max_length=30,blank=True,verbose_name = "Mobile Phone",null=True)
-    email = models.EmailField(max_length=30,verbose_name = "E-mail",null=True,blank=True)
+    email = models.EmailField(max_length=50,verbose_name = "E-mail",null=True,blank=True)
     address = models.TextField(max_length=300,null=True,verbose_name = "Address",blank=True)
     marital_status = models.IntegerField(choices=Marital_status, default=1,verbose_name = "Marital Status")
     #military_situation = models.IntegerField(choices=Military_situation, default=1,verbose_name = "Askerlik Durumu")

@@ -24,3 +24,7 @@ django-cruds-adminlte
 django-auditlog
 django-csvimport
 messytables
+django_filer
+django_libs
+django_generic_positions
+mysqlclient
