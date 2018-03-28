@@ -1,15 +1,18 @@
 <footer class="main-footer">
     <div class="pull-right hidden-xs">
         {% block footer_right %}
-            <b>Version</b> {% block version %}1.0{% endblock %}
+        
+        <strong>Powered by
+          <a href="http://creworker.com">Upstream</a>
+        </strong>
+
         {% endblock %}
     </div>
 
     {% block footer_left %}
     {% block legal %}
-    <strong>Powered by
-      <a href="http://creworker.com">Upstream</a>
-    </strong>
+     Turkish Accelerator and Radiation Laboratory. Copyright © 2018 All rights reserved.
+
     {% endblock %}
     {% endblock %}
 </footer>
