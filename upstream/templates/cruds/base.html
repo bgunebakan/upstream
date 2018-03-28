@@ -35,19 +35,20 @@
 
 {% block body %}
 
-{% block nav_header %}
-    {% include 'adminlte/lib/_main_header.html' %}
-{% endblock %}
 
-{% block nav_sidebar %}
-    {% include 'adminlte/lib/_main_sidebar.html' %}
-{% endblock %}
 
     {% include 'adminlte/lib/_top_header.html' %}
     <div class="wrapper">
+      {% block nav_header %}
+          {% include 'adminlte/lib/_main_header.html' %}
+      {% endblock %}
+
+      {% block nav_sidebar %}
+          {% include 'adminlte/lib/_main_sidebar.html' %}
+      {% endblock %}
 
         {% block content_wrapper %}
-        <div class="content-wrapper" style="background-color:#f6f7ed;">
+        <div class="content-wrapper" >
             {% block content_header %}
                 <section class="content-header">
                     <h1>
