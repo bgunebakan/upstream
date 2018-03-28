@@ -26,7 +26,6 @@ def dashboard(request):
     #for controller in controllers:
         #messages.error(request, controller.name + ' Sinyal alinamiyor.')
     controllers = Controller.objects.all()
-    print controllers
 
     return render(request, 'portunes/dashboard.html', {'table_list': table,'controllers': controllers})
 
