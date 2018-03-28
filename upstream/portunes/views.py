@@ -7,7 +7,8 @@ from .tables import *
 from django.db.models import Q
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.decorators import permission_required
-
+from datetime import datetime
+from django.contrib.auth.models import User
 from cruds_adminlte.crud import CRUDView
 from cruds_adminlte.inline_crud import InlineAjaxCRUD
 from cruds_adminlte.filter import FormFilter
@@ -89,27 +90,31 @@ def logs(request):
                 break
             response = response.split(",")
                 #response = "15376653,1,1,10.6.2017,12:12:30".split(",")
-	    try:
-		door = Door.objects.get(entrance=controller,entrance_controller_pin=response[1])
-	    except Door.DoesNotExist:
-		continue
+            try:
+		        door = Door.objects.get(entrance=controller,entrance_controller_pin=response[1])
+            except Door.DoesNotExist:
+                continue
             try:
                 identifier = Identifier.objects.get(key=response[0]) # chect identifier is exist
-
-		if (door.enter):
-		    action_type = Action_type.objects.get(action_type=int(response[2]))
-		else:
-		    action_type = Action_type.objects.get(action_type=2)
             except Identifier.DoesNotExist:
                 identifier = Identifier.objects.create(key=response[0], #if not exist create UndefinedCard
                                     name='Tanımsız kart',
                                     identifier_type=2,
                                     is_active=False,deleted=True)
 
+            if (door.enter):
+                action_type = Action_type.objects.get(action_type=int(response[2]))
+            else:
+                action_type = Action_type.objects.get(action_type=2)
+            print action_type.action_type
+
             try:
-                personnel = Personnel.objects.get(identifier=identifier)
-            except Personnel.DoesNotExist:
-                personnel = None
+                if action_type.action_type is not 4:
+                    user = User.objects.get(id=identifier.user.id)
+                else:
+                    user = None
+            except User.DoesNotExist:
+                user = None
                 action_type = Action_type.objects.get(action_type=3)
 
             date_str = response[3]
@@ -119,7 +124,7 @@ def logs(request):
             finaldate = datetime.strptime(date, '%d.%m.%Y,%H:%M:%S')
 
             action = Action(
-                    personnel=personnel,
+                    user=user,
 		    identifier=identifier,
                     door=Door.objects.get(entrance=controller,entrance_controller_pin=response[1]),
                     action_type=action_type,
