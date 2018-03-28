@@ -108,7 +108,7 @@ CONSTANCE_BACKEND = 'constance.backends.database.DatabaseBackend'
 
 CONSTANCE_CONFIG = {
     'title': ("Upstream","Software name"),
-    'hide_sidebar': (True, 'Left sidebar setting '),
+    'hide_sidebar': (False, 'Left sidebar setting '),
 }
 
 #RAVEN_CONFIG = {

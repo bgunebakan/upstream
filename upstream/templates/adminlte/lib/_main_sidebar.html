@@ -28,6 +28,28 @@
             <li class="header">{% block nav_heading %}Ana Menü{% endblock %}</li>
 
             {% block nav_links %}
+
+            {% load menubuilder %}{% menu header_menu %}
+            <li class="treeview" id="active">
+                <a href="#">
+                  <i class="fa fa-bars"></i>
+                  <span>Internal</span>
+                  <span class="pull-right-container">
+                      <i class="fa fa-angle-left pull-right"></i>
+                  </span>
+                </a>
+                <ul class="treeview-menu">
+                  {% for item in menuitems %}
+                  <li>
+                    <a href="{{ item.url }}" title="{{ item.title|escape }}"{% if item.current %} class='current'{% endif %}>
+                      <i class="fa fa-angle-right"></i>{{ item.title }}
+                    </a>
+                  </li>
+                  {% endfor %}
+                </ul>
+            </li>
+
+
             {%if '/project/' in request.path %}
             <!-- / .project -->
             {% load menubuilder %}{% menu project %}
