@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 from models import *
+from django.contrib.auth.models import User
 import django_tables2 as tables
 
 class ActionTable(tables.Table):
@@ -13,16 +14,15 @@ class ActionTable(tables.Table):
 
         attrs = {'class': 'table table-bordered table-hover'}
 
-class PersonnelTable(tables.Table):
 
-    Profil = tables.TemplateColumn('<a href="/users/detail/{{record.nat_id}}/" ><i class="fa  fa-edit"></i></a>')
+class UserTable(tables.Table):
+
+    Permission = tables.TemplateColumn('<a href="/portunes/access/{{record.id}}/" ><i class="fa  fa-edit"></i></a>')
     #Sil = tables.TemplateColumn('<a href="/users/delete/{{record.nat_id}}/"><i class="fa   fa-eraser"></i></a>')
 
     class Meta:
-        model = Personnel
-        fields = ('name', 'surname', 'nat_id', 'identifier','description')
-        exclude = ('profile_picture')
-        # add class="paleblue" to <table> tag
+        model = User
+        fields = ('first_name', 'last_name')
         attrs = {'class': 'table table-bordered table-hover'}
 
 class GuestTable(tables.Table):

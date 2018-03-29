@@ -20,14 +20,18 @@ from django_tables2 import RequestConfig
 @login_required
 @permission_required('portunes.can_add_permission', login_url='/portunes/guard/dashboard/')
 def dashboard(request):
-    table = ActionTable(Action.objects.filter(Q(action_type__action_type=1)|Q(action_type__action_type=2)|Q(action_type__action_type=4)), order_by='-created_date')
-    RequestConfig(request, paginate={'per_page': 15}).configure(table)
+    action_table = ActionTable(Action.objects.filter(Q(action_type__action_type=1)|Q(action_type__action_type=2)|Q(action_type__action_type=4)), order_by='-created_date')
+    RequestConfig(request, paginate={'per_page': 15}).configure(action_table)
+
+    user_table = UserTable(User.objects.all(), order_by='first_name')
+    RequestConfig(request, paginate={'per_page': 15}).configure(user_table)
+
     #controllers = Controller.objects.filter(health=False)
     #for controller in controllers:
         #messages.error(request, controller.name + ' Sinyal alinamiyor.')
     controllers = Controller.objects.all()
 
-    return render(request, 'portunes/dashboard.html', {'table_list': table,'controllers': controllers})
+    return render(request, 'portunes/dashboard.html', {'action_table': action_table,'user_table': user_table,'controllers': controllers})
 
 @login_required
 #@permission_required('portunes.can_see_avaliable_', login_url='/portunes/')
@@ -167,14 +171,12 @@ def controller_status(request):
 @login_required
 def controller_permission(request, id):
 
-    print mac
     controller = get_object_or_404(Controller, id=id)
     permissions = Permission.objects.filter(door__entrance=controller)
 
     if permissions.count() == 0:
-        messages.success(request, 'Guncellenecek Yetki Bulunamadi!')
-	print "yetki yok"
-        return HttpResponseRedirect('/users/list/personnel/')
+        messages.error(request, 'Guncellenecek Yetki Bulunamadi!')
+        return HttpResponseRedirect('/portunes/controller/' + unicode(controller.id))
 
     for permission in permissions:
         #print "personel", permission.personnel.nat_id
@@ -183,16 +185,17 @@ def controller_permission(request, id):
         #print "pin: ", permission.door.entrance_controller_pin
         #print "card: ", unicode(permission.personnel.identifier.key)
         #print "----------"
+
         if controller.health is True:
             response = send_controller('A',permission.door.entrance.ip_address,unicode(permission.door.entrance_controller_pin) +","
-										  + unicode(permission.personnel.identifier.key) )
+										  + unicode(permission.identifier.key) )
 
         if response is True:
             messages.success(request, unicode(permission.door.name) + ' icin Yetki Guncellendi.')
         else:
             messages.success(request, unicode(permission.door.name) + ' icin Yetki GUNCELLENEMEDi!.')
 
-    return HttpResponseRedirect('/users/access/' + permission.personnel.nat_id)
+    return HttpResponseRedirect('/portunes/user/access/' + permission.identifier.user.id)
     #return render(request, 'portunes/user/access.html' )
 	#    	return HttpResponseRedirect('/users/list/personnel/')
 
@@ -203,7 +206,8 @@ def controller_startup(request, id):
         controller = get_object_or_404(Controller, id=id)
         permissions = Permission.objects.filter(door__entrance=controller)
     except Permission.DoesNotExist:
-        messages.success(request, 'Guncellenecek Yetki Bulunamadi!')
+        messages.error(request, 'Guncellenecek Yetki Bulunamadi!')
+        return HttpResponseRedirect('/portunes/controller/' + unicode(controller.id))
 
     #print controller.ip_address
 
@@ -229,7 +233,8 @@ def controller_startup(request, id):
         #print "card: ", permission.personnel.identifier.key
         #print "----------"
         response = send_controller('A',permission.door.entrance.ip_address,unicode(permission.door.entrance_controller_pin) +","
-										+ unicode(permission.personnel.identifier.key) )
+										+ unicode(permission.identifier.key) )
+
 
 def sorting(L):
     splitup = L.split('-')
@@ -244,27 +249,30 @@ def user_access(request, user_id):
             controllers = Controller.objects.filter(health=True).order_by('name')
             doors = Door.objects.all().order_by('entrance_controller_pin')
             user = User.objects.get(id=user_id)
-            permissions = Permission.objects.filter(user=user)
+            identifier = Identifier.objects.filter(user=user)
+            permissions = Permission.objects.filter(identifier__in=identifier)
 
             checkboxes = request.POST.getlist('permissions')
         except User.DoesNotExist:
             raise Http404("Kullanici Bulunamadi")
 
         if 'clearpermission' in request.POST:
-            permissions = Permission.objects.filter(user=user)
-            for permission in permissions:
-                permission.delete()
-                if permission.id != None:
-                    messages.info(request,unicode(permission.user) + " - " + unicode(permission.door.entrance) + " kontrolcuden SiLiNEMEDi!")
-                else:
-                    messages.info(request, unicode(permission.user) + " - " + unicode(permission.door.entrance) + " kontrolcuden silindi.")
+            permissions = Permission.objects.filter(identifier__in=identifier)
+            if permissions:
+                for permission in permissions:
+                    permission.delete()
+                    if permission.id != None:
+                        messages.error(request,unicode(permission.identifier.user) + " - " + unicode(permission.door.entrance) + " kontrolcuden SiLiNEMEDi!")
+                    else:
+                        messages.info(request, unicode(permission.identifier.user) + " - " + unicode(permission.door.entrance) + " kontrolcuden silindi.")
             return HttpResponseRedirect('#')
 
         elif 'savepermission' in request.POST:
             #CLEAR ALL PERMISSIONS
-            permissions = Permission.objects.filter(user=user)
-            for permission in permissions:
-                permission.delete()
+            permissions = Permission.objects.filter(identifier__in=identifier)
+            if permissions:
+                for permission in permissions:
+                    permission.delete()
 
             message = ""
             for door_id in checkboxes:
@@ -275,19 +283,22 @@ def user_access(request, user_id):
                 #print "pin: ", door.entrance_controller_pin
                 #print "card: ", personnel.identifier.key
                 #print "----------"
-                permission, created = Permission.objects.update_or_create(user=user,door=door)
-                if permission.id != None:
-                    messages.info(request,unicode(user) + " - " + unicode(door.entrance) + " kontrolcuye kaydedildi.")
-                else:
-                    messages.info(request, unicode(user) + " - " + unicode(door.entrance) + " kontrolcuye KAYDEDiLEMEDi!")
-        return HttpResponseRedirect('#')
+                for iden in identifier:
+                    permission, created = Permission.objects.update_or_create(identifier=iden,door=door)
+                    if permission.id != None:
+                        messages.info(request,unicode(user) + " - " + unicode(door.entrance) + " kontrolcuye kaydedildi.")
+                    else:
+                        messages.error(request, unicode(user) + " - " + unicode(door.entrance) + " kontrolcuye KAYDEDiLEMEDi!")
+
+            return HttpResponseRedirect('#')
         #return render(request, 'portunes/user/access.html', {'personnel': personnel,'controllers': controllers,'doors': doors,'permissions':permissions,'table_label':'Yetkilendirme','user_menu':'active'})
     else:
         try:
             controllers = Controller.objects.filter(health=True).order_by('name')
             doors = Door.objects.all().order_by('entrance_controller_pin')
             user = User.objects.get(id=user_id)
-            permissions = Permission.objects.filter(user=user)
+            identifier = Identifier.objects.filter(user=user)
+            permissions = Permission.objects.filter(identifier__in=identifier)
         except User.DoesNotExist:
             raise Http404("Kullanici Bulunamadi")
 

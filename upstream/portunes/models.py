@@ -261,7 +261,7 @@ class Identifier(models.Model):
         )
 
 class Permission(models.Model):
-    user = models.ForeignKey(User,null=True,on_delete=models.SET_NULL)
+    identifier = models.ForeignKey(Identifier,null=True,on_delete=models.SET_NULL)
     door = models.ForeignKey('Door', null=True, blank=True,on_delete=models.SET_NULL)
 
     start_date = models.DateTimeField(null=True, blank=True)
@@ -269,9 +269,10 @@ class Permission(models.Model):
     created_date = models.DateTimeField(default=timezone.now)
 
     def save(self, *args, **kwargs):
-        identifier = Identifier.objects.get(user=self.user)
+
         if(self.door.entrance.health):
-            response = send_controller('A',self.door.entrance.ip_address,unicode(self.door.entrance_controller_pin) +","+ unicode(identifier.key) )
+            print self.identifier
+            response = send_controller('A',self.door.entrance.ip_address,unicode(self.door.entrance_controller_pin) +","+ unicode(self.identifier.key) )
 
             if response is True:
                 super(Permission, self).save(*args, **kwargs) # Call the "real" save() method.
@@ -279,14 +280,15 @@ class Permission(models.Model):
                 return
 
     def delete(self, *args, **kwargs):
-        identifier = Identifier.objects.get(user=self.user)
+
 
         if(self.door.entrance.health):
-            response = send_controller('D',self.door.entrance.ip_address,str(self.door.entrance_controller_pin) +","+ str(identifier.key))
+            response = send_controller('D',self.door.entrance.ip_address,str(self.door.entrance_controller_pin) +","+ str(self.identifier.key))
 
             if response is True:
                 super(Permission, self).delete(*args, **kwargs)
             else:
                 return
+
     def __unicode__(self):
-        return unicode(self.user) + "-" + unicode(self.door)
+        return unicode(self.identifier) + "-" + unicode(self.door)
