@@ -40,7 +40,7 @@ ADMIN_VIEW_PERMISSION_MODELS = [
 INSTALLED_APPS = [
     #'admin_view_permission',
 
-    #'django_adminlte_theme',
+    'django_adminlte_theme',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -257,7 +257,7 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/1.9/topics/i18n/
 
-LANGUAGE_CODE = 'tr-TR'#'en-US'
+LANGUAGE_CODE = 'en-TR'#'en-US'
 
 TIME_ZONE = 'Europe/Istanbul'
 

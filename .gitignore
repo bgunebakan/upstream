@@ -56,9 +56,11 @@ local_settings.py
 homepage/migrations/
 ldapconnect/migrations/
 personnel/migrations/
-tarlaguard/migrations/
+inventory/migrations/
 webmail/migrations/
-
+portunes/migrations/
+project/migrations/
+procurement/migrations/
 # Flask stuff:
 instance/
 .webassets-cache

@@ -170,11 +170,13 @@ class Action(models.Model):
 
 class Action_type(models.Model):
     ACTIONS = (
-            (1, 'Enter'),
-            (2, 'Exit'),
-            (3, 'UndefinedCard'),
-            (4, 'Denied'),
-            (5, 'HealthCheck')
+            (1, 'Card Enter'),
+            (2, 'Card Exit'),
+            (3, 'Button Exit'),
+            (4, 'Card Denied'),
+            (5, 'Door Status'),
+            (6, 'Lock Status'),
+            (7, 'Tamper Status'),
     )
 
     LEVEL = (
@@ -265,7 +267,7 @@ class Permission(models.Model):
     start_date = models.DateTimeField(null=True, blank=True)
     end_date = models.DateTimeField(null=True, blank=True)
     created_date = models.DateTimeField(default=timezone.now)
-
+    
     def save(self, *args, **kwargs):
         identifier = Identifier.objects.get(user=self.user)
 

@@ -107,7 +107,7 @@ class Migration(migrations.Migration):
                 ('end_date', models.DateTimeField(blank=True, null=True)),
                 ('created_date', models.DateTimeField(default=django.utils.timezone.now)),
                 ('door', models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.SET_NULL, to='portunes.Door')),
-                ('personnel', models.ForeignKey(null=True, on_delete=django.db.models.deletion.SET_NULL, to=settings.AUTH_USER_MODEL)),
+                ('user', models.ForeignKey(null=True, on_delete=django.db.models.deletion.SET_NULL, to=settings.AUTH_USER_MODEL)),
             ],
         ),
         migrations.AddField(
