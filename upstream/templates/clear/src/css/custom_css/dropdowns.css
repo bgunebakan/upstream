@@ -1,0 +1,36 @@
+
+.multiselect-container>li>a>label{
+    padding:0 !important;
+}
+.card-header {
+    padding: 9px 15px 7px 15px;
+}
+.dropdown-menu > .active > a, .dropdown-menu > .active > a:hover, .dropdown-menu > .active > a:focus {
+    color: #fff;
+    text-decoration: none;
+    outline: 0;
+    background-color: #6699cc;
+}
+.dropdown_position1{
+    transform: translate3d(0px, 35px, 0px) !important;
+}
+.dropdown_position{
+transform: translate3d(0px, 35px, 0px) !important;
+}
+
+/*bootsrtap3 overrides*/
+
+.select2-bootstrap-append .select2-container,.select2-bootstrap-prepend .select2-container{
+    width: 90% !important;
+}
+
+@media(min-width: 425px) and (max-width:1024px){
+    .select2-bootstrap-append .select2-container, .select2-bootstrap-prepend .select2-container{
+        width: 86% !important;
+    }
+}
+@media(min-width:320px) and (max-width:375px){
+    .select2-bootstrap-append .select2-container, .select2-bootstrap-prepend .select2-container{
+        width:82% !important;
+    }
+}
