@@ -165,10 +165,10 @@ def controller_status(request):
 
 
 @login_required
-def controller_permission(request, mac):
+def controller_permission(request, id):
 
     print mac
-    controller = get_object_or_404(Controller, mac=mac)
+    controller = get_object_or_404(Controller, id=id)
     permissions = Permission.objects.filter(door__entrance=controller)
 
     if permissions.count() == 0:
@@ -196,11 +196,11 @@ def controller_permission(request, mac):
     #return render(request, 'portunes/user/access.html' )
 	#    	return HttpResponseRedirect('/users/list/personnel/')
 
-def controller_startup(request, mac):
+def controller_startup(request, id):
     time.sleep(5)
     try:
         #print mac
-        controller = get_object_or_404(Controller, mac=mac)
+        controller = get_object_or_404(Controller, id=id)
         permissions = Permission.objects.filter(door__entrance=controller)
     except Permission.DoesNotExist:
         messages.success(request, 'Guncellenecek Yetki Bulunamadi!')
