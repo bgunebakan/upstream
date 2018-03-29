@@ -267,24 +267,26 @@ class Permission(models.Model):
     start_date = models.DateTimeField(null=True, blank=True)
     end_date = models.DateTimeField(null=True, blank=True)
     created_date = models.DateTimeField(default=timezone.now)
-    
+
     def save(self, *args, **kwargs):
         identifier = Identifier.objects.get(user=self.user)
+        if(self.door.entrance.health):
+            response = send_controller('A',self.door.entrance.ip_address,unicode(self.door.entrance_controller_pin) +","+ unicode(identifier.key) )
 
-        response = send_controller('A',self.door.entrance.ip_address,unicode(self.door.entrance_controller_pin) +","+ unicode(identifier.key) )
-
-        if response is True:
-            super(Permission, self).save(*args, **kwargs) # Call the "real" save() method.
-        else:
-            return
+            if response is True:
+                super(Permission, self).save(*args, **kwargs) # Call the "real" save() method.
+            else:
+                return
 
     def delete(self, *args, **kwargs):
         identifier = Identifier.objects.get(user=self.user)
-        response = send_controller('D',self.door.entrance.ip_address,str(self.door.entrance_controller_pin) +","+ str(identifier.key))
 
-        if response is True:
-            super(Permission, self).delete(*args, **kwargs)
-        else:
-            return
+        if(self.door.entrance.health):
+            response = send_controller('D',self.door.entrance.ip_address,str(self.door.entrance_controller_pin) +","+ str(identifier.key))
+
+            if response is True:
+                super(Permission, self).delete(*args, **kwargs)
+            else:
+                return
     def __unicode__(self):
         return unicode(self.user) + "-" + unicode(self.door)
