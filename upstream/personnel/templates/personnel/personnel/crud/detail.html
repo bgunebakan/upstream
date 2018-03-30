@@ -1,6 +1,7 @@
 {% extends 'cruds/base.html' %}
 {% load i18n %}
 {% load crud_tags %}
+{% load personnel_utils %}
 {% load static %}
 {% block title %}User Manager{% endblock %}
 
@@ -41,7 +42,9 @@
 
           </ul>
           <div class="col-md-12 col-lg-12 " align="center">
-          <a href="/personnel/personnel/{{object.id}}/update" class="btn btn-warning" align="center">Update Details</a>
+          <a href="/personnel/personnel/{{object.id}}/update" class="btn btn-primary" align="center">Update Details</a>
+          {% get_folder object.id as folder%}
+          <a href="/admin/filer/folder/{{folder.id}}/list/" class="btn btn-warning" align="center">User Files</a>
             </div>
         </div>
         <!-- /.box-body -->

@@ -113,8 +113,9 @@ def dashboard(request,template_name='personnel/personnel/dashboard.html'):
 
 @login_required
 def profile(request, template_name='personnel/personnel/profile.html'):
-
+    print "profile"
 
     personnel = Personnel.objects.get(user=request.user)
+
 
     return HttpResponseRedirect('/personnel/personnel/' + unicode(personnel.id))
