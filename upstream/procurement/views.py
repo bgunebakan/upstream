@@ -73,7 +73,7 @@ class TenderCRUD(CRUDView):
     display_fields = ['name','no','tender_type','tender_status','auction_no']
 
     list_filter = ['tender_status', 'tender_type']
-
+    
     add_form = TenderForm
     update_form = TenderForm
 

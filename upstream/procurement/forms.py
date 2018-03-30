@@ -31,6 +31,7 @@ class TenderForm(forms.ModelForm):
                 attrs={'format': 'hh:ii',
                        'icon': 'fa-clock-o'}),
             'notes': CKEditorWidget(attrs={'lang': 'tr'}),
+
         }
 
     def __init__(self, *args, **kwargs):
@@ -41,7 +42,7 @@ class TenderForm(forms.ModelForm):
         self.helper.layout = Layout(
             TabHolder(
                 Tab(
-                    _('Genel bilgiler'),
+                    _('General'),
                     Field('name', wrapper_class="col-md-12"),
                     Field('tender_type', wrapper_class="col-md-6"),
                     Field('tender_status', wrapper_class="col-md-6"),
@@ -50,21 +51,21 @@ class TenderForm(forms.ModelForm):
 
                 ),
                 Tab(
-                    _('Fiyat bilgileri'),
+                    _('Finance'),
                     Field('approximate_price', wrapper_class="col-md-6"),
                     Field('currency', wrapper_class="col-md-6"),
                     Field('contract_date', wrapper_class="col-md-6"),
 
                 ),
                 Tab(
-                    _('ihale bilgileri'),
+                    _('Date Details'),
                     Field('auction_no', wrapper_class="col-md-12"),
                     Field('auction_date', wrapper_class="col-md-4"),
                     Field('auction_time', wrapper_class="col-md-4"),
                     Field('auction_price', wrapper_class="col-md-4"),
                 ),
                 Tab(
-                    _('Sorumlu bilgileri'),
+                    _('Extra'),
                     Field('user', wrapper_class="col-md-6"),
                     Field('supplier', wrapper_class="col-md-6"),
                     Field('notes', wrapper_class="col-md-12"),
