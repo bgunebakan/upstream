@@ -106,9 +106,13 @@ THUMBNAIL_HIGH_RESOLUTION = True
 
 CONSTANCE_BACKEND = 'constance.backends.database.DatabaseBackend'
 
+
 CONSTANCE_CONFIG = {
     'title': ("Upstream","Software name"),
     'hide_sidebar': (False, 'Left sidebar setting '),
+}
+CONSTANCE_CONFIG_FIELDSETS = {
+    'General Options': ('title','hide_sidebar'),
 }
 
 #RAVEN_CONFIG = {
