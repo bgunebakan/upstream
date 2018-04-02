@@ -276,8 +276,49 @@ USE_TZ = True
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 STATIC_URL = '/static/'
 MEDIA_URL = '/media/'
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+MEDIA_ROOT = '/opt/upstream/media/'#os.path.join(BASE_DIR, 'media')
 LOGIN_REDIRECT_URL = '/'
+
+
+FILER_STORAGES = {
+    'public': {
+        'main': {
+            'ENGINE': 'filer.storage.PublicFileSystemStorage',
+            'OPTIONS': {
+                'location': '/opt/upstream/media/filer',
+                'base_url': '/media/filer/',
+            },
+            'UPLOAD_TO': 'filer.utils.generate_filename.randomized',
+            'UPLOAD_TO_PREFIX': 'filer_public',
+        },
+        'thumbnails': {
+            'ENGINE': 'filer.storage.PublicFileSystemStorage',
+            'OPTIONS': {
+                'location': '/opt/upstream/media/filer_thumbnails',
+                'base_url': '/media/filer_thumbnails/',
+            },
+        },
+    },
+    'private': {
+        'main': {
+            'ENGINE': 'filer.storage.PrivateFileSystemStorage',
+            'OPTIONS': {
+                'location': '/opt/upstream/smedia/filer',
+                'base_url': '/smedia/filer/',
+            },
+            'UPLOAD_TO': 'filer.utils.generate_filename.randomized',
+            'UPLOAD_TO_PREFIX': 'filer_public',
+        },
+        'thumbnails': {
+            'ENGINE': 'filer.storage.PrivateFileSystemStorage',
+            'OPTIONS': {
+                'location': '/opt/upstream/smedia/filer_thumbnails',
+                'base_url': '/smedia/filer_thumbnails/',
+            },
+        },
+    },
+}
+
 
 #INTERNAL_IPS = ('127.0.0.1',)
 

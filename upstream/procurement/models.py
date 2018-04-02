@@ -7,15 +7,15 @@ from datetime import datetime
 from django.contrib.auth.models import User,Group
 
 class TenderType(models.Model):
-    name = models.CharField(max_length=50, verbose_name=_(u'Alım türü'))
-    code = models.CharField(default="",max_length=10, verbose_name=_(u'Alım Tür Kodu'))
-    created_date = models.DateTimeField(default=timezone.now,verbose_name='Oluşturma tarihi', editable=False)
-    description = models.TextField(max_length=200,null=True,blank=True, verbose_name=_(u'Açıklama'))
+    name = models.CharField(max_length=50, verbose_name=_(u'Name'))
+    code = models.CharField(default="",max_length=10, verbose_name=_(u'Code'))
+    created_date = models.DateTimeField(default=timezone.now,verbose_name='create date', editable=False)
+    description = models.TextField(max_length=200,null=True,blank=True, verbose_name=_(u'Notes'))
 
     class Meta:
         ordering = ['name']
-        verbose_name = _(u'Alım türü')
-        verbose_name_plural = _(u'Alım Türleri')
+        verbose_name = _(u'Tender Type')
+        verbose_name_plural = _(u'Tender Types')
 
     def __unicode__(self):
         return self.name
@@ -36,40 +36,40 @@ class Unit(models.Model):
 
 
 class TenderStatus(models.Model):
-    name = models.CharField(max_length=50, verbose_name=_(u'İhale Durumu'))
-    bgcolor = models.CharField(default="",max_length=20, verbose_name=_(u'Arkaplan rengi'),help_text=_('<a target="_blank" href="http://basscss.com/v7/docs/background-colors/">Renk Seçenekleri</a>'))
-    created_date = models.DateTimeField(default=timezone.now,verbose_name='Oluşturma tarihi', editable=False)
-    description = models.TextField(max_length=200,null=True,blank=True, verbose_name=_(u'Açıklama'))
+    name = models.CharField(max_length=50, verbose_name=_(u'Tender Status'))
+    bgcolor = models.CharField(default="",max_length=20, verbose_name=_(u'background'),help_text=_('<a target="_blank" href="http://basscss.com/v7/docs/background-colors/">Renk Seçenekleri</a>'))
+    created_date = models.DateTimeField(default=timezone.now,verbose_name='Created date', editable=False)
+    description = models.TextField(max_length=200,null=True,blank=True, verbose_name=_(u'Notes'))
 
     class Meta:
         ordering = ['name']
-        verbose_name = _(u'İhale durumu')
-        verbose_name_plural = _(u'İhale durumları')
+        verbose_name = _(u'Tender Status')
+        verbose_name_plural = _(u'Tenders Status')
 
     def __unicode__(self):
         return self.name
 
 class Currency(models.Model):
-    name = models.CharField(max_length=50, verbose_name=_(u'Kur ismi'))
-    short_name = models.CharField(max_length=5, verbose_name=_(u'Kısa adı'))
-    created_date = models.DateTimeField(default=timezone.now,verbose_name='Oluşturma tarihi', editable=False)
-    description = models.TextField(max_length=200,null=True,blank=True, verbose_name=_(u'Açıklama'))
+    name = models.CharField(max_length=50, verbose_name=_(u'Currency'))
+    short_name = models.CharField(max_length=5, verbose_name=_(u'slug'))
+    created_date = models.DateTimeField(default=timezone.now,verbose_name='Created date', editable=False)
+    description = models.TextField(max_length=200,null=True,blank=True, verbose_name=_(u'Notes'))
 
     class Meta:
         ordering = ['name']
-        verbose_name = _(u'Döviz Kuru')
-        verbose_name_plural = _(u'Döviz Kurları')
+        verbose_name = _(u'Currency')
+        verbose_name_plural = _(u'Currencies')
 
     def __unicode__(self):
         return self.name
 
 class Supplier(models.Model):
-    name = models.CharField(max_length=32,unique=True, verbose_name=_(u'Tedarikçi Firma'))
-    address = models.TextField(max_length=200,null=True,blank=True, verbose_name=_(u'Adres'))
-    phone_number1 = models.CharField(max_length=32, null=True, blank=True, verbose_name=_(u'Telefon'))
+    name = models.CharField(max_length=32,unique=True, verbose_name=_(u'Supplier'))
+    address = models.TextField(max_length=200,null=True,blank=True, verbose_name=_(u'Address'))
+    phone_number1 = models.CharField(max_length=32, null=True, blank=True, verbose_name=_(u'Phone'))
     web = models.CharField(max_length=32, null=True, blank=True, verbose_name=_(u'Web'))
-    notes = models.TextField(null=True, blank=True, verbose_name=(u'Açıklama'))
-    created_date = models.DateTimeField(default=timezone.now,verbose_name='Oluşturma tarihi', editable=False)
+    notes = models.TextField(null=True, blank=True, verbose_name=(u'Notes'))
+    created_date = models.DateTimeField(default=timezone.now,verbose_name='Created date', editable=False)
 
     class Meta:
         ordering = ['name']
