@@ -14,7 +14,7 @@ def get_folder(id):
     id = int(id)
     user = User.objects.get(id=id)
     try:
-        folder = Folder.objects.get(owner=id)
+        folder = Folder.objects.get(owner=id,level=0)
     except ObjectDoesNotExist:
         folder = Folder.objects.create(name=user.username,uploaded_at=timezone.now,
                 created_at=timezone.now,modified_at=timezone.now,tree_id=0,owner_id=user.id)
