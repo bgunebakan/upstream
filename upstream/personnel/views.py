@@ -50,6 +50,21 @@ class UserCRUD(CRUDView):
     paginate_position = 'Bottom' # Both | Bottom
     paginate_template = 'cruds/pagination/enumeration.html'
 
+class Personnel_file_AjaxCRUD(InlineAjaxCRUD):
+    model = Personnel_file
+    base_model = Personnel
+    inline_field = 'personnel'
+    fields = ['name','file']
+    display_fields = ['name','file','created_date']
+    list_fields = ['name','file','created_date']
+    #add_form = Tender_end_dateForm
+    #update_form = Tender_end_dateForm
+    #fields = ['timedate',]
+    #widgets = {
+    #    'timedate': DatePickerWidget(attrs={'format': 'mm/dd/yyyy',
+    #                                    'icon': 'fa-calendar'}),
+    #}
+    title = _("User Files")
 
 class PersonnelCRUD(CRUDView):
     model = Personnel
@@ -73,6 +88,7 @@ class PersonnelCRUD(CRUDView):
 
     add_form = PersonnelForm
     update_form = PersonnelForm
+    inlines = [Personnel_file_AjaxCRUD]
 
     search_fields = ['name','surname','nat_id']
     split_space_search = True

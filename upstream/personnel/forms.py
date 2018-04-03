@@ -27,7 +27,7 @@ class UserForm(forms.ModelForm):
 
         self.helper.layout = Layout(
 
-                    'Kullanici Bilgileri'.decode('utf-8'),
+                    'User Details'.decode('utf-8'),
                     Field('first_name', wrapper_class="col-md-6"),
                     Field('last_name', wrapper_class="col-md-6"),
                     Field('username', wrapper_class="col-md-6"),
@@ -64,7 +64,7 @@ class PersonnelForm(forms.ModelForm):
         self.helper.layout = Layout(
             TabHolder(
                 Tab(
-                    'Kişisel Bilgiler'.decode('utf-8'),
+                    'Personel Details'.decode('utf-8'),
                     Field('name', wrapper_class="col-md-6"),
                     Field('surname', wrapper_class="col-md-6"),
                     Field('nat_id', wrapper_class="col-md-6"),
@@ -76,7 +76,7 @@ class PersonnelForm(forms.ModelForm):
                     Field('profile_picture', wrapper_class="col-md-12"),
                 ),
                 Tab(
-                    'İletişim bilgileri'.decode('utf-8'),
+                    'Contact'.decode('utf-8'),
                     Field('phone_number1', wrapper_class="col-md-4"),
                     Field('phone_number2', wrapper_class="col-md-4"),
                     Field('email', wrapper_class="col-md-4"),
@@ -84,21 +84,21 @@ class PersonnelForm(forms.ModelForm):
                     Field('notes', wrapper_class="col-md-12"),
                 ),
                 Tab(
-                    _('Mesleki Bilgiler'),
+                    _('Professional Details'),
                     Field('department', wrapper_class="col-md-6"),
                     Field('job', wrapper_class="col-md-6"),
                     Field('title', wrapper_class="col-md-6"),
                     Field('drive_licence', wrapper_class="col-md-6"),
 
                 ),Tab(
-                    'Dosyalar'.decode('utf-8'),
+                    'Files'.decode('utf-8'),
                     Field('user_file', wrapper_class="col-md-12"),
                     Field('health_status', wrapper_class="col-md-12"),
                     Field('extra_file1', wrapper_class="col-md-12"),
                     Field('extra_file2', wrapper_class="col-md-12"),
                     Field('extra_file3', wrapper_class="col-md-12"),
                 ),Tab(
-                    'Öz Geçmiş'.decode('utf-8'),
+                    'CV'.decode('utf-8'),
                     Field('cv', wrapper_class="col-md-12"),
                 )
             )
@@ -106,9 +106,9 @@ class PersonnelForm(forms.ModelForm):
 
         self.helper.layout.append(
             FormActions(
-                Submit('submit', _('Kaydet'), css_class='btn btn-primary'),
+                Submit('submit', _('Update'), css_class='btn btn-primary'),
                 HTML("""{% load i18n %}<a class="btn btn-danger"
-                        href="{{ url_delete }}">{% trans 'Delete' %}</a>"""),
+                        href="{{ url_delete }}">Delete</a>"""),
             )
         )
 

@@ -5,11 +5,11 @@
   {% if crud_perms.list %}
         <a href="{{ url_list }}{{getparams}}" class="btn btn-info">
             <i class="fa fa-angle-double-left"></i>
-            {{ model_verbose_name_plural }}{% trans " listesine dön" %}
+            {% trans "Back to " %}{{ model_verbose_name_plural }}
         </a>
   {% endif %}
 
-  <h1>{{ object }}</h1><h2> {% trans " kullanıcısını silmek istiyor musunuz" %}?</h2>
+  <h1>{{ object }}</h1><h2> {% trans "Do you want to delete" %}?</h2>
   <div class="alert alert-warning">
   <strong>Uyarı!</strong> <p>Eğer LDAP yetkilendirmesi kullanıyorsanız, kullanıcıyı silmek ldap yetkilerini de silmez.<br>
     Ldap yetki sayfasından ldap yetkilerini de siliniz.</p>
@@ -20,7 +20,7 @@
     {% csrf_token %}
 
     <p>
-      <button type="submit" class="btn btn-danger">{% trans "Onayla" %}</button>
+      <button type="submit" class="btn btn-danger">{% trans "Accept" %}</button>
     </p>
   </form>
 {% endblock %}

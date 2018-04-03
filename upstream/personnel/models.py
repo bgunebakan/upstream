@@ -40,12 +40,14 @@ class UploadToPathAndRename(object):
         ext = filename.split('.')[-1]
         # get filename
         if instance.pk:
-            filename = '{}.{}'.format(instance.nat_id, ext)
+            filename = '{}.{}'.format(instance.personnel.nat_id, ext)
         else:
             # set filename as random string
             filename = '{}.{}'.format(uuid4().hex, ext)
         # return the whole path to the file
         return os.path.join(self.sub_path, filename)
+
+
 
 class Personnel_type(models.Model):
     name = models.CharField(
@@ -55,7 +57,7 @@ class Personnel_type(models.Model):
         }
         ,verbose_name = "Personnel Type"
     )
-    slug = models.CharField(max_length=30,verbose_name = "Slug")
+    slug = models.CharField(max_length=30,verbose_name = "Slug",blank=True,null=True)
     icon = models.CharField(max_length=20,default="fa-users",verbose_name = "Icon",help_text=_('<a target="_blank" href="http://fontawesome.com/icons">Icon Seçenekleri</a>'))
     color = models.CharField(max_length=20,default="bg-yellow",verbose_name = "Color",help_text=_('<a target="_blank" href="http://basscss.com/v7/docs/background-colors/">Renk Seçenekleri</a>'))
     total = models.IntegerField(verbose_name="Total user",default=0)
@@ -96,12 +98,7 @@ class Personnel(models.Model):
             (2, 'Evli'),
             (3, 'Bekar')
     )
-    #Military_situation = (
-    #        (1, 'Belirtilmemiş'),
-    #        (2, 'Yaptı'),
-    #        (3, 'Yapmadı'),
-    #        (4, 'Tecilli')
-    #)
+
     Drive_licence = (
             (1, 'Belirtilmemiş'),
             (2, 'A'),
@@ -129,7 +126,7 @@ class Personnel(models.Model):
     email = models.EmailField(max_length=50,verbose_name = "E-mail",null=True,blank=True)
     address = models.TextField(max_length=300,null=True,verbose_name = "Address",blank=True)
     marital_status = models.IntegerField(choices=Marital_status, default=1,verbose_name = "Marital Status")
-    #military_situation = models.IntegerField(choices=Military_situation, default=1,verbose_name = "Askerlik Durumu")
+
     drive_licence = models.IntegerField(choices=Drive_licence, default=1,verbose_name = "Drive Licence")
     health_status = models.FileField(upload_to=UploadToPathAndRename(os.path.join('health_status')),null=True,blank=True,verbose_name = "Health Status")
 
@@ -173,5 +170,33 @@ class Personnel(models.Model):
         self.save()
         return
 
+class Personnel_file(models.Model):
+    name = models.CharField(
+        max_length=30,
+        error_messages={
+        'unique': 'That personnel file name is already saved.'
+        }
+        ,verbose_name = "File Name"
+    )
+    slug = models.CharField(max_length=30,verbose_name = "Slug",blank=True,null=True)
+    file = models.FileField(upload_to=UploadToPathAndRename(os.path.join('user_file')),null=True,blank=True,verbose_name = "File")
+    personnel = models.ForeignKey(Personnel, null=True,on_delete=models.SET_NULL,verbose_name = "User")
+    created_date = models.DateTimeField(default=timezone.now)
+    deleted = models.BooleanField(default=False,verbose_name = "deleted")
+
+    objects = SoftDeleteManager()
+    class Meta:
+        ordering = ['name']
+        verbose_name = _(u'User file')
+        verbose_name_plural = _(u'User files')
+
+    def delete(self, *args, **kwargs):
+#        self.total = total - 1
+        self.deleted=True
+        self.save()
+        return
+
+    def __unicode__(self):
+        return self.name
 #auditlog.register(Personnel)
 #auditlog.register(Personnel_type)

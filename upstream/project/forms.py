@@ -59,7 +59,7 @@ class TaskForm(forms.ModelForm):
                 ),
                 Tab(
                     _('Notes'),
-                    Field('description', wrapper_class="col-md-6"),
+                    Field('description', wrapper_class="col-md-12"),
 
                 )
             )
