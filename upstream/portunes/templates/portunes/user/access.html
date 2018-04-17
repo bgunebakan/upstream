@@ -19,10 +19,6 @@
   <h1>
     <a href="/users/detail/{{personnel.nat_id}}/">{{user.first_name}} {{user.last_name}}</a> Yetkileri
   </h1>
-  <ol class="breadcrumb">
-    <li><a href="/"><i class="fa fa-dashboard"></i>Ana Sayfa</a></li>
-    <li>{{table_label}}</li>
-  </ol>
 </section>
 
 <!-- Main content -->
@@ -47,9 +43,9 @@
 
             <form action="" method="post" name="form" id="form">
               {% csrf_token %}
-            
+
              {% for door in doors.all %}
-         
+
               {%if door.entrance.name == controller.name %}
               <li class="fa fa-code-fork" > {{door.entrance_controller_pin}} - {{door.name}}
                 <input type="checkbox" name="permissions" value="{{door.id}}"

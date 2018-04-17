@@ -51,6 +51,7 @@ class Controller(models.Model):
     deleted = models.BooleanField(default=False,verbose_name = "Silinmiş")
 
     objects = SoftDeleteManager()
+
     class Meta:
         ordering = ['name']
         verbose_name = _(u'Controller')
@@ -110,17 +111,12 @@ class Door(models.Model):
         verbose_name = _(u'Door')
         verbose_name_plural = _(u'Doors')
 
-#    def delete(self, *args, **kwargs):
-#        self.deleted=True
-#        self.save()
-#        return
-    def __unicode__(self):
-        return self.entrance.name + ' -- ' + unicode(self.name)
-
-    class Meta:
         permissions = (
             ('view_door', 'Can view doors'),
         )
+
+    def __unicode__(self):
+        return self.entrance.name + ' -- ' + unicode(self.name)
 
 class Door_group(models.Model):
 
@@ -135,14 +131,14 @@ class Door_group(models.Model):
 
     created_date = models.DateTimeField(default=timezone.now)
 
+    class Meta:
+        ordering = ['name']
+        verbose_name = _(u'Door Group')
+        verbose_name_plural = _(u'Door Groups')
 
     def __unicode__(self):
         return self.name
 
-    class Meta:
-        permissions = (
-            ('view_door_groups', 'Can view door groups'),
-        )
 
 class Action(models.Model):
 
@@ -159,6 +155,12 @@ class Action(models.Model):
         self.deleted=True
         self.save()
         return
+
+    class Meta:
+        ordering = ['user']
+        verbose_name = _(u'Action')
+        verbose_name_plural = _(u'Actions')
+
     def __unicode__(self):
         message = str(self.id) + ':'
         if self.door:
@@ -202,6 +204,11 @@ class Action_type(models.Model):
         self.deleted=True
         self.save()
         return
+
+    class Meta:
+        ordering = ['action_type']
+        verbose_name = _(u'Action Type')
+        verbose_name_plural = _(u'Action Types')
 
     def __unicode__(self):
         return self.message
@@ -252,13 +259,18 @@ class Identifier(models.Model):
         self.save()
         return
 
-    def __unicode__(self):
-        return unicode(self.name) + "-" + self.key
-
     class Meta:
+        ordering = ['name']
+        verbose_name = _(u'Identifier')
+        verbose_name_plural = _(u'Identifiers')
+
         permissions = (
             ('view_identifier', 'Can view identifiers'),
         )
+
+    def __unicode__(self):
+        return unicode(self.name) + "-" + self.key
+
 
 class Permission(models.Model):
     identifier = models.ForeignKey(Identifier,null=True,on_delete=models.SET_NULL)
@@ -289,6 +301,10 @@ class Permission(models.Model):
                 super(Permission, self).delete(*args, **kwargs)
             else:
                 return
+    class Meta:
+        ordering = ['identifier']
+        verbose_name = _(u'Permission')
+        verbose_name_plural = _(u'Permissions')
 
     def __unicode__(self):
         return unicode(self.identifier) + "-" + unicode(self.door)

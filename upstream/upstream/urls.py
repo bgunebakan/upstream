@@ -27,7 +27,7 @@ from cruds_adminlte.urls import crud_for_model
 from cruds_adminlte.urls import crud_for_app
 from personnel.models import Personnel
 from procurement.views import TenderCRUD,Tender_end_dateCRUD
-from portunes.views import ControllerCRUD,DoorCRUD
+from portunes.views import ControllerCRUD,DoorCRUD,IdentifierCRUD
 from project.views import ProjectCRUD,TaskCRUD
 
 usercrud = UserCRUD()
@@ -38,6 +38,7 @@ tendercrud = TenderCRUD()
 
 controllercrud = ControllerCRUD()
 doorcrud = DoorCRUD()
+identifiercrud = IdentifierCRUD()
 
 projectcrud = ProjectCRUD()
 taskcrud = TaskCRUD()
@@ -69,6 +70,7 @@ urlpatterns = [
     url(r'^portunes/', include('portunes.urls')),
     url(r'', include(controllercrud.get_urls())),
     url(r'', include(doorcrud.get_urls())),
+    url(r'', include(identifiercrud.get_urls())),
 
     url(r'^project/', include('project.urls'),name='project'),
     url(r'', include(projectcrud.get_urls())),

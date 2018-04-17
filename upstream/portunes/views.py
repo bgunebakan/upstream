@@ -82,6 +82,26 @@ class DoorCRUD(CRUDView):
     paginate_position = 'Bottom' # Both | Bottom
     paginate_template = 'cruds/pagination/enumeration.html'
 
+class IdentifierCRUD(CRUDView):
+    model = Identifier
+    template_name_base='crud'  #customer cruds => ccruds
+    namespace = None
+    check_login = True
+    check_perms = True
+    add_form = IdentifierForm
+    update_form = IdentifierForm
+
+    views_available=['create', 'list', 'update','delete']
+    fields = ['name','identifier_type','user','is_active','created_date','deleted' ]
+    list_fields = ['name','identifier_type','user','is_active','created_date','deleted' ]
+    display_fields = ['name','identifier_type','user','is_active','created_date','deleted' ]
+
+    search_fields = ['name','identifier_type','user','is_active']
+    split_space_search = True
+    paginate_by = 15
+    paginate_position = 'Bottom' # Both | Bottom
+    paginate_template = 'cruds/pagination/enumeration.html'
+
 @login_required
 def logs(request):
 
