@@ -2,6 +2,7 @@
 {% load i18n %}
 {% load crud_tags %}
 {% load static %}
+{% load portunes_tags %}
 {% block title %}Portunes Access Control{% endblock %}
 
 {% block page_name %}Portunes Access Control{% endblock %}
@@ -20,200 +21,69 @@
       <!-- Profile Image -->
       <div class="box box-primary">
         <div class="box-body box-profile">
-          <img class="profile-user-img img-responsive img-circle" src="{{ object.profile_picture.url }}" alt="Fotoğraf">
+          <img class="profile-user-img img-responsive img-circle" src="https://previews.123rf.com/images/sn333g/sn333g1508/sn333g150800064/43939444-door-icon-or-logo-vector-black-open-door-symbol.jpg" alt="Fotoğraf">
 
-          <h3 class="profile-username text-center">{{ object }}</h3>
-
-          <p class="text-muted text-center">{{ object.job }}</p>
+          <h3 class="profile-username text-center">{{ object.name }}</h3>
 
           <ul class="list-group list-group-unbordered">
             <li class="list-group-item">
-              <b>Work days</b> <a class="pull-right">{{ object.total_workday }}</a>
+              <b>Controller</b> <a class="pull-right">{{ object.entrance.name }}</a>
             </li>
             <li class="list-group-item">
-              <b>Work hours</b> <a class="pull-right">{{ object.total_workhour }}</a>
+              <b>Pin</b> <a class="pull-right">{{ object.entrance_controller_pin }}</a>
             </li>
-            <li class="list-group-item">
-              <b>Total dose</b> <a class="pull-right">{{ object.total_dose }}</a>
-            </li>
-
-
-
           </ul>
           <div class="col-md-12 col-lg-12 " align="center">
-          <a href="/personnel/personnel/{{object.id}}/update" class="btn btn-warning" align="center">Update Details</a>
+          <a href="/portunes/door/{{object.id}}/update" class="btn btn-warning" align="center">Update Details</a>
             </div>
         </div>
         <!-- /.box-body -->
       </div>
       <!-- /.box -->
 
-      <!-- About Me Box -->
-      <div class="box box-primary">
-        <div class="box-header with-border">
-          <h3 class="box-title">About</h3>
-        </div>
-        <!-- /.box-header -->
-        <div class="box-body">
-          <strong><i class="fa fa-book margin-r-5"></i>Contact</strong>
-
-          <p class="text-muted">
-            E-mail: <b><a href="mailto:{{ object.email }}">{{ object.email }}</a> </b><br>
-            Job-phone: <b><a href="tel:{{ object.phone_number1 }}">{{ object.phone_number1 }}</a> </b><br>
-            Mobile-Phone: <b><a href="tel:{{ object.phone_number2 }}">{{ object.phone_number2 }}</a></b>
-          </p>
-
-          <hr>
-
-          <strong><i class="fa fa-map-marker margin-r-5"></i>Department</strong>
-
-          <p class="text-muted">{{ object.department }}</p>
-
-          <hr>
-
-          <strong><i class="fa fa-file-text-o margin-r-5"></i> Notes</strong>
-
-          <p>{{ object.notes }}</p>
-        </div>
-        <!-- /.box-body -->
-      </div>
-      <!-- /.box -->
     </div>
     <!-- /.col -->
     <div class="col-md-9">
-      <div class="nav-tabs-custom">
-        <ul class="nav nav-tabs">
-          <li class="active"><a href="#about" data-toggle="tab">Personel</a></li>
-          <li class=""><a href="#contact" data-toggle="tab">Contact</a></li>
-          <li class=""><a href="#job" data-toggle="tab">Job</a></li>
-          <li class=""><a href="#cv" data-toggle="tab">CV</a></li>
-        </ul>
-        <div class="tab-content">
-          <div class="active tab-pane" id="about">
-            <div class="box-body">
-              <div class="row">
+      <!-- About Me Box -->
+        <div class="nav-tabs-custom">
+          <ul class="nav nav-tabs">
+            <li class="active"><a href="#permissions" data-toggle="tab">Permissions</a></li>
 
-                <div class=" col-md-12 col-lg-12 ">
-                  <table class="table table-user-information">
-                    <tbody>
-                      <tr>
-                        <td>Name :</td>
-                        <td>{{object.name}}</td>
-                      </tr>
-                      <tr>
-                        <td>Surname :</td>
-                        <td>{{object.surname}}</td>
-                      </tr>
-                      <tr>
-                        <td>Nat ID :</td>
-                        <td>{{object.nat_id}}</td>
-                      </tr>
-                      <tr>
-                        <td>Country :</td>
-                        <td>{{object.country}}</td>
-                      </tr>
-                      <tr>
-                        <td>User Type :</td>
-                        <td>{{object.personnel_type}}</td>
-                      </tr>
-                      <tr>
-                        <td>Gender :</td>
-                        <td>{{object.gender}}</td>
-                      </tr>
-                      <tr>
-                        <td>Birth date :</td>
-                        <td>{{object.birth_date}}</td>
-                      </tr>
-                      <tr>
-                        <td>Marital Status:</td>
-                        <td>{{object.marital_status}}</td>
-                      </tr>
-                    </tbody>
-                  </table>
-                </div>
-              </div>
+          </ul>
 
-              </div>
-          </div>
-          <div class="tab-pane" id="contact">
-            <div class="box-body">
-              <div class="row">
+          <div class="tab-content">
 
-                <div class=" col-md-12 col-lg-12 ">
-                  <table class="table table-user-information">
-                    <tbody>
-                      <tr>
-                        <td>Job Phone :</td>
-                        <td>{{object.phone_number1}}</td>
-                      </tr>
-                      <tr>
-                        <td>Mobile Phone :</td>
-                        <td>{{object.phone_number2}}</td>
-                      </tr>
-                      <tr>
-                        <td>E-mail :</td>
-                        <td>{{object.email}}</td>
-                      </tr>
-                      <tr>
-                        <td>Address :</td>
-                        <td>{{object.address}}</td>
-                      </tr>
-                    </tbody>
-                  </table>
-                </div>
-              </div>
-            </div>
-          </div>
-          <!-- /.tab-pane -->
-          <div class="tab-pane" id="job">
-            <!-- The timeline -->
-            <!-- BAR CHART -->
-              <div class="box-body">
-                <div class="row">
+              <div class="active tab-pane" id="permissions">
+                  <div class="box-body">
+                      <div class="row">
+                        <table class="table table-bordered text-center">
+                        <tbody>
+                        <ul>
+                        {% door_permission_users object.id as permissions %}
+                        {% all_users as users %}
+                        <form action="" method="post" name="form" id="form">
+                          {% csrf_token %}
+                         {% for user in users %}
+                          <li class="fa fa-user" >
+                            <input type="checkbox" name="permissions" value="{{user.id}}" id="{{user}}"> {{user.first_name}} {{user.last_name}}
+                          </li>
+                          <br>
+                          {% endfor %}
 
-                  <div class=" col-md-12 col-lg-12 ">
-                    <table class="table table-user-information">
-                      <tbody>
-                        <tr>
-                          <td>Department :</td>
-                          <td>{{object.department}}</td>
-                        </tr>
-                        <tr>
-                          <td>Job :</td>
-                          <td>{{object.job}}</td>
-                        </tr>
-                        <tr>
-                          <td>Title :</td>
-                          <td>{{object.title}}</td>
-                        </tr>
-                        <tr>
-                          <td>Drive Licence :</td>
-                          <td>{{object.drive_licence}}</td>
-                        </tr>
-                      </tbody>
-                    </table>
+                      </ul>
+                    </tbody></table>
+                      <div class="box-footer">
+                        <button type="submit" name="savepermission" value="savepermission" class="btn btn-primary">Kaydet</button>
+                        <button type="submit" name="clearpermission" value="clearpermission" class="btn btn-danger">Yetkileri sil</button>
+                      </div>
+                      </form>
+                      </div>
                   </div>
-                </div>
               </div>
-              <!-- /.box-body -->
-
-
           </div>
-          <!-- /.tab-pane -->
-          <div class="tab-pane" id="cv">
-
-              <div class="box-body">
-                {{ object.cv|safe }}
-              </div>
-
-
-          </div>
-
-          <!-- /.tab-pane -->
-        </div>
-        <!-- /.tab-content -->
+        <!-- /.box-body -->
       </div>
-      <!-- /.nav-tabs-custom -->
+      <!-- /.box -->
     </div>
     <!-- /.col -->
   </div>

@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 
 from personnel.models import Personnel
-from portunes.models import Door
+from portunes.models import Door,Permission
 from django import template
 from django.core.exceptions import ObjectDoesNotExist
 from auditlog.models import LogEntry
@@ -52,3 +52,19 @@ def doors(controller_id):
     except ObjectDoesNotExist:
         return "Door does not Exist!"
     return doors
+
+@register.simple_tag
+def door_permission_users(door_id):
+    try:
+        permissions = Permission.objects.filter(door__id=door_id).order_by('identifier')
+    except ObjectDoesNotExist:
+        return "Door does not Exist!"
+    return permissions
+
+@register.simple_tag
+def all_users():
+    try:
+        users = User.objects.all().order_by('first_name')
+    except ObjectDoesNotExist:
+        return "User does not Exist!"
+    return users
