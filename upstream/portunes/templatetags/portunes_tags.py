@@ -2,6 +2,7 @@
 # -*- coding: utf-8 -*-
 
 from personnel.models import Personnel
+from portunes.models import Door
 from django import template
 from django.core.exceptions import ObjectDoesNotExist
 from auditlog.models import LogEntry
@@ -43,3 +44,11 @@ def last_personnels(count):
     except ObjectDoesNotExist:
         return "Personnel bulunamadı!"
     return personnels
+
+@register.simple_tag
+def doors(controller_id):
+    try:
+        doors = Door.objects.filter(entrance__id=controller_id).order_by('entrance_controller_pin')
+    except ObjectDoesNotExist:
+        return "Door does not Exist!"
+    return doors

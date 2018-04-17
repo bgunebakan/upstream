@@ -58,15 +58,42 @@
     <!-- /.col -->
     <div class="col-md-9">
       <!-- About Me Box -->
-      <div class="box box-primary">
-        <div class="box-header with-border">
-          <h3 class="box-title">Actions</h3>
-        </div>
-        <!-- /.box-header -->
-        <div class="box-body">
-          {% get_table request object.id as table%}
-          {% render_table table %}
-        </div>
+        <div class="nav-tabs-custom">
+          <ul class="nav nav-tabs">
+            <li class="active"><a href="#actions" data-toggle="tab">Actions</a></li>
+            <li class=""><a href="#doors" data-toggle="tab">Doors</a></li>
+          </ul>
+
+          <div class="tab-content">
+
+              <div class="active tab-pane" id="actions">
+                  <div class="box-body">
+                      <div class="row">
+                          {% get_table request object.id as table%}
+                          {% render_table table %}
+                      </div>
+                  </div>
+              </div>
+              <div class="tab-pane" id="doors">
+                  <div class="box-body">
+                      <div class="row">
+                          {% doors object.id as doors%}
+                          <table class="table table-user-information">
+                            <tbody>
+                              {%for door in doors%}
+                              <tr>
+                                <td>{{door.entrance_controller_pin}}</td>
+                                <td><b><a href="/portunes/door/{{door.id}}">{{door.name}}</a></b></td>
+                              </tr>
+                              {%endfor%}
+
+                            </tbody>
+                          </table>
+
+                      </div>
+                  </div>
+              </div>
+          </div>
         <!-- /.box-body -->
       </div>
       <!-- /.box -->

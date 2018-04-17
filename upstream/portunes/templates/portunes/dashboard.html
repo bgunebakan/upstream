@@ -17,6 +17,35 @@
 
 <div class="row">
   <div class="col-md-4">
+    <!-- PROJECTS -->
+    <div class="box box-primary">
+
+      <div class="box-header">
+        <h3 class="box-title">Controllers</h3>
+        <div class="box-tools pull-right">
+          <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+          </button>
+          <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+        </div>
+      </div>
+
+      <div class="box-body">
+        {% if controllers %}
+          <div class="list-group">
+            {% for controller in controllers %}
+              {%if controller.health is True%}
+              <a href="/portunes/controller/{{controller.id}}" type="button" class="btn btn-success btn-block">
+              {%else%}
+              <a href="/portunes/controller/{{controller.id}}" type="button" class="btn btn-danger btn-block">
+              {%endif%}
+              {{ controller.name }}</a>
+            {% endfor %}
+          </div>
+        {% endif %}
+      </div>
+      <!-- /.box-body -->
+    </div>
+
     <div class="box box-primary">
 
       <div class="box-header">
@@ -65,34 +94,6 @@
         </ul>
       </div>
 <!-- /.box-body -->
-    </div>
-    <!-- PROJECTS -->
-    <div class="box box-primary">
-
-      <div class="box-header">
-        <h3 class="box-title">Controllers</h3>
-        <div class="box-tools pull-right">
-          <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
-          </button>
-          <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
-        </div>
-      </div>
-
-      <div class="box-body">
-        {% if controllers %}
-          <div class="list-group">
-            {% for controller in controllers %}
-              {%if controller.health is True%}
-              <a href="/portunes/controller/{{controller.id}}" type="button" class="btn btn-success btn-block">
-              {%else%}
-              <a href="/portunes/controller/{{controller.id}}" type="button" class="btn btn-danger btn-block">
-              {%endif%}
-              {{ controller.name }}</a>
-            {% endfor %}
-          </div>
-        {% endif %}
-      </div>
-      <!-- /.box-body -->
     </div>
   </div>
 
