@@ -145,23 +145,17 @@ class TravellingExpenseForm(forms.ModelForm):
         super(TravellingExpenseForm, self).__init__(*args, **kwargs)
         self.helper = FormHelper(self)
         self.helper.form_tag = False
+
         self.helper.layout = Layout(
-            TabHolder(
-                Tab(
-                    _('General'),
-                    Field('name', wrapper_class="col-md-3"),
-                    Field('surname', wrapper_class="col-md-6"),
-                    Field('institution', wrapper_class="col-md-6"),
-                    Field('location', wrapper_class="col-md-6"),
-                    Field('start_date', wrapper_class="col-md-6"),
-                    Field('end_date', wrapper_class="col-md-6"),
-                    Field('price', wrapper_class="col-md-6"),
-                    Field('currency', wrapper_class="col-md-4"),
-                    Field('notes', wrapper_class="col-md-12"),
-
-                ),
-            )
-
+            Field('name', wrapper_class="col-md-6"),
+            Field('surname', wrapper_class="col-md-6"),
+            Field('institution', wrapper_class="col-md-6"),
+            Field('location', wrapper_class="col-md-6"),
+            Field('start_date', wrapper_class="col-md-6"),
+            Field('end_date', wrapper_class="col-md-6"),
+            Field('price', wrapper_class="col-md-6"),
+            Field('currency', wrapper_class="col-md-6"),
+            Field('notes', wrapper_class="col-md-12"),
         )
 
         self.helper.layout.append(
@@ -171,8 +165,3 @@ class TravellingExpenseForm(forms.ModelForm):
                         href="{{ url_delete }}">{% trans 'Delete' %}</a>"""),
             )
         )
-
-    def __init__(self, *args, **kwargs):
-        super(TravellingExpenseForm, self).__init__(*args, **kwargs)
-        self.helper = FormHelper(self)
-        self.helper.form_tag = False

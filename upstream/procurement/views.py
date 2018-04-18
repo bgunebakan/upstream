@@ -94,10 +94,12 @@ class TravellingExpenseCRUD(CRUDView):
     list_fields = ['name','surname','institution','start_date','end_date','price','currency']
     display_fields = ['name','surname','institution','start_date','end_date','location','price','currency','notes']
 
+    views_available=['create', 'list', 'delete', 'update']
+
     list_filter = ['name', 'institution']
 
     add_form = TravellingExpenseForm
-    #update_form = TravellingExpenseForm
+    update_form = TravellingExpenseForm
 
     search_fields = ['name','surname','institution','location','notes']
     split_space_search = True
