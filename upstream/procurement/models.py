@@ -164,3 +164,27 @@ class Log(models.Model):
 
     item = models.ForeignKey(Tender, verbose_name=_(u'İhale'),null=True,on_delete=models.SET_NULL)
     user = models.ForeignKey(User, verbose_name=_(u'Personel'),null=True,on_delete=models.SET_NULL)
+
+
+class TravellingExpense(models.Model):
+    name = models.CharField(max_length=50, verbose_name=_(u'Name'))
+    surname = models.CharField(max_length=50, verbose_name=_(u'Surname'))
+    institution = models.CharField(max_length=50, verbose_name=_(u'Institution'))
+    start_date = models.DateField(verbose_name='Event Start Date', editable=True,null=True, blank=True)
+    end_date = models.DateField(verbose_name='Event End Date', editable=True,null=True, blank=True)
+    location = models.CharField(max_length=50, verbose_name=_(u'Event Location'))
+
+    price = models.FloatField(verbose_name=_(u'Price'),default=0,null=True)
+    currency = models.ForeignKey(Currency, verbose_name=_(u'Currency'),null=True,on_delete=models.SET_NULL)
+
+    notes = models.TextField(verbose_name=_(u'Notes'), null=True, blank=True)
+
+    created_date = models.DateTimeField(default=timezone.now,verbose_name='Created date', editable=False)
+
+    class Meta:
+        ordering = ['name']
+        verbose_name = _(u'Travelling Expense')
+        verbose_name_plural = _(u'Travelling Expenses')
+
+    def __unicode__(self):
+        return self.name + self.surname

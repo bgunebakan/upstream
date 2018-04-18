@@ -73,13 +73,33 @@ class TenderCRUD(CRUDView):
     display_fields = ['name','no','tender_type','tender_status','auction_no']
 
     list_filter = ['tender_status', 'tender_type']
-    
+
     add_form = TenderForm
     update_form = TenderForm
 
     inlines = [Tender_end_date_AjaxCRUD,Tender_content_AjaxCRUD]
 
     search_fields = ['name','no','notes','auction_no']
+    split_space_search = True
+    paginate_by = 15
+    paginate_position = 'Bottom' # Both | Bottom
+    paginate_template = 'cruds/pagination/enumeration.html'
+
+class TravellingExpenseCRUD(CRUDView):
+    model = TravellingExpense
+    template_name_base='crud'
+    check_login = True
+    check_perms = True
+    fields = ['name','surname','institution','start_date','end_date','location','price','currency','notes']
+    list_fields = ['name','surname','institution','start_date','end_date','price','currency']
+    display_fields = ['name','surname','institution','start_date','end_date','location','price','currency','notes']
+
+    list_filter = ['name', 'institution']
+
+    add_form = TravellingExpenseForm
+    #update_form = TravellingExpenseForm
+
+    search_fields = ['name','surname','institution','location','notes']
     split_space_search = True
     paginate_by = 15
     paginate_position = 'Bottom' # Both | Bottom

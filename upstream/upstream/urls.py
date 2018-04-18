@@ -26,7 +26,7 @@ from django.apps import apps
 from cruds_adminlte.urls import crud_for_model
 from cruds_adminlte.urls import crud_for_app
 from personnel.models import Personnel
-from procurement.views import TenderCRUD,Tender_end_dateCRUD
+from procurement.views import TenderCRUD,Tender_end_dateCRUD,TravellingExpenseCRUD
 from portunes.views import ControllerCRUD,DoorCRUD,IdentifierCRUD
 from project.views import ProjectCRUD,TaskCRUD
 
@@ -35,6 +35,7 @@ personnelcrud = PersonnelCRUD()
 personnel_typecrud = Personnel_typeCRUD()
 
 tendercrud = TenderCRUD()
+travellingexpensecrud = TravellingExpenseCRUD()
 
 controllercrud = ControllerCRUD()
 doorcrud = DoorCRUD()
@@ -66,6 +67,7 @@ urlpatterns = [
     #procurement
     url(r'^procurement/', include('procurement.urls')),
     url(r'', include(tendercrud.get_urls())),
+    url(r'', include(travellingexpensecrud.get_urls())),
     #portunes
     url(r'^portunes/', include('portunes.urls')),
     url(r'', include(controllercrud.get_urls())),
