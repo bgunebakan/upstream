@@ -131,12 +131,14 @@ class TravellingExpenseForm(forms.ModelForm):
 
     class Meta:
         model = TravellingExpense
-        fields = ['name','surname','institution','start_date','end_date','location','price','currency','notes']
+        fields = ['name','surname','institution','start_date','end_date','location','price','currency','payment_date','notes']
 
         widgets = {
             'start_date': DatePickerWidget(attrs={'format': 'dd/mm/yyyy',
                                             'icon': 'fa-calendar'}),
             'end_date': DatePickerWidget(attrs={'format': 'dd/mm/yyyy',
+                                            'icon': 'fa-calendar'}),
+            'payment_date': DatePickerWidget(attrs={'format': 'dd/mm/yyyy',
                                             'icon': 'fa-calendar'}),
             'notes': CKEditorWidget(attrs={'lang': 'tr'}),
 
@@ -153,8 +155,9 @@ class TravellingExpenseForm(forms.ModelForm):
             Field('location', wrapper_class="col-md-6"),
             Field('start_date', wrapper_class="col-md-6"),
             Field('end_date', wrapper_class="col-md-6"),
-            Field('price', wrapper_class="col-md-6"),
-            Field('currency', wrapper_class="col-md-6"),
+            Field('price', wrapper_class="col-md-4"),
+            Field('currency', wrapper_class="col-md-4"),
+            Field('payment_date', wrapper_class="col-md-4"),
             Field('notes', wrapper_class="col-md-12"),
         )
 

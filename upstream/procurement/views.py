@@ -74,7 +74,7 @@ class TenderCRUD(CRUDView):
 
     list_filter = ['tender_status', 'tender_type']
     views_available=['create', 'list', 'delete', 'update', 'detail']
-    
+
     add_form = TenderForm
     update_form = TenderForm
 
@@ -91,9 +91,9 @@ class TravellingExpenseCRUD(CRUDView):
     template_name_base='crud'
     check_login = True
     check_perms = True
-    fields = ['name','surname','institution','start_date','end_date','location','price','currency','notes']
-    list_fields = ['name','surname','institution','start_date','end_date','price','currency']
-    display_fields = ['name','surname','institution','start_date','end_date','location','price','currency','notes']
+    fields = ['name','surname','institution','start_date','end_date','location','price','currency','payment_date','notes']
+    list_fields = ['name','surname','institution','start_date','end_date','price','currency','payment_date']
+    display_fields = ['name','surname','institution','start_date','end_date','location','price','currency','payment_date','notes']
 
     views_available=['create', 'list', 'delete', 'update']
 

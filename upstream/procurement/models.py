@@ -177,6 +177,8 @@ class TravellingExpense(models.Model):
     price = models.FloatField(verbose_name=_(u'Price'),default=0,null=True)
     currency = models.ForeignKey(Currency, verbose_name=_(u'Currency'),null=True,on_delete=models.SET_NULL)
 
+    payment_date = models.DateField(verbose_name='Payment Date', editable=True,null=True, blank=True)
+
     notes = models.TextField(verbose_name=_(u'Notes'), null=True, blank=True)
 
     created_date = models.DateTimeField(default=timezone.now,verbose_name='Created date', editable=False)
