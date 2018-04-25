@@ -240,7 +240,7 @@ class Identifier(models.Model):
          blank=True,
          verbose_name = "Kart Tipi"
     )
-    user = models.ForeignKey(User,null=True,on_delete=models.SET_NULL)
+    user = models.ForeignKey(User,blank=True,null=True,on_delete=models.SET_NULL)
     created_date = models.DateTimeField(default=timezone.now,verbose_name = "Oluşturulma tarihi")
     deleted = models.BooleanField(default=False,verbose_name = "Silinmiş")
 
@@ -248,10 +248,10 @@ class Identifier(models.Model):
 
     def delete(self, *args, **kwargs):
         print(self.key)
-        permissions = Permission.objects.filter(personnel__identifier__key=self.key)
+        permissions = Permission.objects.filter(identifier__key=self.key)
         if permissions:
             for permission in permissions:
-                print(str(permission.personnel.name) + str(permission.door))
+                print(str(permission.identifier.user) + str(permission.door))
                 permission.delete()
 
         self.deleted=True

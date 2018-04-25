@@ -20,7 +20,7 @@ from django_tables2 import RequestConfig
 @login_required
 #@permission_required('portunes.can_add_permission', login_url='/portunes/guard/dashboard/')
 def dashboard(request):
-    action_table = ActionTable(Action.objects.filter(Q(action_type__action_type=1)|Q(action_type__action_type=2)|Q(action_type__action_type=4)), order_by='-created_date')
+    action_table = ActionTable(Action.objects.filter(Q(action_type__action_type=1)|Q(action_type__action_type=2)|Q(action_type__action_type=3)|Q(action_type__action_type=4)), order_by='-created_date')
     RequestConfig(request, paginate={'per_page': 15}).configure(action_table)
 
     user_table = UserTable(User.objects.all(), order_by='first_name')
@@ -112,52 +112,126 @@ def logs(request):
             if response is  True or response is False:
                 break
             response = response.split(",")
-                #response = "15376653,1,1,10.6.2017,12:12:30".split(",")
-            try:
-		        door = Door.objects.get(entrance=controller,entrance_controller_pin=response[1])
-            except Door.DoesNotExist:
-                continue
-            try:
-                identifier = Identifier.objects.get(key=response[0]) # chect identifier is exist
-            except Identifier.DoesNotExist:
-                identifier = Identifier.objects.create(key=response[0], #if not exist create UndefinedCard
-                                    name='Tanımsız kart',
-                                    identifier_type=2,
-                                    is_active=False,deleted=True)
 
-            if (door.enter):
-                action_type = Action_type.objects.get(action_type=int(response[2]))
-            else:
-                action_type = Action_type.objects.get(action_type=2)
-            print action_type.action_type
-
-            try:
-                if action_type.action_type is not 4:
-                    user = User.objects.get(id=identifier.user.id)
-                else:
-                    user = None
-            except User.DoesNotExist:
-                user = None
-                action_type = Action_type.objects.get(action_type=3)
+            action_card = response[0]
+            action_door = response[1]
+            action_no = int(response[2])
 
             date_str = response[3]
             time_str = response[4].split("\n")
 
             date = date_str + "," + time_str[0]
-            finaldate = datetime.strptime(date, '%d.%m.%Y,%H:%M:%S')
+            action_datetime = datetime.strptime(date, '%d.%m.%Y,%H:%M:%S')
+
+            print "card:" + action_card
+            print "door: " + action_door
+            print "type: " + unicode(action_no)
+            print "datetime: " + unicode(action_datetime)
+                #response = "15376653,1,1,10.6.2017,12:12:30".split(",")
+            try:
+		        door = Door.objects.get(entrance=controller,entrance_controller_pin=action_door)
+            except Door.DoesNotExist:
+                messages.error(request,'Door does not exist pin:' + action_door + '. Controller: '+unicode(controller))
+                return HttpResponseRedirect('/portunes/logs')
+
+            try:
+                identifier = Identifier.objects.get(key=action_card) # chect identifier is exist
+            except Identifier.DoesNotExist:
+                identifier = Identifier.objects.create(key=action_card, #if not exist create UndefinedCard
+                                    name='Tanımsız kart',
+                                    identifier_type=2,
+                                    is_active=False,deleted=True)
+
+            if (action_no is 1) and (door.enter): #card enter
+                action_type = Action_type.objects.get(action_type=action_no)
+                user = User.objects.get(id=identifier.user.id)
+            elif (action_no is 1) and (door.enter is not True): # card exit
+                action_type = Action_type.objects.get(action_type=2)
+                user = User.objects.get(id=identifier.user.id)
+            elif action_no is 3: #button exit
+                action_type = Action_type.objects.get(action_type=action_no)
+                user = None
+            elif action_no is 4: #card denied
+                action_type = Action_type.objects.get(action_type=action_no)
+                try:
+                    if identifier.user is not None:
+                        user = User.objects.get(id=identifier.user.id)
+                    else:
+                        user = None
+                except User.DoesNotExist:
+                    user = None
+            else: #status logs
+                action_type = Action_type.objects.get(action_type=action_no)
+                user = None
 
             action = Action(
                     user=user,
 		    identifier=identifier,
-                    door=Door.objects.get(entrance=controller,entrance_controller_pin=response[1]),
+                    door=Door.objects.get(entrance=controller,entrance_controller_pin=action_door),
                     action_type=action_type,
-                    created_date=finaldate
+                    created_date=action_datetime
             )
             action.save()
 
         messages.success(request, controller.name + ' hareketler sisteme yuklendi.')
 
     return HttpResponseRedirect('/portunes/')
+# @login_required
+# def logs(request):
+#
+#     for controller in Controller.objects.filter(health=True):
+#
+#         while True:
+#             response = send_controller('L',controller.ip_address,'')
+#             if response is  True or response is False:
+#                 break
+#             response = response.split(",")
+#                 #response = "15376653,1,1,10.6.2017,12:12:30".split(",")
+#             try:
+# 		        door = Door.objects.get(entrance=controller,entrance_controller_pin=response[1])
+#             except Door.DoesNotExist:
+#                 continue
+#             try:
+#                 identifier = Identifier.objects.get(key=response[0]) # chect identifier is exist
+#             except Identifier.DoesNotExist:
+#                 identifier = Identifier.objects.create(key=response[0], #if not exist create UndefinedCard
+#                                     name='Tanımsız kart',
+#                                     identifier_type=2,
+#                                     is_active=False,deleted=True)
+#
+#             if (door.enter):
+#                 action_type = Action_type.objects.get(action_type=int(response[2]))
+#             else:
+#                 action_type = Action_type.objects.get(action_type=2)
+#             print action_type.action_type
+#
+#             try:
+#                 if action_type.action_type is not 4:
+#                     user = User.objects.get(id=identifier.user.id)
+#                 else:
+#                     user = None
+#             except User.DoesNotExist:
+#                 user = None
+#                 action_type = Action_type.objects.get(action_type=3)
+#
+#             date_str = response[3]
+#             time_str = response[4].split("\n")
+#
+#             date = date_str + "," + time_str[0]
+#             finaldate = datetime.strptime(date, '%d.%m.%Y,%H:%M:%S')
+#
+#             action = Action(
+#                     user=user,
+# 		    identifier=identifier,
+#                     door=Door.objects.get(entrance=controller,entrance_controller_pin=response[1]),
+#                     action_type=action_type,
+#                     created_date=finaldate
+#             )
+#             action.save()
+#
+#         messages.success(request, controller.name + ' hareketler sisteme yuklendi.')
+#
+#     return HttpResponseRedirect('/portunes/')
 
 @login_required
 def settime(request):
@@ -220,9 +294,9 @@ def controller_permission(request, id):
 	#    	return HttpResponseRedirect('/users/list/personnel/')
 
 def controller_startup(request, id):
-    time.sleep(5)
+    #time.sleep(5)
     try:
-        #print mac
+        print id
         controller = get_object_or_404(Controller, id=id)
         permissions = Permission.objects.filter(door__entrance=controller)
     except Permission.DoesNotExist:
