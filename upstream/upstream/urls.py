@@ -29,6 +29,7 @@ from personnel.models import Personnel
 from procurement.views import TenderCRUD,Tender_end_dateCRUD,TravellingExpenseCRUD
 from portunes.views import ControllerCRUD,DoorCRUD,IdentifierCRUD
 from project.views import ProjectCRUD,TaskCRUD
+from inventory.views import LocationCRUD,InventoryCRUD,CategoryCRUD,ItemTypeCRUD,ItemCRUD,SupplierCRUD
 
 usercrud = UserCRUD()
 personnelcrud = PersonnelCRUD()
@@ -44,6 +45,13 @@ identifiercrud = IdentifierCRUD()
 projectcrud = ProjectCRUD()
 taskcrud = TaskCRUD()
 
+locationcrud = LocationCRUD()
+inventorycrud = InventoryCRUD()
+categorycrud = CategoryCRUD()
+itemtypecrud = ItemTypeCRUD()
+itemcrud = ItemCRUD()
+suppliercrud = SupplierCRUD()
+
 ns = crud_for_app('personnel', check_perms=True, namespace="up")
 
 urlpatterns = [
@@ -56,7 +64,6 @@ urlpatterns = [
     url(r'^select2/', include('django_select2.urls')),
     url(r'^mail/', include('webmail.urls')),
 
-    url(r'^inventory/', include('inventory.urls', namespace='inventory-urls', app_name='inventory')),
     url(r'^ldapconnect/', include('ldapconnect.urls')),
     url(r'^select2/', include('django_select2.urls')),
     #personnel
@@ -78,6 +85,13 @@ urlpatterns = [
     url(r'', include(projectcrud.get_urls())),
     url(r'', include(taskcrud.get_urls())),
 
+    url(r'^inventory/', include('inventory.urls'),name='inventory'),
+    url(r'', include(locationcrud.get_urls())),
+    url(r'', include(inventorycrud.get_urls())),
+    url(r'', include(categorycrud.get_urls())),
+    url(r'', include(itemtypecrud.get_urls())),
+    url(r'', include(itemcrud.get_urls())),
+    url(r'', include(suppliercrud.get_urls())),
 ]
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
