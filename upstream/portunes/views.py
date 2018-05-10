@@ -82,6 +82,26 @@ class DoorCRUD(CRUDView):
     paginate_position = 'Bottom' # Both | Bottom
     paginate_template = 'cruds/pagination/enumeration.html'
 
+class DoorGroupCRUD(CRUDView):
+    model = Door_group
+    template_name_base='crud'  #customer cruds => ccruds
+    namespace = None
+    check_login = True
+    check_perms = True
+    #add_form = DoorForm
+    #update_form = DoorForm
+
+    views_available=['create', 'list', 'update','delete']
+    fields = ['name','doors']
+    list_fields = ['name']
+    display_fields = ['name','doors']
+
+    search_fields = ['name']
+    split_space_search = True
+    paginate_by = 15
+    paginate_position = 'Bottom' # Both | Bottom
+    paginate_template = 'cruds/pagination/enumeration.html'
+
 class IdentifierCRUD(CRUDView):
     model = Identifier
     template_name_base='crud'  #customer cruds => ccruds
@@ -393,7 +413,8 @@ def user_access(request, user_id):
             user = User.objects.get(id=user_id)
             identifier = Identifier.objects.filter(user=user)
             permissions = Permission.objects.filter(identifier__in=identifier)
+            door_groups = Door_group.objects.all()
         except User.DoesNotExist:
             raise Http404("Kullanici Bulunamadi")
 
-        return render(request, 'portunes/user/access.html', {'user': user,'controllers': controllers,'doors': doors,'permissions':permissions,'table_label':'Yetkilendirme','user_menu':'active'})
+        return render(request, 'portunes/user/access.html', {'user': user,'controllers': controllers,'doors': doors,'door_groups': door_groups,'identifier':identifier,'permissions':permissions,'table_label':'User Permissions','user_menu':'active'})

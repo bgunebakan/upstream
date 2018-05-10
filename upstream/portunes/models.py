@@ -28,9 +28,9 @@ class Controller(models.Model):
         max_length=30,
         unique=True,
         default='ACP',
-        verbose_name = "Kontrolcü Adı",
+        verbose_name = "Name",
         error_messages={
-        'unique': 'Kontrolcu ismi zaten var.'
+        'unique': 'Controller name is already exist.'
         }
 
     )
@@ -44,11 +44,11 @@ class Controller(models.Model):
 
 
     )
-    ip_address = models.GenericIPAddressField(unique=True,verbose_name = "IP adresi")
-    health = models.BooleanField(default=True,verbose_name = "Durum")
-    created_date = models.DateTimeField(default=timezone.now,verbose_name = "Oluşturulma tarihi")
-    updated_date = models.DateTimeField(auto_now=True,verbose_name = "Güncelleme tarihi")
-    deleted = models.BooleanField(default=False,verbose_name = "Silinmiş")
+    ip_address = models.GenericIPAddressField(unique=True,verbose_name = "IP address")
+    health = models.BooleanField(default=True,verbose_name = "Health")
+    created_date = models.DateTimeField(default=timezone.now,verbose_name = "Created Date")
+    updated_date = models.DateTimeField(auto_now=True,verbose_name = "Updated date")
+    deleted = models.BooleanField(default=False,verbose_name = "Deleted")
 
     objects = SoftDeleteManager()
 
@@ -90,19 +90,19 @@ class Door(models.Model):
         error_messages={
         'unique': 'That door name is already saved.'
         }
-        ,verbose_name = "Kapı ismi"
+        ,verbose_name = "Name"
     )
 
-    entrance = models.ForeignKey('Controller', related_name="entrance_controller", null=True,on_delete=models.SET_NULL, default=None,verbose_name = "Kontrolcü")
-    entrance_controller_pin = models.IntegerField(choices=PINS, default=None,verbose_name = "Kontrolcü pin")
+    entrance = models.ForeignKey('Controller', related_name="entrance_controller", null=True,on_delete=models.SET_NULL, default=None,verbose_name = "Controller")
+    entrance_controller_pin = models.IntegerField(choices=PINS, default=None,verbose_name = "Controller pin")
 
     antipassback = models.BooleanField(default=False,verbose_name = "Antipassback")
-    enter = models.BooleanField(default=True,verbose_name = "Giriş kapısı")
-    description = models.TextField(max_length=100,verbose_name = "Açıklama",null=True,blank=True)
+    enter = models.BooleanField(default=True,verbose_name = "Entrance")
+    description = models.TextField(max_length=100,verbose_name = "Notes",null=True,blank=True)
 
-    created_date = models.DateTimeField(default=timezone.now,verbose_name = "Oluşturulma tarihi")
-    updated_date = models.DateTimeField(auto_now=True,verbose_name = "Güncelleme tarihi")
-    deleted = models.BooleanField(default=False,verbose_name = "Silinmiş")
+    created_date = models.DateTimeField(default=timezone.now,verbose_name = "Created date")
+    updated_date = models.DateTimeField(auto_now=True,verbose_name = "Updated Date")
+    deleted = models.BooleanField(default=False,verbose_name = "Deleted")
 
     objects = SoftDeleteManager()
 
@@ -196,7 +196,7 @@ class Action_type(models.Model):
     )
     message = models.CharField(max_length=255,)
     created_date = models.DateTimeField(default=timezone.now)
-    deleted = models.BooleanField(default=False,verbose_name = "Silinmiş")
+    deleted = models.BooleanField(default=False,verbose_name = "Deleted")
 
     objects = SoftDeleteManager()
 
@@ -219,11 +219,11 @@ class Identifier(models.Model):
         error_messages={
         'unique': 'That identifier name is already saved.'
         }
-        ,verbose_name = "Kart Adı"
+        ,verbose_name = "Name"
     )
     IdentifierType = (
-            (1, 'Personel'),
-            (2, 'Ziyaretçi')
+            (1, 'Personnel'),
+            (2, 'Visitor')
     )
     key = models.CharField(
         max_length=255,
@@ -231,18 +231,18 @@ class Identifier(models.Model):
         error_messages={
         'unique': 'That identifier is already saved.'
         }
-        ,verbose_name = "Kart No"
+        ,verbose_name = "Key"
     )
-    is_active = models.BooleanField(default=True,verbose_name = "Aktif")
+    is_active = models.BooleanField(default=True,verbose_name = "Active")
     identifier_type = models.IntegerField(
          choices = IdentifierType,
          null=True,
          blank=True,
-         verbose_name = "Kart Tipi"
+         verbose_name = "Card Type"
     )
     user = models.ForeignKey(User,blank=True,null=True,on_delete=models.SET_NULL)
-    created_date = models.DateTimeField(default=timezone.now,verbose_name = "Oluşturulma tarihi")
-    deleted = models.BooleanField(default=False,verbose_name = "Silinmiş")
+    created_date = models.DateTimeField(default=timezone.now,verbose_name = "Created Date")
+    deleted = models.BooleanField(default=False,verbose_name = "Deleted")
 
     objects = SoftDeleteManager()
 

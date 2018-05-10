@@ -24,6 +24,48 @@
 <!-- Main content -->
 <section class="content">
   <div class="row">
+    <div class="col-xs-6">
+      <div class="box">
+        <div class="box-header">
+          <h3 class="box-title">Identifiers</h3>
+        </div>
+        <!-- /.box-header -->
+        <div class="box-body">
+          <table class="table table-bordered text-center">
+          <tbody>
+
+             {% for id in identifier.all %}
+              <a href="/portunes/identifier/{{id.id}}/update"><li class="fa fa-user" > {{id.name}} - {{id.key}}</li></a>
+              <br>
+
+              {% endfor %}
+          </ul>
+        </tbody></table>
+        </div>
+        <!-- /.box-body -->
+      </div>
+    </div>
+    <div class="col-xs-6">
+      <div class="box">
+        <div class="box-header">
+          <h3 class="box-title">Door Groups</h3>
+        </div>
+        <!-- /.box-header -->
+        <div class="box-body">
+          <table class="table table-bordered text-center">
+          <tbody>
+
+             {% for door_group in door_groups.all %}
+              <a href="/portunes/identifier/{{id.id}}/update"><li class="fa fa-archive" > {{door_group.name}}</li></a>
+              <br>
+
+              {% endfor %}
+          </ul>
+        </tbody></table>
+        </div>
+        <!-- /.box-body -->
+      </div>
+    </div>
     <div class="col-xs-12">
       <div class="box">
         <div class="box-header">
