@@ -170,7 +170,10 @@ def logs(request):
                     print "----------USER HAS DELETED--------"
             elif (action_no is 1) and (door.enter is not True): # card exit
                 action_type = Action_type.objects.get(action_type=2)
-                user = User.objects.get(id=identifier.user.id)
+                try:
+                    user = User.objects.get(id=identifier.user.id)
+                except AttributeError:
+                    print "----------USER HAS DELETED--------"
             elif action_no is 3: #button exit
                 action_type = Action_type.objects.get(action_type=action_no)
                 user = None
