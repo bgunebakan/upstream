@@ -30,7 +30,7 @@ class UserCRUD(CRUDView):
     template_name_base='crud'
     namespace = None
     check_login = True
-    check_perms = True
+    check_perms = False
     views_available=['create', 'list', 'update', 'detail']
 
     fields = ['first_name','last_name', 'username','email']
@@ -71,7 +71,7 @@ class PersonnelCRUD(CRUDView):
     template_name_base='crud'  #customer cruds => ccruds
     namespace = None
     check_login = True
-    check_perms = True
+    check_perms = False
     views_available=['list', 'update','delete','detail']
 
     fields = ['personnel_type','name', 'surname','birth_date', 'country','nat_id','gender','department','title',
@@ -88,7 +88,7 @@ class PersonnelCRUD(CRUDView):
 
     add_form = PersonnelForm
     update_form = PersonnelForm
-    inlines = [Personnel_file_AjaxCRUD]
+    #inlines = [Personnel_file_AjaxCRUD]
 
     search_fields = ['name','surname','nat_id']
     split_space_search = True
@@ -101,7 +101,7 @@ class Personnel_typeCRUD(CRUDView):
     template_name_base='crud'  #customer cruds => ccruds
     namespace = None
     check_login = True
-    check_perms = True
+    check_perms = False
     add_form = Personnel_typeForm
     update_form = Personnel_typeForm
 
@@ -135,3 +135,11 @@ def profile(request, template_name='personnel/personnel/profile.html'):
 
 
     return HttpResponseRedirect('/personnel/personnel/' + unicode(personnel.id))
+
+def detail(request,user_id, template_name='personnel/personnel/crud/detail.html'):
+    print "detail unlogged user"
+
+    personnel = Personnel.objects.get(user__id=user_id)
+
+    return render(request, template_name, {'object': personnel})
+    #return HttpResponseRedirect('/personnel/personnel/' + unicode(personnel.id))

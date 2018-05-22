@@ -9,11 +9,7 @@ handler403 = 'personnel.views.handler403'
 
 urlpatterns=[
     url(r'^$', views.dashboard, name='dashboard'),
-    #url(r'^$',
-    #    permission_required('personnel.can_see_avaliable_personnel', login_url='profile/')(views.dashboard)),
-
     url(r'^profile/', views.profile, name='profile'),
+    url(r'^detail/(?P<user_id>[0-9]+)/', views.detail, name='detail'),
 ]
-
-
 urlpatterns+= crud_for_app('personnel', check_perms=True)
