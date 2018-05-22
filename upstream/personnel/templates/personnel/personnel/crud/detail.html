@@ -41,11 +41,13 @@
 
 
           </ul>
-          <div class="col-md-12 col-lg-12 " align="center">
-          <a href="/personnel/personnel/{{object.id}}/update" class="btn btn-primary" align="center">Update Details</a>
-          {% get_folder object.id as folder%}
-          <a href="/admin/filer/folder/{{folder.id}}/list/" class="btn btn-warning" align="center">User Files</a>
-            </div>
+            {% if url and 'update' in views_available and crud_perms.update %}
+              <div class="col-md-12 col-lg-12 " align="center">
+                <a href="/personnel/personnel/{{object.id}}/update" class="btn btn-primary" align="center">Update Details</a>
+                {% get_folder object.id as folder%}
+                <a href="/admin/filer/folder/{{folder.id}}/list/" class="btn btn-warning" align="center">User Files</a>
+              </div>
+            {%endif%}
           {%endif%}
         </div>
         <!-- /.box-body -->
@@ -94,7 +96,7 @@
           <li class="active"><a href="#about" data-toggle="tab">Personel</a></li>
           <li class=""><a href="#contact" data-toggle="tab">Contact</a></li>
           <li class=""><a href="#job" data-toggle="tab">Job</a></li>
-          <li class=""><a href="#files" data-toggle="tab">Files</a></li>
+          <!-- <li class=""><a href="#files" data-toggle="tab">Files</a></li> -->
           <li class=""><a href="#cv" data-toggle="tab">CV</a></li>
           {%else%}
           <li class="active"><a href="#cv" data-toggle="tab">CV</a></li>

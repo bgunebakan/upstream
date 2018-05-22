@@ -1,4 +1,4 @@
-from django.contrib.auth.models import User
+from django.contrib.auth.models import User,Permission
 from django.db.models.signals import post_save,post_delete
 from django.dispatch import receiver
 from filer.models import Folder
@@ -13,7 +13,12 @@ def create_user_profile(sender, instance, created, **kwargs):
         personnel.surname = instance.last_name
         personnel.username = instance.username
         personnel.email = instance.email
-        #personnel.nat_id = instance.username
+        permissions =  Permission.objects.all()
+        for perm in permissions:
+            print perm.codename
+
+        permission = Permission.objects.get(codename='view_personnel')
+        instance.user_permissions.add(permission)
 
 @receiver(post_save, sender=User)
 def create_user_folder(sender, instance, created, **kwargs):
@@ -26,6 +31,7 @@ def create_user_folder(sender, instance, created, **kwargs):
 @receiver(post_save, sender=User)
 def save_user_profile(sender, instance, **kwargs):
     instance.personnel.save()
+    #instance.save()
 
 @receiver(post_save, sender=Personnel)
 def count_personnel(sender, instance, created, **kwargs):

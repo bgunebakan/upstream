@@ -30,7 +30,7 @@ class UserCRUD(CRUDView):
     template_name_base='crud'
     namespace = None
     check_login = True
-    check_perms = False
+    check_perms = True
     views_available=['create', 'list', 'update', 'detail']
 
     fields = ['first_name','last_name', 'username','email']
@@ -71,7 +71,7 @@ class PersonnelCRUD(CRUDView):
     template_name_base='crud'  #customer cruds => ccruds
     namespace = None
     check_login = True
-    check_perms = False
+    check_perms = True
     views_available=['list', 'update','delete','detail']
 
     fields = ['personnel_type','name', 'surname','birth_date', 'country','nat_id','gender','department','title',
@@ -101,7 +101,7 @@ class Personnel_typeCRUD(CRUDView):
     template_name_base='crud'  #customer cruds => ccruds
     namespace = None
     check_login = True
-    check_perms = False
+    check_perms = True
     add_form = Personnel_typeForm
     update_form = Personnel_typeForm
 

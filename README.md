@@ -36,4 +36,4 @@ sudo apt-get install libsasl2-dev python-dev libldap2-dev libssl-dev
 
 ## Authors
 
-* **Bilal Tonga** -[Creworker](https://creworker.com)
+* **Bilal Tonga** - [Creworker](https://creworker.com)
