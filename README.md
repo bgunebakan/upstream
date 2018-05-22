@@ -1,19 +1,15 @@
 # Upstream
-|---------------------------------------------------------|
-|       UPSTREAM All in One Manangement Software          |
-|
-|       UPstream is new way of collaborative working.
-|
-|       Developed by: Creworker 2017-2018
-|       Version: 0.2 Beta
-|
-|
-|
-|---------------------------------------------------------|
+**UPSTREAM All in One Manangement Software**         
+
+UPstream is new way of collaborative working.
+
+Developed by: Creworker 2017-2018
+Last Realease: 0.2 Beta
+
 
 ## Depencies
 
-Debian like systems:
+**Debian like systems:**
 
 sudo apt-get install libsasl2-dev python-dev libldap2-dev libssl-dev
 
