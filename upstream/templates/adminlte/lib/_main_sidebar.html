@@ -12,10 +12,16 @@
         <!-- Sidebar user panel -->
         {% block user_panel %}
         <div class="user-panel">
+          {% if request.user.is_authenticated %}
           <ul class="treeview-menu">
                 <li><a href="/personnel/profile"><i class="fa fa-circle text-success"></i> Profile</a></li>
                 <li><a href="/accounts/logout"><i class="fa fa-times-circle text-warning"></i> Logout</a></li>
           </ul>
+          {%else%}
+          <ul class="treeview-menu">
+                <li><a href="/accounts/login"><i class="fa fa-times-circle text-warning"></i> Login</a></li>
+          </ul>
+          {%endif%}
         </div>
         {% endblock %}
         <!-- sidebar menu: : style can be found in sidebar.less -->
