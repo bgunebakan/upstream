@@ -40,7 +40,7 @@ class UploadToPathAndRename(object):
         ext = filename.split('.')[-1]
         # get filename
         if instance.pk:
-            filename = '{}.{}'.format(instance.personnel.nat_id, ext)
+            filename = '{}.{}'.format(instance.nat_id, ext)
         else:
             # set filename as random string
             filename = '{}.{}'.format(uuid4().hex, ext)
