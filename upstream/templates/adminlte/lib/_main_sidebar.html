@@ -185,6 +185,28 @@
                 </ul>
             </li>
             {%endif%}
+
+            {%if '/inventory/' in request.path %}
+            {% load menubuilder %}{% menu inventory %}
+            <li class="treeview {% add_active '/inventory/' request %}" id="active">
+                <a href="#">
+                  <i class="fa fa-edit "></i>
+                  <span>Inventory</span>
+                  <span class="pull-right-container">
+                      <i class="fa fa-angle-left pull-right"></i>
+                  </span>
+                </a>
+                <ul class="treeview-menu">
+                  {% for item in menuitems %}
+                  <li>
+                    <a href="{{ item.url }}" title="{{ item.title|escape }}"{% if item.current %} class='current'{% endif %}>
+                      <i class="fa fa-angle-right"></i>{{ item.title }}
+                    </a>
+                  </li>
+                  {% endfor %}
+                </ul>
+            </li>
+            {%endif%}
             {% endblock nav_links %}
             {% endblock nav_links_outer %}
         </ul>

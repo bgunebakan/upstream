@@ -4,11 +4,10 @@ import django_bootstrap_calendar
 from .models import *
 
 @receiver(post_save, sender=Task)
-def create_task(sender, instance, created, **kwargs):
-    """Create a matching profile whenever a user object is created."""
+def add_log(sender, instance, created, **kwargs):
     if created:
-        calenderevent, new = django_bootstrap_calendar.models.CalendarEvent.objects.get_or_create(title=instance.name,
-        start=instance.start_date,end=instance.end_date,url="detail/task/"+str(instance.id))
+        log = Log.get_or_create(action="added",description=instance.name,url="/project/task/"+unicode(instance.id),
+        user=instance.owner)
 
 @receiver(post_delete, sender=Task)
 def delete_task(sender, instance, **kwargs):
