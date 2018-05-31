@@ -111,7 +111,7 @@ class Personnel(models.Model):
             (9, 'E'),
     )
 
-    user = models.OneToOneField(User,null=True,blank=True, on_delete=models.CASCADE,verbose_name="Ldap")
+    user = models.OneToOneField(User,null=True,blank=True, on_delete=models.CASCADE,verbose_name="Username")
     name = models.CharField(max_length=30,verbose_name = "Name")
     surname = models.CharField(max_length=30,verbose_name = "Surname")
     country = CountryField(verbose_name = "Country",null=True,blank=True,default='TR')

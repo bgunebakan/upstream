@@ -74,11 +74,11 @@ class PersonnelCRUD(CRUDView):
     check_perms = True
     views_available=['list', 'update','delete','detail']
 
-    fields = ['personnel_type','name', 'surname','birth_date', 'country','nat_id','gender','department','title',
+    fields = ['user','personnel_type','name', 'surname','birth_date', 'country','nat_id','gender','department','title',
     'job','phone_number1','phone_number2','email','address','marital_status',
      'drive_licence','health_status','notes','cv','profile_picture','user_file','extra_file1','extra_file2','extra_file3']
 
-    list_fields = ['name','surname','personnel_type','nat_id','created_date']
+    list_fields = ['name','surname','personnel_type','nat_id','user','created_date']
 
     list_filter = ['name', 'personnel_type']
 

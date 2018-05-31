@@ -41,7 +41,7 @@
 
 
           </ul>
-            {% if url and 'update' in views_available and crud_perms.update %}
+            {% if crud_perms.update %}
               <div class="col-md-12 col-lg-12 " align="center">
                 <a href="/personnel/personnel/{{object.id}}/update" class="btn btn-primary" align="center">Update Details</a>
                 {% get_folder object.id as folder%}

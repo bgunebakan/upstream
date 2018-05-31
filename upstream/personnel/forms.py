@@ -90,14 +90,16 @@ class PersonnelForm(forms.ModelForm):
                     Field('title', wrapper_class="col-md-6"),
                     Field('drive_licence', wrapper_class="col-md-6"),
 
-                ),Tab(
-                    'Files'.decode('utf-8'),
-                    Field('user_file', wrapper_class="col-md-12"),
-                    Field('health_status', wrapper_class="col-md-12"),
-                    Field('extra_file1', wrapper_class="col-md-12"),
-                    Field('extra_file2', wrapper_class="col-md-12"),
-                    Field('extra_file3', wrapper_class="col-md-12"),
-                ),Tab(
+                ),
+                #Tab(
+                #    'Files'.decode('utf-8'),
+                #    Field('user_file', wrapper_class="col-md-12"),
+                #    Field('health_status', wrapper_class="col-md-12"),
+                #    Field('extra_file1', wrapper_class="col-md-12"),
+                #    Field('extra_file2', wrapper_class="col-md-12"),
+                #    Field('extra_file3', wrapper_class="col-md-12"),
+                #),
+                Tab(
                     'CV'.decode('utf-8'),
                     Field('cv', wrapper_class="col-md-12"),
                 )
