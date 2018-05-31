@@ -59,7 +59,7 @@
             <li class="treeview {% add_active '/project/' request %}" id="active">
                 <a href="#">
                   <i class="fa fa-code-fork"></i>
-                  <span>Proje Yönetimi</span>
+                  <span>Project</span>
                   <span class="pull-right-container">
                       <i class="fa fa-angle-left pull-right"></i>
                   </span>
@@ -81,7 +81,7 @@
             <li class="treeview {% add_active '/personnel/' request %}" id="active">
                 <a href="#">
                   <i class="fa fa-group"></i>
-                  <span>Personel Yönetimi</span>
+                  <span>User Management</span>
                   <span class="pull-right-container">
                       <i class="fa fa-angle-left pull-right"></i>
                   </span>
@@ -103,7 +103,7 @@
             <li class="treeview {% add_active '/portunes/' request %}" id="active">
                 <a href="#">
                   <i class="fa fa-credit-card"></i>
-                  <span>Kartlı Geçiş</span>
+                  <span>Access Control</span>
                   <span class="pull-right-container">
                       <i class="fa fa-angle-left pull-right"></i>
                   </span>
@@ -125,7 +125,7 @@
             <li class="treeview {% add_active '/inventory/' request %}" id="active">
                 <a href="#">
                   <i class="fa  fa-industry"></i>
-                  <span>Stok Takip</span>
+                  <span>Inventory</span>
                   <span class="pull-right-container">
                       <i class="fa fa-angle-left pull-right"></i>
                   </span>
@@ -169,7 +169,7 @@
             <li class="treeview {% add_active '/procurement/' request %}" id="active">
                 <a href="#">
                   <i class="fa fa-edit "></i>
-                  <span>İhale Yönetimi</span>
+                  <span>Procurement</span>
                   <span class="pull-right-container">
                       <i class="fa fa-angle-left pull-right"></i>
                   </span>
@@ -186,27 +186,6 @@
             </li>
             {%endif%}
 
-            {%if '/inventory/' in request.path %}
-            {% load menubuilder %}{% menu inventory %}
-            <li class="treeview {% add_active '/inventory/' request %}" id="active">
-                <a href="#">
-                  <i class="fa fa-edit "></i>
-                  <span>Inventory</span>
-                  <span class="pull-right-container">
-                      <i class="fa fa-angle-left pull-right"></i>
-                  </span>
-                </a>
-                <ul class="treeview-menu">
-                  {% for item in menuitems %}
-                  <li>
-                    <a href="{{ item.url }}" title="{{ item.title|escape }}"{% if item.current %} class='current'{% endif %}>
-                      <i class="fa fa-angle-right"></i>{{ item.title }}
-                    </a>
-                  </li>
-                  {% endfor %}
-                </ul>
-            </li>
-            {%endif%}
             {% endblock nav_links %}
             {% endblock nav_links_outer %}
         </ul>
