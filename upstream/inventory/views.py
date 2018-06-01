@@ -135,7 +135,7 @@ class ItemCRUD(CRUDView):
 
     #inlines = [Tender_end_date_AjaxCRUD,Tender_content_AjaxCRUD]
 
-    search_fields = ['name','part_number','category']
+    search_fields = ['name','part_number','model','brand']
     split_space_search = True
     paginate_by = 15
     paginate_position = 'Bottom' # Both | Bottom
@@ -147,7 +147,7 @@ class SupplierCRUD(CRUDView):
     check_login = True
     check_perms = True
     fields =  ['name','address','phone_number','web','notes']
-    list_fields =   ['name','address','phone_number','web','notes']
+    list_fields =   ['name','address','phone_number','web']
     display_fields =   ['name','address','phone_number','web','notes']
 
     views_available=['create', 'list', 'delete', 'update']

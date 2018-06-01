@@ -106,7 +106,7 @@ class Item(models.Model):
     brand = models.CharField(verbose_name=_(u'Brand'), max_length=32, null=True, blank=True)
     model = models.CharField(verbose_name=_(u'Model'), max_length=32, null=True, blank=True)
     part_number = models.CharField(verbose_name=_(u'Part Number'), max_length=32, null=True, blank=True)
-    quantity = models.IntegerField(default=0, verbose_name=_(u'Quantity'))
+    quantity = models.IntegerField(default=1, verbose_name=_(u'Quantity'))
     #user = models.ForeignKey(User, verbose_name=_(u'User'),null=True,on_delete=models.SET_NULL)
     notes = models.TextField(verbose_name=_(u'Notes'), null=True, blank=True)
     picture = models.ImageField(upload_to=UploadToPathAndRename(os.path.join('item_pictures')),null=True,blank=True,default='item_pictures/item.png',verbose_name = "Picture")
