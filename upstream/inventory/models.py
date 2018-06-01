@@ -6,7 +6,26 @@ from django.utils.translation import ugettext_lazy as _
 from django.utils import timezone
 from datetime import datetime
 from django.contrib.auth.models import User,Group
+from django.utils.deconstruct import deconstructible
+import os
+from uuid import uuid4
 
+@deconstructible
+class UploadToPathAndRename(object):
+
+    def __init__(self, path):
+        self.sub_path = path
+
+    def __call__(self, instance, filename):
+        ext = filename.split('.')[-1]
+        # get filename
+        if instance.pk:
+            filename = '{}.{}'.format(instance.id, ext)
+        else:
+            # set filename as random string
+            filename = '{}.{}'.format(uuid4().hex, ext)
+        # return the whole path to the file
+        return os.path.join(self.sub_path, filename)
 
 class Location(models.Model):
     name = models.CharField(max_length=32, verbose_name=_(u'Name'))
@@ -59,6 +78,20 @@ class Category(models.Model):
     def __unicode__(self):
         return self.name
 
+class Shelf(models.Model):
+    name = models.CharField(max_length=50, verbose_name='Name',default="")
+    created_date = models.DateTimeField(default=timezone.now,verbose_name='Created Date', editable=False)
+    top_shelf = models.ForeignKey('self',null=True,blank=True, verbose_name=_(u'Top Shelf'),on_delete=models.SET_NULL)
+    notes = models.TextField(max_length=200,null=True,blank=True, verbose_name=_(u'Notes'))
+
+    class Meta:
+        ordering = ['name']
+        verbose_name = _(u'Shelf')
+        verbose_name_plural = _(u'Shelves')
+
+    def __unicode__(self):
+        return self.name
+
 class ItemType(models.Model):
     name = models.CharField(max_length=50, verbose_name=_(u'Name'))
     code = models.IntegerField(default=0, verbose_name=_(u'Code'))
@@ -73,11 +106,14 @@ class Item(models.Model):
     brand = models.CharField(verbose_name=_(u'Brand'), max_length=32, null=True, blank=True)
     model = models.CharField(verbose_name=_(u'Model'), max_length=32, null=True, blank=True)
     part_number = models.CharField(verbose_name=_(u'Part Number'), max_length=32, null=True, blank=True)
-    user = models.ForeignKey(User, verbose_name=_(u'User'),null=True,on_delete=models.SET_NULL)
+    quantity = models.IntegerField(default=0, verbose_name=_(u'Quantity'))
+    #user = models.ForeignKey(User, verbose_name=_(u'User'),null=True,on_delete=models.SET_NULL)
     notes = models.TextField(verbose_name=_(u'Notes'), null=True, blank=True)
+    picture = models.ImageField(upload_to=UploadToPathAndRename(os.path.join('item_pictures')),null=True,blank=True,default='item_pictures/item.png',verbose_name = "Picture")
     suppliers = models.ManyToManyField('Supplier',blank=True, verbose_name=_(u'Supplier'))
     inventory = models.ForeignKey(Inventory, null=True, blank=True, verbose_name=_(u'Inventory'),on_delete=models.SET_NULL)
     category = models.ForeignKey(Category, verbose_name=_(u'Category'),null=True,on_delete=models.SET_NULL)
+    shelf = models.ForeignKey(Shelf, null=True, blank=True, verbose_name=_(u'Shelf'),on_delete=models.SET_NULL)
     item_type = models.ForeignKey(ItemType, verbose_name=_(u'Item Type'),null=True,on_delete=models.SET_NULL)
     created_date = models.DateTimeField(default=timezone.now,verbose_name='Created Date', editable=False)
     deleted = models.BooleanField(default=False)

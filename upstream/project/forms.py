@@ -46,16 +46,17 @@ class TaskForm(forms.ModelForm):
                     Field('name', wrapper_class="col-md-6"),
                     Field('project', wrapper_class="col-md-6"),
                     Field('top_task', wrapper_class="col-md-6"),
+                    Field('task_type', wrapper_class="col-md-6"),
                     Field('owner', wrapper_class="col-md-6"),
                     Field('group', wrapper_class="col-md-6"),
-                    Field('task_type', wrapper_class="col-md-6"),
-                    Field('status', wrapper_class="col-md-6"),
+
                 ),
                 Tab(
                     'Date & Time'.decode('utf-8'),
-                    Field('start_date', wrapper_class="col-md-4"),
-                    Field('end_date', wrapper_class="col-md-4"),
-                    Field('percent_done', wrapper_class="col-md-4"),
+                    Field('start_date', wrapper_class="col-md-6"),
+                    Field('end_date', wrapper_class="col-md-6"),
+                    Field('percent_done', wrapper_class="col-md-6"),
+                    Field('status', wrapper_class="col-md-6"),
                 ),
                 Tab(
                     _('Notes'),

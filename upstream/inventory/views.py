@@ -78,6 +78,26 @@ class CategoryCRUD(CRUDView):
     paginate_position = 'Bottom' # Both | Bottom
     paginate_template = 'cruds/pagination/enumeration.html'
 
+class ShelfCRUD(CRUDView):
+    model = Shelf
+    #template_name_base='crud'
+    check_login = True
+    check_perms = True
+    fields =   ['name','top_shelf','notes']
+    list_fields =   ['name','top_shelf','notes']
+    display_fields =   ['name','top_shelf','notes']
+
+    views_available=['create', 'list', 'delete', 'update']
+
+    #add_form = CategoryForm
+    #update_form = CategoryForm
+
+    search_fields =  ['name','top_shelf','notes']
+    split_space_search = True
+    paginate_by = 15
+    paginate_position = 'Bottom' # Both | Bottom
+    paginate_template = 'cruds/pagination/enumeration.html'
+
 class ItemTypeCRUD(CRUDView):
     model = ItemType
     template_name_base='crud'
@@ -103,11 +123,11 @@ class ItemCRUD(CRUDView):
     template_name_base='crud'
     check_login = True
     check_perms = True
-    fields = ['name','brand','model','part_number','user','notes','suppliers','inventory','category','item_type']
-    list_fields = ['name','brand','model','user','category']
-    display_fields = ['name','brand','model','part_number','user','notes','suppliers','inventory','category','item_type']
+    fields = ['name','brand','model','part_number','quantity','picture','shelf','notes','suppliers','inventory','category','item_type']
+    list_fields = ['name','brand','model','shelf','category','quantity','picture']
+    display_fields = ['name','brand','model','picture','quantity','part_number','shelf','notes','suppliers','inventory','category','item_type']
 
-    list_filter = ['brand', 'user','category','item_type','suppliers']
+    list_filter = ['brand','category','item_type','suppliers']
     views_available=['create', 'list', 'delete', 'update', 'detail']
 
     add_form = ItemForm
@@ -115,7 +135,7 @@ class ItemCRUD(CRUDView):
 
     #inlines = [Tender_end_date_AjaxCRUD,Tender_content_AjaxCRUD]
 
-    search_fields = ['name','part_number','user','category']
+    search_fields = ['name','part_number','category']
     split_space_search = True
     paginate_by = 15
     paginate_position = 'Bottom' # Both | Bottom

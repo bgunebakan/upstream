@@ -5,7 +5,5 @@ app_name = 'inventory'
 
 urlpatterns = [
     url(r'^$', views.index, name='index'),
-    url(r'^new/(?P<form_type>.*)', views.new, name='new'),
-    url(r'^list/itemtype/100/', views.item_table, name='item_table'),
 
 ]

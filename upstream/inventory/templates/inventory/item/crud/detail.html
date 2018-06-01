@@ -18,62 +18,63 @@
   <div class="row">
     <div class="col-md-3">
       <!-- Profile Image -->
-      <div class="box box-primary">
+      <div class="box box-success">
         <div class="box-body box-profile">
-          <img class="profile-user-img img-responsive img-circle" src="{{ object.profile_picture.url }}" alt="Fotoğraf">
+          <img class="profile-user-img img-responsive img-rounded" src="{{ object.picture.url }}" alt="Fotoğraf">
 
           <h3 class="profile-username text-center">{{ object }}</h3>
 
-          <p class="text-muted text-center">{{ object.job }}</p>
+          <p class="text-muted text-center">{{ object.category }}</p>
 
           <ul class="list-group list-group-unbordered">
             <li class="list-group-item">
-              <b>İş günü</b> <a class="pull-right">{{ object.total_workday }}</a>
+              <b>Item Type</b> <a class="pull-right">{{ object.item_type }}</a>
             </li>
             <li class="list-group-item">
-              <b>İş saati</b> <a class="pull-right">{{ object.total_workhour }}</a>
+              <b>Brand</b> <a class="pull-right">{{ object.brand }}</a>
             </li>
             <li class="list-group-item">
-              <b>Radyasyon Doz</b> <a class="pull-right">{{ object.total_dose }}</a>
+              <b>Model</b> <a class="pull-right">{{ object.model }}</a>
+            </li>
+            <li class="list-group-item">
+              <b>Part Number</b> <a class="pull-right">{{ object.part_number }}</a>
             </li>
 
 
 
           </ul>
-          <div class="col-md-12 col-lg-12 " align="center">
-          <a href="/procurement/tender/{{object.id}}/update" class="btn btn-primary" align="center">Update</a>
+          {% if crud_perms.update %}
+            <div class="col-md-12 col-lg-12 " align="center">
+              <a href="/inventory/item/{{object.id}}/update" class="btn btn-primary" align="center">Update Details</a>
             </div>
+          {%endif%}
         </div>
         <!-- /.box-body -->
       </div>
       <!-- /.box -->
 
       <!-- About Me Box -->
-      <div class="box box-primary">
+      <div class="box box-success">
         <div class="box-header with-border">
-          <h3 class="box-title">Hakkında</h3>
+          <h3 class="box-title">Details</h3>
         </div>
         <!-- /.box-header -->
         <div class="box-body">
-          <strong><i class="fa fa-book margin-r-5"></i>İletişim</strong>
+          <strong><i class="fa fa-book margin-r-5"></i>Quantity</strong>
 
-          <p class="text-muted">
-            E-posta: <b><a href="mailto:{{ object.email }}">{{ object.email }}</a> </b><br>
-            Telefon: <b><a href="tel:{{ object.phone_number1 }}">{{ object.phone_number1 }}</a> </b><br>
-            Telefon 2: <b><a href="tel:{{ object.phone_number2 }}">{{ object.phone_number2 }}</a></b>
-          </p>
+          <h2 class="text-primary text-center">{{ object.quantity }}</h2>
 
           <hr>
 
-          <strong><i class="fa fa-map-marker margin-r-5"></i>Departman</strong>
+          <strong><i class="fa fa-map-marker margin-r-5"></i>Location</strong>
 
-          <p class="text-muted">{{ object.department }}</p>
+          <h3 class="text-success text-center">{{ object.inventory }} > > {{ object.shelf }}</h3>
 
           <hr>
 
-          <strong><i class="fa fa-file-text-o margin-r-5"></i> Notlar</strong>
+          <strong><i class="fa fa-file-text-o margin-r-5"></i> Notes</strong>
 
-          <p>{{ object.notes }}</p>
+          <p>{{ object.notes | safe }}</p>
         </div>
         <!-- /.box-body -->
       </div>

@@ -29,7 +29,7 @@ from personnel.models import Personnel
 from procurement.views import TenderCRUD,Tender_end_dateCRUD,TravellingExpenseCRUD
 from portunes.views import ControllerCRUD,DoorCRUD,DoorGroupCRUD,IdentifierCRUD
 from project.views import ProjectCRUD,TaskCRUD
-from inventory.views import LocationCRUD,InventoryCRUD,CategoryCRUD,ItemTypeCRUD,ItemCRUD,SupplierCRUD
+from inventory.views import LocationCRUD,InventoryCRUD,CategoryCRUD,ItemTypeCRUD,ItemCRUD,SupplierCRUD,ShelfCRUD
 
 usercrud = UserCRUD()
 personnelcrud = PersonnelCRUD()
@@ -52,6 +52,7 @@ categorycrud = CategoryCRUD()
 itemtypecrud = ItemTypeCRUD()
 itemcrud = ItemCRUD()
 suppliercrud = SupplierCRUD()
+shelfcrud = ShelfCRUD()
 
 ns = crud_for_app('personnel', check_perms=True, namespace="up")
 
@@ -94,6 +95,7 @@ urlpatterns = [
     url(r'', include(itemtypecrud.get_urls())),
     url(r'', include(itemcrud.get_urls())),
     url(r'', include(suppliercrud.get_urls())),
+    url(r'', include(shelfcrud.get_urls())),
 ]
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

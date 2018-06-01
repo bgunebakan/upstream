@@ -12,8 +12,8 @@ class Project(models.Model):
     created_date = models.DateTimeField(default=timezone.now,verbose_name='oluşturma tarihi', editable=False)
     updated_date = models.DateTimeField(auto_now=True,verbose_name='güncelleme tarihi', blank=True, editable=False)
     top_project = models.ForeignKey('self',null=True,blank=True,on_delete=models.SET_NULL)
-    owner = models.ForeignKey(User,null=True,on_delete=models.SET_NULL)
-    group = models.ForeignKey(Group,null=True,blank=True,on_delete=models.SET_NULL)
+    owner = models.ManyToManyField(User,blank=True)
+    group = models.ManyToManyField(Group,blank=True)
     description = models.TextField(max_length=200,null=True,blank=True)
 
     def __unicode__(self):
@@ -45,8 +45,8 @@ class Task(models.Model):
 
     top_task = models.ForeignKey('self',null=True,blank=True,on_delete=models.SET_NULL,verbose_name="Top Task")
     project = models.ForeignKey(Project,null=True,blank=True,on_delete=models.SET_NULL,verbose_name="Project")
-    owner = models.ForeignKey(User,null=True,on_delete=models.SET_NULL,verbose_name="Owner")
-    group = models.ForeignKey(Group,null=True,blank=True,on_delete=models.SET_NULL,verbose_name="Group")
+    owner = models.ManyToManyField(User,blank=True,verbose_name="Owner")
+    group = models.ManyToManyField(Group,blank=True,verbose_name="Group")
 
     task_type = models.ForeignKey(Tasktype,null=True,blank=True,on_delete=models.SET_NULL,verbose_name="Task type")
     status = models.ForeignKey(Statustype,null=True,blank=True,on_delete=models.SET_NULL,verbose_name="Status")
