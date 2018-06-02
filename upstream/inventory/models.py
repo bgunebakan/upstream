@@ -63,9 +63,22 @@ class Inventory(models.Model):
     def __unicode__(self):
         return self.name
 
+class Unit(models.Model):
+    name = models.CharField(max_length=50, verbose_name=_(u'Unit name'))
+    short_name = models.CharField(max_length=5, verbose_name=_(u'slug'))
+    created_date = models.DateTimeField(default=timezone.now,verbose_name='Created date', editable=False)
+
+    class Meta:
+        ordering = ['name']
+        verbose_name = _(u'Unit')
+        verbose_name_plural = _(u'Units')
+
+    def __unicode__(self):
+        return self.name
 
 class Category(models.Model):
     name = models.CharField(max_length=50, verbose_name=_(u'Name'))
+    code = models.CharField(max_length=5,default="01", verbose_name=_(u'Code'))
     created_date = models.DateTimeField(default=timezone.now,verbose_name='Created Date', editable=False)
     top_category = models.ForeignKey('self',null=True,blank=True, verbose_name=_(u'Top Category'),on_delete=models.SET_NULL)
     notes = models.TextField(max_length=200,null=True,blank=True, verbose_name=_(u'Notes'))
@@ -77,6 +90,22 @@ class Category(models.Model):
 
     def __unicode__(self):
         return self.name
+
+class Room(models.Model):
+    name = models.CharField(max_length=50, verbose_name='Name',default="")
+    code = models.CharField(max_length=5,default="A", verbose_name=_(u'Code'))
+    created_date = models.DateTimeField(default=timezone.now,verbose_name='Created Date', editable=False)
+    location = models.ForeignKey(Location,null=True,blank=True, verbose_name=_(u'Location'),on_delete=models.SET_NULL)
+    notes = models.TextField(max_length=200,null=True,blank=True, verbose_name=_(u'Notes'))
+
+    class Meta:
+        ordering = ['name']
+        verbose_name = _(u'Shelf')
+        verbose_name_plural = _(u'Shelves')
+
+    def __unicode__(self):
+        return self.name
+
 
 class Shelf(models.Model):
     name = models.CharField(max_length=50, verbose_name='Name',default="")
@@ -94,7 +123,16 @@ class Shelf(models.Model):
 
 class ItemType(models.Model):
     name = models.CharField(max_length=50, verbose_name=_(u'Name'))
-    code = models.IntegerField(default=0, verbose_name=_(u'Code'))
+    code = models.CharField(max_length=5,default="01", verbose_name=_(u'Code'))
+    created_date = models.DateTimeField(default=timezone.now,verbose_name='Created Date', editable=False)
+    notes = models.TextField(max_length=200,null=True,blank=True, verbose_name=_(u'Notes'))
+
+    def __unicode__(self):
+        return self.name
+
+class ItemStatus(models.Model):
+    name = models.CharField(max_length=50, verbose_name=_(u'Name'))
+    code = models.CharField(max_length=5,default="N", verbose_name=_(u'Code'))
     created_date = models.DateTimeField(default=timezone.now,verbose_name='Created Date', editable=False)
     notes = models.TextField(max_length=200,null=True,blank=True, verbose_name=_(u'Notes'))
 
@@ -107,6 +145,7 @@ class Item(models.Model):
     model = models.CharField(verbose_name=_(u'Model'), max_length=32, null=True, blank=True)
     part_number = models.CharField(verbose_name=_(u'Part Number'), max_length=32, null=True, blank=True)
     quantity = models.IntegerField(default=1, verbose_name=_(u'Quantity'))
+    unit = models.ForeignKey(Unit, verbose_name=_(u'Unit'),null=True,on_delete=models.SET_NULL)
     #user = models.ForeignKey(User, verbose_name=_(u'User'),null=True,on_delete=models.SET_NULL)
     notes = models.TextField(verbose_name=_(u'Notes'), null=True, blank=True)
     picture = models.ImageField(upload_to=UploadToPathAndRename(os.path.join('item_pictures')),null=True,blank=True,default='item_pictures/item.png',verbose_name = "Picture")
@@ -115,6 +154,7 @@ class Item(models.Model):
     category = models.ForeignKey(Category, verbose_name=_(u'Category'),null=True,on_delete=models.SET_NULL)
     shelf = models.ForeignKey(Shelf, null=True, blank=True, verbose_name=_(u'Shelf'),on_delete=models.SET_NULL)
     item_type = models.ForeignKey(ItemType, verbose_name=_(u'Item Type'),null=True,on_delete=models.SET_NULL)
+    item_status = models.ForeignKey(ItemStatus, verbose_name=_(u'Item Status'),null=True,on_delete=models.SET_NULL)
     created_date = models.DateTimeField(default=timezone.now,verbose_name='Created Date', editable=False)
     deleted = models.BooleanField(default=False)
 

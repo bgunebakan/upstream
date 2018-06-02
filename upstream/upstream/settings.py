@@ -60,7 +60,7 @@ INSTALLED_APPS = [
 
     'constance',
     'constance.backends.database',
-
+    'import_export',
     'homepage',
     'procurement',
     'personnel',
@@ -79,6 +79,8 @@ INSTALLED_APPS = [
     'django_tables2',
 #    'raven.contrib.django.raven_compat',
 ]
+
+IMPORT_EXPORT_USE_TRANSACTIONS = True
 
 SITE_ID = 1
 
