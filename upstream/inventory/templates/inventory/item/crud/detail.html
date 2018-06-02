@@ -2,6 +2,8 @@
 {% load i18n %}
 {% load crud_tags %}
 {% load static %}
+{% load render_table from django_tables2 %}
+{% load inventory_tags %}
 {% block title %}Inventory{% endblock %}
 
 {% block page_name %}Inventory{% endblock %}
@@ -46,6 +48,7 @@
           {% if crud_perms.update %}
             <div class="col-md-12 col-lg-12 " align="center">
               <a href="/inventory/item/{{object.id}}/update" class="btn btn-primary" align="center">Update Details</a>
+              <a href="/inventory/log/create" class="btn btn-primary" align="center">Item Action</a>
             </div>
           {%endif%}
         </div>
@@ -68,7 +71,7 @@
 
           <strong><i class="fa fa-map-marker margin-r-5"></i>Location</strong>
 
-          <h3 class="text-success text-center">{{ object.inventory }} > > {{ object.shelf }}</h3>
+          <h3 class="text-success text-center">{{ object.inventory }} > {{ object.room }} > {{ object.shelf }} </h3>
 
           <hr>
 
@@ -84,136 +87,18 @@
     <div class="col-md-9">
       <div class="nav-tabs-custom">
         <ul class="nav nav-tabs">
-          <li class="active"><a href="#about" data-toggle="tab">Kişisel Bilgiler</a></li>
-          <li class=""><a href="#contact" data-toggle="tab">İletişim Bilgileri</a></li>
-          <li class=""><a href="#job" data-toggle="tab">Mesleki Bilgiler</a></li>
-          <li class=""><a href="#cv" data-toggle="tab">Özgeçmiş</a></li>
+          <li class="active"><a href="#actions" data-toggle="tab">Actions</a></li>
         </ul>
         <div class="tab-content">
-          <div class="active tab-pane" id="about">
+          <div class="active tab-pane" id="actions">
             <div class="box-body">
               <div class="row">
-
-                <div class=" col-md-12 col-lg-12 ">
-                  <table class="table table-user-information">
-                    <tbody>
-                      <tr>
-                        <td>İsim :</td>
-                        <td>{{object.name}}</td>
-                      </tr>
-                      <tr>
-                        <td>Soyisim :</td>
-                        <td>{{object.surname}}</td>
-                      </tr>
-                      <tr>
-                        <td>TC no :</td>
-                        <td>{{object.nat_id}}</td>
-                      </tr>
-                      <tr>
-                        <td>Uyruğu :</td>
-                        <td>{{object.country}}</td>
-                      </tr>
-                      <tr>
-                        <td>Kullanıcı Türü :</td>
-                        <td>{{object.personnel_type}}</td>
-                      </tr>
-                      <tr>
-                        <td>Cinsiyeti :</td>
-                        <td>{{object.gender}}</td>
-                      </tr>
-                      <tr>
-                        <td>Doğum Tarihi :</td>
-                        <td>{{object.birth_date}}</td>
-                      </tr>
-                      <tr>
-                        <td>Medeni Durumu:</td>
-                        <td>{{object.marital_status}}</td>
-                      </tr>
-                      <tr>
-                        <td>Askerlik Durumu:</td>
-                        <td>{{object.military_situation}}</td>
-                      </tr>
-                    </tbody>
-                  </table>
-                </div>
+                  {% get_logs object.id as logs_table%}
+                  {% render_table logs_table %}
               </div>
 
               </div>
           </div>
-          <div class="tab-pane" id="contact">
-            <div class="box-body">
-              <div class="row">
-
-                <div class=" col-md-12 col-lg-12 ">
-                  <table class="table table-user-information">
-                    <tbody>
-                      <tr>
-                        <td>Şirket Telefonu :</td>
-                        <td>{{object.phone_number1}}</td>
-                      </tr>
-                      <tr>
-                        <td>Cep Telefonu :</td>
-                        <td>{{object.phone_number2}}</td>
-                      </tr>
-                      <tr>
-                        <td>E-posta :</td>
-                        <td>{{object.email}}</td>
-                      </tr>
-                      <tr>
-                        <td>Adres :</td>
-                        <td>{{object.address}}</td>
-                      </tr>
-                    </tbody>
-                  </table>
-                </div>
-              </div>
-            </div>
-          </div>
-          <!-- /.tab-pane -->
-          <div class="tab-pane" id="job">
-            <!-- The timeline -->
-            <!-- BAR CHART -->
-              <div class="box-body">
-                <div class="row">
-
-                  <div class=" col-md-12 col-lg-12 ">
-                    <table class="table table-user-information">
-                      <tbody>
-                        <tr>
-                          <td>Departman :</td>
-                          <td>{{object.department}}</td>
-                        </tr>
-                        <tr>
-                          <td>Görev :</td>
-                          <td>{{object.job}}</td>
-                        </tr>
-                        <tr>
-                          <td>Ünvan :</td>
-                          <td>{{object.title}}</td>
-                        </tr>
-                        <tr>
-                          <td>Sürücü Belgesi :</td>
-                          <td>{{object.drive_licence}}</td>
-                        </tr>
-                      </tbody>
-                    </table>
-                  </div>
-                </div>
-              </div>
-              <!-- /.box-body -->
-
-
-          </div>
-          <!-- /.tab-pane -->
-          <div class="tab-pane" id="cv">
-
-              <div class="box-body">
-                {{ object.cv|safe }}
-              </div>
-
-
-          </div>
-
           <!-- /.tab-pane -->
         </div>
         <!-- /.tab-content -->

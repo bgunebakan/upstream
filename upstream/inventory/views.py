@@ -124,7 +124,7 @@ class ItemCRUD(CRUDView):
     template_name_base='crud'
     check_login = True
     check_perms = True
-    fields = ['name','brand','model','part_number','quantity','picture','shelf','notes','suppliers','inventory','category','item_type']
+    fields = ['name','brand','model','part_number','quantity','unit','picture','shelf','notes','suppliers','inventory','category','item_type']
     list_fields = ['name','brand','model','shelf','category','quantity','picture']
     display_fields = ['name','brand','model','picture','quantity','part_number','shelf','notes','suppliers','inventory','category','item_type']
 

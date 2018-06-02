@@ -12,3 +12,10 @@ class ItemTable(tables.Table):
         fields = ('name','brand', 'model', 'notes','inventory')
 
         attrs = {'class': 'table table-bordered table-hover'}
+
+class LogTable(tables.Table):
+    class Meta:
+        model = Log
+        fields = ('timedate','action', 'item', 'user')
+
+        attrs = {'class': 'table table-bordered table-hover'}

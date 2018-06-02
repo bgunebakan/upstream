@@ -20,7 +20,7 @@
                         {% crud_url object "create" namespace as url %}
                         {% if url and 'create' in views_available and crud_perms.create %}
                           <a href="{{ url }}{{getparams}}" class="btn btn-primary">
-                              {% trans "Yeni " %} {{ model_verbose_name }}</a>
+                              {% trans "New " %} {{ model_verbose_name }}</a>
                           {%endif%}
                     </div>
                     {% endif %}
@@ -42,28 +42,14 @@
 
                 {% if filters %}
                 <br />
-
-                <div class="box box-warning collapsed-box">
-                    <div class="box-header with-border">
-                        <h3 class="box-title">{% trans 'Filtrele' %}</h3>
-                        <div class="box-tools pull-right">
-                            <button data-widget="collapse" class="btn btn-box-tool btn-success" type="button">
-                                <i class="fa fa-plus"></i>
-                            </button>
-                        </div>
-                        <!-- /.box-tools -->
-                    </div>
-                    <!-- /.box-header -->
-                    <div class="box-body" style="">
                         <form action="" method="get">
                             <table class="table">
                                 {% for filter in filters %}
                                 {{filter.render }}
                                 {% endfor %}
-                    </div></div>
 
                             </table>
-                            <input type="submit" class="btn btn-info" value="{% trans 'Filter' %}" />
+                            <input type="submit" class="btn btn-info" value="Filter" />
                             <a  class="btn btn-warning" href="?"> {% trans 'Clean filter' %} </a>
                         </form>
                 </div>
@@ -107,7 +93,7 @@
                   {% crud_url object "detail" namespace as url %}
                     {% if url and 'detail' in views_available and crud_perms.detail %}
                         <a href="{{ url }}{{getparams}}" class="btn btn-success">{% trans "Detail" %}</a>
-                    {% endif %}  
+                    {% endif %}
                 {% endblock %}
               </div>
             {%endif%}

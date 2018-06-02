@@ -100,8 +100,8 @@ class Room(models.Model):
 
     class Meta:
         ordering = ['name']
-        verbose_name = _(u'Shelf')
-        verbose_name_plural = _(u'Shelves')
+        verbose_name = _(u'Room')
+        verbose_name_plural = _(u'Rooms')
 
     def __unicode__(self):
         return self.name
@@ -111,6 +111,7 @@ class Shelf(models.Model):
     name = models.CharField(max_length=50, verbose_name='Name',default="")
     created_date = models.DateTimeField(default=timezone.now,verbose_name='Created Date', editable=False)
     top_shelf = models.ForeignKey('self',null=True,blank=True, verbose_name=_(u'Top Shelf'),on_delete=models.SET_NULL)
+    room = models.ForeignKey(Room,null=True,blank=True, verbose_name=_(u'Room'),on_delete=models.SET_NULL)
     notes = models.TextField(max_length=200,null=True,blank=True, verbose_name=_(u'Notes'))
 
     class Meta:
@@ -119,13 +120,18 @@ class Shelf(models.Model):
         verbose_name_plural = _(u'Shelves')
 
     def __unicode__(self):
-        return self.name
+        return unicode(self.room.location) + " > " + unicode(self.room) + " > " + unicode(self.name)
 
 class ItemType(models.Model):
     name = models.CharField(max_length=50, verbose_name=_(u'Name'))
     code = models.CharField(max_length=5,default="01", verbose_name=_(u'Code'))
     created_date = models.DateTimeField(default=timezone.now,verbose_name='Created Date', editable=False)
     notes = models.TextField(max_length=200,null=True,blank=True, verbose_name=_(u'Notes'))
+
+    class Meta:
+        ordering = ['name']
+        verbose_name = _(u'Item Type')
+        verbose_name_plural = _(u'Item Types')
 
     def __unicode__(self):
         return self.name
@@ -135,6 +141,11 @@ class ItemStatus(models.Model):
     code = models.CharField(max_length=5,default="N", verbose_name=_(u'Code'))
     created_date = models.DateTimeField(default=timezone.now,verbose_name='Created Date', editable=False)
     notes = models.TextField(max_length=200,null=True,blank=True, verbose_name=_(u'Notes'))
+
+    class Meta:
+        ordering = ['name']
+        verbose_name = _(u'Item Status')
+        verbose_name_plural = _(u'Item Status')
 
     def __unicode__(self):
         return self.name
@@ -174,11 +185,11 @@ class Item(models.Model):
 
 class Log(models.Model):
     timedate = models.DateTimeField(auto_now_add=True, verbose_name=_(u'Time-Date'))
-    action = models.CharField(max_length=32, verbose_name=_(u'Action'))
+    action = models.CharField(max_length=32, verbose_name='Action')
     notes = models.TextField(verbose_name=_(u'Notes'), null=True, blank=True)
 
     item = models.ForeignKey(Item, verbose_name=_(u'Item'),null=True,on_delete=models.SET_NULL)
-    user = models.ForeignKey(User,related_name="action_user", verbose_name=_(u'User'),null=True,on_delete=models.SET_NULL)
+    user = models.ForeignKey(User,related_name="action_user", verbose_name='User',blank=True,null=True,on_delete=models.SET_NULL)
 
     class Meta:
         ordering = ['timedate']

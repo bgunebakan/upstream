@@ -11,6 +11,8 @@ from .models import *
 
 
 admin.site.register(Location)
+admin.site.register(Room)
+admin.site.register(Shelf)
 #admin.site.register(Item,ItemAdmin)
 admin.site.register(ItemType)
 #admin.site.register(Category)

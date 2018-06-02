@@ -54,7 +54,7 @@ INSTALLED_APPS = [
     'image_cropping',
     'cruds_adminlte',
     'django_mailbox',
-
+    'django_tables2',
     'filer',
     'mptt',
 
@@ -76,7 +76,7 @@ INSTALLED_APPS = [
     'django_python3_ldap',
     'auditlog',
     #'csvimport.app.CSVImportConf',
-    'django_tables2',
+
 #    'raven.contrib.django.raven_compat',
 ]
 
