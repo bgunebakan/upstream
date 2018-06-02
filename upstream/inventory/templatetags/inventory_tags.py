@@ -1,0 +1,19 @@
+# -*- coding: utf-8 -*-
+
+from inventory.models import *
+from django import template
+from django.core.exceptions import ObjectDoesNotExist
+from auditlog.models import LogEntry
+from django.contrib.auth.models import User
+from inventory.tables import LogTable
+
+register = template.Library()
+
+@register.simple_tag
+def get_logs(id):
+    try:
+        logs = Log.objects.filter(item__id=id).order_by('-timedate')
+        table = LogTable(logs)
+    except ObjectDoesNotExist:
+        return table
+    return table
