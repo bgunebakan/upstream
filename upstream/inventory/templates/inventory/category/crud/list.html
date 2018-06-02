@@ -20,7 +20,7 @@
                         {% crud_url object "create" namespace as url %}
                         {% if url and 'create' in views_available and crud_perms.create %}
                           <a href="{{ url }}{{getparams}}" class="btn btn-primary">
-                              {% trans "Yeni " %} {{ model_verbose_name }}</a>
+                              {% trans "New " %} {{ model_verbose_name }}</a>
                           {%endif%}
                     </div>
                     {% endif %}
@@ -43,28 +43,18 @@
                 {% if filters %}
                 <br />
 
-                <div class="box box-warning collapsed-box">
-                    <div class="box-header with-border">
-                        <h3 class="box-title">{% trans 'Filtrele' %}</h3>
-                        <div class="box-tools pull-right">
-                            <button data-widget="collapse" class="btn btn-box-tool btn-success" type="button">
-                                <i class="fa fa-plus"></i>
-                            </button>
-                        </div>
-                        <!-- /.box-tools -->
-                    </div>
-                    <!-- /.box-header -->
-                    <div class="box-body" style="">
                         <form action="" method="get">
                             <table class="table">
-                                {% for filter in filters %}
-                                {{filter.render }}
-                                {% endfor %}
-                    </div></div>
-
+                              <div class="col-xs-5 selectContainer">
+                                <select class="form-control" name="top_category">
+                                  <option value="37">Top Category</option>
+                                  {% for object in object_list %}
+                                    <option value="{{object.id}}">{{object}}</option>
+                                  {% endfor %}
+                                </select>
+                              </div>
                             </table>
-                            <input type="submit" class="btn btn-info" value="{% trans 'Filter' %}" />
-                            <a  class="btn btn-warning" href="?"> {% trans 'Clean filter' %} </a>
+                            <input type="submit" class="btn btn-info" value="Filter" />
                         </form>
                 </div>
                 <!-- /.box-body -->
@@ -101,10 +91,9 @@
                               {% endfor %}
                               <td>
                                 {% block actions %}
-                                  {% crud_url object "detail" namespace as url %}
-                                    {% if url and 'detail' in views_available and crud_perms.detail %}
-                                    <a href="{{ url }}{{getparams}}" class="btn btn-success">{% trans "Detay" %}</a>
-                                    {% endif %}
+
+                                    <a href="/inventory/item/list?category={{object.id}}" class="btn btn-success">{% trans "List Items" %}</a>
+
                                     {% crud_url object "update" namespace as url %}
                                     {% if url and 'update' in views_available and crud_perms.update %}
                                     <a href="{{ url }}{{getparams}}" class="btn btn-primary">{% trans "Güncelle" %}</a>
@@ -131,7 +120,9 @@
 
                 </div>
 
-                <div class="box-footer"></div>
+                <div class="box-footer">
+
+                </div>
             </div>
         </div>
     </div>

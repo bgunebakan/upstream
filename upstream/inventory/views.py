@@ -71,6 +71,7 @@ class CategoryCRUD(CRUDView):
 
     add_form = CategoryForm
     update_form = CategoryForm
+    list_filter = ['top_category']
 
     search_fields =  ['name','top_category__name','notes']
     split_space_search = True
