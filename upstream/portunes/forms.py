@@ -35,7 +35,7 @@ class IdentifierForm(forms.ModelForm):
 
     class Meta:
         model = Identifier
-        fields = ('name', 'key', 'is_active', 'identifier_type')
+        fields = ('name', 'key','user', 'is_active', 'identifier_type')
 
     def __init__(self, *args, **kwargs):
         super(IdentifierForm, self).__init__(*args, **kwargs)
@@ -43,10 +43,11 @@ class IdentifierForm(forms.ModelForm):
         self.fields['key'].widget.attrs.update({'class' : 'form-control'})
         self.fields['is_active'].widget.attrs.update({'class' : 'form-control'})
         self.fields['identifier_type'].widget.attrs.update({'class' : 'form-control'})
-        self.fields['name'].label = "Kart Adi"
-        self.fields['key'].label = "Kart No"
-        self.fields['is_active'].label = "Aktiflik"
-        self.fields['identifier_type'].label = "Kart Tipi"
+        self.fields['name'].label = "Card Name"
+        self.fields['key'].label = "Card No"
+        self.fields['is_active'].label = "active"
+        self.fields['user'].label = "User"
+        self.fields['identifier_type'].label = "Card Type"
 
 #    def clean_key(self):
 #        if self.instance.is_disabled:
