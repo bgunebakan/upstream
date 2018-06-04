@@ -17,3 +17,11 @@ def get_logs(id):
     except ObjectDoesNotExist:
         return table
     return table
+
+@register.simple_tag
+def get_itemtypes():
+    try:
+        item_types = ItemType.objects.all()
+    except ObjectDoesNotExist:
+        return null
+    return item_types

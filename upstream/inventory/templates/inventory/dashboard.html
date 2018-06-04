@@ -1,5 +1,6 @@
 {% extends 'cruds/base.html' %}
 {% load detail_tags %}
+{% load inventory_tags %}
 {% load crispy_forms_tags %}
 
 {% block title %}Inventory{% endblock %}
@@ -24,7 +25,7 @@
   <div class="col-md-10">
     <div class="box box-default">
       <div class="box-header with-border">
-        <h3 class="box-title">Select2</h3>
+        <h3 class="box-title">Ownership Change</h3>
 
         <div class="box-tools pull-right">
           <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
@@ -61,65 +62,24 @@
   </div>
   <div class="col-md-2">
 
-    <!-- small box -->
-    <div class="small-box bg-aqua">
-      <div class="inner">
-        <h3>150</h3>
+    {%get_itemtypes as item_types%}
 
-        <p>Demirbaş</p>
+    {%for item_type in item_types%}
+    <!-- small box -->
+    <div class="small-box {{item_type.color}}">
+      <div class="inner">
+        <h3>{{item_type.total}}</h3>
+
+        <p>{{item_type.name}}</p>
       </div>
       <div class="icon">
-        <i class="ion ion-monitor"></i>
+        <i class="fa {{item_type.icon}}"></i>
       </div>
-      <a href="list/itemtype/100/" class="small-box-footer">Listele <i class="fa fa-arrow-circle-right"></i></a>
+      <a href="/inventory/item/list?brand=&category=&item_type={{item_type.id}}" class="small-box-footer">Listele <i class="fa fa-arrow-circle-right"></i></a>
     </div>
-
+    {%endfor%}
   <!-- ./col -->
 
-    <!-- small box -->
-    <div class="small-box bg-green">
-      <div class="inner">
-        <h3>200</h3>
-
-        <p>Sarf</p>
-      </div>
-      <div class="icon">
-        <i class="ion ion-document"></i>
-      </div>
-      <a href="list/itemtype/200/" class="small-box-footer">Listele <i class="fa fa-arrow-circle-right"></i></a>
-    </div>
-
-  <!-- ./col -->
-
-    <!-- small box -->
-    <div class="small-box bg-yellow">
-      <div class="inner">
-        <h3>44</h3>
-
-        <p>Personel</p>
-      </div>
-      <div class="icon">
-        <i class="ion ion-person-add"></i>
-      </div>
-      <a href="list/personnel/" class="small-box-footer">Listele <i class="fa fa-arrow-circle-right"></i></a>
-    </div>
-
-  <!-- ./col -->
-
-    <!-- small box -->
-    <div class="small-box bg-red">
-      <div class="inner">
-        <h3>3</h3>
-
-        <p>Depo</p>
-      </div>
-      <div class="icon">
-        <i class="ion ion-home"></i>
-      </div>
-      <a href="list/inventory/" class="small-box-footer">Listele <i class="fa fa-arrow-circle-right"></i></a>
-    </div>
-
-  <!-- ./col -->
 </div>
 </div>
 {% endblock %}

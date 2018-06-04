@@ -125,6 +125,9 @@ class Shelf(models.Model):
 class ItemType(models.Model):
     name = models.CharField(max_length=50, verbose_name=_(u'Name'))
     code = models.CharField(max_length=5,default="01", verbose_name=_(u'Code'))
+    icon = models.CharField(max_length=20,default="fa-box",verbose_name = "Icon",help_text=_('<a target="_blank" href="http://fontawesome.com/icons">Icon Seçenekleri</a>'))
+    color = models.CharField(max_length=20,default="bg-yellow",verbose_name = "Color",help_text=_('<a target="_blank" href="http://basscss.com/v7/docs/background-colors/">Renk Seçenekleri</a>'))
+    total = models.IntegerField(verbose_name="Total item",default=0)
     created_date = models.DateTimeField(default=timezone.now,verbose_name='Created Date', editable=False)
     notes = models.TextField(max_length=200,null=True,blank=True, verbose_name=_(u'Notes'))
 
@@ -132,6 +135,12 @@ class ItemType(models.Model):
         ordering = ['name']
         verbose_name = _(u'Item Type')
         verbose_name_plural = _(u'Item Types')
+
+    def set_total(self):
+        total = 0
+        for type_ in Personnel.objects.filter(personnel_type=self):
+            total = total + 1
+        return total
 
     def __unicode__(self):
         return self.name
