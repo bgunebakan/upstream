@@ -1,14 +1,39 @@
 {% extends template_father %}
 {% load i18n %}
 {% load crud_tags %}
+{% load inventory_tags %}
 
-{% block title %} {{ model_verbose_name_plural }}{% trans " list" %}{% endblock %}
+
+{% block title %} Inventory - Dashboard {% endblock %}
 {% block bodyclass %}skin-green {%if config.hide_sidebar %}sidebar-collapse{%endif%} {% endblock %}
-{% block page_name %}{{ model_verbose_name_plural }}{% endblock %}
-{% block page_description %}{{ model_verbose_name_plural }}{% trans " listesi" %}{% endblock %}
+{% block page_name %} Inventory{% endblock %}
+{% block page_description %} Dashboard {% endblock %}
 
 
 {% block content %}
+    <div class="row">
+      {%get_itemtypes as item_types%}
+
+      {%for item_type in item_types%}
+      <div class="col-md-4">
+
+        <!-- small box -->
+        <div class="small-box {{item_type.color}}">
+          <div class="inner">
+            <h3>{{item_type.total}}</h3>
+
+            <p>{{item_type.name}}</p>
+          </div>
+          <div class="icon">
+            <i class="fa {{item_type.icon}}"></i>
+          </div>
+          <a href="/inventory/item/list?brand=&category=&item_type={{item_type.id}}" class="small-box-footer">List <i class="fa fa-arrow-circle-right"></i></a>
+        </div>
+
+      <!-- ./col -->
+    </div>
+    {%endfor%}
+    </div>
     <div class="row">
         <div class="col-xs-12">
             <div class="box">
@@ -57,6 +82,7 @@
             </div>
                     {% endif%}
         </div>
+
     </div>
     <div class="row">
       {% if object_list %}
