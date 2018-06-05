@@ -173,7 +173,7 @@ class Item(models.Model):
     suppliers = models.ManyToManyField('Supplier',blank=True, verbose_name=_(u'Supplier'))
     inventory = models.ForeignKey(Inventory, null=True, blank=True, verbose_name=_(u'Inventory'),on_delete=models.SET_NULL)
     category = models.ForeignKey(Category, verbose_name=_(u'Category'),null=True,on_delete=models.SET_NULL)
-    shelf = models.ForeignKey(Shelf, null=True, blank=True, verbose_name=_(u'Shelf'),on_delete=models.SET_NULL)
+    shelf = models.CharField(max_length=50,null=True, blank=True, verbose_name=_(u'Shelf'))
     item_type = models.ForeignKey(ItemType, verbose_name=_(u'Item Type'),null=True,on_delete=models.SET_NULL)
     item_status = models.ForeignKey(ItemStatus, verbose_name=_(u'Item Status'),null=True,on_delete=models.SET_NULL)
     created_date = models.DateTimeField(default=timezone.now,verbose_name='Created Date', editable=False)
