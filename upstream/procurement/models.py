@@ -85,7 +85,7 @@ class Supplier(models.Model):
 
 
 class Tender(models.Model):
-    name = models.CharField(verbose_name=_(u'İhale Adı'), max_length=64)
+    name = models.CharField(verbose_name=_(u'İhale Adı'), max_length=200)
     no = models.CharField(verbose_name=_(u'Şartname No'), max_length=32, null=True, blank=True)
     tender_type = models.ForeignKey(TenderType, verbose_name=_(u'İhale türü'),null=True,on_delete=models.SET_NULL)
 
