@@ -17,8 +17,8 @@ class TenderForm(forms.ModelForm):
 
     class Meta:
         model = Tender
-        fields = ['name','no','tender_type','approximate_price','currency','tender_status','notes',
-                    'apply_date','auction_date','auction_time','auction_price','auction_no','supplier','user','contract_date']
+        fields = ['name','no','tender_type','approximate_price','currency','tender_status','notes','specification',
+                    'apply_date','auction_date','auction_time','auction_price','auction_no','supplier','user','bap_staff','contract_date']
         widgets = {
             'apply_date': DatePickerWidget(attrs={'format': 'dd/mm/yyyy',
                                             'icon': 'fa-calendar'}),
@@ -48,6 +48,7 @@ class TenderForm(forms.ModelForm):
                     Field('tender_status', wrapper_class="col-md-6"),
                     Field('no', wrapper_class="col-md-6"),
                     Field('apply_date', wrapper_class="col-md-6"),
+                    Field('specification', wrapper_class="col-md-12"),
 
                 ),
                 Tab(
@@ -67,6 +68,7 @@ class TenderForm(forms.ModelForm):
                 Tab(
                     _('Extra'),
                     Field('user', wrapper_class="col-md-6"),
+                    Field('bap_staff', wrapper_class="col-md-6"),
                     Field('supplier', wrapper_class="col-md-6"),
                     Field('notes', wrapper_class="col-md-12"),
                 )

@@ -5,6 +5,26 @@ from django.db import models
 from django.utils import timezone
 from datetime import datetime
 from django.contrib.auth.models import User,Group
+from django.utils.deconstruct import deconstructible
+import os
+
+@deconstructible
+class UploadToPathAndRename(object):
+
+    def __init__(self, path):
+        self.sub_path = path
+
+    def __call__(self, instance, filename):
+        ext = filename.split('.')[-1]
+        # get filename
+        if instance.pk:
+            filename = '{}.{}'.format(instance.no, ext)
+        else:
+            # set filename as random string
+            filename = '{}.{}'.format(uuid4().hex, ext)
+        # return the whole path to the file
+        return os.path.join(self.sub_path, filename)
+
 
 class TenderType(models.Model):
     name = models.CharField(max_length=50, verbose_name=_(u'Name'))
@@ -73,8 +93,8 @@ class Supplier(models.Model):
 
     class Meta:
         ordering = ['name']
-        verbose_name = _(u'Tedarikçi')
-        verbose_name_plural = _(u'Tedarikçiler')
+        verbose_name = _(u'Supplier')
+        verbose_name_plural = _(u'Suppliers')
 
     def __unicode__(self):
         return self.name
@@ -85,41 +105,45 @@ class Supplier(models.Model):
 
 
 class Tender(models.Model):
-    name = models.CharField(verbose_name=_(u'İhale Adı'), max_length=200)
-    no = models.CharField(verbose_name=_(u'Şartname No'), max_length=32, null=True, blank=True)
-    tender_type = models.ForeignKey(TenderType, verbose_name=_(u'İhale türü'),null=True,on_delete=models.SET_NULL)
+    name = models.CharField(verbose_name=_(u'Name'), max_length=200)
+    no = models.CharField(verbose_name='No', max_length=32, null=True, blank=True)
+    tender_type = models.ForeignKey(TenderType, verbose_name=_(u'Tender Type'),null=True,on_delete=models.SET_NULL)
 
-    approximate_price = models.FloatField(verbose_name=_(u'Yaklaşık Bedel'),default=0,null=True)
+    approximate_price = models.FloatField(verbose_name=_(u'Approximate Price'),default=0,null=True)
 
-    currency = models.ForeignKey(Currency, verbose_name=_(u'Döviz kuru'),null=True,on_delete=models.SET_NULL)
+    currency = models.ForeignKey(Currency, verbose_name=_(u'Currency'),null=True,blank=True,on_delete=models.SET_NULL)
 
-    apply_date = models.DateTimeField(default=timezone.now,verbose_name='Başvuru tarihi', editable=True,null=True, blank=True)
+    apply_date = models.DateTimeField(default=timezone.now,verbose_name='Apply Date', editable=True,null=True, blank=True)
 
-    tender_status = models.ForeignKey(TenderStatus, verbose_name=_(u'İhale durumu'),null=True,on_delete=models.SET_NULL)
+    tender_status = models.ForeignKey(TenderStatus, verbose_name=_(u'Tender Status'),null=True,on_delete=models.SET_NULL)
 
-    auction_date = models.DateField(verbose_name='İhale tarihi', editable=True,null=True, blank=True)
+    auction_date = models.DateField(verbose_name='Auction Date', editable=True,null=True, blank=True)
 
-    auction_time = models.TimeField(verbose_name='İhale saati', editable=True,null=True, blank=True)
+    auction_time = models.TimeField(verbose_name='Auction Time', editable=True,null=True, blank=True)
 
-    auction_price = models.FloatField(verbose_name=_(u'İhale Bedeli'),default=0,null=True)
+    auction_price = models.FloatField(verbose_name=_(u'Auction Price'),default=0,null=True)
 
-    auction_no = models.CharField(verbose_name=_(u'İhale No'), max_length=32, null=True, blank=True)
+    auction_no = models.CharField(verbose_name=_(u'Auction No'), max_length=32, null=True, blank=True)
 
-    contract_date = models.DateField(verbose_name='Sözleşme tarihi', editable=True,null=True, blank=True)
+    contract_date = models.DateField(verbose_name='Contract Date', editable=True,null=True, blank=True)
 
-    supplier = models.ForeignKey(Supplier, verbose_name=_(u'Yüklenici'),null=True,blank=True)
+    supplier = models.ForeignKey(Supplier, verbose_name=_(u'Supplier'),null=True,blank=True)
 
-    user = models.ForeignKey(User, verbose_name=_(u'Personel'),blank=True,null=True,on_delete=models.SET_NULL)
+    user = models.ForeignKey(User, verbose_name=_(u'Personnel'),blank=True,null=True,on_delete=models.SET_NULL)
 
-    notes = models.TextField(verbose_name=_(u'Açıklama'), null=True, blank=True)
+    bap_staff = models.CharField(blank=True,null=True,verbose_name=_(u'BAP personnel'), max_length=200)
 
-    created_date = models.DateTimeField(default=timezone.now,verbose_name='Oluşturma tarihi', editable=False)
+    specification = models.FileField(upload_to=UploadToPathAndRename(os.path.join('technical_specifications')),null=True,blank=True,verbose_name = "Technical Specification")
+
+    notes = models.TextField(verbose_name=_(u'Notes'), null=True, blank=True)
+
+    created_date = models.DateTimeField(default=timezone.now,verbose_name='Created Date', editable=False)
     deleted = models.BooleanField(default=False)
 
     class Meta:
         ordering = ['name']
-        verbose_name = _(u'İhale')
-        verbose_name_plural = _(u'İhaleler')
+        verbose_name = _(u'Tender')
+        verbose_name_plural = _(u'Tenders')
 
     @models.permalink
     def get_absolute_url(self):
@@ -129,13 +153,13 @@ class Tender(models.Model):
         return self.name
 
 class Tender_end_date(models.Model):
-    tender = models.ForeignKey(Tender, verbose_name=_(u'İhale'),null=True,on_delete=models.SET_NULL)
-    timedate = models.DateField(verbose_name=_(u'Tarih'))
-    notify = models.BooleanField(verbose_name=_(u'Mail hatırlatması'),default=True)
+    tender = models.ForeignKey(Tender, verbose_name=_(u'Tender'),null=True,on_delete=models.SET_NULL)
+    timedate = models.DateField(verbose_name=_(u'Date-Time'))
+    notify = models.BooleanField(verbose_name=_(u'E-mail notification'),default=True)
 
     class Meta:
-        verbose_name = _(u'iş teslim tarihi')
-        verbose_name_plural = _(u'iş teslim tarihleri')
+        verbose_name = _(u'Tender Deadline')
+        verbose_name_plural = _(u'Tender Deadlines')
 
     def __unicode__(self):
         return unicode(self.timedate)
@@ -151,8 +175,8 @@ class TenderContent(models.Model):
 
     class Meta:
         ordering = ['name']
-        verbose_name = _(u'Alım türü')
-        verbose_name_plural = _(u'Alım Türleri')
+        verbose_name = _(u'Tender Content')
+        verbose_name_plural = _(u'Tender Contents')
 
     def __unicode__(self):
         return self.name
