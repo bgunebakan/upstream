@@ -15,58 +15,21 @@
 <!-- Small boxes (Stat box) -->
 <div class="row">
   <div class="col-md-10">
-      <div class="row">
-        {%for personnel_type in personnel_types %}
-        <div class="col-lg-3 col-xs-6">
-        <div class="small-box {{ personnel_type.color }}">
-          <div class="inner">
-            <h3>{{ personnel_type.total }}</h3>
 
-            <h4>{{personnel_type}}</h4>
+        {%for personnel_type in personnel_types %}
+        <div class="col-md-4">
+        <div class="info-box">
+            <a href="/personnel/personnel/list?name=&personnel_type={{personnel_type.id}}" class="small-box-footer">
+            <span class="info-box-icon {{ personnel_type.color }}"><i class="fa {{ personnel_type.icon }}"></i></span>
+            </a>
+            <div class="info-box-content">
+              <span class="info-box-number">{{personnel_type}}</span>
+              <span class="info-box-text">Total: {{ personnel_type.total }}</span>
+            </div>
+            <!-- /.info-box-content -->
           </div>
-          <div class="icon">
-            <i class="fa {{ personnel_type.icon }}"></i>
-          </div>
-          <a href="/personnel/personnel/list?name=&personnel_type={{personnel_type.id}}" class="small-box-footer">List <i class="fa fa-arrow-circle-right"></i></a>
-        </div>
         </div>
         {%endfor%}
-
-        <div class="col-md-6">
-          <div class="box box-default">
-              <div class="box-header with-border">
-                <h3 class="box-title">Actions</h3>
-              </div>
-              <!-- /.box-header -->
-              <div class="box-body">
-                  {% action_logs 4 as actions%}
-                  {{actions|safe}}
-              </div>
-          </div>
-        <!-- ./col -->
-        </div>
-        <div class="col-md-6">
-          <div class="box box-default">
-              <div class="box-header with-border">
-                <h3 class="box-title">New Users</h3>
-              </div>
-              <!-- /.box-header -->
-              <div class="box-body">
-                {%for personnel in personnels%}
-                  {%if personnel.personnel_type is None %}
-                    <div class="icon">
-                      <i class="fa fa-user">
-                        <a href="/personnel/personnel/{{personnel.id}}">{{personnel.user.username}}</a>
-                      </i>
-                    </div>
-                  {%endif%}
-                {%endfor%}
-              </div>
-          </div>
-        <!-- ./col -->
-        </div>
-
-      </div>
 
 
   </div>
@@ -84,6 +47,43 @@
                 <a href="/personnel/personnel/{{personnel.id}}">{{personnel}}</a>
               </i>
             </div>
+          {%endfor%}
+        </div>
+    </div>
+  <!-- ./col -->
+  </div>
+
+</div>
+
+<div class="row">
+  <div class="col-md-6">
+    <div class="box box-default">
+        <div class="box-header with-border">
+          <h3 class="box-title">Actions</h3>
+        </div>
+        <!-- /.box-header -->
+        <div class="box-body">
+            {% action_logs 4 as actions%}
+            {{actions|safe}}
+        </div>
+    </div>
+  <!-- ./col -->
+  </div>
+  <div class="col-md-6">
+    <div class="box box-default">
+        <div class="box-header with-border">
+          <h3 class="box-title">New Users</h3>
+        </div>
+        <!-- /.box-header -->
+        <div class="box-body">
+          {%for personnel in personnels%}
+            {%if personnel.personnel_type is None %}
+              <div class="icon">
+                <i class="fa fa-user">
+                  <a href="/personnel/personnel/{{personnel.id}}">{{personnel.user.username}}</a>
+                </i>
+              </div>
+            {%endif%}
           {%endfor%}
         </div>
     </div>

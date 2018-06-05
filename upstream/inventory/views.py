@@ -128,7 +128,7 @@ class ItemCRUD(CRUDView):
     list_fields = ['name','brand','model','shelf','category','quantity','picture']
     display_fields = ['name','brand','model','picture','quantity','part_number','shelf','notes','suppliers','inventory','category','item_type']
 
-    list_filter = ['brand','category','item_type','suppliers']
+    list_filter = ['owner','category','item_type','suppliers']
     views_available=['create', 'list', 'delete', 'update', 'detail']
 
     add_form = ItemForm

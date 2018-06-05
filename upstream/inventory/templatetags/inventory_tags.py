@@ -1,5 +1,4 @@
 # -*- coding: utf-8 -*-
-
 from inventory.models import *
 from django import template
 from django.core.exceptions import ObjectDoesNotExist
@@ -25,3 +24,19 @@ def get_itemtypes():
     except ObjectDoesNotExist:
         return null
     return item_types
+
+@register.simple_tag
+def get_items():
+    try:
+        items = Item.objects.all()
+    except ObjectDoesNotExist:
+        return null
+    return items
+
+@register.simple_tag
+def get_users():
+    try:
+        users = User.objects.all()
+    except ObjectDoesNotExist:
+        return null
+    return users

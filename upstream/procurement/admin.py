@@ -13,11 +13,11 @@ class Tender_end_dateInline(admin.TabularInline):
     model = Tender_end_date
     ordering = ('id',)
 
-class TenderAdmin(admin.ModelAdmin):
-    list_display = ['name', 'no', 'tender_status']
-    inlines = [Tender_end_dateInline,]
+#class TenderAdmin(admin.ModelAdmin):
+#    list_display = ['name', 'no', 'tender_status']
+#    inlines = [Tender_end_dateInline,]
 
-admin.site.register(Tender,TenderAdmin)
+#admin.site.register(Tender,TenderAdmin)
 #admin.site.register(Tender_end_date)
 admin.site.register(TenderType)
 admin.site.register(TenderContent)
@@ -26,3 +26,10 @@ admin.site.register(Currency)
 admin.site.register(TenderStatus)
 admin.site.register(Supplier)
 admin.site.register(Log)
+
+from import_export.admin import ImportExportModelAdmin
+from django.contrib import admin
+
+@admin.register(Tender)
+class TenderImportExportAdmin(ImportExportModelAdmin):
+    pass

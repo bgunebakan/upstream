@@ -17,6 +17,7 @@
 {% endblock %}
 
 {% block content %}
+
   <div class="row">
     <div class="col-md-3">
       <!-- Profile Image -->
@@ -47,8 +48,8 @@
           </ul>
           {% if crud_perms.update %}
             <div class="col-md-12 col-lg-12 " align="center">
-              <a href="/inventory/item/{{object.id}}/update" class="btn btn-primary" align="center">Update Details</a><br>
-              <a href="/inventory/log/create" class="btn btn-success" align="center">Item Action</a>
+              <a href="/inventory/item/{{object.id}}/update" class="btn btn-primary" align="center">Update Details</a>
+              <a data-toggle="modal" href="#ownershipModal" class="btn btn-success" align="center">Ownership</a>
             </div>
           {%endif%}
         </div>
@@ -108,4 +109,39 @@
     <!-- /.col -->
   </div>
   <!-- /.row -->
+
+<!-- MODAL DIALOG -->
+  <div class="modal fade" id="ownershipModal" role="dialog">
+      <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+            <h4 style="color:red;"><span class="glyphicon glyphicon-lock"></span> Item Ownership</h4>
+          </div>
+          <div class="modal-body">
+            <form role="form">
+              <div class="form-group">
+                <label for="usrname"><span class="glyphicon glyphicon-user"></span> Username</label>
+                <input type="text" class="form-control" id="usrname" placeholder="Enter email">
+              </div>
+              <div class="form-group">
+                <label for="psw"><span class="glyphicon glyphicon-eye-open"></span> Password</label>
+                <input type="text" class="form-control" id="psw" placeholder="Enter password">
+              </div>
+              <div class="checkbox">
+                <label><input type="checkbox" value="" checked>Remember me</label>
+              </div>
+              <button type="submit" class="btn btn-default btn-success btn-block"><span class="glyphicon glyphicon-off"></span> Login</button>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button type="submit" class="btn btn-default btn-default pull-left" data-dismiss="modal"><span class="glyphicon glyphicon-remove"></span> Cancel</button>
+            <p>Not a member? <a href="#">Sign Up</a></p>
+            <p>Forgot <a href="#">Password?</a></p>
+          </div>
+        </div>
+      </div>
+    </div>
 {% endblock %}
