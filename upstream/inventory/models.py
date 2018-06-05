@@ -78,7 +78,7 @@ class Unit(models.Model):
 
 class Category(models.Model):
     name = models.CharField(max_length=50, verbose_name=_(u'Name'))
-    code = models.CharField(max_length=5,default="01", verbose_name=_(u'Code'))
+    code = models.CharField(max_length=20,default="01", verbose_name=_(u'Code'))
     created_date = models.DateTimeField(default=timezone.now,verbose_name='Created Date', editable=False)
     top_category = models.ForeignKey('self',null=True,blank=True, verbose_name=_(u'Top Category'),on_delete=models.SET_NULL)
     notes = models.TextField(max_length=200,null=True,blank=True, verbose_name=_(u'Notes'))
