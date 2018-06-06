@@ -7,8 +7,9 @@ from cruds_adminlte.crud import CRUDView
 from cruds_adminlte.inline_crud import InlineAjaxCRUD
 from .forms import *
 from django.utils.translation import ugettext_lazy as _
+from django.contrib.auth.decorators import login_required
 
-
+@login_required
 def index(request):
     tenders = Tender.objects.all()
 
@@ -17,7 +18,7 @@ def index(request):
     return render(request, 'procurement/dashboard.html',
         {'tenders':tenders,'tender_types':tender_types})
 
-
+@login_required
 def details(request,tender_no):
     tender = Tender.objects.get(no=tender_no)
 
