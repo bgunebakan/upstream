@@ -74,28 +74,27 @@ class TenderForm(forms.ModelForm):
                     Field('tender_status', wrapper_class="col-md-6"),
                     Field('no', wrapper_class="col-md-6"),
                     Field('apply_date', wrapper_class="col-md-6"),
+
+
+                ),
+                Tab(
+                    _('Details'),
+                    Field('bap_staff', wrapper_class="col-md-6"),
+                    Field('user', wrapper_class="col-md-6"),
+                    Field('supplier', wrapper_class="col-md-6"),
                     Field('specification', wrapper_class="col-md-12"),
 
                 ),
                 Tab(
-                    _('Finance'),
-                    Field('approximate_price', wrapper_class="col-md-6"),
-                    Field('currency', wrapper_class="col-md-6"),
-                    Field('contract_date', wrapper_class="col-md-6"),
-
-                ),
-                Tab(
-                    _('Date Details'),
+                    _('Auction'),
                     Field('auction_no', wrapper_class="col-md-12"),
                     Field('auction_date', wrapper_class="col-md-4"),
                     Field('auction_time', wrapper_class="col-md-4"),
                     Field('auction_price', wrapper_class="col-md-4"),
+                    Field('contract_date', wrapper_class="col-md-6"),
                 ),
                 Tab(
-                    _('Extra'),
-                    Field('user', wrapper_class="col-md-6"),
-                    Field('bap_staff', wrapper_class="col-md-6"),
-                    Field('supplier', wrapper_class="col-md-6"),
+                    _('Notes'),
                     Field('notes', wrapper_class="col-md-12"),
                 )
             )

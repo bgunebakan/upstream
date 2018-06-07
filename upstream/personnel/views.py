@@ -137,7 +137,6 @@ def profile(request, template_name='personnel/personnel/profile.html'):
     return HttpResponseRedirect('/personnel/personnel/' + unicode(personnel.id))
 
 def detail(request,user_id, template_name='personnel/personnel/crud/detail.html'):
-    print "detail unlogged user"
 
     personnel = Personnel.objects.get(user__id=user_id)
 

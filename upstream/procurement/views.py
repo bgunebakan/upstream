@@ -21,12 +21,14 @@ def index(request):
     return render(request, 'procurement/dashboard.html',
         {'tenders':tenders,'tender_types':tender_types})
 
-@login_required
-def details(request,tender_no):
-    tender = Tender.objects.get(no=tender_no)
 
-    return render(request, 'procurement/dashboard.html',
-        {'tender':tender})
+def callfortender(request):
+    tenders = Tender.objects.all().order_by('-apply_date')
+
+    tender_types = TenderType.objects.all()
+
+    return render(request, 'procurement/callfortender.html',
+        {'tenders':tenders,'tender_types':tender_types})
 
 
 class Tender_end_dateCRUD(CRUDView):
@@ -47,8 +49,8 @@ class Tender_content_AjaxCRUD(InlineAjaxCRUD):
     display_fields = ['name','quantity','unit','price','currency']
     list_fields = ['name','quantity','unit','price','currency']
 
-    add_form = Tender_contentForm
-    update_form = Tender_contentForm
+    #add_form = Tender_contentForm
+    #update_form = Tender_contentForm
 
     title = _("Tender Contents")
 
@@ -86,11 +88,11 @@ class TenderCRUD(CRUDView):
     check_login = True
     check_perms = True
     fields = ['name','no','apply_date']
-    list_fields = ['name','no','tender_status','tender_type']
+    list_fields = ['name','no','tender_status','tender_type','apply_date']
     display_fields = ['name','no','tender_type','tender_status','auction_no']
 
-    list_filter = ['tender_status', 'tender_type']
-    views_available=['create', 'list', 'delete', 'update', 'detail']
+    list_filter = ['tender_type','tender_status']
+    views_available=['create', 'list', 'delete', 'update']
 
     add_form = TenderForm
     update_form = TenderForm

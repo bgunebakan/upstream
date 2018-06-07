@@ -62,6 +62,9 @@ class OfferFileUpload(object):
 class TenderType(models.Model):
     name = models.CharField(max_length=50, verbose_name=_(u'Name'))
     code = models.CharField(default="",max_length=10, verbose_name=_(u'Code'))
+    icon = models.CharField(max_length=20,default="fa-box",verbose_name = "Icon",help_text=_('<a target="_blank" href="http://fontawesome.com/icons">Icon Seçenekleri</a>'))
+    color = models.CharField(max_length=20,default="bg-yellow",verbose_name = "Color",help_text=_('<a target="_blank" href="http://basscss.com/v7/docs/background-colors/">Renk Seçenekleri</a>'))
+    total = models.IntegerField(verbose_name="Total item",default=0)
     created_date = models.DateTimeField(default=timezone.now,verbose_name='create date', editable=False)
     description = models.TextField(max_length=200,null=True,blank=True, verbose_name=_(u'Notes'))
 
@@ -146,7 +149,7 @@ class Tender(models.Model):
 
     currency = models.ForeignKey(Currency, verbose_name=_(u'Currency'),null=True,blank=True,on_delete=models.SET_NULL)
 
-    apply_date = models.DateTimeField(default=timezone.now,verbose_name='Apply Date', editable=True,null=True, blank=True)
+    apply_date = models.DateField(default=timezone.now,verbose_name='Apply Date', editable=True,null=True, blank=True)
 
     tender_status = models.ForeignKey(TenderStatus, verbose_name=_(u'Tender Status'),null=True,on_delete=models.SET_NULL)
 
@@ -162,7 +165,7 @@ class Tender(models.Model):
 
     supplier = models.ForeignKey(Supplier, verbose_name=_(u'Supplier'),null=True,blank=True)
 
-    user = models.ForeignKey(User, verbose_name=_(u'Personnel'),blank=True,null=True,on_delete=models.SET_NULL)
+    user = models.ForeignKey(User, verbose_name=_(u'Personnel in charge'),blank=True,null=True,on_delete=models.SET_NULL)
 
     bap_staff = models.CharField(blank=True,null=True,verbose_name=_(u'BAP personnel'), max_length=200)
 

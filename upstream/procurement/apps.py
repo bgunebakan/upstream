@@ -8,5 +8,5 @@ class ProcurementConfig(AppConfig):
     name = 'procurement'
     verbose_name = _('İhale Yönetimi')
 
-    #def ready(self):
-    #    import personnel.signals  # noqa
+    def ready(self):
+        import procurement.signals  # noqa
