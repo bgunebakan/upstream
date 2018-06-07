@@ -13,6 +13,32 @@ from cruds_adminlte import (DatePickerWidget,
                             ColorPickerWidget,
                             CKEditorWidget)
 
+class TenderOfferForm(forms.ModelForm):
+    class Meta:
+        model = TenderOffer
+        fields = ['firm','price','currency']
+
+    def __init__(self, *args, **kwargs):
+        super(TenderOfferForm, self).__init__(*args, **kwargs)
+        self.helper = FormHelper(self)
+        self.helper.form_tag = False
+        self.helper.layout = Layout(
+            Field('firm', wrapper_class="col-md-6"),
+            Field('price', wrapper_class="col-md-4"),
+            Field('currency', wrapper_class="col-md-2"),
+        )
+
+        self.helper.layout.append(
+            FormActions(
+                Submit('submit', _('Submit'), css_class='btn btn-primary'),
+                HTML("""{% load i18n %}<a class="btn btn-danger"
+                        href="{{ url_delete }}">{% trans 'Delete' %}</a>"""),
+            )
+        )
+
+
+
+
 class TenderForm(forms.ModelForm):
 
     class Meta:
@@ -90,7 +116,7 @@ class Tender_contentForm(forms.ModelForm):
         fields = ['name','quantity','unit','price','currency']
 
     def __init__(self, *args, **kwargs):
-        super(TenderForm, self).__init__(*args, **kwargs)
+        super(Tender_contentForm, self).__init__(*args, **kwargs)
         self.helper = FormHelper(self)
         self.helper.form_tag = False
         self.helper.layout = Layout(
@@ -109,11 +135,6 @@ class Tender_contentForm(forms.ModelForm):
             )
         )
 
-    def __init__(self, *args, **kwargs):
-        super(Tender_contentForm, self).__init__(*args, **kwargs)
-        self.helper = FormHelper(self)
-        self.helper.form_tag = False
-
 class Tender_end_dateForm(forms.ModelForm):
 
     class Meta:
@@ -129,29 +150,7 @@ class Tender_end_dateForm(forms.ModelForm):
         self.helper = FormHelper(self)
         self.helper.form_tag = False
 
-class TenderOfferForm(forms.ModelForm):
 
-    class Meta:
-        model = TenderOffer
-        fields = ['firm','price','currency']
-
-    def __init__(self, *args, **kwargs):
-        super(TenderOfferForm, self).__init__(*args, **kwargs)
-        self.helper = FormHelper(self)
-        self.helper.form_tag = False
-        self.helper.layout = Layout(
-            Field('firm', wrapper_class="col-md-6"),
-            Field('price', wrapper_class="col-md-4"),
-            Field('currency', wrapper_class="col-md-12"),
-            Field('proposal_form', wrapper_class="col-md-12")
-        )
-        self.helper.layout.append(
-            FormActions(
-                Submit('submit', _('Submit'), css_class='btn btn-primary'),
-                HTML("""{% load i18n %}<a class="btn btn-danger"
-                        href="{{ url_delete }}">{% trans 'Delete' %}</a>"""),
-            )
-        )
 
 class TravellingExpenseForm(forms.ModelForm):
 

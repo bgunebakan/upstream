@@ -71,12 +71,12 @@ class Tender_offer_AjaxCRUD(InlineAjaxCRUD):
     model = TenderOffer
     base_model = Tender
     inline_field = 'tender'
-    fields = ['firm','price','currency','proposal_form']
+    fields = ['firm','price','currency']
     display_fields = ['firm','price','currency','proposal_form']
     list_fields = ['firm','price','currency']
 
-    add_form = TenderOfferForm
-    update_form = TenderOfferForm
+    #add_form = TenderOfferForm
+    #update_form = TenderOfferForm
 
     title = _("Tender Offers")
 
