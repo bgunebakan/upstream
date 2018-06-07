@@ -136,7 +136,7 @@ class ItemCRUD(CRUDView):
 
     #inlines = [Tender_end_date_AjaxCRUD,Tender_content_AjaxCRUD]
 
-    search_fields = ['name','part_number','model','brand']
+    search_fields = ['name','part_number','model','brand','shelf']
     split_space_search = True
     paginate_by = 15
     paginate_position = 'Bottom' # Both | Bottom

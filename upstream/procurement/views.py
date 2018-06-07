@@ -8,11 +8,14 @@ from cruds_adminlte.inline_crud import InlineAjaxCRUD
 from .forms import *
 from django.utils.translation import ugettext_lazy as _
 from django.contrib.auth.decorators import login_required
+#from django.core.mail import send_mail
 
 @login_required
 def index(request):
     tenders = Tender.objects.all()
-
+    #print "sending email"
+    #send_mail('subject', 'body of the message', 'info@tarla.org.tr', ['bilaltonga@gmail.com',])
+    #print "sended"
     tender_types = TenderType.objects.all()
 
     return render(request, 'procurement/dashboard.html',
@@ -64,6 +67,19 @@ class Tender_end_date_AjaxCRUD(InlineAjaxCRUD):
     #}
     title = _("Deadlines")
 
+class Tender_offer_AjaxCRUD(InlineAjaxCRUD):
+    model = TenderOffer
+    base_model = Tender
+    inline_field = 'tender'
+    fields = ['firm','price','currency','proposal_form']
+    display_fields = ['firm','price','currency','proposal_form']
+    list_fields = ['firm','price','currency']
+
+    add_form = TenderOfferForm
+    update_form = TenderOfferForm
+
+    title = _("Tender Offers")
+
 class TenderCRUD(CRUDView):
     model = Tender
     template_name_base='crud'
@@ -79,7 +95,7 @@ class TenderCRUD(CRUDView):
     add_form = TenderForm
     update_form = TenderForm
 
-    inlines = [Tender_end_date_AjaxCRUD,Tender_content_AjaxCRUD]
+    inlines = [Tender_end_date_AjaxCRUD,Tender_offer_AjaxCRUD,Tender_content_AjaxCRUD]
 
     search_fields = ['name','no','notes','auction_no']
     split_space_search = True

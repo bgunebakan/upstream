@@ -84,53 +84,68 @@
         </div>
 
     </div>
-    <div class="row">
+    <div class="box-body">
+      <table id="datatable" class="table table-bordered table-hover">
+  <div class="box-body">
+  {% if paginate_position == 'Up' or paginate_position == 'Both' %}
+      {% include paginate_template %}
+  {% endif %}
+      <table id="datatable" class="table table-responsive table-bordered table-hover">
       {% if object_list %}
-      {% for object in object_list %}
-      <div class="col-md-2">
-        <div class="box box-success">
-          <div class="box-body box-profile">
-            <a href="/inventory/item/{{object.id}}"><img class="profile-user-img img-responsive img-rounded" src="{{ object.picture.url }}" alt="Fotoğraf"></a>
+          <thead>
+              {% block thead %}
+              {% for field, field_name in fields.items %}
+              <th class="th-field-{{ field|lower }} th-fieldtype-{{ field_name.1|lower }}">{{ field_name.0 }}</th>
+              {% endfor %}
+              <th>{% trans "Actions" %}</th>
+              {% endblock thead %}
+          </thead>
+          <tbody>
+            {% block tbody %}
+            {% for object in object_list %}
+              <tr>
+                {% for field, field_name in fields.items %}
+                <td class="td-field-{{ field|lower }} td-fieldtype-{{ field_name.1|lower }}">
+                  {% with column=field_name.1|lower|add:".html" %}
+                      {% include "cruds/columns/"|add:column %}
+                  {% endwith %}
+                  {# typefield #}
+                </td>
+                {% endfor %}
+                <td>
+                  {% block actions %}
+                    {% crud_url object "detail" namespace as url %}
+                      {% if url and 'detail' in views_available and crud_perms.detail %}
+                      <a href="{{ url }}{{getparams}}" class="btn btn-success">{% trans "Detail" %}</a>
+                      {% endif %}
+                      {% crud_url object "update" namespace as url %}
+                      {% if url and 'update' in views_available and crud_perms.update %}
+                      <a href="{{ url }}{{getparams}}" class="btn btn-primary">{% trans "Update" %}</a>
+                      {% endif %}
+                      {% crud_url object "delete" namespace as url %}
+                      {% if url and 'delete' in views_available and crud_perms.delete %}
+                      <a href="{{ url }}{{getparams}}" class="btn btn-danger">{% trans "Delete" %}</a>
+                      {% endif %}
+                  {% endblock %}
+                </td>
+              </tr>
+            {% endfor %}
+            {% endblock tbody %}
+          </tbody>
+      {% else %}
+        <thead><th></th></thead>
+        <tbody><tr><td>{% trans "No items yet." %}</td></tr></tbody>
+      {% endif %}
+      </table>
 
-            <h3 class="profile-username text-center">{{ object }}</h3>
+      {% if paginate_position == 'Bottom' or paginate_position == 'Both' %}
+    {% include paginate_template %}
+  {% endif %}
 
-            <p class="text-muted text-center">{{ object.category }}</p>
+  </div>
 
-            <ul class="list-group list-group-unbordered">
-              <li class="list-group-item">
-                <b>Item Type</b> <a class="pull-right">{{ object.item_type }}</a>
-              </li>
-              <li class="list-group-item">
-                <b>Brand</b> <a class="pull-right">{{ object.brand }}</a>
-              </li>
-              <li class="list-group-item">
-                <b>Model</b> <a class="pull-right">{{ object.model }}</a>
-              </li>
-              <li class="list-group-item">
-                <b>Part Number</b> <a class="pull-right">{{ object.part_number }}</a>
-              </li>
-
-
-
-            </ul>
-            {% if crud_perms.update %}
-              <div class="col-md-12 col-lg-12 " align="center">
-                {% block actions %}
-                  {% crud_url object "detail" namespace as url %}
-                    {% if url and 'detail' in views_available and crud_perms.detail %}
-                        <a href="{{ url }}{{getparams}}" class="btn btn-success">{% trans "Detail" %}</a>
-                    {% endif %}
-                {% endblock %}
-              </div>
-            {%endif%}
-          </div>
-          <!-- /.box-body -->
-        </div>
-        <!-- /.box -->
-      </div>
-      {% endfor %}
-      {%endif%}
-    </div>
+  <div class="box-footer"></div>
+</div>
 
 
     <!-- MODAL DIALOG -->

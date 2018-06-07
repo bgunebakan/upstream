@@ -18,13 +18,46 @@ class UploadToPathAndRename(object):
         ext = filename.split('.')[-1]
         # get filename
         if instance.pk:
-            filename = '{}.{}'.format(instance.no, ext)
+            filename = '{}.{}'.format(instance.id, ext)
         else:
             # set filename as random string
             filename = '{}.{}'.format(uuid4().hex, ext)
         # return the whole path to the file
         return os.path.join(self.sub_path, filename)
 
+@deconstructible
+class SpecificationFileUpload(object):
+
+    def __init__(self, path):
+        self.sub_path = path
+
+    def __call__(self, instance, filename):
+        ext = filename.split('.')[-1]
+        # get filename
+        if instance.pk:
+            filename = '{}.{}'.format(unicode("Tender_"+ instance.no), ext)
+        else:
+            # set filename as random string
+            filename = '{}.{}'.format(uuid4().hex, ext)
+        # return the whole path to the file
+        return os.path.join(self.sub_path, filename)
+
+@deconstructible
+class OfferFileUpload(object):
+
+    def __init__(self, path):
+        self.sub_path = path
+
+    def __call__(self, instance, filename):
+        ext = filename.split('.')[-1]
+        # get filename
+        if instance.pk:
+            filename = '{}.{}'.format(unicode("Offer_"+instance.tender.no), ext)
+        else:
+            # set filename as random string
+            filename = '{}.{}'.format(uuid4().hex, ext)
+        # return the whole path to the file
+        return os.path.join(self.sub_path, filename)
 
 class TenderType(models.Model):
     name = models.CharField(max_length=50, verbose_name=_(u'Name'))
@@ -133,7 +166,7 @@ class Tender(models.Model):
 
     bap_staff = models.CharField(blank=True,null=True,verbose_name=_(u'BAP personnel'), max_length=200)
 
-    specification = models.FileField(upload_to=UploadToPathAndRename(os.path.join('technical_specifications')),null=True,blank=True,verbose_name = "Technical Specification")
+    specification = models.FileField(upload_to=SpecificationFileUpload(os.path.join('technical_specifications')),null=True,blank=True,verbose_name = "Technical Specification")
 
     notes = models.TextField(verbose_name=_(u'Notes'), null=True, blank=True)
 
@@ -163,6 +196,22 @@ class Tender_end_date(models.Model):
 
     def __unicode__(self):
         return unicode(self.timedate)
+
+class TenderOffer(models.Model):
+    firm = models.CharField(max_length=50, verbose_name=_(u'Firm'))
+    tender = models.ForeignKey(Tender, verbose_name=_(u'Tender'),null=True,on_delete=models.SET_NULL)
+    price = models.FloatField(default=0, verbose_name=_(u'Price'))
+    currency = models.ForeignKey(Currency, verbose_name=_(u'Currency'),null=True,on_delete=models.SET_NULL)
+    proposal_form = models.FileField(upload_to=OfferFileUpload(os.path.join('proposal_form')),null=True,blank=True,verbose_name ="Proposal form ")
+    created_date = models.DateTimeField(default=timezone.now,verbose_name='Created date', editable=False)
+
+    class Meta:
+        ordering = ['firm']
+        verbose_name = _(u'Tender Offer')
+        verbose_name_plural = _(u'Tender Offers')
+
+    def __unicode__(self):
+        return unicode(self.firm) +' offer for ' + unicode(tender.no)
 
 class TenderContent(models.Model):
     name = models.CharField(max_length=50, verbose_name=_(u'Name'))

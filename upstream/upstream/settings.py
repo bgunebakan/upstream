@@ -385,3 +385,10 @@ LDAP_AUTH_CONNECTION_PASSWORD = None
 # Set connection/receive timeouts (in seconds) on the underlying `ldap3` library.
 LDAP_AUTH_CONNECT_TIMEOUT = None
 LDAP_AUTH_RECEIVE_TIMEOUT = None
+
+#E-MAIL settings
+EMAIL_HOST = 'smtp.yandex.com.tr'
+EMAIL_PORT = 587
+EMAIL_HOST_USER = 'info@tarla.org.tr'
+EMAIL_HOST_PASSWORD = 'tarla2007'
+EMAIL_USE_TLS = True
