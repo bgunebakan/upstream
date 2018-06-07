@@ -12,7 +12,7 @@ from django.contrib.auth.decorators import login_required
 
 @login_required
 def index(request):
-    tenders = Tender.objects.all()
+    tenders = Tender.objects.all().order_by('-apply_date')
     #print "sending email"
     #send_mail('subject', 'body of the message', 'info@tarla.org.tr', ['bilaltonga@gmail.com',])
     #print "sended"
