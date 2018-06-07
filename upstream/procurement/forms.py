@@ -118,13 +118,7 @@ class Tender_contentForm(forms.ModelForm):
         super(Tender_contentForm, self).__init__(*args, **kwargs)
         self.helper = FormHelper(self)
         self.helper.form_tag = False
-        self.helper.layout = Layout(
-            Field('name', wrapper_class="col-md-3"),
-            Field('quantity', wrapper_class="col-md-3"),
-            Field('unit', wrapper_class="col-md-3"),
-            Field('price', wrapper_class="col-md-3"),
-            Field('currency', wrapper_class="col-md-3"),
-        )
+
 
         self.helper.layout.append(
             FormActions(

@@ -46,6 +46,8 @@ class Tender_content_AjaxCRUD(InlineAjaxCRUD):
     model = TenderContent
     base_model = Tender
     inline_field = 'tender'
+    fields = ['name','quantity','unit','price','currency']
+    
     display_fields = ['name','quantity','unit','price','currency']
     list_fields = ['name','quantity','unit','price','currency']
 

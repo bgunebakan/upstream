@@ -221,7 +221,7 @@ class TenderContent(models.Model):
     tender = models.ForeignKey(Tender, verbose_name=_(u'Tender'),null=True,on_delete=models.SET_NULL)
     quantity = models.FloatField(default=0, verbose_name=_(u'Quantity'))
     unit = models.ForeignKey(Unit, verbose_name=_(u'Unit'),null=True,on_delete=models.SET_NULL)
-    price = models.FloatField(default=0, verbose_name=_(u'Price'))
+    price = models.FloatField(default=0, verbose_name=_(u'Unit Price'))
     currency = models.ForeignKey(Currency, verbose_name=_(u'Currency'),null=True,on_delete=models.SET_NULL)
     created_date = models.DateTimeField(default=timezone.now,verbose_name='Created date', editable=False)
 
