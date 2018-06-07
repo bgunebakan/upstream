@@ -1,0 +1,90 @@
+{% extends 'cruds/base.html' %}
+{% load i18n %}
+{% load crispy_forms_tags %}
+{% load crud_tags %}
+{% load static %}
+{% load personnel_tags %}
+{% block title %}Call For Tenders{% endblock %}
+
+{% block page_name %}Call For Tenders{% endblock %}
+{% block page_description %}List{% endblock %}
+
+{% block bodyclass %}skin-red {% endblock %}
+
+{% block content %}
+<!-- Small boxes (Stat box) -->
+<div class="row">
+  <div class="col-md-12">
+
+    <div class="box box-default">
+      <div class="box-header with-border">
+        <h3 class="box-title">Tenders</h3>
+
+        <div class="box-tools pull-right">
+          <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+          <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-remove"></i></button>
+        </div>
+      </div>
+      <!-- /.box-header -->
+      <div class="box-body">
+        <div class="nav-tabs-custom">
+          <ul class="nav nav-tabs">
+
+            {%for tender_type in tender_types %}
+            <li class="{%if tender_types|first == tender_type%}active{%endif%}"><a href="#{{tender_type.code}}" data-toggle="tab" aria-expanded="false">{{tender_type.name}}</a></li>
+            {%endfor%}
+          </ul>
+          <div class="tab-content">
+            {%for tender_type in tender_types%}
+            <div class="tab-pane {%if tender_types|first == tender_type%}active{%endif%}" id="{{tender_type.code}}">
+              <table id="example2" class="table table-bordered table-hover dataTable" role="grid" aria-describedby="example2_info">
+                <thead>
+                <tr role="row">
+                  <th class="sorting_asc" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Rendering engine: activate to sort column descending">Name</th>
+                  <th class="sorting" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-label="Platform(s): activate to sort column ascending">Apply Date</th>
+                  <th class="sorting" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-label="Engine version: activate to sort column ascending">Personnel</th>
+                  <th class="sorting" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-label="CSS grade: activate to sort column ascending">Status</th>
+                </tr>
+                </thead>
+                <tbody>
+
+
+                    {%for tender in tenders%}
+
+                      {%if tender.tender_type == tender_type%}
+
+                          <tr role="row" class="odd">
+
+                            <td class="sorting_1"><a href="/procurement/tender/{{tender.id}}/update">
+                              {{tender.name}}</a></td>
+
+                  	         <td>{{tender.apply_date|date:"d M Y"}}</td>
+                  	         <td><a href="/personnel/detail/{{tender.user.id}}">{{tender.user.first_name}} {{tender.user.last_name}}</a></td>
+                  	         <td class="bg {{tender.tender_status.bgcolor}}">{{tender.tender_status}}</td>
+
+                          </tr>
+
+                    {%endif%}
+
+                    {%endfor%}
+
+
+                </tbody>
+              </table>
+
+            </div>
+            {%endfor%}
+            <!-- /.tab-pane -->
+
+          </div>
+          <!-- /.tab-content -->
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-2">
+
+  <!-- ./col -->
+</div>
+</div>
+{% endblock %}
