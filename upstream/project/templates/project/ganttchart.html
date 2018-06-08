@@ -34,7 +34,7 @@
       data.addColumn('number', 'Percent Done');
       data.addColumn('string', 'Dependencies');
       data.addColumn('string', 'Project');
-      data.addColumn('string', 'Owner');
+      data.addColumn('string', 'In charge User');
 
       {%for task in tasks%}
       data.addRows([
@@ -43,7 +43,7 @@
          {{ task.start_date|date:"H" }},{{ task.start_date|date:"i" }}),
          new Date({{ task.end_date|date:"Y" }},{{ task.end_date|date:"m"|add:-1 }},{{ task.end_date|date:"d" }},
          {{ task.end_date|date:"H" }},{{ task.end_date|date:"i" }}),
-          null, {{task.percent_done}}, null,'{{task.project}}','{{task.owner}}'],
+          null, {{task.percent_done}}, null,'{{task.project}}','{{task.inchargeuser}}'],
       ]);
       {%endfor%}
 
@@ -72,10 +72,10 @@
             var task_status = data.getFormattedValue(item.row, 2);
             var task_start = data.getFormattedValue(item.row, 3);
             var task_end = data.getFormattedValue(item.row, 4);
-            var task_owner = data.getFormattedValue(item.row, 9);
+            var task_inchargeuser = data.getFormattedValue(item.row, 9);
             var task_percent = data.getFormattedValue(item.row, 6);
             var task_dependencies = data.getFormattedValue(item.row, 8);
-            var task_url = '<a href="/project/task/'+task_id+'" class="btn btn-primary" role="button">Details</a>';
+            var task_url = '<a href="/project/task/'+task_id+'/update?" class="btn btn-primary" role="button">Update</a>';
             //message += 'Task id: ' + str + '\n';
             //{% get_task 1 as task%}
             //alert('You selected ' + message);
@@ -113,7 +113,7 @@
         <div class="col-md-12">
           <div class="box box-default">
               <div class="box-header with-border">
-                <h3 class="box-title">Tasks</h3>
+                <h3 class="box-title">Tasks {{task.inchargeuser}}</h3>
               </div>
               <!-- /.box-header -->
               <div class="box-body">

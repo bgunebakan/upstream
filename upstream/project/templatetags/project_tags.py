@@ -30,7 +30,7 @@ def projects():
 
 @register.simple_tag
 def tasks(count,request):
-    tasks = Task.objects.filter(owner=request.user).order_by('-start_date')[:count:1]
+    tasks = Task.objects.filter(inchargeuser=request.user).order_by('-start_date')[:count:1]
     return tasks
 
 @register.inclusion_tag('project/dashboard.html')

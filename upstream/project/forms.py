@@ -24,7 +24,7 @@ class TaskForm(forms.ModelForm):
 
     class Meta:
         model = Task
-        fields = ('name','start_date','end_date','percent_done','top_task','project','owner','group','task_type','status','description')
+        fields = ('name','start_date','end_date','percent_done','top_task','project','inchargeuser','group','task_type','status','description')
         widgets = {
 
             'start_date': DateTimePickerWidget(attrs={'format': 'd/m/yyyy h:ii',
@@ -47,7 +47,7 @@ class TaskForm(forms.ModelForm):
                     Field('project', wrapper_class="col-md-6"),
                     Field('top_task', wrapper_class="col-md-6"),
                     Field('task_type', wrapper_class="col-md-6"),
-                    Field('owner', wrapper_class="col-md-6"),
+                    Field('inchargeuser', wrapper_class="col-md-6"),
                     Field('group', wrapper_class="col-md-6"),
 
                 ),

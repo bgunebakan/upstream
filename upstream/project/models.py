@@ -45,8 +45,9 @@ class Task(models.Model):
 
     top_task = models.ForeignKey('self',null=True,blank=True,on_delete=models.SET_NULL,verbose_name="Top Task")
     project = models.ForeignKey(Project,null=True,blank=True,on_delete=models.SET_NULL,verbose_name="Project")
-    owner = models.ManyToManyField(User,blank=True,verbose_name="Owner")
-    group = models.ManyToManyField(Group,blank=True,verbose_name="Group")
+    owner = models.ForeignKey(User,null=True,blank=True,related_name='tast_owner', on_delete=models.CASCADE,verbose_name="Owner")
+    inchargeuser = models.ManyToManyField(User,blank=True,verbose_name="Worker")
+    group = models.ManyToManyField(Group,blank=True,verbose_name="Workers Group")
 
     task_type = models.ForeignKey(Tasktype,null=True,blank=True,on_delete=models.SET_NULL,verbose_name="Task type")
     status = models.ForeignKey(Statustype,null=True,blank=True,on_delete=models.SET_NULL,verbose_name="Status")

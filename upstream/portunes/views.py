@@ -23,7 +23,7 @@ def dashboard(request):
     action_table = ActionTable(Action.objects.filter(Q(action_type__action_type=1)|Q(action_type__action_type=2)|Q(action_type__action_type=3)|Q(action_type__action_type=4)), order_by='-created_date')
     RequestConfig(request, paginate={'per_page': 15}).configure(action_table)
 
-    user_table = UserTable(User.objects.all(), order_by='first_name')
+    user_table = UserTable(User.objects.filter(is_active=True), order_by='first_name')
     RequestConfig(request, paginate={'per_page': 15}).configure(user_table)
 
     #controllers = Controller.objects.filter(health=False)
@@ -51,7 +51,7 @@ class ControllerCRUD(CRUDView):
     add_form = ControllerForm
     update_form = ControllerForm
 
-    views_available=['create', 'list', 'update', 'detail']
+    views_available=['create', 'list', 'update', 'detail','delete']
     fields = ['name','mac','ip_address','health','created_date','updated_date','deleted']
     list_fields = ['name','mac','health']
     display_fields = ['name','mac','ip_address','health','created_date','updated_date','deleted']

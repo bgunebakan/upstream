@@ -50,14 +50,14 @@ class TaskCRUD(CRUDView):
     add_form = TaskForm
     update_form = TaskForm
 
-    views_available=['create', 'list', 'update','delete','detail']
-    fields = ['name','start_date','end_date','percent_done','top_task','project','owner','group','task_type','status','description' ]
-    list_fields = ['name','start_date','end_date','project','owner','group','task_type','status']
-    display_fields = ['name','start_date','end_date','percent_done','top_task','project','owner','group','task_type','status','description' ]
+    views_available=['create', 'list', 'update','delete']
+    fields = ['name','start_date','end_date','percent_done','top_task','project','inchargeuser','group','task_type','status','description' ]
+    list_fields = ['name','start_date','end_date','project','inchargeuser','owner','task_type','status']
+    display_fields = ['name','start_date','end_date','percent_done','top_task','project','inchargeuser','group','task_type','status','description' ]
 
-    list_filter = ['project','task_type','task_status','owner']
+    list_filter = ['project','task_type','task_status','inchargeuser']
 
-    search_fields = ['name',  'owner', 'group','start_date','end_date']
+    search_fields = ['name',  'inchargeuser', 'group','start_date','end_date']
     split_space_search = True
     paginate_by = 15
     paginate_position = 'Bottom' # Both | Bottom
@@ -66,7 +66,7 @@ class TaskCRUD(CRUDView):
 @login_required
 def ganttchart(request):
     try:
-        tasks = Task.objects.filter(owner=request.user)
+        tasks = Task.objects.filter(inchargeuser=request.user)
     except Task.DoesNotExist:
         return HttpResponseRedirect('/project/project/list')
     projects = Project.objects.all()
@@ -75,6 +75,7 @@ def ganttchart(request):
 
 @login_required
 def dashboard(request):
+
     try:
         personnel = Personnel.objects.get(user=request.user)
     except Personnel.DoesNotExist:
