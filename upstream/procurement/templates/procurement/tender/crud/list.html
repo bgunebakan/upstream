@@ -1,152 +1,104 @@
-{% extends template_father %}
+{% extends 'cruds/base.html' %}
 {% load i18n %}
+{% load crispy_forms_tags %}
 {% load crud_tags %}
+{% load static %}
+{% load personnel_tags %}
 {% load procurement_tags %}
+{% block title %}Procurement{% endblock %}
 
-{% block title %} {{ model_verbose_name_plural }}{% trans " List" %}{% endblock %}
-{% block bodyclass %}skin-red {%if config.hide_sidebar %}sidebar-collapse{%endif%} {% endblock %}
-{% block page_name %}{{ model_verbose_name_plural }}{% endblock %}
-{% block page_description %}{{ model_verbose_name_plural }}{% trans " List" %}{% endblock %}
+{% block page_name %}Procurement{% endblock %}
+{% block page_description %}Dashboard{% endblock %}
 
+{% block bodyclass %}skin-red {% endblock %}
 
 {% block content %}
+<!-- Small boxes (Stat box) -->
 <div class="row">
-  {%get_tendertypes as tender_types%}
+  <div class="col-md-12">
 
-  {%for tender_type in tender_types%}
-  <div class="col-md-3">
+    <div class="box box-default">
+      <div class="row">
+          <div class="col-xs-12">
+              <div class="box">
 
-    <!-- small box -->
-    <div class="info-box">
-        <a href="/procurement/tender/list?tender_type={{tender_type.id}}" class="small-box-footer">
-        <span class="info-box-icon {{tender_type.color}}"><i class="fa {{tender_type.icon}}"></i></span>
-        </a>
-        <div class="info-box-content">
-          <span class="info-box-number">{{tender_type.name}}</span>
-          <span class="info-box-text">Total: {{tender_type.total}}</span>
-        </div>
-        <!-- /.info-box-content -->
+                  <div class="box-header">
+                    <div class="row">
+                      {% if url_create %}
+                      <div class="col-lg-6">
+                          {% crud_url object "create" namespace as url %}
+                          {% if url and 'create' in views_available and crud_perms.create %}
+                            <a href="{{ url }}{{getparams}}" class="btn btn-primary">
+                                {% trans "New " %} {{ model_verbose_name }}</a>
+                            {%endif%}
+                      </div>
+                      {% endif %}
+                    
+                  </div>
+          </div>
+
       </div>
+      <!-- /.box-header -->
+      <div class="box-body">
+        <div class="nav-tabs-custom">
+          <ul class="nav nav-tabs">
+            {%get_tendertypes as tender_types%}
+            {%for tender_type in tender_types %}
+            <li class="{%if tender_types|first == tender_type%}active{%endif%}"><a href="#{{tender_type.code}}" data-toggle="tab" aria-expanded="false">{{tender_type.name}}</a></li>
+            {%endfor%}
+          </ul>
+          <div class="tab-content">
+            {%for tender_type in tender_types%}
+            <div class="tab-pane {%if tender_types|first == tender_type%}active{%endif%}" id="{{tender_type.code}}">
+              <table id="example2" class="table table-bordered table-hover dataTable" role="grid" aria-describedby="example2_info">
+                <thead>
+                <tr role="row">
+                  <th class="sorting_asc" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Rendering engine: activate to sort column descending">Name</th>
+                  <th class="sorting" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-label="Browser: activate to sort column ascending">Tender Type</th>
+                  <th class="sorting" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-label="Platform(s): activate to sort column ascending">Apply Date</th>
+                  <th class="sorting" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-label="Engine version: activate to sort column ascending">Personnel</th>
+                  <th class="sorting" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-label="CSS grade: activate to sort column ascending">Status</th>
+                </tr>
+                </thead>
+                <tbody>
+
+                    {%get_tenders as tenders%}
+                    {%for tender in tenders%}
+
+                      {%if tender.tender_type == tender_type%}
+
+                          <tr role="row" class="odd">
+
+                            <td class="sorting_1"><a href="/procurement/tender/{{tender.id}}/update">
+                              {{tender.name}}</a></td>
+                  	         <td>{{tender.tender_type}}</td>
+                  	         <td>{{tender.apply_date|date:"d M Y"}}</td>
+                  	         <td>{{tender.user}}</td>
+                  	         <td class="bg {{tender.tender_status.bgcolor}}">{{tender.tender_status}}</td>
+
+                          </tr>
+
+                    {%endif%}
+
+                    {%endfor%}
+
+
+                </tbody>
+              </table>
+
+            </div>
+            {%endfor%}
+            <!-- /.tab-pane -->
+
+          </div>
+          <!-- /.tab-content -->
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-2">
 
   <!-- ./col -->
 </div>
-{%endfor%}
 </div>
-    <div class="row">
-        <div class="col-xs-12">
-          <div class="row">
-              <div class="col-xs-12">
-                  <div class="box">
-
-                      <div class="box-header">
-                        <div class="row">
-                          {% if url_create %}
-                          <div class="col-lg-6">
-                              {% crud_url object "create" namespace as url %}
-                              {% if url and 'create' in views_available and crud_perms.create %}
-                                <a href="{{ url }}{{getparams}}" class="btn btn-primary">
-                                    {% trans "New " %} {{ model_verbose_name }}</a>
-                                {%endif%}
-                          </div>
-                          {% endif %}
-                          {% if search %}
-                          <div class="col-lg-6">
-                              <form action="" method="get">
-                                  <div class="input-group">
-                                      <input type="text" name="q" value="{{q}}" class="form-control" placeholder="{% trans 'Ara...' %}">
-                                      <span class="input-group-btn">
-                                          <button class="btn btn-flat" type="submit">
-                                              <i class="fa fa-search"></i>
-                                          </button>
-                                      </span>
-                                  </div>
-                              </form>
-                          </div>
-                          {% endif %}
-                      </div>
-
-                      {% if filters %}
-                      <br />
-                              <form action="" method="get">
-                                  <table class="table">
-                                      {% for filter in filters %}
-                                      {{filter.render }}
-                                      {% endfor %}
-
-                                  </table>
-                                  <input type="submit" class="btn btn-info" value="Filter" />
-                                  <a  class="btn btn-warning" href="?"> {% trans 'Clean filter' %} </a>
-                              </form>
-                      </div>
-                      <!-- /.box-body -->
-                  </div>
-                          {% endif%}
-              </div>
-
-          </div>
-
-                  <div class="box-body">
-                    <table id="datatable" class="table table-bordered table-hover">
-                <div class="box-body">
-                {% if paginate_position == 'Up' or paginate_position == 'Both' %}
-                    {% include paginate_template %}
-                {% endif %}
-                    <table id="datatable" class="table table-responsive table-bordered table-hover">
-                    {% if object_list %}
-                        <thead>
-                            {% block thead %}
-                            {% for field, field_name in fields.items %}
-                            <th class="th-field-{{ field|lower }} th-fieldtype-{{ field_name.1|lower }}">{{ field_name.0 }}</th>
-                            {% endfor %}
-                            <th>{% trans "Actions" %}</th>
-                            {% endblock thead %}
-                        </thead>
-                        <tbody>
-                          {% block tbody %}
-                          {% for object in object_list %}
-                            <tr>
-                              {% for field, field_name in fields.items %}
-                              <td class="td-field-{{ field|lower }} td-fieldtype-{{ field_name.1|lower }}">
-                                {% with column=field_name.1|lower|add:".html" %}
-                                    {% include "cruds/columns/"|add:column %}
-                                {% endwith %}
-                                {# typefield #}
-                              </td>
-                              {% endfor %}
-                              <td>
-                                {% block actions %}
-                                  {% crud_url object "detail" namespace as url %}
-                                    {% if url and 'detail' in views_available and crud_perms.detail %}
-                                    <a href="{{ url }}{{getparams}}" class="btn btn-success">{% trans "Details" %}</a>
-                                    {% endif %}
-                                    {% crud_url object "update" namespace as url %}
-                                    {% if url and 'update' in views_available and crud_perms.update %}
-                                    <a href="{{ url }}{{getparams}}" class="btn btn-primary">{% trans "Update" %}</a>
-                                    {% endif %}
-                                    {% crud_url object "delete" namespace as url %}
-                                    {% if url and 'delete' in views_available and crud_perms.delete %}
-                                    <a href="{{ url }}{{getparams}}" class="btn btn-danger">{% trans "Delete" %}</a>
-                                    {% endif %}
-                                {% endblock %}
-                              </td>
-                            </tr>
-                          {% endfor %}
-                          {% endblock tbody %}
-                        </tbody>
-                    {% else %}
-                      <thead><th></th></thead>
-                      <tbody><tr><td>{% trans "No items yet." %}</td></tr></tbody>
-                    {% endif %}
-                    </table>
-
-                    {% if paginate_position == 'Bottom' or paginate_position == 'Both' %}
-                  {% include paginate_template %}
-                {% endif %}
-
-                </div>
-
-                <div class="box-footer"></div>
-            </div>
-        </div>
-    </div>
-{% endblock content %}
+{% endblock %}

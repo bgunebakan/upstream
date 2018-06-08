@@ -4,6 +4,7 @@
 {% load crud_tags %}
 {% load static %}
 {% load personnel_tags %}
+{% load procurement_tags %}
 {% block title %}Procurement{% endblock %}
 
 {% block page_name %}Procurement{% endblock %}
@@ -17,19 +18,31 @@
   <div class="col-md-12">
 
     <div class="box box-default">
-      <div class="box-header with-border">
-        <h3 class="box-title">Tenders</h3>
+      <div class="row">
+          <div class="col-xs-12">
+              <div class="box">
 
-        <div class="box-tools pull-right">
-          <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
-          <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-remove"></i></button>
-        </div>
+                  <div class="box-header">
+                    <div class="row">
+                      {% if url_create %}
+                      <div class="col-lg-6">
+                          {% crud_url object "create" namespace as url %}
+                          {% if url and 'create' in views_available and crud_perms.create %}
+                            <a href="{{ url }}{{getparams}}" class="btn btn-primary">
+                                {% trans "New " %} {{ model_verbose_name }}</a>
+                            {%endif%}
+                      </div>
+                      {% endif %}
+
+                  </div>
+          </div>
+
       </div>
       <!-- /.box-header -->
       <div class="box-body">
         <div class="nav-tabs-custom">
           <ul class="nav nav-tabs">
-
+            {%get_tendertypes as tender_types%}
             {%for tender_type in tender_types %}
             <li class="{%if tender_types|first == tender_type%}active{%endif%}"><a href="#{{tender_type.code}}" data-toggle="tab" aria-expanded="false">{{tender_type.name}}</a></li>
             {%endfor%}
@@ -49,7 +62,7 @@
                 </thead>
                 <tbody>
 
-
+                    {%get_tenders as tenders%}
                     {%for tender in tenders%}
 
                       {%if tender.tender_type == tender_type%}

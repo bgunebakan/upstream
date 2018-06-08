@@ -9,17 +9,12 @@ from .forms import *
 from django.utils.translation import ugettext_lazy as _
 from django.contrib.auth.decorators import login_required
 #from django.core.mail import send_mail
+from django.http import HttpResponseRedirect
 
 @login_required
 def index(request):
-    tenders = Tender.objects.all().order_by('-apply_date')
-    #print "sending email"
-    #send_mail('subject', 'body of the message', 'info@tarla.org.tr', ['bilaltonga@gmail.com',])
-    #print "sended"
-    tender_types = TenderType.objects.all()
 
-    return render(request, 'procurement/dashboard.html',
-        {'tenders':tenders,'tender_types':tender_types})
+    return HttpResponseRedirect('/procurement/tender/list')
 
 
 def callfortender(request):
