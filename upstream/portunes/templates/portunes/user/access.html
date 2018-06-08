@@ -73,6 +73,8 @@
         </div>
         <!-- /.box-header -->
         <div class="box-body">
+          <form action="" method="post" name="form" id="form">
+              {% csrf_token %}
           <table class="table table-bordered text-center">
           <tbody>
           {% for controller in controllers.all %}
@@ -83,15 +85,12 @@
               <i class="fa fa-archive"></i> <span>{{ controller.name}}</span>
             </a><br>
 
-            <form action="" method="post" name="form" id="form">
-              {% csrf_token %}
-
              {% for door in doors.all %}
 
               {%if door.entrance.name == controller.name %}
               <li class="fa fa-code-fork" > {{door.entrance_controller_pin}} - {{door.name}}
                 <input type="checkbox" name="permissions" value="{{door.id}}"
-                id="{{door.name}}"
+                id="{{door.id}}"
                 {%for permission in permissions %}
                   {%if permission.door == door %}
                   checked
