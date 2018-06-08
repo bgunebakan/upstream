@@ -398,7 +398,9 @@ def user_access(request, user_id):
 
             message = ""
             for door_id in checkboxes:
+
                 door = Door.objects.get(id=door_id)
+                print door_id + " name: " + door.name
                 #print "personel", personnel.nat_id
                 #print "kapı: ", unicode(door.name)
                 #print "ip: ", door.entrance.ip_address
