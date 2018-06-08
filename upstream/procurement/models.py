@@ -62,7 +62,7 @@ class OfferFileUpload(object):
 class TenderType(models.Model):
     name = models.CharField(max_length=50, verbose_name=_(u'Name'))
     code = models.CharField(default="",max_length=10, verbose_name=_(u'Code'))
-    icon = models.CharField(max_length=20,default="fa-box",verbose_name = "Icon",help_text=_('<a target="_blank" href="http://fontawesome.com/icons">Icon Seçenekleri</a>'))
+    icon = models.CharField(max_length=20,default="fa-wrench",verbose_name = "Icon",help_text=_('<a target="_blank" href="http://fontawesome.com/icons">Icon Seçenekleri</a>'))
     color = models.CharField(max_length=20,default="bg-yellow",verbose_name = "Color",help_text=_('<a target="_blank" href="http://basscss.com/v7/docs/background-colors/">Renk Seçenekleri</a>'))
     total = models.IntegerField(verbose_name="Total item",default=0)
     created_date = models.DateTimeField(default=timezone.now,verbose_name='create date', editable=False)
@@ -145,11 +145,11 @@ class Tender(models.Model):
     no = models.CharField(verbose_name='No', max_length=32, null=True, blank=True)
     tender_type = models.ForeignKey(TenderType, verbose_name=_(u'Tender Type'),null=True,on_delete=models.SET_NULL)
 
-    approximate_price = models.FloatField(verbose_name=_(u'Approximate Price'),default=0,null=True)
+    approximate_price = models.FloatField(verbose_name=_(u'Approximate Price'),default=0,null=True,blank=True)
 
     currency = models.ForeignKey(Currency, verbose_name=_(u'Currency'),null=True,blank=True,on_delete=models.SET_NULL)
 
-    apply_date = models.DateField(default=timezone.now,verbose_name='Apply Date', editable=True,null=True, blank=True)
+    apply_date = models.DateField(default=timezone.now,verbose_name='Apply Date', editable=True,null=True,blank=True)
 
     tender_status = models.ForeignKey(TenderStatus, verbose_name=_(u'Tender Status'),null=True,on_delete=models.SET_NULL)
 
@@ -157,7 +157,7 @@ class Tender(models.Model):
 
     auction_time = models.TimeField(verbose_name='Auction Time', editable=True,null=True, blank=True)
 
-    auction_price = models.FloatField(verbose_name=_(u'Auction Price'),default=0,null=True)
+    auction_price = models.FloatField(verbose_name=_(u'Auction Price'),default=0,null=True,blank=True)
 
     auction_no = models.CharField(verbose_name=_(u'Auction No'), max_length=32, null=True, blank=True)
 

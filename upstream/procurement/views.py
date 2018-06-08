@@ -47,7 +47,7 @@ class Tender_content_AjaxCRUD(InlineAjaxCRUD):
     base_model = Tender
     inline_field = 'tender'
     fields = ['name','quantity','unit','price','currency']
-    
+
     display_fields = ['name','quantity','unit','price','currency']
     list_fields = ['name','quantity','unit','price','currency']
 
@@ -89,15 +89,17 @@ class TenderCRUD(CRUDView):
     template_name_base='crud'
     check_login = True
     check_perms = True
-    fields = ['name','no','apply_date']
+    fields = ['name','no','tender_type','approximate_price','currency','tender_status','notes','specification',
+                'apply_date','auction_date','auction_time','auction_price','auction_no','supplier','user','bap_staff','contract_date']
+
     list_fields = ['name','no','tender_status','tender_type','apply_date']
     display_fields = ['name','no','tender_type','tender_status','auction_no']
 
     list_filter = ['tender_type','tender_status']
     views_available=['create', 'list', 'delete', 'update']
 
-    add_form = TenderForm
-    update_form = TenderForm
+    add_form = Tender_Form
+    update_form = Tender_Form
 
     inlines = [Tender_end_date_AjaxCRUD,Tender_offer_AjaxCRUD,Tender_content_AjaxCRUD]
 

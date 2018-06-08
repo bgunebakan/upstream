@@ -219,11 +219,6 @@ class Migration(migrations.Migration):
             field=models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.SET_NULL, to='inventory.Unit', verbose_name='Unit'),
         ),
         migrations.AddField(
-            model_name='item',
-            name='user',
-            field=models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.SET_NULL, to=settings.AUTH_USER_MODEL, verbose_name='User'),
-        ),
-        migrations.AddField(
             model_name='inventory',
             name='location',
             field=models.ForeignKey(null=True, on_delete=django.db.models.deletion.SET_NULL, to='inventory.Location', verbose_name='Location'),

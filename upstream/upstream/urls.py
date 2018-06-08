@@ -36,7 +36,6 @@ personnelcrud = PersonnelCRUD()
 personnel_typecrud = Personnel_typeCRUD()
 
 tendercrud = TenderCRUD()
-tenderoffercrud = Tender_offer_AjaxCRUD()
 tendertypecrud = TenderTypeCRUD()
 tenderstatuscrud = TenderStatusCRUD()
 travellingexpensecrud = TravellingExpenseCRUD()
@@ -79,7 +78,6 @@ urlpatterns = [
     #procurement
     url(r'^procurement/', include('procurement.urls')),
     url(r'', include(tendercrud.get_urls())),
-    url(r'', include(tenderoffercrud.get_urls())),
     url(r'', include(tendertypecrud.get_urls())),
     url(r'', include(tenderstatuscrud.get_urls())),
     url(r'', include(travellingexpensecrud.get_urls())),

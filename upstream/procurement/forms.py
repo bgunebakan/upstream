@@ -108,6 +108,73 @@ class TenderForm(forms.ModelForm):
             )
         )
 
+class Tender_Form(forms.ModelForm):
+
+    class Meta:
+        model = Tender
+        fields = '__all__'
+
+        widgets = {
+            'apply_date': DatePickerWidget(attrs={'format': 'dd/mm/yyyy',
+                                            'icon': 'fa-calendar'}),
+            'contract_date': DatePickerWidget(attrs={'format': 'dd/mm/yyyy',
+                                            'icon': 'fa-calendar'}),
+            'auction_date': DatePickerWidget(
+                attrs={'format': 'dd/mm/yyyy',
+                       'icon': 'fa-calendar'}),
+            'auction_time': TimePickerWidget(
+                attrs={'format': 'hh:ii',
+                       'icon': 'fa-clock-o'}),
+            'notes': CKEditorWidget(attrs={'lang': 'tr'}),
+
+        }
+
+    def __init__(self, *args, **kwargs):
+        super(Tender_Form, self).__init__(*args, **kwargs)
+        self.helper = FormHelper(self)
+        self.helper.form_tag = False
+
+        self.helper.layout = Layout(
+            TabHolder(
+                Tab(
+                    _('General'),
+                    Field('name', wrapper_class="col-md-12"),
+                    Field('tender_type', wrapper_class="col-md-6"),
+                    Field('tender_status', wrapper_class="col-md-6"),
+                    Field('no', wrapper_class="col-md-6"),
+                    Field('apply_date', wrapper_class="col-md-6"),
+                ),
+                Tab(
+                    _('Details'),
+                    Field('bap_staff', wrapper_class="col-md-6"),
+                    Field('user', wrapper_class="col-md-6"),
+                    Field('supplier', wrapper_class="col-md-6"),
+                    Field('specification', wrapper_class="col-md-12"),
+
+                ),
+                Tab(
+                    _('Auction'),
+                    Field('auction_no', wrapper_class="col-md-12"),
+                    Field('auction_date', wrapper_class="col-md-4"),
+                    Field('auction_time', wrapper_class="col-md-4"),
+                    Field('auction_price', wrapper_class="col-md-4"),
+                    Field('contract_date', wrapper_class="col-md-6"),
+                ),
+                Tab(
+                    _('Notes'),
+                    Field('notes', wrapper_class="col-md-12"),
+                )
+            )
+        )
+
+        self.helper.layout.append(
+            FormActions(
+                Submit('submit', _('Submit'), css_class='btn btn-primary'),
+                HTML("""{% load i18n %}<a class="btn btn-danger"
+                        href="{{ url_delete }}">{% trans 'Delete' %}</a>"""),
+            )
+        )
+
 class Tender_contentForm(forms.ModelForm):
 
     class Meta:
@@ -118,7 +185,13 @@ class Tender_contentForm(forms.ModelForm):
         super(Tender_contentForm, self).__init__(*args, **kwargs)
         self.helper = FormHelper(self)
         self.helper.form_tag = False
-
+        self.helper.layout = Layout(
+            Field('name', wrapper_class="col-md-3"),
+            Field('quantity', wrapper_class="col-md-3"),
+            Field('unit', wrapper_class="col-md-3"),
+            Field('price', wrapper_class="col-md-3"),
+            Field('currency', wrapper_class="col-md-3"),
+        )
 
         self.helper.layout.append(
             FormActions(
