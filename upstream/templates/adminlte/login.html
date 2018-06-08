@@ -2,13 +2,13 @@
 {% load i18n static %}
 
 {% block body_class %}login-page{% endblock %}
-
+{% block title %}TARLA Internal{% endblock %}
 {% block body %}
     <div class="login-box">
         {% block logo %}
         <div class="login-logo">
             {# Mirrors block names used in _main_header.html #}
-            <a href="{% block logo_href %}/{% endblock %}">{% block logo_text %}<b>UP</b>Stream{% endblock %}</a>
+            <a href="/"><img align="center" src="https://tarla.org.tr/wp-content/uploads/2018/03/cropped-TARLA-Logo_notext-2.png" alt="TARLA logo" height="80" width="180"></a>
         </div>
         {% endblock %}
         <!-- /.login-logo -->
@@ -37,7 +37,7 @@
                         <p class="login-box-msg" style="color: red;">{{ message }}</p>
                     {% endif %}
                     <div class="form-group has-feedback">
-                        <input name="username" class="form-control" placeholder="Email">
+                        <input name="username" class="form-control" placeholder="TARLA LDAP User">
                         <span class="glyphicon glyphicon-user form-control-feedback"></span>
                     </div>
                     <div class="form-group has-feedback">
@@ -55,5 +55,6 @@
             {% endblock login_form %}
 
         </div>
+        <a href="{% block logo_href %}/{% endblock %}">{% block logo_text %}<b>UP</b>Stream{% endblock %}</a>
     </div>
 {% endblock %}
