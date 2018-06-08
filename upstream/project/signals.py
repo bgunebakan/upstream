@@ -7,5 +7,5 @@ from .models import *
 def add_log(sender, instance, **kwargs):
     print "add log---------"
 
-    log = Log.objects.create(action="added",description=instance.name,url="/project/task/"+unicode(instance.id),
+    log = Log.objects.create(action="added",description=instance.name,url="/project/task/"+unicode(instance.id)+"/update",
         user=instance.owner)
