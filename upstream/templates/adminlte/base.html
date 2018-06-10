@@ -26,9 +26,10 @@
 <body class="hold-transition skin-blue sidebar-mini {%if config.hide_sidebar %}sidebar-collapse{%endif%} {% block body_class %}{% block bodyclass %}{% endblock %}{% endblock %}">
 
 {% block body %}
-    {% include 'adminlte/lib/_top_header.html' %}
+
     <div class="wrapper">
         {% block nav_header %}
+            {% include 'adminlte/lib/_top_header.html' %}
             {% include 'adminlte/lib/_main_header.html' %}
         {% endblock %}
 

@@ -4,7 +4,6 @@
 {% load personnel_utils %}
 {% load static %}
 {% block title %}User Manager{% endblock %}
-
 {% block page_name %}User Manager{% endblock %}
 {% block page_description %}Profile{% endblock %}
 
@@ -28,6 +27,7 @@
           <p class="text-muted text-center">{{ object.job }}</p>
           {% if request.user.is_authenticated %}
           <ul class="list-group list-group-unbordered">
+            {% update_work_hours request%}
             <li class="list-group-item">
               <b>Work days</b> <a class="pull-right">{{ object.total_workday }}</a>
             </li>
