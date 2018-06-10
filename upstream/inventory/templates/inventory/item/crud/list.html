@@ -35,7 +35,7 @@
     </div>
     <div class="row">
         <div class="col-xs-12">
-            <div class="box">
+            <div class="box box-success">
 
                 <div class="box-header">
                   <div class="row">
@@ -46,7 +46,6 @@
                           <a href="{{ url }}{{getparams}}" class="btn btn-primary">
                               {% trans "New " %} {{ model_verbose_name }}</a>
                           {%endif%}
-                          <a data-toggle="modal" href="#ownershipModal" class="btn btn-success" align="center">Ownership</a>
                     </div>
                     {% endif %}
                     {% if search %}
@@ -103,32 +102,42 @@
           <tbody>
             {% block tbody %}
             {% for object in object_list %}
-              <tr>
-                {% for field, field_name in fields.items %}
-                <td class="td-field-{{ field|lower }} td-fieldtype-{{ field_name.1|lower }}">
-                  {% with column=field_name.1|lower|add:".html" %}
-                      {% include "cruds/columns/"|add:column %}
-                  {% endwith %}
-                  {# typefield #}
-                </td>
-                {% endfor %}
-                <td>
-                  {% block actions %}
-                    {% crud_url object "detail" namespace as url %}
-                      {% if url and 'detail' in views_available and crud_perms.detail %}
-                      <a href="{{ url }}{{getparams}}" class="btn btn-success">{% trans "Detail" %}</a>
-                      {% endif %}
-                      {% crud_url object "update" namespace as url %}
-                      {% if url and 'update' in views_available and crud_perms.update %}
-                      <a href="{{ url }}{{getparams}}" class="btn btn-primary">{% trans "Update" %}</a>
-                      {% endif %}
-                      {% crud_url object "delete" namespace as url %}
-                      {% if url and 'delete' in views_available and crud_perms.delete %}
-                      <a href="{{ url }}{{getparams}}" class="btn btn-danger">{% trans "Delete" %}</a>
-                      {% endif %}
-                  {% endblock %}
-                </td>
-              </tr>
+              <div class="col-md-3">
+                <!-- Profile Image -->
+                <div class="box box-success">
+                  <div class="box-body box-profile">
+                    <img class="profile-user-img img-responsive img-rounded" src="{{ object.picture.url }}" alt="Fotoğraf">
+
+                    <h3 class="profile-username text-center">{{ object }}</h3>
+
+                    <p class="text-muted text-center">{{ object.category }}</p>
+
+                    <ul class="list-group list-group-unbordered">
+                      <li class="list-group-item">
+                        <b>Item Type</b> <a class="pull-right">{{ object.item_type }}</a>
+                      </li>
+                      <li class="list-group-item">
+                        <b>Brand</b> <a class="pull-right">{{ object.brand }}</a>
+                      </li>
+                      <li class="list-group-item">
+                        <b>Model</b> <a class="pull-right">{{ object.model }}</a>
+                      </li>
+                      <li class="list-group-item">
+                        <b>Part Number</b> <a class="pull-right">{{ object.part_number }}</a>
+                      </li>
+
+                    </ul>
+                    {% if crud_perms.update %}
+                    <div class="col-md-12 col-lg-12 " align="center">
+                      <a href="/inventory/item/{{object.id}}/update" class="btn btn-primary" align="center">Update Details</a>
+                    </div>
+                    {%endif%}
+                  </div>
+                  <!-- /.box-body -->
+                </div>
+
+                <!-- /.box -->
+              </div>
             {% endfor %}
             {% endblock tbody %}
           </tbody>
