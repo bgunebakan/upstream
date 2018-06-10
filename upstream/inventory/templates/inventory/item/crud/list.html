@@ -36,7 +36,6 @@
     <div class="row">
         <div class="col-xs-12">
             <div class="box box-success">
-
                 <div class="box-header">
                   <div class="row">
                     {% if url_create %}
@@ -91,16 +90,7 @@
   {% endif %}
       <table id="datatable" class="table table-responsive table-bordered table-hover">
       {% if object_list %}
-          <thead>
-              {% block thead %}
-              {% for field, field_name in fields.items %}
-              <th class="th-field-{{ field|lower }} th-fieldtype-{{ field_name.1|lower }}">{{ field_name.0 }}</th>
-              {% endfor %}
-              <th>{% trans "Actions" %}</th>
-              {% endblock thead %}
-          </thead>
-          <tbody>
-            {% block tbody %}
+
             {% for object in object_list %}
               <div class="col-md-3">
                 <!-- Profile Image -->
@@ -129,7 +119,7 @@
                     </ul>
                     {% if crud_perms.update %}
                     <div class="col-md-12 col-lg-12 " align="center">
-                      <a href="/inventory/item/{{object.id}}/update" class="btn btn-primary" align="center">Update Details</a>
+                      <a href="/inventory/item/{{object.id}}" class="btn btn-primary" align="center">Details</a>
                     </div>
                     {%endif%}
                   </div>
@@ -139,8 +129,7 @@
                 <!-- /.box -->
               </div>
             {% endfor %}
-            {% endblock tbody %}
-          </tbody>
+
       {% else %}
         <thead><th></th></thead>
         <tbody><tr><td>{% trans "No items yet." %}</td></tr></tbody>
@@ -155,104 +144,5 @@
 
   <div class="box-footer"></div>
 </div>
-
-
-    <!-- MODAL DIALOG -->
-      <div class="modal fade" id="ownershipModal" role="dialog">
-          <div class="modal-dialog">
-
-            <!-- Modal content-->
-            <div class="modal-content">
-              <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
-                <h4 style="color:green;"><span class="glyphicon glyphicon-random"> </span>  Item Ownership</h4>
-              </div>
-              <div class="modal-body">
-                <div class="col-md-12">
-                  <div class="nav-tabs-custom">
-                    <ul class="nav nav-tabs">
-                      <li class="active"><a href="#give" data-toggle="tab">Give to User</a></li>
-                      <li class=""><a href="#release" data-toggle="tab">Release to Inventory</a></li>
-                    </ul>
-                    <div class="tab-content">
-                      <div class="tab-pane active" id="give">
-                          <div class="box-body">
-                            <div class="col-md-12">
-                              <div class="form-group">
-                                <label>Item</label>
-                                <select class="itemTemplateSelect form-control select2 select2-hidden-accessible" style="width: 100%;" tabindex="-1" aria-hidden="true">
-                                  {%get_items as items%}
-                                  {%for item in items%}
-                                  <option>{{item.category}} - {{item}} - {{item.code}} </option>
-                                  {%endfor%}
-                                </select>
-                              <!-- /.form-group -->
-                            </div>
-                          </div>
-
-                          <div class="col-md-12">
-                            <div class="form-group">
-                              <label>User</label>
-                              <select class="form-control select2 select2-hidden-accessible" style="width: 100%;" tabindex="-1" aria-hidden="true">
-                                {%get_users as users%}
-                                {%for user in users%}
-                                <option>{{user.first_name}} {{user.last_name}} </option>
-                                {%endfor%}
-                              </select>
-                            <!-- /.form-group -->
-                          </div>
-                        </div>
-                      </div>
-                      <!-- /.tab-pane -->
-                    </div>
-
-                    <div class="tab-pane" id="release">
-                        <div class="box-body">
-                        <div class="col-md-12">
-                          <div class="form-group">
-                            <label>Item</label>
-                            <select class="form-control select2 select2-hidden-accessible" style="width: 100%;" tabindex="-1" aria-hidden="true">
-                              {%get_items as items%}
-                              {%for item in items%}
-                              <option><img src="{{item.picture.url}}" class="img-flag">{{item.category}} - {{item}} - {{item.code}} </option>
-                              {%endfor%}
-                            </select>
-                          <!-- /.form-group -->
-                        </div>
-                      </div>
-                    </div>
-                    <!-- /.tab-pane -->
-                  </div>
-                    <!-- /.tab-content -->
-                  </div>
-                  <!-- /.nav-tabs-custom -->
-                </div>
-              </div>
-              <div class="modal-footer">
-                <button type="submit" class="btn btn-default btn-default pull-left" data-dismiss="modal"><span class="glyphicon glyphicon-remove"></span> Cancel</button>
-              </div>
-            </div>
-          </div>
-        </div>
-        <!-- /MODAL DIALOG -->
-
-<script>
-$(document).ready(function(){
-  function formatState (option) {
-    if (!option.id) { return option.text; }
-    console.log(option);
-    var $option = $(
-      '<span><img src="/' + option.id  + '" class="img-flag" /> ' + option.text + '</span>'
-    );
-    return $option;
-  };
-
-  $(".itemTemplateSelect2").select2({
-    templateResult: formatState,
-    templateSelection: formatState
-  });
-})
-
-</script>
 
 {% endblock content %}

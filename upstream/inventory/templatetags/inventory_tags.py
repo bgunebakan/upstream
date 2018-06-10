@@ -34,6 +34,16 @@ def get_items():
     return items
 
 @register.simple_tag
+def get_category_items(request):
+    category_id = request.GET.get('top_category','')
+    print category_id
+    try:
+        items = Item.objects.filter(category__id=category_id)
+    except ObjectDoesNotExist:
+        return null
+    return items
+
+@register.simple_tag
 def get_users():
     try:
         users = User.objects.all()

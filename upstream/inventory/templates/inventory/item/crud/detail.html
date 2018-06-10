@@ -110,38 +110,85 @@
   </div>
   <!-- /.row -->
 
-<!-- MODAL DIALOG -->
-  <div class="modal fade" id="ownershipModal" role="dialog">
-      <div class="modal-dialog">
+  <!-- MODAL DIALOG -->
+    <div class="modal fade" id="ownershipModal" role="dialog">
+        <div class="modal-dialog">
 
-        <!-- Modal content-->
-        <div class="modal-content">
-          <div class="modal-header">
-            <button type="button" class="close" data-dismiss="modal">&times;</button>
-            <h4 style="color:red;"><span class="glyphicon glyphicon-lock"></span> Item Ownership</h4>
-          </div>
-          <div class="modal-body">
-            <form role="form">
-              <div class="form-group">
-                <label for="usrname"><span class="glyphicon glyphicon-user"></span> Username</label>
-                <input type="text" class="form-control" id="usrname" placeholder="Enter email">
+          <!-- Modal content-->
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal">&times;</button>
+              <h4 style="color:green;"><span class="glyphicon glyphicon-random"> </span>  Item Ownership</h4>
+            </div>
+            <div class="modal-body">
+              <div class="col-md-12">
+                <div class="nav-tabs-custom">
+                  <ul class="nav nav-tabs">
+                    <li class="active"><a href="#give" data-toggle="tab">Give to User</a></li>
+                    <li class=""><a href="#release" data-toggle="tab">Release to Inventory</a></li>
+                  </ul>
+                  <div class="tab-content">
+                    <div class="tab-pane active" id="give">
+                        <div class="box-body">
+
+                        <div class="col-md-12">
+                          <div class="form-group">
+                            <label>User</label>
+                            <select class="form-control select2 select2-hidden-accessible" style="width: 100%;" tabindex="-1" aria-hidden="true">
+                              {%get_users as users%}
+                              {%for user in users%}
+                              <option>{{user.first_name}} {{user.last_name}} </option>
+                              {%endfor%}
+                            </select>
+                            <a class="btn btn-success" align="center">Give to User</a>
+                          <!-- /.form-group -->
+                        </div>
+                      </div>
+                    </div>
+                    <!-- /.tab-pane -->
+                  </div>
+
+                  <div class="tab-pane" id="release">
+                      <div class="box-body">
+                      <div class="col-md-12">
+                        <div class="form-group">
+                          <a class="btn btn-success" align="center">Release to Inventory</a>
+                        <!-- /.form-group -->
+                      </div>
+                    </div>
+                  </div>
+                  <!-- /.tab-pane -->
+                </div>
+                  <!-- /.tab-content -->
+                </div>
+                <!-- /.nav-tabs-custom -->
               </div>
-              <div class="form-group">
-                <label for="psw"><span class="glyphicon glyphicon-eye-open"></span> Password</label>
-                <input type="text" class="form-control" id="psw" placeholder="Enter password">
-              </div>
-              <div class="checkbox">
-                <label><input type="checkbox" value="" checked>Remember me</label>
-              </div>
-              <button type="submit" class="btn btn-default btn-success btn-block"><span class="glyphicon glyphicon-off"></span> Login</button>
-            </form>
-          </div>
-          <div class="modal-footer">
-            <button type="submit" class="btn btn-default btn-default pull-left" data-dismiss="modal"><span class="glyphicon glyphicon-remove"></span> Cancel</button>
-            <p>Not a member? <a href="#">Sign Up</a></p>
-            <p>Forgot <a href="#">Password?</a></p>
+            </div>
+            <div class="modal-footer">
+              <button type="submit" class="btn btn-default btn-default pull-left" data-dismiss="modal"><span class="glyphicon glyphicon-remove"></span> Cancel</button>
+            </div>
           </div>
         </div>
       </div>
-    </div>
+      <!-- /MODAL DIALOG -->
+
+  <script>
+  $(document).ready(function(){
+  function formatState (option) {
+  if (!option.id) { return option.text; }
+  console.log(option);
+  var $option = $(
+    '<span><img src="/' + option.id  + '" class="img-flag" /> ' + option.text + '</span>'
+  );
+  return $option;
+  };
+
+  $(".itemTemplateSelect2").select2({
+  templateResult: formatState,
+  templateSelection: formatState
+  });
+  })
+
+  </script>
+
 {% endblock %}
