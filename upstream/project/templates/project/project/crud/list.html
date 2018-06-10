@@ -20,7 +20,7 @@
                         {% crud_url object "create" namespace as url %}
                         {% if url and 'create' in views_available and crud_perms.create %}
                           <a href="{{ url }}{{getparams}}" class="btn btn-primary">
-                              {% trans "Yeni " %} {{ model_verbose_name }}</a>
+                              {% trans "New " %} {{ model_verbose_name }}</a>
                           {%endif%}
                     </div>
                     {% endif %}
@@ -103,15 +103,15 @@
                                 {% block actions %}
                                   {% crud_url object "detail" namespace as url %}
                                     {% if url and 'detail' in views_available and crud_perms.detail %}
-                                    <a href="{{ url }}{{getparams}}" class="btn btn-success">{% trans "Profil" %}</a>
+                                    <a href="{{ url }}{{getparams}}" class="btn btn-success">{% trans "Detail" %}</a>
                                     {% endif %}
                                     {% crud_url object "update" namespace as url %}
                                     {% if url and 'update' in views_available and crud_perms.update %}
-                                    <a href="{{ url }}{{getparams}}" class="btn btn-primary">{% trans "Güncelle" %}</a>
+                                    <a href="{{ url }}{{getparams}}" class="btn btn-primary">{% trans "Update" %}</a>
                                     {% endif %}
                                     {% crud_url object "delete" namespace as url %}
                                     {% if url and 'delete' in views_available and crud_perms.delete %}
-                                    <a href="{{ url }}{{getparams}}" class="btn btn-danger">{% trans "Sil" %}</a>
+                                    <a href="{{ url }}{{getparams}}" class="btn btn-danger">{% trans "Delete" %}</a>
                                     {% endif %}
                                 {% endblock %}
                               </td>

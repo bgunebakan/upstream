@@ -52,7 +52,7 @@ class TaskCRUD(CRUDView):
 
     views_available=['create', 'list', 'update','delete']
     fields = ['name','start_date','end_date','percent_done','top_task','project','inchargeuser','group','task_type','status','description' ]
-    list_fields = ['name','start_date','end_date','project','inchargeuser','owner','task_type','status']
+    list_fields = ['name','start_date','end_date','project','inchargeuser','task_type','status']
     display_fields = ['name','start_date','end_date','percent_done','top_task','project','inchargeuser','group','task_type','status','description' ]
 
     list_filter = ['project','task_type','task_status','inchargeuser']
