@@ -27,7 +27,7 @@
           <p class="text-muted text-center">{{ object.job }}</p>
           {% if request.user.is_authenticated %}
           <ul class="list-group list-group-unbordered">
-            {% update_work_hours request%}
+            {% update_work_hours object.user%}
             <li class="list-group-item">
               <b>Work days</b> <a class="pull-right">{{ object.total_workday }}</a>
             </li>

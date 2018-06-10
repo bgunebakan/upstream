@@ -27,16 +27,17 @@ def get_folder(id):
     return folder
 
 @register.simple_tag
-def update_work_hours(request):
+def update_work_hours(user):
     print "update works hours"
-    personnel = Personnel.objects.get(user=request.user)
+    personnel = Personnel.objects.get(user=user)
     #workhour calculations
-    actions = Action.objects.filter(user=request.user).order_by('-created_date')
+    actions = Action.objects.filter(user=user).order_by('-created_date')
         #---------------
 
     d = defaultdict(list)
 
     for action in actions:
+        print action
         key, _ = str(action.created_date).split()
         d[key].append(str(action.created_date))
     workday = 0
@@ -54,7 +55,10 @@ def update_work_hours(request):
         workhour = workhour + int(dt_max.hour)-int(dt_min.hour)
         workday = workday + 1
         i = i + 1
-
+    print "workday:" + unicode(workday)
+    print "workhour:" + unicode(workhour)
     personnel.total_workday = workday
     personnel.total_workhour = workhour
     personnel.save()
+    print "workday:" + unicode(personnel.total_workday)
+    print "workhour:" + unicode(personnel.total_workhour)
