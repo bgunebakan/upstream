@@ -73,7 +73,7 @@ class CategoryCRUD(CRUDView):
     update_form = CategoryForm
     list_filter = ['top_category']
 
-    search_fields =  ['name','top_category__name','notes']
+    search_fields =  ['name','notes']
     split_space_search = True
     paginate_by = 15
     paginate_position = 'Bottom' # Both | Bottom
