@@ -75,7 +75,7 @@ class CategoryCRUD(CRUDView):
 
     search_fields =  ['name','notes']
     split_space_search = True
-    paginate_by = 15
+    paginate_by = 16
     paginate_position = 'Bottom' # Both | Bottom
     paginate_template = 'cruds/pagination/enumeration.html'
 
@@ -138,7 +138,7 @@ class ItemCRUD(CRUDView):
 
     search_fields = ['name','part_number','model','brand','shelf','category__name']
     split_space_search = True
-    paginate_by = 15
+    paginate_by = 16
     paginate_position = 'Bottom' # Both | Bottom
     paginate_template = 'cruds/pagination/enumeration.html'
 

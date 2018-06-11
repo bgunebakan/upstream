@@ -92,9 +92,9 @@
       {% if object_list %}
 
             {% for object in object_list %}
-              <div class="col-md-3">
+              <div class="col-md-3 d-flex align-content-stretch flex-wrap">
                 <!-- Profile Image -->
-                <div class="box box-success">
+                <div class="box box-success ">
                   <div class="box-body box-profile">
                     <img class="profile-user-img img-responsive img-rounded" src="{{ object.picture.url }}" alt="Fotoğraf">
 
@@ -104,16 +104,16 @@
 
                     <ul class="list-group list-group-unbordered">
                       <li class="list-group-item">
-                        <b>Item Type</b> <a class="pull-right">{{ object.item_type }}</a>
-                      </li>
-                      <li class="list-group-item">
                         <b>Brand</b> <a class="pull-right">{{ object.brand }}</a>
                       </li>
                       <li class="list-group-item">
                         <b>Model</b> <a class="pull-right">{{ object.model }}</a>
                       </li>
                       <li class="list-group-item">
-                        <b>Part Number</b> <a class="pull-right">{{ object.part_number }}</a>
+                        <b>Inventory</b> <a class="pull-right">{{ object.inventory }}</a>
+                      </li>
+                      <li class="list-group-item">
+                        <b>Location</b> <a class="pull-right">{{ object.shelf }}</a>
                       </li>
 
                     </ul>
