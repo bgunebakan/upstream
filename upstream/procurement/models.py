@@ -243,17 +243,16 @@ class Log(models.Model):
 
 
 class TravellingExpense(models.Model):
-    name = models.CharField(max_length=50, verbose_name=_(u'Name'))
-    surname = models.CharField(max_length=50, verbose_name=_(u'Surname'))
-    institution = models.CharField(max_length=50, verbose_name=_(u'Institution'))
+    name = models.CharField(max_length=50, verbose_name='Name')
+    surname = models.CharField(max_length=50, verbose_name='Surname')
+    institution = models.CharField(max_length=50, verbose_name='Institution')
     start_date = models.DateField(verbose_name='Event Start Date', editable=True,null=True, blank=True)
     end_date = models.DateField(verbose_name='Event End Date', editable=True,null=True, blank=True)
     location = models.CharField(max_length=50, verbose_name=_(u'Event Location'))
+    activity_report = models.FileField(upload_to=UploadToPathAndRename(os.path.join('activity_report')),null=True,blank=True,verbose_name = "Activity Report")
 
     price = models.FloatField(verbose_name=_(u'Price'),default=0,null=True)
     currency = models.ForeignKey(Currency, verbose_name=_(u'Currency'),null=True,on_delete=models.SET_NULL)
-
-    payment_date = models.DateField(verbose_name='Payment Date', editable=True,null=True, blank=True)
 
     notes = models.TextField(verbose_name=_(u'Notes'), null=True, blank=True)
 

@@ -131,9 +131,9 @@ class TravellingExpenseCRUD(CRUDView):
     template_name_base='crud'
     check_login = True
     check_perms = True
-    fields = ['name','surname','institution','start_date','end_date','location','price','currency','payment_date','notes']
-    list_fields = ['name','surname','institution','start_date','end_date','price','currency','payment_date']
-    display_fields = ['name','surname','institution','start_date','end_date','location','price','currency','payment_date','notes']
+    fields = ['name','surname','institution','start_date','end_date','location','price','currency','notes','activity_report']
+    list_fields = ['name','surname','institution','start_date','end_date','price','currency','location']
+    display_fields = ['name','surname','institution','start_date','end_date','location','price','currency','notes']
 
     views_available=['create', 'list', 'delete', 'update']
 

@@ -69,11 +69,18 @@
     <div class="col-xs-12">
       <div class="box">
         <div class="box-header">
+
           <h3 class="box-title">{{table_label}}</h3>
+
         </div>
         <!-- /.box-header -->
         <div class="box-body">
+          <label for="AllCheckbox">All</label>
+          <input type="checkbox" ID="AllCheckbox" />
+          <label for="NoneCheckbox">None</label>
+          <input type="checkbox" ID="NoneCheckbox" />
           <form action="" method="post" name="form" id="form">
+
               {% csrf_token %}
           <table class="table table-bordered text-center">
           <tbody>
@@ -89,7 +96,7 @@
 
               {%if door.entrance.name == controller.name %}
               <li class="fa fa-code-fork" > {{door.entrance_controller_pin}} - {{door.name}}
-                <input type="checkbox" name="permissions" value="{{door.id}}"
+                <input type="checkbox" class="checkbox" name="permissions" value="{{door.id}}"
                 id="{{door.id}}"
                 {%for permission in permissions %}
                   {%if permission.door == door %}
@@ -124,5 +131,25 @@
 
 
 
+{% block javascript %}
+<script>
+$(document).ready(function () {
+    $('#AllCheckbox').click(function () {
+        $('#NoneCheckbox').prop('checked',false);
+        $('.checkbox').prop('checked', "checked");
+    });
 
+    $('#NoneCheckbox').click(function () {
+        $('#AllCheckbox').prop('checked',false);
+        $('.checkbox').prop('checked',false);
+    });
+
+    $('.checkbox').click(function () {
+        alert('Type checkbox was clicked');
+        $('#AllCheckbox').prop('checked',false);
+        $('#NoneCheckbox').prop('checked',false);
+    });
+});
+</script>
+{% endblock %}
 {% endblock %}
