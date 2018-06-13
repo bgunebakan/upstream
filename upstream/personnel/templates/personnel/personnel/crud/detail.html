@@ -46,6 +46,7 @@
                 <a href="/personnel/personnel/{{object.id}}/update" class="btn btn-primary" align="center">Update Details</a>
                 {% get_folder object.id as folder%}
                 <a href="/admin/filer/folder/{{folder.id}}/list/" class="btn btn-warning" align="center">User Files</a>
+                <a data-toggle="modal" href="#Annual_leaveModal" class="btn btn-success" align="center">Annual Leave</a>
               </div>
             {%endif%}
           {%endif%}
@@ -280,4 +281,81 @@
     <!-- /.col -->
   </div>
   <!-- /.row -->
+
+  <!-- MODAL DIALOG -->
+    <div class="modal fade" id="Annual_leaveModal" role="dialog">
+        <div class="modal-dialog">
+
+          <!-- Modal content-->
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal">&times;</button>
+              <h4 style="color:green;">Annual Leave Request</h4>
+            </div>
+            <div class="modal-body">
+              <div class="col-md-12">
+                <form action="/personnel/annual_leave/create?success_url=/" method="POST" enctype="multipart/form-data">
+                  {% csrf_token %}
+                  <div class="box-body row">
+                    <div class="col-md-12">
+                      <div id="div_id_user" class="form-group col-md-12">
+                        <div class="controls hidden">
+                          <select name="user" required="" class="select form-control select2-hidden hidden" id="id_user" tabindex="-1" aria-hidden="true">
+                            <option value="{{request.user.id}}">{{request.user.first_name}} {{request.user.last_name}}</option>
+                          </select>
+                        </div>
+                      </div>
+                       <div id="div_id_start_date" class="form-group col-md-6">
+                         <label for="id_start_date" class="control-label  requiredField">
+                           Start Date<span class="asteriskField">*</span> </label> <div class="controls "> <script>
+                           $(function () {
+                             $('.datepickerwidget').datepicker({
+                               autoclose: true
+                             });
+                           });
+                           </script>
+                           <div class="input-group date">
+                             <div class="input-group-addon">
+                               <i class="fa fa-calendar"></i>
+                             </div>
+                             <input class="datepickerwidget form-control" data-date-format="dd/mm/yyyy" name="start_date" id="id_start_date" value="" type="text">
+                           </div>
+                         </div>
+                       </div>
+                       <div id="div_id_end_date" class="form-group col-md-6">
+                         <label for="id_end_date" class="control-label  requiredField">
+                      End Date<span class="asteriskField">*</span> </label> <div class="controls "> <script>
+                      $(function () {
+                        $('.datepickerwidget').datepicker({
+                          autoclose: true
+                        });
+                      });
+                    </script>
+                    <div class="input-group date"> <div class="input-group-addon"> <i class="fa fa-calendar"></i> </div> <input class="datepickerwidget form-control" data-date-format="dd/mm/yyyy" name="end_date" id="id_end_date" value="" type="text">
+                  </div> </div> </div> <div id="div_id_notes" class="form-group col-md-12">
+                    <label for="id_notes" class="control-label ">Notes</label>
+                  <div class="controls ">
+                    <textarea name="notes" maxlength="300" id="id_notes" rows="10" class="textarea form-control" cols="40">
+                    </textarea>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <div class="controls ">
+                    <input name="submit" value="Submit" class="btn btn-primary btn btn-primary" id="submit-id-submit" type="submit">
+                    </div>
+                  </div>
+
+                </div>
+              </div>
+            </form>
+
+              </div>
+            <div class="modal-footer">
+              <button type="submit" class="btn btn-warning" data-dismiss="modal"><span class="glyphicon glyphicon-remove"></span> Cancel</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+      <!-- /MODAL DIALOG -->
 {% endblock %}

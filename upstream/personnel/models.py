@@ -198,5 +198,16 @@ class Personnel_file(models.Model):
 
     def __unicode__(self):
         return self.name
-#auditlog.register(Personnel)
-#auditlog.register(Personnel_type)
+
+class Annual_leave(models.Model):
+    user = models.ForeignKey(User, verbose_name=_(u'User'),null=True,on_delete=models.SET_NULL)
+    start_date = models.DateField(verbose_name=_(u'Start Date'))
+    end_date = models.DateField(verbose_name=_(u'End Date'))
+    notes = models.TextField(max_length=300,verbose_name = "Notes",null=True,blank=True)
+    approved = models.BooleanField(default=False,blank=True,verbose_name = "Approved")
+    class Meta:
+        verbose_name = _(u'Annual Leave')
+        verbose_name_plural = _(u'Annual Leaves')
+
+    def __unicode__(self):
+        return unicode(self.user) + unicode(self.start_date) + unicode(self.end_date)

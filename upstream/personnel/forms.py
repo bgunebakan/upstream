@@ -12,7 +12,7 @@ from cruds_adminlte import (DatePickerWidget,
                             DateTimePickerWidget,
                             ColorPickerWidget,
                             CKEditorWidget)
-from .models import Personnel,Personnel_type #,Identifier,IdentifierType,Controller,Door,Door_group
+from .models import Personnel,Personnel_type,Annual_leave #,Identifier,IdentifierType,Controller,Door,Door_group
 
 class UserForm(forms.ModelForm):
 
@@ -132,6 +132,41 @@ class Personnel_typeForm(forms.ModelForm):
             Field('slug', wrapper_class="col-md-4"),
             Field('icon', wrapper_class="col-md-4"),
             Field('color', wrapper_class="col-md-4"),
+
+        )
+        self.helper.layout.append(
+            FormActions(
+                Submit('submit', _('Submit'), css_class='btn btn-primary'),
+                HTML("""{% load i18n %}<a class="btn btn-danger"
+                        href="{{ url_delete }}">{% trans 'Delete' %}</a>"""),
+            )
+        )
+
+class Annual_leaveForm(forms.ModelForm):
+
+    class Meta:
+        model = Annual_leave
+        fields = ['user','start_date','end_date','notes']
+
+        widgets = {
+
+            'start_date': DatePickerWidget(attrs={'format': 'dd/mm/yyyy',
+                                            'icon': 'fa-calendar'}),
+            'end_date': DatePickerWidget(attrs={'format': 'dd/mm/yyyy',
+                                            'icon': 'fa-calendar'}),
+        }
+    def __init__(self, *args, **kwargs):
+        super(Annual_leaveForm, self).__init__(*args, **kwargs)
+        self.helper = FormHelper(self)
+        self.helper.form_tag = False
+
+        self.helper.layout = Layout(
+
+            _('Genel Bilgiler'),
+            Field('name', wrapper_class="col-md-12"),
+            Field('start_date', wrapper_class="col-md-6"),
+            Field('end_date', wrapper_class="col-md-6"),
+            Field('notes', wrapper_class="col-md-12"),
 
         )
         self.helper.layout.append(

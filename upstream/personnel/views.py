@@ -110,7 +110,18 @@ class Personnel_typeCRUD(CRUDView):
     list_fields = ['name']
     display_fields = ['name', 'slug', 'color','icon']
 
-#@group_required(('personnel','admin'), login_url='/personnel/profile/')
+class Annual_leaveCRUD(CRUDView):
+    model = Annual_leave
+    #template_name_base='crud'  #customer cruds => ccruds
+    namespace = None
+    check_login = True
+    check_perms = True
+    #add_form = Annual_leaveForm
+    #update_form = Annual_leaveForm
+    views_available=['create','delete','list']
+    fields = ['user','start_date','end_date','notes']
+    list_fields = ['user','start_date','end_date']
+    display_fields = ['user','start_date','end_date','notes']
 
 @login_required
 @permission_required('personnel.can_see_avaliable_personnel', login_url='/personnel/profile/')
