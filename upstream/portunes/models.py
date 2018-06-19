@@ -282,6 +282,7 @@ class Permission(models.Model):
 
     def save(self, *args, **kwargs):
 
+        print self.door
         if(self.door.entrance.health):
             print self.identifier
             response = send_controller('A',self.door.entrance.ip_address,unicode(self.door.entrance_controller_pin) +","+ unicode(self.identifier.key) )
@@ -293,7 +294,7 @@ class Permission(models.Model):
 
     def delete(self, *args, **kwargs):
 
-
+        print self.door
         if(self.door.entrance.health):
             response = send_controller('D',self.door.entrance.ip_address,str(self.door.entrance_controller_pin) +","+ str(self.identifier.key))
 
