@@ -88,7 +88,6 @@ def get_all_doors():
 @register.simple_tag
 def get_group_doors(id):
     if id is not None:
-
         try:
             group_doors = DoorGroup.objects.filter(id=id)
             for door in group_doors:
