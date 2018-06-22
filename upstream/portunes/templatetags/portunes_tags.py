@@ -68,3 +68,33 @@ def all_users():
     except ObjectDoesNotExist:
         return "User does not Exist!"
     return users
+
+@register.simple_tag
+def get_all_controllers():
+    try:
+        controllers = Controller.objects.filter(health=True).order_by('name')
+    except ObjectDoesNotExist:
+        return "Controller does not Exist!"
+    return controllers
+
+@register.simple_tag
+def get_all_doors():
+    try:
+        doors = Door.objects.all().order_by('entrance_controller_pin')
+    except ObjectDoesNotExist:
+        return "Door does not Exist!"
+    return doors
+
+@register.simple_tag
+def get_group_doors(id):
+    if id is not None:
+
+        try:
+            group_doors = DoorGroup.objects.filter(id=id)
+            for door in group_doors:
+                print door.doors.filter(doorgroup=id)
+        except ObjectDoesNotExist:
+            print "Door does not Exist!"
+        return door.doors.filter(doorgroup=id)
+    else:
+        return None

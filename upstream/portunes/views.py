@@ -83,13 +83,13 @@ class DoorCRUD(CRUDView):
     paginate_template = 'cruds/pagination/enumeration.html'
 
 class DoorGroupCRUD(CRUDView):
-    model = Door_group
+    model = DoorGroup
     template_name_base='crud'  #customer cruds => ccruds
     namespace = None
     check_login = True
     check_perms = True
-    #add_form = DoorForm
-    #update_form = DoorForm
+    add_form = DoorGroupForm
+    update_form = DoorGroupForm
 
     views_available=['create', 'list', 'update','delete']
     fields = ['name','doors']
@@ -204,62 +204,6 @@ def logs(request):
         messages.success(request, controller.name + ' hareketler sisteme yuklendi.')
 
     return HttpResponseRedirect('/portunes/')
-# @login_required
-# def logs(request):
-#
-#     for controller in Controller.objects.filter(health=True):
-#
-#         while True:
-#             response = send_controller('L',controller.ip_address,'')
-#             if response is  True or response is False:
-#                 break
-#             response = response.split(",")
-#                 #response = "15376653,1,1,10.6.2017,12:12:30".split(",")
-#             try:
-# 		        door = Door.objects.get(entrance=controller,entrance_controller_pin=response[1])
-#             except Door.DoesNotExist:
-#                 continue
-#             try:
-#                 identifier = Identifier.objects.get(key=response[0]) # chect identifier is exist
-#             except Identifier.DoesNotExist:
-#                 identifier = Identifier.objects.create(key=response[0], #if not exist create UndefinedCard
-#                                     name='Tanımsız kart',
-#                                     identifier_type=2,
-#                                     is_active=False,deleted=True)
-#
-#             if (door.enter):
-#                 action_type = Action_type.objects.get(action_type=int(response[2]))
-#             else:
-#                 action_type = Action_type.objects.get(action_type=2)
-#             print action_type.action_type
-#
-#             try:
-#                 if action_type.action_type is not 4:
-#                     user = User.objects.get(id=identifier.user.id)
-#                 else:
-#                     user = None
-#             except User.DoesNotExist:
-#                 user = None
-#                 action_type = Action_type.objects.get(action_type=3)
-#
-#             date_str = response[3]
-#             time_str = response[4].split("\n")
-#
-#             date = date_str + "," + time_str[0]
-#             finaldate = datetime.strptime(date, '%d.%m.%Y,%H:%M:%S')
-#
-#             action = Action(
-#                     user=user,
-# 		    identifier=identifier,
-#                     door=Door.objects.get(entrance=controller,entrance_controller_pin=response[1]),
-#                     action_type=action_type,
-#                     created_date=finaldate
-#             )
-#             action.save()
-#
-#         messages.success(request, controller.name + ' hareketler sisteme yuklendi.')
-#
-#     return HttpResponseRedirect('/portunes/')
 
 @login_required
 def settime(request):
@@ -423,7 +367,7 @@ def user_access(request, user_id):
             user = User.objects.get(id=user_id)
             identifier = Identifier.objects.filter(user=user)
             permissions = Permission.objects.filter(identifier__in=identifier)
-            door_groups = Door_group.objects.all()
+            door_groups = DoorGroup.objects.all()
         except User.DoesNotExist:
             raise Http404("Kullanici Bulunamadi")
 

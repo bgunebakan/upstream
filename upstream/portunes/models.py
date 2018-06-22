@@ -118,7 +118,7 @@ class Door(models.Model):
     def __unicode__(self):
         return self.entrance.name + ' -- ' + unicode(self.name)
 
-class Door_group(models.Model):
+class DoorGroup(models.Model):
 
     name = models.CharField(
         max_length=30,
@@ -127,7 +127,7 @@ class Door_group(models.Model):
             'unique': 'That door group is already saved.'
         }
     )
-    doors = models.ManyToManyField(Door)
+    doors = models.ManyToManyField(Door,verbose_name="Doors")
 
     created_date = models.DateTimeField(default=timezone.now)
 
