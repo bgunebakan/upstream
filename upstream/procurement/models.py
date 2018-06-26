@@ -7,6 +7,7 @@ from datetime import datetime
 from django.contrib.auth.models import User,Group
 from django.utils.deconstruct import deconstructible
 import os
+from uuid import uuid4
 
 @deconstructible
 class UploadToPathAndRename(object):
@@ -34,11 +35,12 @@ class SpecificationFileUpload(object):
     def __call__(self, instance, filename):
         ext = filename.split('.')[-1]
         # get filename
+        print "-----",instance.no
         if instance.pk:
             filename = '{}.{}'.format(unicode("Tender_"+ instance.no), ext)
         else:
             # set filename as random string
-            filename = '{}.{}'.format(uuid4().hex, ext)
+            filename = '{}.{}'.format("Tender_"+unicode(uuid4().hex), ext)
         # return the whole path to the file
         return os.path.join(self.sub_path, filename)
 
@@ -55,7 +57,7 @@ class OfferFileUpload(object):
             filename = '{}.{}'.format(unicode("Offer_"+instance.tender.no), ext)
         else:
             # set filename as random string
-            filename = '{}.{}'.format(uuid4().hex, ext)
+            filename = '{}.{}'.format("Offer_"+unicode(uuid4().hex), ext)
         # return the whole path to the file
         return os.path.join(self.sub_path, filename)
 
