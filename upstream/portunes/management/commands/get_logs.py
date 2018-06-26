@@ -1,7 +1,9 @@
 # -*- coding: utf-8 -*-
 from django.core.management.base import BaseCommand, CommandError
-from portunes.models import Controller,Door
+from portunes.models import Controller,Door,Identifier,Action_type,Action
+from django.contrib.auth.models import User
 from portunes.utils import send_controller
+from datetime import datetime
 
 class Command(BaseCommand):
     help = 'Get logs from controllers'
@@ -34,6 +36,7 @@ class Command(BaseCommand):
                 try:
     		        door = Door.objects.get(entrance=controller,entrance_controller_pin=action_door)
                 except Door.DoesNotExist:
+                    self.stdout.write(self.style.ERROR('Door Does not exist'))
                     #messages.error(request,'Door does not exist pin:' + action_door + '. Controller: '+unicode(controller))
                     #return HttpResponseRedirect('/portunes/logs')
 

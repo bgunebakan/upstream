@@ -20,7 +20,7 @@ class Command(BaseCommand):
             print response
             if response:
                 controller.health = True
-                messages.success(request, controller.name + ' saati guncellendi.')
+                #messages.success(request, controller.name + ' saati guncellendi.')
             else:
                 controller.health = False
 
