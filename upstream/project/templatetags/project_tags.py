@@ -3,6 +3,9 @@ from django import template
 from django.core.urlresolvers import resolve
 from project.models import Project,Task,Log
 from django.core.exceptions import ObjectDoesNotExist
+from auditlog.models import LogEntry
+from personnel.models import Personnel
+from django.contrib.auth.models import User
 
 register = template.Library()
 

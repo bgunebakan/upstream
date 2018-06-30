@@ -5,7 +5,6 @@ from personnel.models import Personnel
 from portunes.models import Door,Permission
 from django import template
 from django.core.exceptions import ObjectDoesNotExist
-from auditlog.models import LogEntry
 from django.contrib.auth.models import User
 from portunes.tables import *
 from django_tables2 import RequestConfig

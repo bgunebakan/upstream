@@ -170,6 +170,8 @@ class Personnel(models.Model):
         self.save()
         return
 
+auditlog.register(Personnel)
+
 class Personnel_file(models.Model):
     name = models.CharField(
         max_length=30,

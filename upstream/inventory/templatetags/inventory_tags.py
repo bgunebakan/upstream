@@ -2,7 +2,6 @@
 from inventory.models import *
 from django import template
 from django.core.exceptions import ObjectDoesNotExist
-from auditlog.models import LogEntry
 from django.contrib.auth.models import User
 from inventory.tables import LogTable
 

@@ -1,11 +1,11 @@
 <footer class="main-footer">
     <div class="pull-right hidden-xs">
         {% block footer_right %}
-        
-        <strong>Powered by
-          <a href="http://creworker.com">Upstream</a>
-        </strong>
 
+        <strong>Powered by
+          <a href="http://creworker.com">{{ config.title }}</a>
+        </strong>
+        {{ config.version }}
         {% endblock %}
     </div>
 

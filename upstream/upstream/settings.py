@@ -61,6 +61,7 @@ INSTALLED_APPS = [
     'constance',
     'constance.backends.database',
     'import_export',
+
     'homepage',
     'procurement',
     'personnel',
@@ -110,11 +111,12 @@ CONSTANCE_BACKEND = 'constance.backends.database.DatabaseBackend'
 
 
 CONSTANCE_CONFIG = {
-    'title': ("Upstream","Software name"),
+    'title': ("Creworker","Software name",str),
+    'version': ("0.4.0","Version",str),
     'hide_sidebar': (False, 'Left sidebar setting '),
 }
 CONSTANCE_CONFIG_FIELDSETS = {
-    'General Options': ('title','hide_sidebar'),
+    'General Options': ('title','version','hide_sidebar'),
 }
 
 #RAVEN_CONFIG = {
@@ -137,7 +139,7 @@ MIDDLEWARE_CLASSES = [
     'auditlog.middleware.AuditlogMiddleware',
 ]
 
-DJANGO_SIMPLE_AUDIT_ACTIVATED = True
+#DJANGO_SIMPLE_AUDIT_ACTIVATED = True
 
 ROOT_URLCONF = 'upstream.urls'
 
