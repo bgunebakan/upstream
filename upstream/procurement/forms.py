@@ -54,7 +54,7 @@ class TenderForm(forms.ModelForm):
                 attrs={'format': 'dd/mm/yyyy',
                        'icon': 'fa-calendar'}),
             'auction_time': TimePickerWidget(
-                attrs={'format': 'hh:ii',
+                attrs={'format': 'HH:ii:ss',
                        'icon': 'fa-clock-o'}),
             'notes': CKEditorWidget(attrs={'lang': 'tr'}),
 
@@ -231,7 +231,7 @@ class TravellingExpenseForm(forms.ModelForm):
                                             'icon': 'fa-calendar'}),
             'notes': CKEditorWidget(attrs={'lang': 'tr'}),
         }
-        
+
     def __init__(self, *args, **kwargs):
         super(TravellingExpenseForm, self).__init__(*args, **kwargs)
         self.helper = FormHelper(self)

@@ -268,7 +268,7 @@ AUTH_PASSWORD_VALIDATORS = [
 LANGUAGE_CODE = 'tr-TR'#'en-US'
 
 TIME_ZONE = 'Europe/Istanbul'
-
+TIME_INPUT_FORMATS = ('%H:%M','%I:%M %p')
 USE_I18N = True
 
 USE_L10N = True

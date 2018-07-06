@@ -1,0 +1,3 @@
+[submodule "upstream/django-cruds-adminlte-dev"]
+	path = upstream/django-cruds-adminlte-dev
+	url = https://github.com/oscarmlage/django-cruds-adminlte
