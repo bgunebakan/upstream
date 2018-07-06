@@ -31,6 +31,9 @@
 
           <ul class="list-group list-group-unbordered">
             <li class="list-group-item">
+              <b>Item Code</b> <a class="pull-right">{% get_item_code object.id as item_code%}{{item_code}}</a>
+            </li>
+            <li class="list-group-item">
               <b>Item Type</b> <a class="pull-right">{{ object.item_type }}</a>
             </li>
             <li class="list-group-item">

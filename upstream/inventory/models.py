@@ -165,6 +165,7 @@ class Item(models.Model):
     model = models.CharField(verbose_name=_(u'Model'), max_length=32, null=True, blank=True)
     part_number = models.CharField(verbose_name=_(u'Part Number'), max_length=32, null=True, blank=True)
     code = models.CharField(max_length=10,default="01", verbose_name=_(u'Code'))
+    owner_code = models.CharField(max_length=1,default="T", verbose_name=_(u'Owner Code'))
     quantity = models.IntegerField(default=1, verbose_name=_(u'Quantity'))
     unit = models.ForeignKey(Unit, verbose_name=_(u'Unit'),blank=True,null=True,on_delete=models.SET_NULL)
     owner = models.ForeignKey(User, verbose_name=_(u'Owner'),blank=True,null=True,on_delete=models.SET_NULL)

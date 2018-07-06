@@ -8,6 +8,15 @@ from inventory.tables import LogTable
 register = template.Library()
 
 @register.simple_tag
+def get_item_code(id):
+    try:
+        item = Item.objects.get(id=id)
+        item_code = item.item_type.code + "-"+item.owner_code +":"+ item.category.code + item.code
+    except ObjectDoesNotExist:
+        return "0000"
+    return item_code
+
+@register.simple_tag
 def get_logs(id):
     try:
         logs = Log.objects.filter(item__id=id).order_by('-timedate')

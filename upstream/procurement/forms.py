@@ -123,7 +123,7 @@ class Tender_Form(forms.ModelForm):
                 attrs={'format': 'dd/mm/yyyy',
                        'icon': 'fa-calendar'}),
             'auction_time': TimePickerWidget(
-                attrs={'format': 'hh:ii',
+                attrs={'format': 'HH:ii',
                        'icon': 'fa-clock-o'}),
             'notes': CKEditorWidget(attrs={'lang': 'tr'}),
 
