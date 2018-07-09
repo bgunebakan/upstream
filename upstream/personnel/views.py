@@ -112,7 +112,7 @@ class Personnel_typeCRUD(CRUDView):
 
 class Annual_leaveCRUD(CRUDView):
     model = Annual_leave
-    #template_name_base='crud'  #customer cruds => ccruds
+    template_name_base='crud'  #customer cruds => ccruds
     namespace = None
     check_login = True
     check_perms = True

@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-from personnel.models import Personnel
+from personnel.models import Personnel,Annual_leave
 from django import template
 from django.core.exceptions import ObjectDoesNotExist
 from auditlog.models import LogEntry
@@ -16,6 +16,18 @@ def get_personnel(request):
     except ObjectDoesNotExist:
         return ""
     return personnel
+
+@register.simple_tag
+def get_annual_leaves(request):
+    
+    try:
+        if request.user.is_superuser:
+            annual_leaves = Annual_leave.objects.all()
+        else:
+            annual_leaves = Annual_leave.objects.filter(user=request.user)
+    except ObjectDoesNotExist:
+        return ""
+    return annual_leaves
 
 @register.simple_tag
 def select_personnel(id):

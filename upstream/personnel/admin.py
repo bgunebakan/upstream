@@ -13,3 +13,4 @@ class PersonnelAdmin(admin.ModelAdmin):
 admin.site.register(models.Personnel,PersonnelAdmin)
 admin.site.register(models.Personnel_type)
 admin.site.register(models.Personnel_file)
+admin.site.register(models.Annual_leave)
