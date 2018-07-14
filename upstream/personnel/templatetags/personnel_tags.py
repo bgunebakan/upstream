@@ -19,7 +19,7 @@ def get_personnel(request):
 
 @register.simple_tag
 def get_annual_leaves(request):
-    
+
     try:
         if request.user.is_superuser:
             annual_leaves = Annual_leave.objects.all()
