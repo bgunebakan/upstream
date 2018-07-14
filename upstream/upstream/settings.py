@@ -76,7 +76,7 @@ INSTALLED_APPS = [
     'menu',
     'django_python3_ldap',
     'auditlog',
-    'fullcalendar',
+#    'fullcalendar',
     #'csvimport.app.CSVImportConf',
 
 #    'raven.contrib.django.raven_compat',
