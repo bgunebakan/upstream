@@ -1,0 +1,5 @@
+{% load crud_tags %}
+
+{%for item in object.inchargeuser.all%}
+{{item.first_name}} {{item.last_name}},
+{%endfor%}
