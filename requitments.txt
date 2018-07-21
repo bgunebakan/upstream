@@ -4,7 +4,7 @@ django_phonenumber_field
 django_countries
 django_mailbox
 django_adminlte2
-python-dateutil
+python-dateutil==2.6.0
 django-python3-ldap
 bootstrap3-datetime
 django-tables2
@@ -17,7 +17,7 @@ matplotlib
 django-constance[database]
 raven
 django-select2
-easy_thumbnails
+easy-thumbnails
 django-image-cropping
 djangoajax==2.3.7
 django-cruds-adminlte
@@ -28,3 +28,5 @@ django_filer
 django_libs
 django_generic_positions
 mysqlclient
+celery
+django-import-export

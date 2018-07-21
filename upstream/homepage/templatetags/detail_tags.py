@@ -16,10 +16,10 @@ def appname(request):
         return 'Project'
     elif '/portunes/' in request.path :
         return 'Access Control'
-    elif '/personnel/' or '/user/' in request.path :
+    elif '/personnel/' in request.path or '/user/' in request.path :
         return 'User Management'
     else:
-        return 'Web Services'
+        return 'TARLA Internal'
 
 
 @register.simple_tag
