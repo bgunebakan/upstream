@@ -115,7 +115,7 @@ class Annual_leaveCRUD(CRUDView):
     template_name_base='crud'  #customer cruds => ccruds
     namespace = None
     check_login = True
-    check_perms = True
+    check_perms = False
     #add_form = Annual_leaveForm
     #update_form = Annual_leaveForm
     views_available=['create','delete','list']
