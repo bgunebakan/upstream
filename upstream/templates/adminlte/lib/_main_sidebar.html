@@ -73,9 +73,9 @@
             </li>
             {%endif%}
 
-            {%if '/personnel/' in request.path %}
+            {%if '/personnel/' in request.path or '/auth/' in request.path %}
             {% load menubuilder %}{% menu personnel %}
-            <li class="treeview {% add_active '/personnel/' request %}" id="active">
+            <li class="treeview {% add_active '/personnel/' request %} {% add_active '/auth/' request %}" id="active">
                 <a href="#">
                   <i class="fa fa-group"></i>
                   <span>User Management</span>
