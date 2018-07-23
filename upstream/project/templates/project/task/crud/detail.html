@@ -90,6 +90,15 @@
       <!-- The time line -->
       <ul class="timeline">
         {%get_comments object as comments%}
+        {%if not comments%}
+          <li>
+              <i class="fa fa-exclamation bg-red"></i>
+
+              <div class="timeline-item">
+                <h3 class="timeline-header no-border">There is no comment yet.</h3>
+              </div>
+          </li>
+        {%endif%}
         {%for comment in comments%}
           <!-- timeline time label -->
           <li class="time-label">

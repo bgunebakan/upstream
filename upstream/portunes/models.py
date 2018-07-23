@@ -62,6 +62,9 @@ class Controller(models.Model):
         self.save()
         return
 
+    def get_absolute_url(self):
+        return "/portunes/controller/%i" % self.id
+
     def __unicode__(self):
         return unicode(self.name) + " - "+unicode(self.mac)
 
@@ -115,6 +118,9 @@ class Door(models.Model):
             ('view_door', 'Can view doors'),
         )
 
+    def get_absolute_url(self):
+        return "/portunes/door/%i" % self.id
+
     def __unicode__(self):
         return self.entrance.name + ' -- ' + unicode(self.name)
 
@@ -135,6 +141,9 @@ class DoorGroup(models.Model):
         ordering = ['name']
         verbose_name = _(u'Door Group')
         verbose_name_plural = _(u'Door Groups')
+
+    def get_absolute_url(self):
+        return "/portunes/door_group/%i" % self.id
 
     def __unicode__(self):
         return self.name
@@ -161,13 +170,15 @@ class Action(models.Model):
         verbose_name = _(u'Action')
         verbose_name_plural = _(u'Actions')
 
+    def get_absolute_url(self):
+        return "/portunes/action/list"
+
     def __unicode__(self):
         message = str(self.id) + ':'
         if self.door:
             message += 'Door ' + self.door.name + ' | '
         if self.action_type:
             message += ' ' + self.action_type.message
-
         return message
 
 class Action_type(models.Model):
@@ -209,6 +220,9 @@ class Action_type(models.Model):
         ordering = ['action_type']
         verbose_name = _(u'Action Type')
         verbose_name_plural = _(u'Action Types')
+
+    def get_absolute_url(self):
+        return "/portunes/action_type/%i" % self.id
 
     def __unicode__(self):
         return self.message
@@ -268,6 +282,9 @@ class Identifier(models.Model):
             ('view_identifier', 'Can view identifiers'),
         )
 
+    def get_absolute_url(self):
+        return "/portunes/access/%i" % self.user.id
+
     def __unicode__(self):
         return unicode(self.name) + "-" + self.key
 
@@ -306,6 +323,9 @@ class Permission(models.Model):
         ordering = ['identifier']
         verbose_name = _(u'Permission')
         verbose_name_plural = _(u'Permissions')
+
+    def get_absolute_url(self):
+        return "/portunes/access/%i" % self.identifier.user.id
 
     def __unicode__(self):
         return unicode(self.identifier) + "-" + unicode(self.door)

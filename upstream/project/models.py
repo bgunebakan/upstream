@@ -6,6 +6,7 @@ from django.utils import timezone
 from datetime import datetime
 from django.contrib.auth.models import User
 from django.utils.translation import ugettext_lazy as _
+from django.core.urlresolvers import reverse
 
 class Project(models.Model):
     name = models.CharField(max_length=50)
@@ -18,6 +19,10 @@ class Project(models.Model):
 
     def __unicode__(self):
         return self.name
+
+    def get_absolute_url(self):
+        return "/project/project/%i" % self.id
+
     class Meta:
         ordering = ['name']
         verbose_name = _(u'Project')
@@ -52,7 +57,7 @@ class Task(models.Model):
     created_date = models.DateTimeField(verbose_name='date created',default=timezone.now, editable=False)
     updated_date = models.DateTimeField(auto_now=True,verbose_name='update date', blank=True, editable=False)
     start_date = models.DateTimeField(default=timezone.now,verbose_name='start date')
-    end_date = models.DateTimeField('end date')
+    end_date = models.DateTimeField(default=timezone.now() + timezone.timedelta(days=1),verbose_name='end date')
     percent_done = models.PositiveSmallIntegerField(default=0,null=True,blank=True,verbose_name="percent done")
 
     top_task = models.ForeignKey('self',null=True,blank=True,on_delete=models.SET_NULL,verbose_name="Top Task")
@@ -68,6 +73,9 @@ class Task(models.Model):
 
     def __unicode__(self):
         return self.name
+    def get_absolute_url(self):
+        return "/project/task/%i" % self.id
+
     class Meta:
         ordering = ['name']
         verbose_name = _(u'Task')
@@ -81,6 +89,9 @@ class Comment(models.Model):
 
     def __unicode__(self):
         return self.text
+
+    def get_absolute_url(self):
+        return "/project/task/%i" % self.task.id
 
     class Meta:
         ordering = ['-date']

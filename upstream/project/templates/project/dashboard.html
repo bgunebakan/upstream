@@ -85,7 +85,7 @@
           {%tasks 5 request as tasks%}
           {%for task in tasks%}
             <div class="info-box bg-{{task.task_type.color}}">
-              <a href="/project/task/{{task.id}}/update" style="color:#fff;"><span class="info-box-icon"><i class="fa fa-{{task.task_type.icon}}"></i></span></a>
+              <a href="/project/task/{{task.id}}" style="color:#fff;"><span class="info-box-icon"><i class="fa fa-{{task.task_type.icon}}"></i></span></a>
 
               <div class="info-box-content">
                 <span class="info-box-text">{{task.name}}</span>

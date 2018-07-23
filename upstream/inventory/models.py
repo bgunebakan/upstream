@@ -41,9 +41,8 @@ class Location(models.Model):
     def __unicode__(self):
         return self.name
 
-    @models.permalink
     def get_absolute_url(self):
-        return ('location_view', [str(self.id)])
+        return "/inventory/location/list"
 
 class Inventory(models.Model):
     name = models.CharField(max_length=32, verbose_name=_(u'Name'))
@@ -56,9 +55,8 @@ class Inventory(models.Model):
         verbose_name = _(u'Inventory')
         verbose_name_plural = _(u'Inventories')
 
-    @models.permalink
     def get_absolute_url(self):
-        return ('inventory_view', [str(self.id)])
+        return "/inventory/inventory/list"
 
     def __unicode__(self):
         return self.name
@@ -72,6 +70,9 @@ class Unit(models.Model):
         ordering = ['name']
         verbose_name = _(u'Unit')
         verbose_name_plural = _(u'Units')
+
+    def get_absolute_url(self):
+        return "/inventory/unit/%i/update" % self.id
 
     def __unicode__(self):
         return self.name
@@ -88,6 +89,9 @@ class Category(models.Model):
         verbose_name = _(u'Category')
         verbose_name_plural = _(u'Categories')
 
+    def get_absolute_url(self):
+        return "/inventory/item/list?category=%i" % self.id
+
     def __unicode__(self):
         return self.name
 
@@ -102,6 +106,9 @@ class Room(models.Model):
         ordering = ['name']
         verbose_name = _(u'Room')
         verbose_name_plural = _(u'Rooms')
+
+    def get_absolute_url(self):
+        return "/inventory/room/%i/update" % self.id
 
     def __unicode__(self):
         return self.name
@@ -118,6 +125,9 @@ class Shelf(models.Model):
         ordering = ['name']
         verbose_name = _(u'Shelf')
         verbose_name_plural = _(u'Shelves')
+
+    def get_absolute_url(self):
+        return "/inventory/shelf/%i/update" % self.id
 
     def __unicode__(self):
         return unicode(self.room.location) + " > " + unicode(self.room) + " > " + unicode(self.name)
@@ -142,6 +152,9 @@ class ItemType(models.Model):
             total = total + 1
         return total
 
+    def get_absolute_url(self):
+        return "/inventory/itemtype/list"
+
     def __unicode__(self):
         return self.name
 
@@ -155,6 +168,9 @@ class ItemStatus(models.Model):
         ordering = ['name']
         verbose_name = _(u'Item Status')
         verbose_name_plural = _(u'Item Status')
+
+    def get_absolute_url(self):
+        return "/inventory/itemstatus/list"
 
     def __unicode__(self):
         return self.name
@@ -185,9 +201,8 @@ class Item(models.Model):
         verbose_name = _(u'Item')
         verbose_name_plural = _(u'Items')
 
-    @models.permalink
     def get_absolute_url(self):
-        return ('template_view', [str(self.id)])
+        return "/inventory/item/%i" % self.id
 
     def __unicode__(self):
         return self.name
@@ -206,6 +221,9 @@ class Log(models.Model):
         ordering = ['timedate']
         verbose_name = _(u'Action')
         verbose_name_plural = _(u'Actions')
+
+    def get_absolute_url(self):
+        return "/inventory/log/%i" % self.id
 
     def __unicode__(self):
         return unicode(self.user) + " " + unicode(self.item) + ' Date:' + unicode(self.timedate)
@@ -227,6 +245,5 @@ class Supplier(models.Model):
     def __unicode__(self):
         return self.name
 
-    @models.permalink
     def get_absolute_url(self):
-        return ('supplier_view', [str(self.id)])
+        return "/inventory/supplier/list"

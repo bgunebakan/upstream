@@ -553,7 +553,7 @@ class CRUDView(object):
         self.create = self.decorator_create(OCreateView.as_view(
             model=self.model,
             fields=fields,
-            success_url=reverse_lazy(url),
+            #success_url=reverse_lazy(url),
             template_name=basename
         ))
 
@@ -577,7 +577,7 @@ class CRUDView(object):
         self.update = self.decorator_update(OUpdateView.as_view(
             model=self.model,
             fields=fields,
-            success_url=reverse_lazy(url),
+            #success_url=reverse_lazy(url),
             template_name=basename
         ))
 

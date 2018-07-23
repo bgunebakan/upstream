@@ -74,7 +74,6 @@ class CommentCRUD(CRUDView):
 
     views_available=['create','update','delete','list']
     fields = ['task','user','text']
-    success_url = "/project/"
     list_fields = ['task','user','text']
     #display_fields = ['name','start_date','end_date','percent_done','top_task','project','inchargeuser','task_type','status','description' ]
 

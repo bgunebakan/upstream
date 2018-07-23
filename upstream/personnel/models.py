@@ -84,6 +84,8 @@ class Personnel_type(models.Model):
 
     def __unicode__(self):
         return self.name
+    def get_absolute_url(self):
+        return "/personnel/"
 
 
 
@@ -169,6 +171,8 @@ class Personnel(models.Model):
         #self.identifier = None
         self.save()
         return
+    def get_absolute_url(self):
+        return "/personnel/personnel/%i" % self.id
 
 auditlog.register(Personnel)
 
@@ -200,6 +204,8 @@ class Personnel_file(models.Model):
 
     def __unicode__(self):
         return self.name
+    def get_absolute_url(self):
+        return "/personnel/personnel/%i" % self.personnel.id
 
 class Annual_leave(models.Model):
     user = models.ForeignKey(User, verbose_name=_(u'User'),null=True,on_delete=models.SET_NULL)
@@ -213,3 +219,6 @@ class Annual_leave(models.Model):
 
     def __unicode__(self):
         return unicode(self.user) + unicode(self.start_date) + unicode(self.end_date)
+
+    def get_absolute_url(self):
+        return "/personnel/annual_leave/list"
