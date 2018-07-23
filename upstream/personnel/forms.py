@@ -12,13 +12,13 @@ from cruds_adminlte import (DatePickerWidget,
                             DateTimePickerWidget,
                             ColorPickerWidget,
                             CKEditorWidget)
-from .models import Personnel,Personnel_type,Annual_leave #,Identifier,IdentifierType,Controller,Door,Door_group
+from .models import Personnel,Personnel_type,Annual_leave
 
 class UserForm(forms.ModelForm):
 
     class Meta:
         model = User
-        fields = ['first_name','last_name','username','email']
+        fields = ['first_name','last_name','username','email','user_permissions']
 
     def __init__(self, *args, **kwargs):
         super(UserForm, self).__init__(*args, **kwargs)
@@ -32,6 +32,7 @@ class UserForm(forms.ModelForm):
                     Field('last_name', wrapper_class="col-md-6"),
                     Field('username', wrapper_class="col-md-6"),
                     Field('email', wrapper_class="col-md-6"),
+                    Field('user_permissions', wrapper_class="col-md-12"),
         )
         self.helper.layout.append(
             FormActions(

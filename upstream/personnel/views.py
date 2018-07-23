@@ -31,9 +31,9 @@ class UserCRUD(CRUDView):
     namespace = None
     check_login = True
     check_perms = True
-    views_available=['create', 'list', 'update', 'detail']
+    views_available=['create', 'list', 'update']
 
-    fields = ['first_name','last_name', 'username','email']
+    fields = ['first_name','last_name', 'username','email','user_permissions']
 
     list_fields = ['first_name','last_name','username','email']
 
