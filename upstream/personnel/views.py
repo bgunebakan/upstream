@@ -33,7 +33,7 @@ class UserCRUD(CRUDView):
     check_perms = True
     views_available=['create', 'list', 'update']
 
-    fields = ['first_name','last_name', 'username','email','user_permissions']
+    fields = ['first_name','last_name', 'username','email','user_permissions','groups']
 
     list_fields = ['first_name','last_name','username','email']
 
