@@ -39,6 +39,7 @@ def select_personnel(id):
 
 @register.simple_tag
 def action_logs(count):
+    return "<b>Log Bulunamadı!</b>"
     try:
         logentries = LogEntry.objects.all().order_by('-timestamp')[:count:1]
     except ObjectDoesNotExist:

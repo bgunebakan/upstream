@@ -28,7 +28,7 @@ from cruds_adminlte.urls import crud_for_app
 from personnel.models import Personnel
 from procurement.views import *
 from portunes.views import ControllerCRUD,DoorCRUD,DoorGroupCRUD,IdentifierCRUD
-from project.views import ProjectCRUD,TaskCRUD
+from project.views import ProjectCRUD,TaskCRUD,CommentCRUD
 from inventory.views import LocationCRUD,InventoryCRUD,CategoryCRUD,ItemTypeCRUD,ItemCRUD,SupplierCRUD,ShelfCRUD
 
 usercrud = UserCRUD()
@@ -48,6 +48,7 @@ identifiercrud = IdentifierCRUD()
 
 projectcrud = ProjectCRUD()
 taskcrud = TaskCRUD()
+commentcrud = CommentCRUD()
 
 locationcrud = LocationCRUD()
 inventorycrud = InventoryCRUD()
@@ -93,6 +94,7 @@ urlpatterns = [
     url(r'^project/', include('project.urls'),name='project'),
     url(r'', include(projectcrud.get_urls())),
     url(r'', include(taskcrud.get_urls())),
+    url(r'', include(commentcrud.get_urls())),
 
     url(r'^inventory/', include('inventory.urls'),name='inventory'),
     url(r'', include(locationcrud.get_urls())),

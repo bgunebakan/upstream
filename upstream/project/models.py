@@ -18,6 +18,10 @@ class Project(models.Model):
 
     def __unicode__(self):
         return self.name
+    class Meta:
+        ordering = ['name']
+        verbose_name = _(u'Project')
+        verbose_name_plural = _(u'Projects')
 
 class Tasktype(models.Model):
     name = models.CharField(max_length=50)
@@ -26,6 +30,10 @@ class Tasktype(models.Model):
 
     def __unicode__(self):
         return self.name
+    class Meta:
+        ordering = ['name']
+        verbose_name = _(u'Task Type')
+        verbose_name_plural = _(u'Task Types')
 
 class Statustype(models.Model):
     name = models.CharField(max_length=50)
@@ -33,6 +41,10 @@ class Statustype(models.Model):
     color = models.CharField(max_length=20,default="yellow",verbose_name = "Color",help_text=_('<a target="_blank" href="http://basscss.com/v7/docs/background-colors/">Renk Seçenekleri</a>'))
     def __unicode__(self):
         return self.name
+    class Meta:
+        ordering = ['name']
+        verbose_name = _(u'Status Type')
+        verbose_name_plural = _(u'Status Types')
 
 class Task(models.Model):
     name = models.CharField(max_length=50)
@@ -56,6 +68,10 @@ class Task(models.Model):
 
     def __unicode__(self):
         return self.name
+    class Meta:
+        ordering = ['name']
+        verbose_name = _(u'Task')
+        verbose_name_plural = _(u'Tasks')
 
 class Comment(models.Model):
     task = models.ForeignKey(Task,null=True,on_delete=models.SET_NULL)
@@ -66,6 +82,11 @@ class Comment(models.Model):
     def __unicode__(self):
         return self.text
 
+    class Meta:
+        ordering = ['-date']
+        verbose_name = _(u'Comment')
+        verbose_name_plural = _(u'Comments')
+
 class Log(models.Model):
     timedate = models.DateTimeField(auto_now_add=True, verbose_name=_(u'Log Time'))
     action = models.CharField(max_length=32, verbose_name=_(u'Action'),default="")
@@ -75,3 +96,8 @@ class Log(models.Model):
 
     def __unicode__(self):
         return unicode(self.user) +" - "+ unicode(self.action) +" "+ unicode(self.description)
+
+    class Meta:
+        ordering = ['-timedate']
+        verbose_name = _(u'Log')
+        verbose_name_plural = _(u'Logs')

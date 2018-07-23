@@ -46,19 +46,42 @@ class TaskCRUD(CRUDView):
     template_name_base='crud'  #customer cruds => ccruds
     namespace = None
     check_login = True
-    check_perms = True
+    check_perms = False
     add_form = TaskForm
     update_form = TaskForm
 
-    views_available=['create', 'list', 'update','delete']
-    fields = ['name','start_date','end_date','percent_done','top_task','project','inchargeuser','group','task_type','status','description' ]
+    views_available=['create', 'list', 'update','detail','delete']
+    fields = ['name','start_date','end_date','percent_done','top_task','project','inchargeuser','task_type','status','description' ]
     list_fields = ['name','start_date','end_date','project','inchargeuser','task_type','status']
-    display_fields = ['name','start_date','end_date','percent_done','top_task','project','inchargeuser','group','task_type','status','description' ]
+    display_fields = ['name','start_date','end_date','percent_done','top_task','project','inchargeuser','task_type','status','description' ]
 
     list_filter = ['project','task_type','task_status','inchargeuser']
 
     search_fields = ['name',  'inchargeuser', 'group','start_date','end_date']
     split_space_search = True
+    paginate_by = 15
+    paginate_position = 'Bottom' # Both | Bottom
+    paginate_template = 'cruds/pagination/enumeration.html'
+
+class CommentCRUD(CRUDView):
+    model = Comment
+    #template_name_base='crud'  #customer cruds => ccruds
+    namespace = None
+    check_login = True
+    check_perms = False
+    #add_form = TaskForm
+    #update_form = TaskForm
+
+    views_available=['create','update','delete','list']
+    fields = ['task','user','text']
+    success_url = "/project/"
+    list_fields = ['task','user','text']
+    #display_fields = ['name','start_date','end_date','percent_done','top_task','project','inchargeuser','task_type','status','description' ]
+
+    #list_filter = ['project','task_type','task_status','inchargeuser']
+
+    #search_fields = ['name',  'inchargeuser', 'group','start_date','end_date']
+    #split_space_search = True
     paginate_by = 15
     paginate_position = 'Bottom' # Both | Bottom
     paginate_template = 'cruds/pagination/enumeration.html'

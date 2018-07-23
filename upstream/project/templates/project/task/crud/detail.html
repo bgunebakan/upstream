@@ -1,40 +1,192 @@
 {% extends template_father %}
 {% load i18n %}
 {% load crud_tags %}
-
-{% block title %} {{ model_verbose_name_plural }}{% trans " list" %}{% endblock %}
+{% load project_tags%}
+{% block title %} {{ object }}{% trans " details" %}{% endblock %}
 {% block bodyclass %}skin-yellow {%if config.hide_sidebar %}sidebar-collapse{%endif%} {% endblock %}
-{% block page_name %}{{ model_verbose_name_plural }}{% endblock %}
-{% block page_description %}{{ model_verbose_name_plural }}{% trans " listesi" %}{% endblock %}
+{% block page_name %}{{ object }}{% endblock %}
+{% block page_description %}{% trans " Details" %}{% endblock %}
 
 {% block content %}
-    <div class="row">
-        <div class="col-xs-12">
-            <div class="box">
+<div class="row">
+  <div class="col-md-12">
+        <div class="box">
+          <div class="box-header with-border">
+            <div class="col-lg-6">
+                {% crud_url object "update" namespace as url %}
+                {% if url and 'update' in views_available and crud_perms.update %}
+                  <a href="{{ url }}{{getparams}}" class="btn btn-primary">
+                      {% trans "Update Details" %}</a>
+                  {%endif%}
+            </div>
+            <h3 class="box-title"></h3>
+          </div>
+          <!-- /.box-header -->
+          <div class="box-body">
+            <div class="row">
+              <div class="col-md-8">
+                <p class="text-center">
+                  <strong>Details</strong>
+                </p>
 
-  {% if url_update and 'update' in views_available and crud_perms.update %}
-  <div class="box-header">
-      <a href="{{ url_update }}{{getparams}}" class="btn btn-primary" >{% trans "Edit" %}</a>
-  </div>
-  {% endif %}
-<div class="box-body">
-<div class="table-responsive">
-  <table class="table">
-    <thead>
-      <th>{% trans 'Label' %}</th><th>{% trans 'Value' %}</th>
-    </thead>
-    <tbody>
-      {% crud_fields object fields %}
-    </tbody>
-  </table>
-</div>
-</div>
-  {% if url_list and 'list' in views_available and crud_perms.list %}
-    <div class="box-footer">
-      <a href="{{ url_list }}{{getparams}}" class="btn btn-primary">{% trans "Back to list" %}</a>
-   </div>
-  {% endif %}
-  </div>
-  </div>
+                <div class="timeline-item">
+                  <span class="time"><i class="fa fa-clock-o"></i> {{object.start_date}} <i class="fa fa-arrow-right"></i> {{object.end_date}} </span>
+
+                  <h3 class="timeline-header"> {{object.description|safe}}</h3>
+
+                  <div class="timeline-body">
+                    {{object.notes}}
+                  </div>
+                </div>
+                <!-- /.chart-responsive -->
+              </div>
+              <!-- /.col -->
+              <div class="col-md-4">
+                <p class="text-center">
+                  <strong>Sub Tasks</strong>
+                </p>
+                {%get_subtasks object as sub_tasks%}
+                {%for task in sub_tasks%}
+                  <div class="progress-group">
+                    <span class="progress-text"><a href="/project/task/{{task.id}}">{{task}}</span></a>
+                    <span class="progress-number"><b>%{{task.percent_done}}</b></span>
+
+                    <div class="progress sm">
+                      <div class="progress-bar progress-bar-green" style="width: {{task.percent_done}}%"></div>
+                    </div>
+                  </div>
+                {%endfor%}
+                <!-- /.progress-group -->
+
+              </div>
+              <!-- /.col -->
+            </div>
+            <!-- /.row -->
+          </div>
+          <!-- ./box-body -->
+          <div class="box-footer">
+            <div class="row">
+              <div class="col-sm-6 col-xs-6">
+                <div class="progress-group">
+                  <span class="progress-text">Complete percent</span>
+                  <span class="progress-number"><b>%{{object.percent_done}}</b></span>
+
+                  <div class="progress sm">
+                    <div class="progress-bar progress-bar-warning" style="width: {{object.percent_done}}%"></div>
+                  </div>
+                </div>
+                <!-- /.description-block -->
+              </div>
+              <!-- /.col -->
+            </div>
+            <!-- /.row -->
+          </div>
+          <!-- /.box-footer -->
+        </div>
+        <!-- /.box -->
+      </div>
+      <!-- Task info -->
+    <div class="col-md-12">
+      <!-- The time line -->
+      <ul class="timeline">
+        {%get_comments object as comments%}
+        {%for comment in comments%}
+          <!-- timeline time label -->
+          <li class="time-label">
+                <span class="bg-red">
+                  {{comment.date|date:"d M Y"}}
+                </span>
+          </li>
+          <!-- /.timeline-label -->
+          <!-- timeline item -->
+          <li>
+            <i class="fa fa-envelope bg-blue"></i>
+
+            <div class="timeline-item">
+              <span class="time"><i class="fa fa-clock-o"></i> {{comment.date|date:"h:i"}}</span>
+
+              <h3 class="timeline-header">{{comment.user.first_name}} {{comment.user.last_name}}</h3>
+
+              <div class="timeline-body">
+              {{comment.text|safe}}
+              </div>
+              <div class="timeline-footer">
+                <a class="btn btn-primary btn-xs">Edit</a>
+                <a class="btn btn-danger btn-xs" href="/project/comment/{{comment.id}}/delete">Delete</a>
+              </div>
+            </div>
+          </li>
+          <!-- END timeline item -->
+        {%endfor%}
+        <li>
+          <i class="fa fa-clock-o bg-gray"></i>
+        </li>
+      </ul>
+    </div>
+    <!-- /.col -->
+
+    <div class="col-md-12">
+
+            <form action="/project/comment/create?success_url=/project/&" method="POST" enctype="multipart/form-data">
+              {% csrf_token %}
+              <div class="box-body row">
+                <div class="col-md-12">
+                  <input type="hidden" name="success_url" value="/project/" />
+                  <div id="div_id_task" class="form-group col-md-12">
+                    <div class="controls hidden">
+                      <select name="task" required="" class="select form-control select2-hidden hidden" id="id_task" tabindex="-1" aria-hidden="true">
+                        <option value="{{object.id}}">{{object}}</option>
+                      </select>
+                    </div>
+                  </div>
+                  <div id="div_id_user" class="form-group col-md-12">
+                    <div class="controls hidden">
+                      <select name="user" required="" class="select form-control select2-hidden hidden" id="id_user" tabindex="-1" aria-hidden="true">
+                        <option value="{{request.user.id}}">{{request.user.first_name}} {{request.user.last_name}}</option>
+                      </select>
+                    </div>
+                  </div>
+
+                  <div id="div_id_text" class="form-group">
+                    <label for="id_text" class="control-label ">Comment</label>
+                    <div class="controls ">
+                      <textarea class="ckeditorwidget form-control" cols="40" maxlength="200" rows="10" name="text" id="id_text" style="visibility: hidden; display: none;" lang="en">
+                      </textarea>
+
+
+<script>
+$(function () {
+    CKEDITOR.replace('id_text', {
+        language: 'en',
+
+    });
+
+    CKEDITOR.config.toolbar = [
+       ['Format','Font','FontSize','Bold','Italic','Underline','StrikeThrough','-',
+        'Undo','Redo','-','Cut','Copy','Paste','Find','Replace','-',
+        'Outdent','Indent','-','Print', '-','NumberedList','BulletedList','-',
+        'JustifyLeft','JustifyCenter','JustifyRight','JustifyBlock','-',
+        'Image','Table','-','Link','Smiley'], ['Source']
+    ] ;
+
+});
+</script> </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="box-footer">
+                <div class="form-group">
+                  <div class="controls">
+                    <button type="submit" class="btn btn-primary">Submit</button>
+
+                  </div>
+                </div>
+              </div>
+
+            </form>
+
+
+    </div>
   </div>
 {% endblock %}
