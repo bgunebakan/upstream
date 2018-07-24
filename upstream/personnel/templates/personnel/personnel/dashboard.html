@@ -11,6 +11,12 @@
 
 {% block bodyclass %}skin-blue {%if config.hide_sidebar %}sidebar-collapse{%endif%} {% endblock %}
 
+{% block breadcrumbs %}
+<ol class="breadcrumb">
+    <li class="active"><a href="/personnel/"><i class="fa fa-dashboard"></i> Dashboard</a></li>
+</ol>
+{% endblock %}
+
 {% block content %}
 <!-- Small boxes (Stat box) -->
 <div class="row">

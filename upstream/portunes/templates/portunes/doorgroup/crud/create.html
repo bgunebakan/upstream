@@ -12,6 +12,13 @@
 
 {% block bodyclass %}skin-purple {%if config.hide_sidebar %}sidebar-collapse{%endif%} {% endblock %}
 
+{% block breadcrumbs %}
+<ol class="breadcrumb">
+    <li><a href="/portunes/"><i class="fa fa-dashboard"></i> Dashboard</a></li>
+    <li class="active">Door Group</li>
+</ol>
+{% endblock %}
+
 {% block content %}
 
 <!-- Content Header (Page header) -->

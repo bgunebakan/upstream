@@ -9,6 +9,12 @@
 {% block page_name %} Inventory{% endblock %}
 {% block page_description %} Dashboard {% endblock %}
 
+{% block breadcrumbs %}
+<ol class="breadcrumb">
+    <li><a href="{{request.path}}"><i class="fa fa-dashboard"></i> Dashboard</a></li>
+    <li class="active"></li>
+</ol>
+{% endblock %}
 
 {% block content %}
     <div class="row">

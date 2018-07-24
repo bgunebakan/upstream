@@ -2,10 +2,16 @@
 {% load i18n %}
 
 {% block title %}{% trans "Create new" %} {{ model_verbose_name_plural|lower }}{% endblock %}
-{% block bodyclass %}skin-red {%if config.hide_sidebar %}sidebar-collapse{%endif%} {% endblock %}
+{% block bodyclass %}skin-green {%if config.hide_sidebar %}sidebar-collapse{%endif%} {% endblock %}
 {% block page_name %}{{ model_verbose_name_plural }}{% endblock %}
 {% block page_description %}{% trans "Sil" %} {{ model_verbose_name_plural|lower }}{% endblock %}
 
+{% block breadcrumbs %}
+<ol class="breadcrumb">
+    <li><a href="/inventory/"><i class="fa fa-dashboard"></i> Dashboard</a></li>
+    <li class="active">Location</li>
+</ol>
+{% endblock %}
 
 {% block content %}
   {% if crud_perms.list %}

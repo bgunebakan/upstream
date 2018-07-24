@@ -7,7 +7,14 @@
 {% block page_name %}User Manager{% endblock %}
 {% block page_description %}Profile{% endblock %}
 
-{% block bodyclass %}skin-blue {%if config.hide_sidebar %}sidebar-collapse{%endif%} {% endblock %}
+{% block bodyclass %}skin-yellow {%if config.hide_sidebar %}sidebar-collapse{%endif%} {% endblock %}
+
+{% block breadcrumbs %}
+<ol class="breadcrumb">
+    <li><a href="/project/"><i class="fa fa-dashboard"></i> Dashboard</a></li>
+    <li class="active">Project Details</li>
+</ol>
+{% endblock %}
 
 {% block page_stylesheets %}
 <!-- ChartJS 1.0.1 -->

@@ -14,6 +14,13 @@
 <script src="{% static 'plugins/chartjs/Chart.min.js' %}"></script>
 {% endblock %}
 
+{% block breadcrumbs %}
+<ol class="breadcrumb">
+    <li><a href="/portunes/"><i class="fa fa-dashboard"></i> Dashboard</a></li>
+    <li class="active">Identifier</li>
+</ol>
+{% endblock %}
+
 {% block content %}
   <div class="row">
     <div class="col-md-3">

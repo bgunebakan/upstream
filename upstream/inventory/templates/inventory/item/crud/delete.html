@@ -6,6 +6,12 @@
 {% block page_name %}{{ model_verbose_name_plural }}{% endblock %}
 {% block page_description %}{% trans "Sil" %} {{ model_verbose_name_plural|lower }}{% endblock %}
 
+{% block breadcrumbs %}
+<ol class="breadcrumb">
+    <li><a href="/inventory/"><i class="fa fa-dashboard"></i> Dashboard</a></li>
+    <li class="active">Item</li>
+</ol>
+{% endblock %}
 
 {% block content %}
   {% if crud_perms.list %}

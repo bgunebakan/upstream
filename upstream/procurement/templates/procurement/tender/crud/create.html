@@ -6,6 +6,13 @@
 {% block page_name %}{{ model_verbose_name_plural }}{% endblock %}
 {% block page_description %}{% trans "Yeni" %} {{ model_verbose_name|lower }}{% trans " oluştur" %}{% endblock %}
 
+{% block breadcrumbs %}
+<ol class="breadcrumb">
+    <li><a href="/procurement/"><i class="fa fa-dashboard"></i> Dashboard</a></li>
+    <li class="active">Tender</li>
+</ol>
+{% endblock %}
+
 {% block content %}
 <div class="row">
     <div class="col-md-10 col-md-offset-1">

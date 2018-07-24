@@ -13,6 +13,13 @@
 
 {% block bodyclass %}skin-yellow {%if config.hide_sidebar %}sidebar-collapse{%endif%} {% endblock %}
 
+{% block breadcrumbs %}
+<ol class="breadcrumb">
+    <li><a href="/project/"><i class="fa fa-dashboard"></i> Dashboard</a></li>
+    <li class="active">Ganttchart</li>
+</ol>
+{% endblock %}
+
 {% block css %}
 {% endblock css %}
 

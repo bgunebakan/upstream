@@ -1,6 +1,13 @@
 {% extends template_father %}
 {% load i18n %}
 
+{% block breadcrumbs %}
+<ol class="breadcrumb">
+    <li><a href="/personnel/"><i class="fa fa-dashboard"></i> Dashboard</a></li>
+    <li class="active">Annual Leave</li>
+</ol>
+{% endblock %}
+
 {% block content %}
   {% if crud_perms.list %}
         <a href="{{ url_list }}{{getparams}}" class="btn btn-info">

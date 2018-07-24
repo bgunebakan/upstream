@@ -7,6 +7,12 @@
 {% block page_name %}{{ model_verbose_name_plural }}{% endblock %}
 {% block page_description %}{{ model_verbose_name_plural }}{% trans " listesi" %}{% endblock %}
 
+{% block breadcrumbs %}
+<ol class="breadcrumb">
+    <li><a href="/procurement/"><i class="fa fa-dashboard"></i> Dashboard</a></li>
+    <li class="active">Travelling Expense</li>
+</ol>
+{% endblock %}
 
 {% block content %}
 <div class="row">

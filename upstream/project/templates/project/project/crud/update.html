@@ -3,9 +3,16 @@
 {% load crud_tags %}
 
 {% block title %}{% trans "Update" %} {{ model_verbose_name_plural|lower }}{% endblock %}
-{% block bodyclass %}skin-blue {%if config.hide_sidebar %}sidebar-collapse{%endif%} {% endblock %}
+{% block bodyclass %}skin-yellow {%if config.hide_sidebar %}sidebar-collapse{%endif%} {% endblock %}
 {% block page_name %}{{ model_verbose_name_plural }}{% endblock %}
 {% block page_description %}{% trans "Update" %} {{ model_verbose_name_plural|lower }}{% endblock %}
+
+{% block breadcrumbs %}
+<ol class="breadcrumb">
+    <li><a href="/project/"><i class="fa fa-dashboard"></i> Dashboard</a></li>
+    <li class="active">Project Update</li>
+</ol>
+{% endblock %}
 
 {% block content %}
 <div class="row">

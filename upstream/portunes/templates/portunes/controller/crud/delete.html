@@ -4,12 +4,19 @@
 {% load crud_tags %}
 {% load static %}
 {% load personnel_tags %}
-{% block title %}Kullanıcı Yönetimi{% endblock %}
+{% block title %}Access Control{% endblock %}
 
-{% block page_name %}Kullanıcı Yönetimi{% endblock %}
-{% block page_description %}Dashboard{% endblock %}
+{% block page_name %}Access Control{% endblock %}
+{% block page_description %}Delete{% endblock %}
 
-{% block bodyclass %}skin-blue {%if config.hide_sidebar %}sidebar-collapse{%endif%} {% endblock %}
+{% block bodyclass %}skin-purple {%if config.hide_sidebar %}sidebar-collapse{%endif%} {% endblock %}
+
+{% block breadcrumbs %}
+<ol class="breadcrumb">
+    <li><a href="/portunes/"><i class="fa fa-dashboard"></i> Dashboard</a></li>
+    <li class="active">Controller</li>
+</ol>
+{% endblock %}
 
 {% block content %}
   {% if crud_perms.list %}

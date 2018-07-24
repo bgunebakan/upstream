@@ -8,6 +8,13 @@
 {% block page_name %}{{ model_verbose_name_plural }}{% endblock %}
 {% block page_description %}{{ model_verbose_name_plural }}{% trans " list" %}{% endblock %}
 
+{% block breadcrumbs %}
+<ol class="breadcrumb">
+    <li><a href="/personnel/"><i class="fa fa-dashboard"></i> Dashboard</a></li>
+    <li class="active">Annual Leave</li>
+</ol>
+{% endblock %}
+
 {% block css %}
 <!-- fullCalendar -->
   <link rel="stylesheet" href="https://adminlte.io/themes/AdminLTE/bower_components/fullcalendar/dist/fullcalendar.min.css">

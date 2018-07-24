@@ -6,6 +6,12 @@
 {% block page_name %}{{ model_verbose_name_plural }}{% endblock %}
 {% block page_description %}{% trans "Detail of" %} {{ object }}{% endblock %}
 
+{% block breadcrumbs %}
+<ol class="breadcrumb">
+    <li><a href="/personnel/"><i class="fa fa-dashboard"></i> Dashboard</a></li>
+    <li class="active">Personnel Type</li>
+</ol>
+{% endblock %}
 
 {% block content %}
     <div class="row">

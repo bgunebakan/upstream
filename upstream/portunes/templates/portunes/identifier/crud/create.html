@@ -6,6 +6,13 @@
 {% block page_name %}{{ model_verbose_name_plural }}{% endblock %}
 {% block page_description %}{% trans "Create new" %} {{ model_verbose_name_plural|lower }}{% endblock %}
 
+{% block breadcrumbs %}
+<ol class="breadcrumb">
+    <li><a href="/portunes/"><i class="fa fa-dashboard"></i> Dashboard</a></li>
+    <li class="active">Identifier</li>
+</ol>
+{% endblock %}
+
 {% block content %}
 <div class="row">
     <div class="col-md-8 col-md-offset-2">

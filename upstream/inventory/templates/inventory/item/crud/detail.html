@@ -16,6 +16,13 @@
 <script src="{% static 'plugins/chartjs/Chart.min.js' %}"></script>
 {% endblock %}
 
+{% block breadcrumbs %}
+<ol class="breadcrumb">
+    <li><a href="/inventory/"><i class="fa fa-dashboard"></i> Dashboard</a></li>
+    <li class="active">Item</li>
+</ol>
+{% endblock %}
+
 {% block content %}
 
   <div class="row">

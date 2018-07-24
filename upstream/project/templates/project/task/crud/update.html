@@ -7,6 +7,13 @@
 {% block page_name %}{{ model_verbose_name_plural }}{% endblock %}
 {% block page_description %}{{ model_verbose_name_plural }}{% trans " listesi" %}{% endblock %}
 
+{% block breadcrumbs %}
+<ol class="breadcrumb">
+    <li><a href="/project/"><i class="fa fa-dashboard"></i> Dashboard</a></li>
+    <li class="active">Task</li>
+</ol>
+{% endblock %}
+
 {% block content %}
 <div class="row">
     <div class="col-md-10 col-md-offset-1">

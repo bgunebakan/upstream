@@ -7,6 +7,13 @@
 {% block page_name %}{{ object }}{% endblock %}
 {% block page_description %}{% trans " Details" %}{% endblock %}
 
+{% block breadcrumbs %}
+<ol class="breadcrumb">
+    <li><a href="/project/"><i class="fa fa-dashboard"></i> Dashboard</a></li>
+    <li class="active">Task Detail</li>
+</ol>
+{% endblock %}
+
 {% block content %}
 <div class="row">
   <div class="col-md-12">
