@@ -19,6 +19,8 @@ class ProjectForm(forms.ModelForm):
 
     def __init__(self, *args, **kwargs):
         super(ProjectForm, self).__init__(*args, **kwargs)
+        users = User.objects.all()
+        self.fields['owner'].choices = [(user.pk, user.get_full_name()) for user in users]
 
 class TaskForm(forms.ModelForm):
 
@@ -36,6 +38,8 @@ class TaskForm(forms.ModelForm):
 
     def __init__(self, *args, **kwargs):
         super(TaskForm, self).__init__(*args, **kwargs)
+        users = User.objects.all()
+        self.fields['inchargeuser'].choices = [(user.pk, user.get_full_name()) for user in users]
         self.helper = FormHelper(self)
         self.helper.form_tag = False
 
@@ -106,3 +110,4 @@ class CommentForm(forms.ModelForm):
 
     def __init__(self, *args, **kwargs):
         super(CommentForm, self).__init__(*args, **kwargs)
+        

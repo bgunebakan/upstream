@@ -75,6 +75,8 @@ class IdentifierForm(forms.ModelForm):
 
     def __init__(self, *args, **kwargs):
         super(IdentifierForm, self).__init__(*args, **kwargs)
+        users = User.objects.all()
+        self.fields['user'].choices = [(user.pk, user.get_full_name()) for user in users]
         self.fields['name'].widget.attrs.update({'class' : 'form-control'})
         self.fields['key'].widget.attrs.update({'class' : 'form-control'})
         self.fields['is_active'].widget.attrs.update({'class' : 'form-control'})

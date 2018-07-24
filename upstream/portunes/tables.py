@@ -14,6 +14,11 @@ class ActionTable(tables.Table):
 
         attrs = {'class': 'table table-bordered table-hover'}
 
+    def __init__(self, *args, **kwargs):
+        super(ActionTable, self).__init__(*args, **kwargs)
+        #users = User.objects.all()
+        #self.rows['user'] = "[(user.pk, user.get_full_name()) for user in users]"
+
 
 class UserTable(tables.Table):
 
