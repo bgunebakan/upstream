@@ -24,7 +24,14 @@
                 {% if url and 'update' in views_available and crud_perms.update %}
                   <a href="{{ url }}{{getparams}}" class="btn btn-primary">
                       {% trans "Update Details" %}</a>
-                  {%endif%}
+                {%endif%}
+            </div>
+            <div class="col-lg-6">
+                {% crud_url object "create" namespace as url %}
+                {% if url and 'create' in views_available and crud_perms.create %}
+                  <a data-toggle="modal" href="#subtaskModal" class="btn btn-success" align="center">
+                      {% trans "New Sub Task" %}</a>
+                {%endif%}
             </div>
             <h3 class="box-title"></h3>
           </div>
@@ -203,6 +210,197 @@ $(function () {
             </form>
 
 
+    </div>
+  </div>
+
+  <!-- Modal -->
+  <div class="modal fade" id="subtaskModal" role="dialog">
+
+    <div class="modal-dialog">
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4>New Sub Task</h4>
+        </div>
+        <div class="modal-body">
+          <form action="/project/task/create?" method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="box-body row">
+              <div class="col-md-12">
+                <ul class="nav nav-tabs">
+                  <li class="tab-pane active">
+                    <a href="#details" data-toggle="tab" aria-expanded="true">Details</a>
+                  </li>
+                  <li class="tab-pane">
+                    <a href="#date-time" data-toggle="tab" aria-expanded="false">Date &amp; Time</a>
+                  </li>
+                  <li class="tab-pane">
+                    <a href="#notes" data-toggle="tab" aria-expanded="false">Notes</a>
+                  </li>
+                </ul>
+                <div class="tab-content panel-body">
+                  <div id="details" class="tab-pane active">
+                    <div id="div_id_name" class="form-group col-md-12">
+                      <label for="id_name" class="control-label  requiredField">Name<span class="asteriskField">*</span>
+                      </label>
+                      <div class="controls ">
+                        <input name="name" id="id_name" required="" class="textinput textInput form-control" maxlength="50" type="text">
+                      </div>
+                    </div>
+
+                    <div id="div_id_project" class="form-group col-md-12">
+                      <div class="controls">
+                        <select name="project" required="" class="select form-control select2-hidden hidden" id="id_project" tabindex="-1" aria-hidden="true">
+                          <option value="{{object.project.id}}">{{object.project}}</option>
+                        </select>
+                      </div>
+                    </div>
+                    <div id="div_id_top_task" class="form-group col-md-12">
+                      <div class="controls">
+                        <select name="top_task" required="" class="select form-control select2-hidden hidden" id="id_top_task" tabindex="-1" aria-hidden="true">
+                          <option value="{{object.id}}">{{object}}</option>
+                        </select>
+                      </div>
+                    </div>
+                    {%get_tasktypes as tasktypes%}
+                    <div id="div_id_task_type" class="form-group col-md-12">
+                      <div class="controls">
+                        <select name="id_task_type" required="" class="select form-control select2-hidden hidden" id="id_task_type" tabindex="-1" aria-hidden="true">
+                          {%for task_type in tasktypes%}
+                          <option value="{{task_type.id}}">{{task_type}}</option>
+                          {%endfor%}
+                        </select>
+                        <span class="select2 select2-container select2-container--default" dir="ltr" style="width: 398px;">
+                          <span class="selection">
+                          </span>
+                          <span class="dropdown-wrapper" aria-hidden="true">
+                          </span>
+                        </span>
+                      </div>
+                    </div>
+                    {%get_users as users%}
+                    <div id="div_id_inchargeuser" class="form-group col-md-6">
+                      <label for="id_inchargeuser" class="control-label ">People in charge</label>
+                      <div class="controls ">
+                        <select name="inchargeuser" multiple="" class="selectmultiple form-control" id="id_inchargeuser" tabindex="-1" aria-hidden="true">
+                          {%for user in users%}
+                          <option value="{{user.id}}">{{user.get_full_name}}</option>
+                          {%endfor%}
+                        </select>
+                        <span class="select2 select2-container select2-container--default" dir="ltr" style="width: 398px;">
+                          <span class="selection">
+
+                          </span>
+                          <span class="dropdown-wrapper" aria-hidden="true">
+                          </span>
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div id="date-time" class="tab-pane">
+                    <div id="div_id_start_date" class="form-group col-md-6">
+                      <label for="id_start_date" class="control-label  requiredField">Start date
+                        <span class="asteriskField">*</span>
+                      </label>
+                      <div class="controls ">
+                        <script>
+                          $(function () {
+                            $('.datetimepickerwidget').datetimepicker();
+                          });
+                        </script>
+                        <div class="input-group date">
+                          <div class="input-group-addon">
+                            <i class="fa fa-calendar"></i>
+                          </div>
+                          <input class="datetimepickerwidget form-control" data-date-format="d/m/yyyy h:ii" name="start_date" id="id_start_date" value="{{object.start_date|date:'d/m/Y H:i'}}" type="text">
+                        </div>
+                      </div>
+                    </div>
+                    <div id="div_id_end_date" class="form-group col-md-6">
+                      <label for="id_end_date" class="control-label  requiredField">End date<span class="asteriskField">*</span>
+                      </label>
+                      <div class="controls ">
+                        <script>
+                          $(function () {
+                            $('.datetimepickerwidget').datetimepicker();
+                          });
+                          </script>
+                          <div class="input-group date">
+                            <div class="input-group-addon">
+                              <i class="fa fa-calendar"></i>
+                            </div>
+                            <input class="datetimepickerwidget form-control" data-date-format="d/m/yyyy  h:ii" name="end_date" id="id_end_date" value="{{object.end_date|date:'d/m/Y H:i'}}" type="text">
+                          </div>
+                      </div>
+                    </div>
+
+                    <div id="div_id_percent_done" class="form-group col-md-6">
+                      <label for="id_percent_done" class="control-label ">Percent done</label>
+                      <div class="controls ">
+                        <input name="percent_done" value="0" id="id_percent_done" class="numberinput form-control" min="0" type="number">
+                      </div>
+                    </div>
+
+                    <div id="div_id_status" class="form-group col-md-6">
+                      <label for="id_status" class="control-label ">Status</label>
+                      <div class="controls ">
+                        <select name="status" class="select form-control" id="id_status" tabindex="-1" aria-hidden="true">
+                          <option value="" selected="">---------</option>
+                          <option value="2">Ended</option>
+                          <option value="1">Working on</option>
+                        </select>
+                      </div>
+                    </div>
+                  </div>
+
+
+
+
+                  <div id="notes" class="tab-pane">
+                    <div id="div_id_description" class="form-group col-md-12">
+                      <label for="id_description" class="control-label ">Notes</label>
+                      <div class="controls ">
+                        <textarea class="ckeditorwidget form-control" cols="40" maxlength="200" rows="10" name="description" id="id_description" style="visibility: hidden; display: none;" lang="tr">
+                        </textarea>
+                        <div id="cke_id_description" class="cke_1 cke cke_reset cke_chrome cke_editor_id_description cke_ltr cke_browser_gecko" dir="ltr" role="application" aria-labelledby="cke_id_description_arialbl" lang="tr">
+                        </div>
+
+                        <script>
+                        $(function () {
+                          CKEDITOR.replace('id_description', {
+                            language: 'en',
+
+                          });
+
+                          CKEDITOR.config.toolbar = [
+                            ['Format','Font','FontSize','Bold','Italic','Underline','StrikeThrough','-',
+                            'Undo','Redo','-','Cut','Copy','Paste','Find','Replace','-',
+                            'Outdent','Indent','-','Print', '-','NumberedList','BulletedList','-',
+                            'JustifyLeft','JustifyCenter','JustifyRight','JustifyBlock','-',
+                            'Image','Table','-','Link','Smiley'], ['Source']
+                          ] ;
+
+                          });
+                        </script>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+          <div class="form-group">
+            <div class="controls ">
+              <input name="submit" value="Kaydet" class="btn btn-primary btn btn-primary" id="submit-id-submit" type="submit">
+              <a class="btn btn-danger" href="">Sil</a> </div>
+          </div>
+        </div>
+          </form>
+      </div>
     </div>
   </div>
 {% endblock %}

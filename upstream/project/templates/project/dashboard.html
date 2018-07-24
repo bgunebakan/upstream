@@ -101,7 +101,7 @@
                   <div class="progress-bar" style="width: {{task.percent_done}}%"></div>
                 </div>
                 <span class="progress-description">
-                      {%if task.top_task is not None %}Top task: {{task.top_task}}{%endif%}
+                      {%if task.top_task is not None %}Top task: <a href="/project/task/{{task.top_task.id}}">{{task.top_task}}</a>{%endif%}
                 </span>
               </div>
 

@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 from django import template
 from django.core.urlresolvers import resolve
-from project.models import Project,Task,Log,Comment
+from project.models import Project,Task,Tasktype,Log,Comment
 from django.core.exceptions import ObjectDoesNotExist
 from auditlog.models import LogEntry
 from personnel.models import Personnel
@@ -34,6 +34,16 @@ def get_subtasks(top_task):
 def get_comments(task):
     comments = Comment.objects.filter(task=task).order_by('-date')
     return comments
+
+@register.simple_tag
+def get_users():
+    users = User.objects.all()
+    return users
+
+@register.simple_tag
+def get_tasktypes():
+    tasktypes = Tasktype.objects.all()
+    return tasktypes
 
 @register.simple_tag
 def projects():
