@@ -6,9 +6,9 @@
 {% load static %}
 {% load personnel_tags %}
 {% load portunes_tags %}
-{% block title %}Portunes Access Control{% endblock %}
+{% block title %}Access Control{% endblock %}
 
-{% block page_name %}Portunes Access Control{% endblock %}
+{% block page_name %}Access Control{% endblock %}
 {% block page_description %}Dashboard{% endblock %}
 
 {% block bodyclass %}skin-purple {%if config.hide_sidebar %}sidebar-collapse{%endif%} {% endblock %}
@@ -25,7 +25,7 @@
 <!-- Content Header (Page header) -->
 <section class="content-header">
   <h1>
-    <a href="/users/detail/{{personnel.nat_id}}/">{{user.first_name}} {{user.last_name}}</a> Yetkileri
+    <a href="/users/detail/{{personnel.nat_id}}/">{{user.first_name}} {{user.last_name}}</a> Permissions
   </h1>
 </section>
 
@@ -41,12 +41,16 @@
         <div class="box-body">
           <table class="table table-bordered text-center">
           <tbody>
-
+            <form action="" method="post" name="form" id="form">
+              {% csrf_token %}
              {% for id in identifier.all %}
               <a href="/portunes/identifier/{{id.id}}/update"><li class="fa fa-user" > {{id.name}} - {{id.key}}</li></a>
+              <input type="hidden" name="identifier" id="identifier" value="{{id.id}}" />&nbsp;&nbsp;&nbsp;
+              <button type="submit" name="deleteidentifier" value="deleteidentifier" class="btn btn-xs btn-danger">Delete</button>
               <br>
 
               {% endfor %}
+            </form>
           </ul>
         </tbody></table>
         </div>
@@ -133,8 +137,8 @@
           {% endfor %}
         </tbody></table>
           <div class="box-footer">
-            <button type="submit" name="savepermission" value="savepermission" class="btn btn-primary">Kaydet</button>
-            <button type="submit" name="clearpermission" value="clearpermission" class="btn btn-primary">Yetkileri sil</button>
+            <button type="submit" name="savepermission" value="savepermission" class="btn btn-primary">Save</button>
+            <button type="submit" name="clearpermission" value="clearpermission" class="btn btn-danger">Delete Permission</button>
           </div>
           </form>
         </div>

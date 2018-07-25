@@ -333,6 +333,24 @@ def user_access(request, user_id):
                         messages.info(request, unicode(permission.identifier.user) + " - " + unicode(permission.door.entrance) + " kontrolcuden silindi.")
             return HttpResponseRedirect('#')
 
+        if 'deleteidentifier' in request.POST:
+            identifier = request.POST.get("identifier","")
+            print identifier + "---------------"
+            permissions = Permission.objects.filter(identifier__id__in=identifier)
+            if permissions:
+                for permission in permissions:
+                    permission.delete()
+                    if permission.id != None:
+                        messages.error(request,unicode(permission.identifier.user) + " - " + unicode(permission.door.entrance) + " CANNOT deleted from Controller!")
+                    else:
+                        messages.info(request, unicode(permission.identifier.user) + " - " + unicode(permission.door.entrance) + " deleted from Controller.")
+            identifier = Identifier.objects.get(id=identifier)
+            identifier.user = None
+            identifier.save()
+            messages.success(request, unicode(identifier) + unicode(" identifier deleted from user"))
+
+            return HttpResponseRedirect('#')
+
         elif 'savepermission' in request.POST:
             #CLEAR ALL PERMISSIONS
             permissions = Permission.objects.filter(identifier__in=identifier)
