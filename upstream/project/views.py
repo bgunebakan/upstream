@@ -63,6 +63,43 @@ class TaskCRUD(CRUDView):
     paginate_position = 'Bottom' # Both | Bottom
     paginate_template = 'cruds/pagination/enumeration.html'
 
+class TasktypeCRUD(CRUDView):
+    model = Tasktype
+
+    namespace = None
+    check_login = True
+    check_perms = False
+
+
+    views_available=['create','update','delete','list']
+    fields = ['name','icon','color']
+    list_fields = ['name','icon','color']
+
+    paginate_by = 15
+    paginate_position = 'Bottom' # Both | Bottom
+    paginate_template = 'cruds/pagination/enumeration.html'
+
+class StatustypeCRUD(CRUDView):
+    model = Statustype
+    #template_name_base='crud'  #customer cruds => ccruds
+    namespace = None
+    check_login = True
+    check_perms = False
+    #add_form = TaskForm
+    #update_form = TaskForm
+
+    views_available=['create','update','delete','list']
+    fields = ['name','icon','color']
+    list_fields = ['name','icon','color']
+    #display_fields = ['name','start_date','end_date','percent_done','top_task','project','inchargeuser','task_type','status','description' ]
+
+    #list_filter = ['project','task_type','task_status','inchargeuser']
+
+    #search_fields = ['name',  'inchargeuser', 'group','start_date','end_date']
+    #split_space_search = True
+    paginate_by = 15
+    paginate_position = 'Bottom' # Both | Bottom
+    paginate_template = 'cruds/pagination/enumeration.html'
 class CommentCRUD(CRUDView):
     model = Comment
     #template_name_base='crud'  #customer cruds => ccruds
