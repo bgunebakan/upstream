@@ -10,9 +10,9 @@ register = template.Library()
 
 
 @register.simple_tag
-def get_personnel(request):
+def get_personnel(user):
     try:
-        personnel = Personnel.objects.get(user=request.user)
+        personnel = Personnel.objects.get(user=user)
     except ObjectDoesNotExist:
         return ""
     return personnel

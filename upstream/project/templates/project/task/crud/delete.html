@@ -10,10 +10,10 @@
 
 {% block content %}
   {% if crud_perms.list %}
-        <a href="{{ url_list }}{{getparams}}" class="btn btn-info">
-            <i class="fa fa-angle-double-left"></i>
-            {% trans "Back to" %} {{ model_verbose_name_plural|lower }}
-        </a>
+    <a href="/project/" class="btn btn-info">
+      <i class="fa fa-angle-double-left"></i>
+      {% trans "Back to Dashboard" %}
+    </a>  
   {% endif %}
 
   <h1>{% trans "Remove" %} {{ object }}?</h1>

@@ -18,9 +18,9 @@
 <div class="row">
     <div class="col-md-10 col-md-offset-1">
     	{% if crud_perms.list %}
-        <a href="{{ url_list }}{{getparams}}">
-            <i class="fa fa-angle-double-left"></i>
-            {% trans "Back to" %} {{ model_verbose_name_plural|lower }}
+        <a href="/project/" class="btn btn-info">
+          <i class="fa fa-angle-double-left"></i>
+          {% trans "Back to Dashboard" %}
         </a>
         {% endif %}
         <br /><br />

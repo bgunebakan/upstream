@@ -2,6 +2,7 @@
 {% load i18n %}
 {% load crud_tags %}
 {% load project_tags%}
+{% load personnel_tags %}
 {% block title %} {{ object }}{% trans " details" %}{% endblock %}
 {% block bodyclass %}skin-yellow {%if config.hide_sidebar %}sidebar-collapse{%endif%} {% endblock %}
 {% block page_name %}{{ object }}{% endblock %}
@@ -14,12 +15,126 @@
 </ol>
 {% endblock %}
 
+{% block js %}
+  <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+  <script type="text/javascript">
+    google.charts.load('current', {'packages':['gantt']});
+    google.charts.setOnLoadCallback(drawChart);
+
+    function drawChart() {
+
+      var data = new google.visualization.DataTable();
+      data.addColumn('string', 'Task ID');
+      data.addColumn('string', 'Task Name');
+      data.addColumn('string', 'Status');
+      data.addColumn('date', 'Start Date');
+      data.addColumn('date', 'End Date');
+      data.addColumn('number', 'Duration');
+      data.addColumn('number', 'Percent Done');
+      data.addColumn('string', 'Dependencies');
+      data.addColumn('string', 'Project');
+      data.addColumn('string', 'In charge User');
+
+      {%get_subtasks object as tasks%}
+      // MAIN TASK
+      data.addRows([
+        ['{{object.id}}', '{{object.name}}', '{{object.task_type}}',
+         new Date({{ object.start_date|date:"Y" }},{{ object.start_date|date:"m"|add:-1 }},{{ object.start_date|date:"d" }},
+         {{ object.start_date|date:"H" }},{{ object.start_date|date:"i" }}),
+         new Date({{ object.end_date|date:"Y" }},{{ object.end_date|date:"m"|add:-1 }},{{ object.end_date|date:"d" }},
+         {{ object.end_date|date:"H" }},{{ object.end_date|date:"i" }}),
+          null, {{object.percent_done}}, null,'{{object.project}}','{{object.inchargeuser}}'],
+      ]);
+      // SUB TASKS
+      {%for task in tasks%}
+      data.addRows([
+        ['{{task.id}}', '{{task.name}}', '{{task.task_type}}',
+         new Date({{ task.start_date|date:"Y" }},{{ task.start_date|date:"m"|add:-1 }},{{ task.start_date|date:"d" }},
+         {{ task.start_date|date:"H" }},{{ task.start_date|date:"i" }}),
+         new Date({{ task.end_date|date:"Y" }},{{ task.end_date|date:"m"|add:-1 }},{{ task.end_date|date:"d" }},
+         {{ task.end_date|date:"H" }},{{ task.end_date|date:"i" }}),
+          null, {{task.percent_done}}, null,'{{task.project}}','{{task.inchargeuser}}'],
+      ]);
+      {%endfor%}
+
+      var height = data.getNumberOfRows() * 41 + 30;
+      if (height < 250){
+        height = 250;
+      }
+      var options = {
+        height: height,
+        width: "100%",
+        gantt: {
+          trackHeight: 30
+        }
+      };
+
+      var chart = new google.visualization.Gantt(document.getElementById('chart_div'));
+
+      chart.draw(data, options);
+
+      google.visualization.events.addListener(chart, 'select', selectHandler);
+      function selectHandler() {
+        var selection = chart.getSelection();
+        var message = '';
+        for (var i = 0; i < selection.length; i++) {
+          var item = selection[i];
+          if (item.row != null) {
+            var task_id = data.getFormattedValue(item.row, 0);
+            var task_name = data.getFormattedValue(item.row, 1);
+            var task_status = data.getFormattedValue(item.row, 2);
+            var task_start = data.getFormattedValue(item.row, 3);
+            var task_end = data.getFormattedValue(item.row, 4);
+            var task_inchargeuser = data.getFormattedValue(item.row, 9);
+            var task_percent = data.getFormattedValue(item.row, 6);
+            var task_dependencies = data.getFormattedValue(item.row, 8);
+            var task_url = '<a href="/project/task/'+task_id+'?" class="btn btn-primary" role="button">Details</a>';
+            //message += 'Task id: ' + str + '\n';
+            //{% get_task 1 as task%}
+            //alert('You selected ' + message);
+            //document.getElementById("task_id").innerHTML = task_id;
+            document.getElementById("task_name").innerHTML = task_name;
+            document.getElementById("task_status").innerHTML = task_status;
+            document.getElementById("task_start").innerHTML = task_start;
+            document.getElementById("task_end").innerHTML = task_end;
+            //document.getElementById("task_owner").innerHTML = task_owner;
+            //document.getElementById("task_percent").innerHTML = task_percent;
+            //$('#progressbar').attr('aria-valuenow',task_percent);
+            //$('#progressbar').attr('width',task_percent);
+            $('#progressbar').attr('aria-valuenow', task_percent+'%').css('width',task_percent+'%');
+
+
+
+
+
+            document.getElementById("task_dependencies").innerHTML = task_dependencies;
+            document.getElementById("task_url").innerHTML = task_url;
+            $("#taskModal").modal()
+          }
+        }
+
+      }
+
+    }
+
+
+  </script>
+{% endblock js %}
+
 {% block content %}
 <div class="row">
   <div class="col-md-12">
         <div class="box">
           <div class="box-header with-border">
             <div class="col-lg-6">
+                {%if object.top_task%}
+                <a href="/project/task/{{object.top_task.id}}" class="btn btn-warning">
+                  {% trans "Go Top Task" %}</a>
+                {%else%}
+                <a href="/project/task/list?project={{object.project.id}}&" class="btn btn-warning">
+                  {% trans "Go Project" %}</a>
+                {%endif%}
+
                 {% crud_url object "update" namespace as url %}
                 {% if url and 'update' in views_available and crud_perms.update %}
                   <a href="{{ url }}{{getparams}}" class="btn btn-primary">
@@ -37,65 +152,29 @@
           </div>
           <!-- /.box-header -->
           <div class="box-body">
+            <h4>In charge Personnels</h4>
             <div class="row">
-              <div class="col-md-8">
-                <p class="text-center">
-                  <strong>Details</strong>
-                </p>
-
-                <div class="timeline-item">
-                  <span class="time"><i class="fa fa-clock-o"></i> {{object.start_date}} <i class="fa fa-arrow-right"></i> {{object.end_date}} </span>
-
-                  <h3 class="timeline-header"> {{object.description|safe}}</h3>
-
-                  <div class="timeline-body">
-                    {{object.notes}}
+              {%for user in object.inchargeuser.all%}
+                {% get_personnel user as personnel%}
+              <div class="col-md-3">
+                <!-- Widget: user widget style 1 -->
+                <div class="box box-widget widget-user-2">
+                  <!-- Add the bg color to the header using any of the bg-* classes -->
+                  <div class="widget-user-header bg-primary">
+                    <div class="widget-user-image">
+                      <img class="img-circle" src="{{personnel.profile_picture.url}}" alt="User Avatar">
+                    </div>
+                    <!-- /.widget-user-image -->
+                    <h4 class="widget-user-username">{{personnel}}</h4>
                   </div>
                 </div>
-                <!-- /.chart-responsive -->
+                <!-- /.widget-user -->
               </div>
-              <!-- /.col -->
-              <div class="col-md-4">
-                <p class="text-center">
-                  <strong>Sub Tasks</strong>
-                </p>
-                {%get_subtasks object as sub_tasks%}
-                {%for task in sub_tasks%}
-                  <div class="progress-group">
-                    <span class="progress-text"><a href="/project/task/{{task.id}}">{{task}}</span></a>
-                    <span class="progress-number"><b>%{{task.percent_done}}</b></span>
-
-                    <div class="progress sm">
-                      <div class="progress-bar progress-bar-green" style="width: {{task.percent_done}}%"></div>
-                    </div>
-                  </div>
-                {%endfor%}
-                <!-- /.progress-group -->
-
-              </div>
-              <!-- /.col -->
+              {%endfor%}
             </div>
             <!-- /.row -->
           </div>
           <!-- ./box-body -->
-          <div class="box-footer">
-            <div class="row">
-              <div class="col-sm-6 col-xs-6">
-                <div class="progress-group">
-                  <span class="progress-text">Complete percent</span>
-                  <span class="progress-number"><b>%{{object.percent_done}}</b></span>
-
-                  <div class="progress sm">
-                    <div class="progress-bar progress-bar-warning" style="width: {{object.percent_done}}%"></div>
-                  </div>
-                </div>
-                <!-- /.description-block -->
-              </div>
-              <!-- /.col -->
-            </div>
-            <!-- /.row -->
-          </div>
-          <!-- /.box-footer -->
         </div>
         <!-- /.box -->
       </div>
@@ -240,6 +319,7 @@ $(function () {
                   </li>
                 </ul>
                 <div class="tab-content panel-body">
+
                   <div id="details" class="tab-pane active">
                     <div id="div_id_name" class="form-group col-md-12">
                       <label for="id_name" class="control-label  requiredField">Name<span class="asteriskField">*</span>
@@ -249,14 +329,15 @@ $(function () {
                       </div>
                     </div>
 
-                    <div id="div_id_project" class="form-group col-md-12">
+                    <div id="div_id_project" class="form-group col-md-12" hidden="true">
                       <div class="controls">
                         <select name="project" required="" class="select form-control select2-hidden hidden" id="id_project" tabindex="-1" aria-hidden="true">
                           <option value="{{object.project.id}}">{{object.project}}</option>
                         </select>
                       </div>
                     </div>
-                    <div id="div_id_top_task" class="form-group col-md-12">
+
+                    <div id="div_id_top_task" class="form-group col-md-12" hidden="true">
                       <div class="controls">
                         <select name="top_task" required="" class="select form-control select2-hidden hidden" id="id_top_task" tabindex="-1" aria-hidden="true">
                           <option value="{{object.id}}">{{object}}</option>
@@ -264,7 +345,8 @@ $(function () {
                       </div>
                     </div>
                     {%get_tasktypes as tasktypes%}
-                    <div id="div_id_task_type" class="form-group col-md-12">
+
+                    <div id="div_id_task_type" class="form-group col-md-12" hidden="true">
                       <div class="controls">
                         <select name="id_task_type" required="" class="select form-control select2-hidden hidden" id="id_task_type" tabindex="-1" aria-hidden="true">
                           {%for task_type in tasktypes%}
@@ -336,20 +418,18 @@ $(function () {
                       </div>
                     </div>
 
-                    <div id="div_id_percent_done" class="form-group col-md-6">
+                    <div id="div_id_percent_done" class="form-group col-md-6" hidden="true">
                       <label for="id_percent_done" class="control-label ">Percent done</label>
                       <div class="controls ">
                         <input name="percent_done" value="0" id="id_percent_done" class="numberinput form-control" min="0" type="number">
                       </div>
                     </div>
 
-                    <div id="div_id_status" class="form-group col-md-6">
+                    <div id="div_id_status" class="form-group col-md-6" hidden="true">
                       <label for="id_status" class="control-label ">Status</label>
                       <div class="controls ">
                         <select name="status" class="select form-control" id="id_status" tabindex="-1" aria-hidden="true">
-                          <option value="" selected="">---------</option>
-                          <option value="2">Ended</option>
-                          <option value="1">Working on</option>
+                          <option value="1" selected="">Working on</option>
                         </select>
                       </div>
                     </div>
@@ -400,6 +480,40 @@ $(function () {
           </div>
         </div>
           </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal -->
+  <div class="modal fade" id="taskModal" role="dialog">
+
+    <div class="modal-dialog">
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-body">
+            <div class="row">
+              <div class="col-md-12">
+                <!-- Widget: user widget style 1 -->
+                <div class="box box-widget widget-user-2">
+                  <!-- Add the bg color to the header using any of the bg-* classes -->
+                  <div class="widget-user-header bg-yellow">
+                    <h2 id="task_name"></h2>
+                  </div>
+                  <div class="box-footer no-padding">
+                    <ul class="nav nav-stacked">
+                      <li><a href="#">Start Date <span class="pull-right badge bg-blue" id="task_start"></span></a></li>
+                      <li><a href="#">End Date <span class="pull-right badge bg-red" id="task_end"></span></a></li>
+                      <li><a href="#">Status <span class="pull-right badge bg-green" id="task_status"></span></a></li>
+                      <li><a href="#">Project <span class="pull-right badge bg-aqua" id="task_dependencies"></span></a></li>
+                    </ul>
+                  </div>
+                </div>
+                <!-- /.widget-user -->
+              </div>
+
+                 </div>
+                 <div id="task_url"></div>
+              </div>
       </div>
     </div>
   </div>

@@ -3,7 +3,7 @@
 
 {% load personnel_tags %}
 {% if request.user.is_authenticated %}
-{% get_personnel request as personnel%}
+{% get_personnel request.user as personnel%}
 {%endif%}
 <!-- Left side column. contains the sidebar -->
 <aside class="main-sidebar">

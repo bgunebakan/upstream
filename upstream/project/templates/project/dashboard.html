@@ -43,19 +43,19 @@
         <ul>
           {% for top_project in projects %}
           {% if top_project.top_project == null %}
-            <li><a href="/project/task/list?project={{top_project.id}}&owner={{request.user.id}}">{{ top_project.name }}</a></li>
+            <li><a href="/project/task/list?project={{top_project.id}}&inchargeuser={{request.user.id}}">{{ top_project.name }}</a></li>
             <ul>
               {% for project in projects %}
                 {% if project.top_project == top_project %}
-                  <li><a href="/project/task/list?project={{project.id}}&owner={{request.user.id}}">{{ project.name }}</a></li>
+                  <li><a href="/project/task/list?project={{project.id}}&inchargeuser={{request.user.id}}">{{ project.name }}</a></li>
                     <ul>
                     {% for sub_project in projects %}
                       {% if sub_project.top_project == project %}
-                        <li><a href="/project/task/list?project={{sub_project.id}}&owner={{request.user.id}}">{{ sub_project.name }}</a></li>
+                        <li><a href="/project/task/list?project={{sub_project.id}}&inchargeuser={{request.user.id}}">{{ sub_project.name }}</a></li>
                             <ul>
                               {% for sub2_project in projects %}
                                 {% if sub2_project.top_project == sub_project %}
-                                  <li><a href="/project/task/list?project={{sub2_project.id}}&owner={{request.user.id}}">{{ sub2_project.name }}</a></li>
+                                  <li><a href="/project/task/list?project={{sub2_project.id}}&inchargeuser={{request.user.id}}">{{ sub2_project.name }}</a></li>
                                 {%endif%}
                               {% endfor %}
                             </ul>
@@ -83,12 +83,11 @@
           <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
           </button>
           <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
-          <a href="/project/task/create" class="btn btn-primary">New Task</a>
         </div>
       </div>
       <div class="box-body">
         <div class="box-body">
-          {%tasks 5 request as tasks%}
+          {%tasks 10 request as tasks%}
           {%for task in tasks%}
             <div class="info-box bg-{{task.task_type.color}}">
               <a href="/project/task/{{task.id}}" style="color:#fff;"><span class="info-box-icon"><i class="fa fa-{{task.task_type.icon}}"></i></span></a>

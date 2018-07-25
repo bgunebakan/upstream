@@ -2,6 +2,7 @@ from django.db.models.signals import post_save,post_delete
 from django.dispatch import receiver
 import django_bootstrap_calendar
 from .models import *
+from django.core.mail import send_mail
 
 @receiver(post_save, sender=Task)
 def add_log(sender, instance, **kwargs):
@@ -17,3 +18,19 @@ def toptask_enddate(sender, instance, **kwargs):
         if top_task.end_date < instance.end_date:
             top_task.end_date = instance.end_date
             top_task.save()
+
+@receiver(post_save, sender=Task)
+def toptask_enddate(sender, instance, **kwargs):
+
+    mail_subject = 'TARLA Internal - Project Management New Task Created'
+    mail_body = 'New Task created for you <br>' \
+                'Task Details:<br>'\
+                'Name: ' + unicode(instance) \
+                +'Start-Date: ' + unicode(instance.start_date) \
+                +'End-Date: ' + unicode(instance.end_date) + '<br>' \
+                'Details: ' + unicode(instance.description) + '<br>' \
+                'In charge people: ' + unicode(instance.inchargeuser) + '<br><br>' \
+                'Please login TARLA account get more details.'
+    print "email sending..."
+    send_mail(mail_subject, mail_body, 'info@tarla.org.tr', ['bilaltonga@gmail.com',])
+    print "email sent."

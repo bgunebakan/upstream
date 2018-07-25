@@ -6,6 +6,7 @@ from django.core.exceptions import ObjectDoesNotExist
 from auditlog.models import LogEntry
 from personnel.models import Personnel
 from django.contrib.auth.models import User
+from django.http import HttpResponseRedirect
 
 register = template.Library()
 
@@ -44,6 +45,15 @@ def get_users():
 def get_tasktypes():
     tasktypes = Tasktype.objects.all()
     return tasktypes
+
+@register.simple_tag
+def get_project(id):
+    if id:
+        id = int(id)
+        project = Project.objects.get(id=id)
+        return project
+    else:
+        return "All Tasks"
 
 @register.simple_tag
 def projects():

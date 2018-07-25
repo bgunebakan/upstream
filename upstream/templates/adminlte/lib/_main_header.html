@@ -2,7 +2,7 @@
 {% load detail_tags%}
 {% load personnel_tags %}
 {% if request.user.is_authenticated %}
-{% get_personnel request as personnel%}
+{% get_personnel request.user as personnel%}
 {%endif%}
 
 <header class="main-header">
