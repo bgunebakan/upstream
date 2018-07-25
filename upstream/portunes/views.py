@@ -335,9 +335,9 @@ def user_access(request, user_id):
 
         if 'deleteidentifier' in request.POST:
             identifier = request.POST.get("identifier","")
-            print identifier + "---------------"
+            #print identifier + "---------------"
             permissions = Permission.objects.filter(identifier__id=identifier)
-            print permissions
+            #print permissions
             if permissions:
                 for permission in permissions:
                     permission.delete()
