@@ -261,7 +261,7 @@ def controller_permission(request, id):
         else:
             messages.success(request, unicode(permission.door.name) + ' icin Yetki GUNCELLENEMEDi!.')
 
-    return HttpResponseRedirect('/portunes/user/access/' + unicode(permission.identifier.user.id))
+    return HttpResponseRedirect('/portunes/controller/' + unicode(id))
     #return render(request, 'portunes/user/access.html' )
 	#    	return HttpResponseRedirect('/users/list/personnel/')
 

@@ -143,7 +143,7 @@ class DoorGroup(models.Model):
         verbose_name_plural = _(u'Door Groups')
 
     def get_absolute_url(self):
-        return "/portunes/door_group/%i" % self.id
+        return "/portunes/doorgroup/%i/update?" % self.id
 
     def __unicode__(self):
         return self.name
