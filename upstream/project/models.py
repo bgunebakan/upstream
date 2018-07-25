@@ -21,7 +21,7 @@ class Project(models.Model):
         return self.name
 
     def get_absolute_url(self):
-        return "/project/project/%i" % self.id
+        return "/project/"
 
     class Meta:
         ordering = ['name']
