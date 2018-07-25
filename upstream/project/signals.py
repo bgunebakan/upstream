@@ -6,6 +6,7 @@ from django.core.mail import send_mail
 from django.core.mail import EmailMultiAlternatives
 from django.template.loader import render_to_string
 from django.utils.html import strip_tags
+from itertools import chain
 
 @receiver(post_save, sender=Task)
 def add_log(sender, instance, **kwargs):
@@ -26,8 +27,10 @@ def toptask_enddate(sender, instance, **kwargs):
 def toptask_enddate(sender, instance, **kwargs):
 
     print instance.inchargeuser.all()
+    print instance.project.owner.all()
+    mailer_list = list(chain(instance.project.owner.all(), instance.inchargeuser.all()))
 
-    for inchargeuser in instance.inchargeuser.all():
+    for inchargeuser in mailer_list:
         print inchargeuser
         subject, from_email, to = 'TARLA Internal - Project Management New Task Created', 'info@tarla.org.tr', inchargeuser.email
 
