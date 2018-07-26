@@ -1,5 +1,9 @@
 {% extends template_father %}
 {% load i18n %}
+{% block title %}{% trans "Delete" %} {{ model_verbose_name }}{% endblock %}
+{% block bodyclass %}skin-yellow {%if config.hide_sidebar %}sidebar-collapse{%endif%} {% endblock %}
+{% block page_name %}{{ model_verbose_name }}{% endblock %}
+{% block page_description %}{% trans "Delete" %} {{ model_verbose_name_plural|lower }}{% endblock %}
 
 {% block breadcrumbs %}
 <ol class="breadcrumb">

@@ -116,7 +116,7 @@
                                     {% endif %}
                                     {% crud_url object "delete" namespace as url %}
                                     {% if url and 'delete' in views_available and crud_perms.delete %}
-                                    <a href="{{ url }}{{getparams}}" class="btn btn-danger">{% trans "Delete" %}</a>
+                                    <a href="{{ url }}{{getparams}}" class="btn btn-danger">Delete</a>
                                     {% endif %}
                                 {% endblock %}
                               </td>

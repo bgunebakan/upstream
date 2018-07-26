@@ -50,6 +50,27 @@ class UserCRUD(CRUDView):
     paginate_position = 'Bottom' # Both | Bottom
     paginate_template = 'cruds/pagination/enumeration.html'
 
+class GroupCRUD(CRUDView):
+    model = Group
+    #template_name_base='crud'
+    namespace = None
+    check_login = True
+    check_perms = True
+    views_available=['create', 'list', 'update','delete']
+
+    fields = ['name','permissions']
+
+    list_fields = ['name']
+
+    #add_form = GForm
+    #update_form = UserForm
+
+    search_fields = ['name']
+    split_space_search = True
+    paginate_by = 5
+    paginate_position = 'Bottom' # Both | Bottom
+    paginate_template = 'cruds/pagination/enumeration.html'
+
 class Personnel_file_AjaxCRUD(InlineAjaxCRUD):
     model = Personnel_file
     base_model = Personnel

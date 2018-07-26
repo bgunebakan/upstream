@@ -24,7 +24,7 @@ def toptask_enddate(sender, instance, **kwargs):
             top_task.save()
 
 @receiver(m2m_changed, sender=Task.inchargeuser.through)
-def toptask_enddate(sender, instance, **kwargs):
+def task_email_notify(sender, instance, **kwargs):
 
     print instance.inchargeuser.all()
     print instance.project.owner.all()

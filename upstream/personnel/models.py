@@ -6,7 +6,7 @@ import os
 from uuid import uuid4
 from django.utils.deconstruct import deconstructible
 
-from django.contrib.auth.models import User
+from django.contrib.auth.models import User,Group
 from django_countries.fields import CountryField
 #from phonenumber_field.modelfields import PhoneNumberField
 from django.db.models.query import QuerySet

@@ -28,14 +28,14 @@ class ProjectCRUD(CRUDView):
     add_form = ProjectForm
     update_form = ProjectForm
 
-    views_available=['create', 'list', 'update', 'detail']
-    fields = ['name', 'top_project', 'owner', 'group']
-    list_fields = ['name', 'top_project', 'owner', 'group']
-    display_fields = ['name', 'top_project', 'owner', 'group']
+    views_available=['create', 'list', 'update', 'detail','delete']
+    fields = ['name', 'top_project', 'owner']
+    list_fields = ['name', 'top_project', 'owner']
+    display_fields = ['name', 'top_project', 'owner']
 
     list_filter = ['top_project','owner']
 
-    search_fields = ['name', 'top_project', 'owner', 'group']
+    search_fields = ['name', 'top_project', 'owner']
     split_space_search = True
     paginate_by = 15
     paginate_position = 'Bottom' # Both | Bottom

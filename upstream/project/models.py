@@ -10,12 +10,12 @@ from django.core.urlresolvers import reverse
 
 class Project(models.Model):
     name = models.CharField(max_length=50)
-    created_date = models.DateTimeField(default=timezone.now,verbose_name='oluşturma tarihi', editable=False)
-    updated_date = models.DateTimeField(auto_now=True,verbose_name='güncelleme tarihi', blank=True, editable=False)
-    top_project = models.ForeignKey('self',null=True,blank=True,on_delete=models.SET_NULL)
-    owner = models.ManyToManyField(User,blank=True)
-    group = models.ManyToManyField(Group,blank=True)
-    description = models.TextField(max_length=200,null=True,blank=True)
+    created_date = models.DateTimeField(default=timezone.now,verbose_name='Created date', editable=False)
+    updated_date = models.DateTimeField(auto_now=True,verbose_name='Updated date', blank=True, editable=False)
+    top_project = models.ForeignKey('self',null=True,blank=True,on_delete=models.SET_NULL,verbose_name="Top Project")
+    owner = models.ManyToManyField(User,blank=True,verbose_name="Project Manager")
+    #group = models.ManyToManyField(Group,blank=True)
+    description = models.TextField(max_length=1000,null=True,blank=True,verbose_name="Description")
 
     def __unicode__(self):
         return self.name
@@ -63,11 +63,11 @@ class Statustype(models.Model):
 class Task(models.Model):
     name = models.CharField(max_length=50)
 
-    created_date = models.DateTimeField(verbose_name='date created',default=timezone.now, editable=False)
-    updated_date = models.DateTimeField(auto_now=True,verbose_name='update date', blank=True, editable=False)
-    start_date = models.DateTimeField(default=timezone.now,verbose_name='start date')
-    end_date = models.DateTimeField(default=timezone.now() + timezone.timedelta(days=1),verbose_name='end date')
-    percent_done = models.PositiveSmallIntegerField(default=0,null=True,blank=True,verbose_name="percent done")
+    created_date = models.DateTimeField(verbose_name='Created Date',default=timezone.now, editable=False)
+    updated_date = models.DateTimeField(auto_now=True,verbose_name='Update date', blank=True, editable=False)
+    start_date = models.DateTimeField(default=timezone.now,verbose_name='Start date')
+    end_date = models.DateTimeField(default=timezone.now() + timezone.timedelta(days=1),verbose_name='End date')
+    percent_done = models.PositiveSmallIntegerField(default=0,null=True,blank=True,verbose_name="Percent done")
 
     top_task = models.ForeignKey('self',null=True,blank=True,on_delete=models.SET_NULL,verbose_name="Top Task")
     project = models.ForeignKey(Project,null=True,blank=True,on_delete=models.SET_NULL,verbose_name="Project")
@@ -78,7 +78,7 @@ class Task(models.Model):
     task_type = models.ForeignKey(Tasktype,null=True,blank=True,on_delete=models.SET_NULL,verbose_name="Task type")
     status = models.ForeignKey(Statustype,null=True,blank=True,on_delete=models.SET_NULL,verbose_name="Status")
 
-    description = models.TextField(max_length=200,null=True,blank=True,verbose_name="Notes")
+    description = models.TextField(max_length=500,null=True,blank=True,verbose_name="Notes")
 
     def __unicode__(self):
         return self.name
@@ -93,7 +93,7 @@ class Task(models.Model):
 class Comment(models.Model):
     task = models.ForeignKey(Task,null=True,on_delete=models.SET_NULL)
     user = models.ForeignKey(User,null=True,on_delete=models.SET_NULL)
-    text = models.TextField(max_length=500,null=True,blank=True) #RichTextField() #
+    text = models.TextField(max_length=1000,null=True,blank=True)
     date = models.DateTimeField(verbose_name='oluşturma tarihi',default=timezone.now, editable=False)
 
     def __unicode__(self):

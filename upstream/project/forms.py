@@ -15,7 +15,7 @@ class ProjectForm(forms.ModelForm):
 
     class Meta:
         model = Project
-        fields = ('name', 'top_project', 'owner', 'group')
+        fields = ('name', 'top_project', 'owner')
 
     def __init__(self, *args, **kwargs):
         super(ProjectForm, self).__init__(*args, **kwargs)
@@ -110,4 +110,3 @@ class CommentForm(forms.ModelForm):
 
     def __init__(self, *args, **kwargs):
         super(CommentForm, self).__init__(*args, **kwargs)
-        

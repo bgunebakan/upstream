@@ -21,7 +21,7 @@ from homepage import views
 from django.contrib.auth import views as auth_views
 from django.conf import settings
 from django.conf.urls.static import static
-from personnel.views import PersonnelCRUD,Personnel_typeCRUD,UserCRUD,Annual_leaveCRUD
+from personnel.views import PersonnelCRUD,Personnel_typeCRUD,UserCRUD,GroupCRUD,Annual_leaveCRUD
 from django.apps import apps
 from cruds_adminlte.urls import crud_for_model
 from cruds_adminlte.urls import crud_for_app
@@ -32,6 +32,7 @@ from project.views import ProjectCRUD,TaskCRUD,CommentCRUD,TasktypeCRUD,Statusty
 from inventory.views import LocationCRUD,InventoryCRUD,CategoryCRUD,ItemTypeCRUD,ItemCRUD,SupplierCRUD,ShelfCRUD
 
 usercrud = UserCRUD()
+groupcrud = GroupCRUD()
 personnelcrud = PersonnelCRUD()
 personnel_typecrud = Personnel_typeCRUD()
 annual_leavecrud = Annual_leaveCRUD()
@@ -77,6 +78,7 @@ urlpatterns = [
     #personnel
     url('^personnel/', include('personnel.urls')),
     url(r'', include(usercrud.get_urls())),
+    url(r'', include(groupcrud.get_urls())),
     url(r'', include(personnelcrud.get_urls())),
     url(r'', include(personnel_typecrud.get_urls())),
     url(r'', include(annual_leavecrud.get_urls())),

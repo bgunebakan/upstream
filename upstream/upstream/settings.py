@@ -288,6 +288,10 @@ MEDIA_URL = '/media/'
 MEDIA_ROOT = '/opt/upstream/media/'#os.path.join(BASE_DIR, 'media')
 LOGIN_REDIRECT_URL = '/'
 
+ABSOLUTE_URL_OVERRIDES = {
+    'auth.user': lambda u: "/auth/user/list",
+    'auth.group': lambda u: "/auth/group/list",
+}
 
 FILER_STORAGES = {
     'public': {
