@@ -276,6 +276,9 @@ DATE_INPUT_FORMATS = ('%d/%m/%Y',)
 DATE_FORMAT = ('d/m/Y')
 #USE_I18N = True
 
+DATETIME_INPUT_FORMATS = ('%d/%m/%Y %H:%M',)
+DATETIME_FORMAT = ('d/m/Y H:i')
+
 #USE_L10N = True
 DEFAULT_CHARSET = 'utf-8'
 #USE_TZ = True
