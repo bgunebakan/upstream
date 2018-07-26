@@ -35,6 +35,10 @@ class Tasktype(models.Model):
 
     def __unicode__(self):
         return self.name
+
+    def get_absolute_url(self):
+        return "/project/tasktype/list"
+
     class Meta:
         ordering = ['name']
         verbose_name = _(u'Task Type')
@@ -44,8 +48,13 @@ class Statustype(models.Model):
     name = models.CharField(max_length=50)
     icon = models.CharField(max_length=20,default="users",verbose_name = "Icon",help_text=_('<a target="_blank" href="http://fontawesome.com/icons">Icon Seçenekleri</a>'))
     color = models.CharField(max_length=20,default="yellow",verbose_name = "Color",help_text=_('<a target="_blank" href="http://basscss.com/v7/docs/background-colors/">Renk Seçenekleri</a>'))
+
     def __unicode__(self):
         return self.name
+
+    def get_absolute_url(self):
+        return "/project/statustype/list"
+
     class Meta:
         ordering = ['name']
         verbose_name = _(u'Status Type')
