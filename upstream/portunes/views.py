@@ -18,7 +18,7 @@ from django.http import Http404
 from django_tables2 import RequestConfig
 
 @login_required
-#@permission_required('portunes.can_add_permission', login_url='/portunes/guard/dashboard/')
+@permission_required('portunes.can_add_permission', login_url='/')
 def dashboard(request):
     action_table = ActionTable(Action.objects.filter(Q(action_type__action_type=1)|Q(action_type__action_type=2)|Q(action_type__action_type=3)|Q(action_type__action_type=4)), order_by='-created_date')
     RequestConfig(request, paginate={'per_page': 15}).configure(action_table)
