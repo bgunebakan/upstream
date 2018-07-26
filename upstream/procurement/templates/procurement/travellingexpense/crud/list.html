@@ -2,10 +2,10 @@
 {% load i18n %}
 {% load crud_tags %}
 
-{% block title %} {{ model_verbose_name_plural }}{% trans " listesi" %}{% endblock %}
+{% block title %}{% trans " List of" %} {{ model_verbose_name_plural }}{% endblock %}
 {% block bodyclass %}skin-red {%if config.hide_sidebar %}sidebar-collapse{%endif%} {% endblock %}
 {% block page_name %}{{ model_verbose_name_plural }}{% endblock %}
-{% block page_description %}{{ model_verbose_name_plural }}{% trans " listesi" %}{% endblock %}
+{% block page_description %}{% trans " List" %} {% endblock %}
 
 {% block breadcrumbs %}
 <ol class="breadcrumb">
@@ -97,15 +97,15 @@
                                 {% block actions %}
                                   {% crud_url object "detail" namespace as url %}
                                     {% if url and 'detail' in views_available and crud_perms.detail %}
-                                    <a href="{{ url }}{{getparams}}" class="btn btn-success">{% trans "Detay" %}</a>
+                                    <a href="{{ url }}{{getparams}}" class="btn btn-success">{% trans "Detail" %}</a>
                                     {% endif %}
                                     {% crud_url object "update" namespace as url %}
                                     {% if url and 'update' in views_available and crud_perms.update %}
-                                    <a href="{{ url }}{{getparams}}" class="btn btn-primary">{% trans "Güncelle" %}</a>
+                                    <a href="{{ url }}{{getparams}}" class="btn btn-primary">{% trans "Update" %}</a>
                                     {% endif %}
                                     {% crud_url object "delete" namespace as url %}
                                     {% if url and 'delete' in views_available and crud_perms.delete %}
-                                    <a href="{{ url }}{{getparams}}" class="btn btn-danger">{% trans "Sil" %}</a>
+                                    <a href="{{ url }}{{getparams}}" class="btn btn-danger">{% trans "Delete" %}</a>
                                     {% endif %}
                                 {% endblock %}
                               </td>

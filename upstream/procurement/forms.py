@@ -6,6 +6,9 @@ from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Layout, Field, Submit, HTML
 from crispy_forms.bootstrap import TabHolder, Tab, FormActions
 from django.utils.translation import ugettext_lazy as _
+from django.contrib.auth.models import User
+from django import forms
+from upstream import settings
 
 from cruds_adminlte import (DatePickerWidget,
                             TimePickerWidget,
@@ -39,82 +42,83 @@ class TenderOfferForm(forms.ModelForm):
 
 
 
-class TenderForm(forms.ModelForm):
-
-    class Meta:
-        model = Tender
-        fields = ['name','no','tender_type','approximate_price','currency','tender_status','notes','specification',
-                    'apply_date','auction_date','auction_time','auction_price','auction_no','supplier','user','bap_staff','contract_date']
-        widgets = {
-            'apply_date': DatePickerWidget(attrs={'format': 'dd/mm/yyyy',
-                                            'icon': 'fa-calendar'}),
-            'contract_date': DatePickerWidget(attrs={'format': 'dd/mm/yyyy',
-                                            'icon': 'fa-calendar'}),
-            'auction_date': DatePickerWidget(
-                attrs={'format': 'dd/mm/yyyy',
-                       'icon': 'fa-calendar'}),
-            'auction_time': TimePickerWidget(
-                attrs={'format': 'HH:ii:ss',
-                       'icon': 'fa-clock-o'}),
-            'notes': CKEditorWidget(attrs={'lang': 'tr'}),
-
-        }
-
-    def __init__(self, *args, **kwargs):
-        super(TenderForm, self).__init__(*args, **kwargs)
-        users = User.objects.all()
-        self.fields['user'].choices = [(user.pk, user.get_full_name()) for user in users]
-        self.helper = FormHelper(self)
-        self.helper.form_tag = False
-
-        self.helper.layout = Layout(
-            TabHolder(
-                Tab(
-                    _('General'),
-                    Field('name', wrapper_class="col-md-12"),
-                    Field('tender_type', wrapper_class="col-md-6"),
-                    Field('tender_status', wrapper_class="col-md-6"),
-                    Field('no', wrapper_class="col-md-6"),
-                    Field('apply_date', wrapper_class="col-md-6"),
-
-
-                ),
-                Tab(
-                    _('Details'),
-                    Field('bap_staff', wrapper_class="col-md-6"),
-                    Field('user', wrapper_class="col-md-6"),
-                    Field('supplier', wrapper_class="col-md-6"),
-                    Field('specification', wrapper_class="col-md-12"),
-
-                ),
-                Tab(
-                    _('Auction'),
-                    Field('auction_no', wrapper_class="col-md-12"),
-                    Field('auction_date', wrapper_class="col-md-4"),
-                    Field('auction_time', wrapper_class="col-md-4"),
-                    Field('auction_price', wrapper_class="col-md-4"),
-                    Field('contract_date', wrapper_class="col-md-6"),
-                ),
-                Tab(
-                    _('Notes'),
-                    Field('notes', wrapper_class="col-md-12"),
-                )
-            )
-        )
-
-        self.helper.layout.append(
-            FormActions(
-                Submit('submit', _('Submit'), css_class='btn btn-primary'),
-                HTML("""{% load i18n %}<a class="btn btn-danger"
-                        href="{{ url_delete }}">{% trans 'Delete' %}</a>"""),
-            )
-        )
+# class TenderForm(forms.ModelForm):
+#
+#     class Meta:
+#         model = Tender
+#         fields = ['name','no','tender_type','approximate_price','currency','tender_status','notes','specification',
+#                     'apply_date','auction_date','auction_time','auction_price','auction_no','supplier','user','bap_staff','contract_date']
+#         widgets = {
+#             'apply_date': DatePickerWidget(attrs={'format': 'dd/mm/yyyy',
+#                                             'icon': 'fa-calendar'}),
+#             'contract_date': DatePickerWidget(attrs={'format': 'dd/mm/yyyy',
+#                                             'icon': 'fa-calendar'}),
+#             'auction_date': DatePickerWidget(
+#                 attrs={'format': 'dd/mm/yyyy',
+#                        'icon': 'fa-calendar'}),
+#             'auction_time': TimePickerWidget(
+#                 attrs={'format': 'HH:ii:ss',
+#                        'icon': 'fa-clock-o'}),
+#             'notes': CKEditorWidget(attrs={'lang': 'tr'}),
+#
+#         }
+#
+#     def __init__(self, *args, **kwargs):
+#         super(TenderForm, self).__init__(*args, **kwargs)
+#         users = User.objects.all()
+#         self.fields['user'].choices = [(user.pk, user.get_full_name()) for user in users]
+#         self.helper = FormHelper(self)
+#         self.helper.form_tag = False
+#
+#         self.helper.layout = Layout(
+#             TabHolder(
+#                 Tab(
+#                     _('General'),
+#                     Field('name', wrapper_class="col-md-12"),
+#                     Field('tender_type', wrapper_class="col-md-6"),
+#                     Field('tender_status', wrapper_class="col-md-6"),
+#                     Field('no', wrapper_class="col-md-6"),
+#                     Field('apply_date', wrapper_class="col-md-6"),
+#
+#
+#                 ),
+#                 Tab(
+#                     _('Details'),
+#                     Field('bap_staff', wrapper_class="col-md-6"),
+#                     Field('user', wrapper_class="col-md-6"),
+#                     Field('supplier', wrapper_class="col-md-6"),
+#                     Field('specification', wrapper_class="col-md-12"),
+#
+#                 ),
+#                 Tab(
+#                     _('Auction'),
+#                     Field('auction_no', wrapper_class="col-md-12"),
+#                     Field('auction_date', wrapper_class="col-md-4"),
+#                     Field('auction_time', wrapper_class="col-md-4"),
+#                     Field('auction_price', wrapper_class="col-md-4"),
+#                     Field('contract_date', wrapper_class="col-md-6"),
+#                 ),
+#                 Tab(
+#                     _('Notes'),
+#                     Field('notes', wrapper_class="col-md-12"),
+#                 )
+#             )
+#         )
+#
+#         self.helper.layout.append(
+#             FormActions(
+#                 Submit('submit', _('Submit'), css_class='btn btn-primary'),
+#                 HTML("""{% load i18n %}<a class="btn btn-danger"
+#                         href="{{ url_delete }}">{% trans 'Delete' %}</a>"""),
+#             )
+#         )
 
 class Tender_Form(forms.ModelForm):
 
     class Meta:
         model = Tender
-        fields = '__all__'
+        fields = ['name','no','tender_type','approximate_price','currency','tender_status','notes','specification',
+                    'apply_date','auction_date','auction_time','auction_price','auction_no','supplier','user','bap_staff','contract_date']
 
         widgets = {
             'apply_date': DatePickerWidget(attrs={'format': 'dd/mm/yyyy',
@@ -125,9 +129,9 @@ class Tender_Form(forms.ModelForm):
                 attrs={'format': 'dd/mm/yyyy',
                        'icon': 'fa-calendar'}),
             'auction_time': TimePickerWidget(
-                attrs={'format': 'HH:ii',
+                attrs={
                        'icon': 'fa-clock-o'}),
-            'notes': CKEditorWidget(attrs={'lang': 'tr'}),
+            'notes': CKEditorWidget(attrs={'lang': 'en'}),
 
         }
 
@@ -229,11 +233,11 @@ class TravellingExpenseForm(forms.ModelForm):
         fields = ['name','surname','institution','activity_report','start_date','end_date','location','price','currency','notes']
 
         widgets = {
-            'start_date': DatePickerWidget(attrs={'format': 'dd/mm/yyyy',
+            'start_date': DatePickerWidget(attrs={
                                             'icon': 'fa-calendar'}),
-            'end_date': DatePickerWidget(attrs={'format': 'dd/mm/yyyy',
+            'end_date': DatePickerWidget(attrs={
                                             'icon': 'fa-calendar'}),
-            'notes': CKEditorWidget(attrs={'lang': 'tr'}),
+            'notes': CKEditorWidget(attrs={'lang': 'en'}),
         }
 
     def __init__(self, *args, **kwargs):

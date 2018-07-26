@@ -46,7 +46,7 @@ class UserCRUD(CRUDView):
 
     search_fields = ['first_name','last_name','username','email']
     split_space_search = True
-    paginate_by = 5
+    paginate_by = 20
     paginate_position = 'Bottom' # Both | Bottom
     paginate_template = 'cruds/pagination/enumeration.html'
 
@@ -67,7 +67,7 @@ class GroupCRUD(CRUDView):
 
     search_fields = ['name']
     split_space_search = True
-    paginate_by = 5
+    paginate_by = 20
     paginate_position = 'Bottom' # Both | Bottom
     paginate_template = 'cruds/pagination/enumeration.html'
 

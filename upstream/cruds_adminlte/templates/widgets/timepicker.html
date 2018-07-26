@@ -1,7 +1,9 @@
 <script>
 $(function () {
     $(".timepickerwidget").timepicker({
-          showInputs: false });
+          showInputs: false,
+          use24hours: true,
+          showMeridian: false   });
 });
 </script>
 
@@ -9,9 +11,9 @@ $(function () {
     <div class="input-group">
         <div class="input-group-addon">
             <i class="fa {% if icon %}{{ icon }}{% else %}fa-clock-o{% endif %}"></i>
-            
+
         </div>
-       
+
         <input type="text" class="{{ class }}" name="{{ name }}" format="{{format}}"
         id="{{ id }}" value="{{ value|date:djformat }}">
     </div>

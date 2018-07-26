@@ -4,7 +4,7 @@
 {% block title %}{% trans "Create new" %} {{ model_verbose_name_plural|lower }}{% endblock %}
 {% block bodyclass %}skin-red {%if config.hide_sidebar %}sidebar-collapse{%endif%} {% endblock %}
 {% block page_name %}{{ model_verbose_name_plural }}{% endblock %}
-{% block page_description %}{% trans "Yeni" %} {{ model_verbose_name|lower }}{% trans " oluştur" %}{% endblock %}
+{% block page_description %}{% trans "New " %} {{ model_verbose_name }}{% endblock %}
 
 {% block breadcrumbs %}
 <ol class="breadcrumb">

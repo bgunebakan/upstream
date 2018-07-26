@@ -2,10 +2,10 @@
 {% load i18n %}
 {% load crud_tags %}
 
-{% block title %}{% trans "Güncelleme" %} {{ model_verbose_name_plural|lower }}{% endblock %}
+{% block title %}{% trans "Update" %} {{ model_verbose_name }}{% endblock %}
 {% block bodyclass %}skin-red {%if config.hide_sidebar %}sidebar-collapse{%endif%} {% endblock %}
 {% block page_name %}{{ model_verbose_name_plural }}{% endblock %}
-{% block page_description %}{% trans "Güncelleme" %} {{ model_verbose_name_plural|lower }}{% endblock %}
+{% block page_description %}{% trans "Update" %}{% endblock %}
 
 {% block breadcrumbs %}
 <ol class="breadcrumb">
