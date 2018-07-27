@@ -7,6 +7,7 @@ from django.core.mail import EmailMultiAlternatives
 from django.template.loader import render_to_string
 from django.utils.html import strip_tags
 from itertools import chain
+import threading
 
 @receiver(post_save, sender=Task)
 def add_log(sender, instance, **kwargs):
@@ -23,27 +24,33 @@ def toptask_enddate(sender, instance, **kwargs):
             top_task.end_date = instance.end_date
             top_task.save()
 
+
+class TasknotifyThread(threading.Thread):
+    def __init__(self,instance, **kwargs):
+        self.instance = instance
+        super(TasknotifyThread, self).__init__(**kwargs)
+
+    def run(self):
+        mailer_list = list(chain(self.instance.project.owner.all(), self.instance.inchargeuser.all()))
+
+        for inchargeuser in mailer_list:
+
+            subject, from_email, to = 'TARLA Internal - Project Management New Task Created', 'info@tarla.org.tr', inchargeuser.email
+
+            html_content = render_to_string('email/task_created.html',
+            {'task_name':self.instance,'task_id':self.instance.id,'project_name':self.instance.project,
+            'start_date':self.instance.start_date,'end_date':self.instance.end_date,
+            'inchargeuser':inchargeuser.get_full_name(),'description':self.instance.description,}) # render with dynamic value
+
+            text_content = strip_tags(html_content) # Strip the html tag. So people can see the pure text at least.
+
+            # create the email, and attach the HTML version as well.
+            msg = EmailMultiAlternatives(subject, text_content, from_email, [to])
+            msg.attach_alternative(html_content, "text/html")
+            print "email sending..."
+            msg.send()
+            print "email sent."
+
 @receiver(m2m_changed, sender=Task.inchargeuser.through)
 def task_email_notify(sender, instance, **kwargs):
-
-    print instance.inchargeuser.all()
-    print instance.project.owner.all()
-    mailer_list = list(chain(instance.project.owner.all(), instance.inchargeuser.all()))
-
-    for inchargeuser in mailer_list:
-        print inchargeuser
-        subject, from_email, to = 'TARLA Internal - Project Management New Task Created', 'info@tarla.org.tr', inchargeuser.email
-
-        html_content = render_to_string('email/task_created.html',
-        {'task_name':instance,'task_id':instance.id,'project_name':instance.project,
-        'start_date':instance.start_date,'end_date':instance.end_date,
-        'inchargeuser':inchargeuser.get_full_name(),'description':instance.description,}) # render with dynamic value
-
-        text_content = strip_tags(html_content) # Strip the html tag. So people can see the pure text at least.
-
-        # create the email, and attach the HTML version as well.
-        msg = EmailMultiAlternatives(subject, text_content, from_email, [to])
-        msg.attach_alternative(html_content, "text/html")
-        print "email sending..."
-        msg.send()
-        print "email sent."
+    TasknotifyThread(instance).start()
