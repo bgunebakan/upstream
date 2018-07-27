@@ -76,7 +76,7 @@ class TenderType(models.Model):
         verbose_name_plural = _(u'Tender Types')
 
     def get_absolute_url(self):
-        return "/procurement/tendertype/%i/update" % self.id
+        return "/procurement/tendertype/list"
 
     def __unicode__(self):
         return self.name
