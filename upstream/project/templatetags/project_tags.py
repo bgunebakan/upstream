@@ -22,8 +22,11 @@ def project_logs(count):
 
 @register.simple_tag
 def get_task(id):
-    id = int(id)
-    task = Task.objects.get(id=id)
+    try:
+        id = int(id)
+        task = Task.objects.get(id=id)
+    except ObjectDoesNotExist:
+        return "Task not found!"
     return task
 
 @register.simple_tag
