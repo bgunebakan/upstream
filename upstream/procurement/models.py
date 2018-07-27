@@ -76,7 +76,7 @@ class TenderType(models.Model):
         verbose_name_plural = _(u'Tender Types')
 
     def get_absolute_url(self):
-        return "/procurement/tender_type/%i" % self.id
+        return "/procurement/tendertype/%i/update" % self.id
 
     def __unicode__(self):
         return self.name
@@ -94,7 +94,7 @@ class Unit(models.Model):
     def __unicode__(self):
         return self.name
     def get_absolute_url(self):
-        return "/procurement/unit/%i" % self.id
+        return "/procurement/unit/list"
 
 
 class TenderStatus(models.Model):
@@ -111,7 +111,7 @@ class TenderStatus(models.Model):
     def __unicode__(self):
         return self.name
     def get_absolute_url(self):
-        return "/procurement/tender_status/%i" % self.id
+        return "/procurement/tenderstatus/list"
 
 class Currency(models.Model):
     name = models.CharField(max_length=50, verbose_name=_(u'Currency'))
@@ -127,7 +127,7 @@ class Currency(models.Model):
     def __unicode__(self):
         return self.name
     def get_absolute_url(self):
-        return "/procurement/currency/%i" % self.id
+        return "/procurement/currency/list"
 
 class Supplier(models.Model):
     name = models.CharField(max_length=32,unique=True, verbose_name=_(u'Supplier'))
@@ -146,7 +146,7 @@ class Supplier(models.Model):
         return self.name
 
     def get_absolute_url(self):
-        return "/procurement/supplier/%i" % self.id
+        return "/procurement/supplier/list"
 
 
 class Tender(models.Model):
@@ -209,7 +209,7 @@ class Tender_end_date(models.Model):
         return unicode(self.timedate)
 
     def get_absolute_url(self):
-        return "/procurement/tender/%i" % self.tender.id
+        return "/procurement/tender/%i/update" % self.tender.id
 
 class TenderOffer(models.Model):
     firm = models.CharField(max_length=50, verbose_name=_(u'Firm'))
@@ -227,7 +227,7 @@ class TenderOffer(models.Model):
     def __unicode__(self):
         return unicode(self.firm) +' offer for ' + unicode(tender.no)
     def get_absolute_url(self):
-        return "/procurement/tender_offer/%i" % self.id
+        return "/procurement/tender_offer/%i/update" % self.id
 
 class TenderContent(models.Model):
     name = models.CharField(max_length=50, verbose_name=_(u'Name'))
@@ -246,7 +246,7 @@ class TenderContent(models.Model):
     def __unicode__(self):
         return self.name
     def get_absolute_url(self):
-        return "/procurement/tender/%i" % self.tender.id
+        return "/procurement/tender/%i/update" % self.tender.id
 
 class Log(models.Model):
     timedate = models.DateTimeField(auto_now_add=True, verbose_name=_(u'Tarih-Saat'))
