@@ -1,5 +1,6 @@
 {% extends template_father %}
 {% load i18n %}
+{% load static %}
 {% load crud_tags %}
 {% load project_tags%}
 {% load personnel_tags %}
@@ -16,7 +17,7 @@
 {% endblock %}
 
 {% block js %}
-  <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+  <script src="{% static 'gstatic/charts/loader.js' %}"></script>
   <script type="text/javascript">
     google.charts.load('current', {'packages':['gantt']});
     google.charts.setOnLoadCallback(drawChart);
@@ -127,6 +128,7 @@
         <div class="box">
           <div class="box-header with-border">
             <div class="col-lg-6">
+              <div class="btn-group">
                 {%if object.top_task%}
                 <a href="/project/task/{{object.top_task.id}}" class="btn btn-warning">
                   {% trans "Go Top Task" %}</a>
@@ -138,16 +140,30 @@
                 {% crud_url object "update" namespace as url %}
                 {% if url and 'update' in views_available and crud_perms.update %}
                   <a href="{{ url }}{{getparams}}" class="btn btn-primary">
-                      {% trans "Update Details" %}</a>
+                      {% trans "Update" %}</a>
                 {%endif%}
-            </div>
-            <div class="col-lg-6">
+
                 {% crud_url object "create" namespace as url %}
                 {% if url and 'create' in views_available and crud_perms.create %}
-                  <a data-toggle="modal" href="#subtaskModal" class="btn btn-success" align="center">
-                      {% trans "New Sub Task" %}</a>
+                  <a data-toggle="modal" href="#subtaskModal" class="btn btn-success">
+                      {% trans "New Sub-Task" %}</a>
                 {%endif%}
+
+                    <div class="btn-group">
+                      <button type="button" class="btn btn-success dropdown-toggle" data-toggle="dropdown">
+                        <span class="caret"></span>
+                      </button>
+                      <ul class="dropdown-menu">
+                        <li><a data-toggle="modal" href="#timeModal">Edit Time</a></li>
+                        <li><a data-toggle="modal" href="#resourceModal">Resources</a></li>
+                      </ul>
+                    </div>
+                  </div>
             </div>
+            <div class="col-lg-6">
+
+            </div>
+
             <h3 class="box-title"></h3>
           </div>
           <!-- /.box-header -->
