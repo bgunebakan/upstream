@@ -44,16 +44,26 @@
 
       <!-- /.box-header -->
       <div class="box-body">
+
         <div class="nav-tabs-custom">
           <ul class="nav nav-tabs">
             {%get_tendertypes as tender_types%}
             {%for tender_type in tender_types %}
-            <li class="{%if tender_types|first == tender_type%}active{%endif%}"><a href="#{{tender_type.code}}" data-toggle="tab" aria-expanded="false">{{tender_type.name}}</a></li>
+            {%if request.GET.tendertype %}
+                <li class="{%if request.GET.tendertype == tender_type.id|slugify%}active{%endif%}"><a href="#{{tender_type.code}}" data-toggle="tab" aria-expanded="false">{{tender_type.name}}</a></li>
+            {%else%}
+                <li class="{%if tender_types|first == tender_type%}active{%endif%}"><a href="#{{tender_type.code}}" data-toggle="tab" aria-expanded="false">{{tender_type.name}}</a></li>
+            {%endif%}
+
             {%endfor%}
           </ul>
           <div class="tab-content">
             {%for tender_type in tender_types%}
-            <div class="tab-pane {%if tender_types|first == tender_type%}active{%endif%}" id="{{tender_type.code}}">
+            {%if request.GET.tendertype %}
+                <div class="tab-pane {%if request.GET.tendertype == tender_type.id|slugify%}active{%endif%}" id="{{tender_type.code}}">
+            {%else%}
+                <div class="tab-pane {%if tender_types|first == tender_type%}active{%endif%}" id="{{tender_type.code}}">
+            {%endif%}
               <table id="example2" class="table table-bordered table-hover dataTable" role="grid" aria-describedby="example2_info">
                 <thead>
                 <tr role="row">

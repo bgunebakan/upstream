@@ -29,11 +29,11 @@ class TaskForm(forms.ModelForm):
         fields = ('name','start_date','end_date','percent_done','top_task','project','inchargeuser','task_type','status','description')
         widgets = {
 
-            'start_date': DateTimePickerWidget(attrs={'format': 'd/m/yyyy h:ii',
+            'start_date': DatePickerWidget(attrs={'format': 'd/m/yyyy 00:00', #'format': 'd/m/yyyy h:ii'
                                             'icon': 'fa-calendar'}),
-            'end_date': DateTimePickerWidget(attrs={'format': 'd/m/yyyy  h:ii',
+            'end_date': DatePickerWidget(attrs={'format': 'd/m/yyyy  00:00',
                                             'icon': 'fa-calendar'}),
-            'description': CKEditorWidget(attrs={'lang': 'tr'}),
+            'description': CKEditorWidget(attrs={'lang': 'en'}),
         }
 
     def __init__(self, *args, **kwargs):
