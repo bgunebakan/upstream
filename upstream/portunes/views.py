@@ -109,7 +109,7 @@ class IdentifierCRUD(CRUDView):
     check_login = True
     check_perms = True
     add_form = IdentifierForm
-    update_form = IdentifierForm
+    update_form = IdentifierUpdateForm
 
     views_available=['create', 'list', 'update','delete']
     fields = ['name','identifier_type','user','is_active','created_date','deleted' ]

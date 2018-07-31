@@ -87,8 +87,22 @@ class IdentifierForm(forms.ModelForm):
         self.fields['user'].label = "User"
         self.fields['identifier_type'].label = "Card Type"
 
-#    def clean_key(self):
-#        if self.instance.is_disabled:
-#            return self.instance.key
-#        else:
-#            return self.cleaned_data.get('key')
+class IdentifierUpdateForm(forms.ModelForm):
+
+    class Meta:
+        model = Identifier
+        fields = ('name', 'key','user', 'is_active', 'identifier_type')
+
+    def __init__(self, *args, **kwargs):
+        super(IdentifierUpdateForm, self).__init__(*args, **kwargs)
+        users = User.objects.all()
+        self.fields['user'].choices = [(user.pk, user.get_full_name()) for user in users]
+        self.fields['name'].widget.attrs.update({'class' : 'form-control'})
+        self.fields['key'].widget.attrs.update({'class' : 'form-control','disabled':'true'})
+        self.fields['is_active'].widget.attrs.update({'class' : 'form-control'})
+        self.fields['identifier_type'].widget.attrs.update({'class' : 'form-control'})
+        self.fields['name'].label = "Card Name"
+        self.fields['key'].label = "Card No"
+        self.fields['is_active'].label = "active"
+        self.fields['user'].label = "User"
+        self.fields['identifier_type'].label = "Card Type"
