@@ -139,8 +139,8 @@ class Annual_leaveCRUD(CRUDView):
     check_perms = False
     #add_form = Annual_leaveForm
     #update_form = Annual_leaveForm
-    views_available=['create','delete','list']
-    fields = ['user','start_date','end_date','notes']
+    views_available=['create','update','delete','list']
+    fields = ['user','start_date','end_date','approved','notes']
     list_fields = ['user','start_date','end_date']
     display_fields = ['user','start_date','end_date','notes']
 

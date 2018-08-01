@@ -218,7 +218,7 @@ class Annual_leave(models.Model):
         verbose_name_plural = _(u'Annual Leaves')
 
     def __unicode__(self):
-        return unicode(self.user) + unicode(self.start_date) + unicode(self.end_date)
+        return unicode(self.user.get_full_name()) +" : "+ unicode(self.start_date) +" - "+ unicode(self.end_date)
 
     def get_absolute_url(self):
         return "/personnel/annual_leave/list"
