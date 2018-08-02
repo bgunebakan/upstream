@@ -154,7 +154,9 @@
                         <span class="caret"></span>
                       </button>
                       <ul class="dropdown-menu">
-                        <li><a data-toggle="modal" href="#timeModal">Edit Time</a></li>
+                        <li><a data-toggle="modal" href="#taskModal">Details</a></li>
+                        <li><a data-toggle="modal" href="#datetimeModal">Edit Date</a></li>
+                        <li><a data-toggle="modal" href="#fsModal">Relation</a></li>
                         <li><a data-toggle="modal" href="#resourceModal">Resources</a></li>
                       </ul>
                     </div>
@@ -503,11 +505,159 @@ $(function () {
     </div>
   </div>
 
+  <!-- DATE-TIME Modal -->
+  <div class="modal fade" id="datetimeModal" role="dialog">
+
+    <div class="modal-dialog">
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4>Edit Date-Time Details</h4>
+        </div>
+        <div class="modal-body">
+          <form action="/project/updatetask/{{object.id}}/" method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="box-body row">
+              <div class="col-md-12">
+                    <div id="div_id_start_date" class="form-group col-md-6">
+                      <label for="id_start_date" class="control-label  requiredField">Start date
+                        <span class="asteriskField">*</span>
+                      </label>
+                      <div class="controls ">
+                        <script>
+                          $(function () {
+                            $('.datetimepickerwidget').datepicker();
+                          });
+                        </script>
+                        <div class="input-group date">
+                          <div class="input-group-addon">
+                            <i class="fa fa-calendar"></i>
+                          </div>
+                          <input class="datetimepickerwidget form-control" data-date-format="d/m/yyyy 00:00" name="start_date" id="id_start_date" value="{{object.start_date|date:'d/m/Y H:i'}}" type="text">
+                        </div>
+                      </div>
+                    </div>
+                    <div id="div_id_end_date" class="form-group col-md-6">
+                      <label for="id_end_date" class="control-label  requiredField">End date<span class="asteriskField">*</span>
+                      </label>
+                      <div class="controls ">
+                        <script>
+                          $(function () {
+                            $('.datetimepickerwidget').datepicker();
+                          });
+                          </script>
+                          <div class="input-group date">
+                            <div class="input-group-addon">
+                              <i class="fa fa-calendar"></i>
+                            </div>
+                            <input class="datetimepickerwidget form-control" data-date-format="d/m/yyyy  00:00" name="end_date" id="id_end_date" value="{{object.end_date|date:'d/m/Y H:i'}}" type="text">
+                          </div>
+                      </div>
+                    </div>
+              </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+          <div class="form-group">
+            <div class="controls ">
+              <input name="update_datetime" value="Save" class="btn btn-primary btn btn-primary" id="submit-id-submit" type="submit">
+            </div>
+          </div>
+        </div>
+          </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- RELATIONS Modal -->
+  <div class="modal fade" id="fsModal" role="dialog">
+
+    <div class="modal-dialog">
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4>Task Relation</h4>
+        </div>
+        <div class="modal-body">
+          <form action="/project/updatetask/{{object.id}}/" method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="box-body row">
+              <div class="col-md-12">
+                <div class="form-group">
+                  <label>Related Task</label>
+                  <select name="related_task" id="id_related_task" class="form-control select2 select2-hidden-accessible" style="width: 100%;" tabindex="-1" aria-hidden="true">
+                    {%tasks 100 request as tasks%}
+                    {%for task in tasks%}
+                      <option value="{{task.id}}">{{task}}</option>
+                    {%endfor%}
+                  </select>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <label>Word Day</label>
+                <input name="day" id="id_day" class="form-control" placeholder="1" value="1" type="number">
+              </div>
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label>Relation</label>
+                  <select name="relation" id="id_relation" class="form-control select2 select2-hidden-accessible" style="width: 100%;" tabindex="-1" aria-hidden="true">
+                    <option selected value="FS">FS (Finish to Start)</option>
+                    <option selected value="SF">SF (Start to Finish)</option>
+                  </select>
+                </div>
+              </div>
+
+            </div>
+        </div>
+        <div class="modal-footer">
+          <div class="form-group">
+            <div class="controls ">
+              <input name="update_relation" value="Save" class="btn btn-primary btn btn-primary" id="submit-id-submit" type="submit">
+            </div>
+          </div>
+        </div>
+          </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- RESOURCES Modal -->
+  <div class="modal fade" id="resourceModal" role="dialog">
+
+    <div class="modal-dialog">
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4>Task Resources</h4>
+        </div>
+        <div class="modal-body">
+          <form action="/project/updatetask/{{object.id}}/" method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="box-body row">
+              <div class="col-md-12">
+
+              </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+          <div class="form-group">
+            <div class="controls ">
+              <input name="update_resources" value="Save" class="btn btn-primary btn btn-primary" id="submit-id-submit" type="submit">
+            </div>
+          </div>
+        </div>
+          </form>
+      </div>
+    </div>
+  </div>
   <!-- Modal -->
   <div class="modal fade" id="taskModal" role="dialog">
 
     <div class="modal-dialog">
-      <!-- Modal content-->
+      <!-- TASK DETAILS Modal content-->
       <div class="modal-content">
         <div class="modal-body">
             <div class="row">

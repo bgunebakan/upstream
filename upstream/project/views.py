@@ -18,6 +18,7 @@ from cruds_adminlte.crud import CRUDView
 from cruds_adminlte.inline_crud import InlineAjaxCRUD
 from cruds_adminlte.filter import FormFilter
 from django.contrib import messages
+from datetime import datetime,timedelta
 
 class ProjectCRUD(CRUDView):
     model = Project
@@ -51,7 +52,7 @@ class TaskCRUD(CRUDView):
     update_form = TaskForm
 
     views_available=['create', 'list', 'update','detail','delete']
-    fields = ['name','start_date','end_date','percent_done','top_task','project','inchargeuser','task_type','status','description' ]
+    fields = ['name','start_date','end_date','percent_done','top_task','project','inchargeuser','task_type','status','description','priority' ]
     list_fields = ['name','start_date','end_date','project','inchargeuser','task_type','status']
     display_fields = ['name','start_date','end_date','percent_done','top_task','project','inchargeuser','task_type','status','description' ]
 
@@ -141,3 +142,50 @@ def dashboard(request):
         return HttpResponseRedirect('/personnel/new/personnel')
     projects = Project.objects.all()
     return render(request, 'project/dashboard.html',{'personnel': personnel,'projects' : projects})
+
+@login_required
+def update_task(request, task_id):
+    if request.method == 'POST':
+        print "POST"
+        if 'update_datetime' in request.POST:
+            try:
+                start_date = request.POST.get("start_date","")
+                end_date = request.POST.get("end_date","")
+                task = Task.objects.get(id=task_id)
+            except ObjectDoesNotExist:
+                raise Http404("Task Update Error.")
+            task.start_date = datetime.strptime(start_date, '%d/%m/%Y %H:%M')
+            task.end_date= datetime.strptime(end_date, '%d/%m/%Y %H:%M')
+            task.save()
+
+            return HttpResponseRedirect('/project/task/'+task_id)
+        elif 'update_relation' in request.POST:
+            related_task_id = int(request.POST.get("related_task",""))
+            day = int(request.POST.get("day",""))
+            relation = unicode(request.POST.get("relation",""))
+            print "-----------" + relation
+            if 'FS' in relation :
+                task = Task.objects.get(id=task_id)
+                related_task = Task.objects.get(id=related_task_id)
+
+                task.start_date = related_task.end_date + timedelta(days=1)
+                task.end_date = task.end_date + timedelta(days=day+1)
+                task.save()
+                messages.success(request, 'Finish to Start Task Relation Updated.')
+                return HttpResponseRedirect('/project/task/' + unicode(task_id))
+            elif 'SF' in relation :
+                task = Task.objects.get(id=task_id)
+                related_task = Task.objects.get(id=related_task_id)
+
+                task.start_date = related_task.start_date
+                task.end_date = related_task.end_date
+                task.save()
+                messages.success(request, 'Start to Finish Task Relation Updated.')
+                return HttpResponseRedirect('/project/task/' + unicode(task_id))
+            else:
+                messages.error(request, 'Task Relation cannot Updated!')
+                return HttpResponseRedirect('/project/task/'+unicode(task_id))
+
+    elif request.method == 'GET':
+        print "GET"
+        return HttpResponseRedirect('/project/')
