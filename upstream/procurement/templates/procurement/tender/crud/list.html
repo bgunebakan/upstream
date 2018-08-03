@@ -22,6 +22,52 @@
 {% block content %}
 <!-- Small boxes (Stat box) -->
 <div class="row">
+  <div class="col-xs-12">
+      <div class="box box-success">
+          <div class="box-header">
+            <div class="row">
+              {% if url_create %}
+              <div class="col-lg-6">
+                  {% crud_url object "create" namespace as url %}
+                  {% if url and 'create' in views_available and crud_perms.create %}
+                    <a href="{{ url }}{{getparams}}" class="btn btn-primary">
+                        {% trans "New " %} {{ model_verbose_name }}</a>
+                    {%endif%}
+              </div>
+              {% endif %}
+              {% if search %}
+              <div class="col-lg-6">
+                  <form action="" method="get">
+                      <div class="input-group">
+                          <input type="text" name="q" value="{{q}}" class="form-control" placeholder="{% trans 'Search...' %}">
+                          <span class="input-group-btn">
+                              <button class="btn btn-flat" type="submit">
+                                  <i class="fa fa-search"></i>
+                              </button>
+                          </span>
+                      </div>
+                  </form>
+              </div>
+              {% endif %}
+          </div>
+
+          {% if filters %}
+          <br />
+                  <form action="" method="get">
+                      <table class="table">
+                          {% for filter in filters %}
+                          {{filter.render }}
+                          {% endfor %}
+
+                      </table>
+                      <input type="submit" class="btn btn-info" value="Filter" />
+                      <a  class="btn btn-warning" href="?"> {% trans 'Clean filter' %} </a>
+                  </form>
+          </div>
+          <!-- /.box-body -->
+      </div>
+              {% endif%}
+  </div>
   <div class="col-md-12">
 
     <div class="box box-danger">
@@ -49,8 +95,8 @@
           <ul class="nav nav-tabs">
             {%get_tendertypes as tender_types%}
             {%for tender_type in tender_types %}
-            {%if request.GET.tendertype %}
-                <li class="{%if request.GET.tendertype == tender_type.id|slugify%}active{%endif%}"><a href="#{{tender_type.code}}" data-toggle="tab" aria-expanded="false">{{tender_type.name}}</a></li>
+            {%if request.GET.tender_type %}
+                <li class="{%if request.GET.tender_type == tender_type.id|slugify%}active{%endif%}"><a href="#{{tender_type.code}}" data-toggle="tab" aria-expanded="false">{{tender_type.name}}</a></li>
             {%else%}
                 <li class="{%if tender_types|first == tender_type%}active{%endif%}"><a href="#{{tender_type.code}}" data-toggle="tab" aria-expanded="false">{{tender_type.name}}</a></li>
             {%endif%}
@@ -59,8 +105,8 @@
           </ul>
           <div class="tab-content">
             {%for tender_type in tender_types%}
-            {%if request.GET.tendertype %}
-                <div class="tab-pane {%if request.GET.tendertype == tender_type.id|slugify%}active{%endif%}" id="{{tender_type.code}}">
+            {%if request.GET.tender_type %}
+                <div class="tab-pane {%if request.GET.tender_type == tender_type.id|slugify%}active{%endif%}" id="{{tender_type.code}}">
             {%else%}
                 <div class="tab-pane {%if tender_types|first == tender_type%}active{%endif%}" id="{{tender_type.code}}">
             {%endif%}
@@ -76,7 +122,7 @@
                 </thead>
                 <tbody>
 
-                    {%get_tenders as tenders%}
+                    {%get_tenders request as tenders%}
                     {%for tender in tenders%}
 
                       {%if tender.tender_type == tender_type%}

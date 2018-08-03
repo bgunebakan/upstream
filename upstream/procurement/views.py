@@ -90,7 +90,7 @@ class TenderCRUD(CRUDView):
     list_fields = ['name','no','tender_status','tender_type','apply_date']
     display_fields = ['name','no','tender_type','tender_status','auction_no']
 
-    list_filter = ['tender_type','tender_status']
+    list_filter = ['tender_status','apply_date']
     views_available=['create', 'list', 'delete', 'update']
 
     add_form = Tender_Form
@@ -98,9 +98,9 @@ class TenderCRUD(CRUDView):
 
     inlines = [Tender_end_date_AjaxCRUD,Tender_offer_AjaxCRUD,Tender_content_AjaxCRUD]
 
-    search_fields = ['name','no','notes','auction_no']
-    split_space_search = True
-    paginate_by = 15
+    #search_fields = ['name','no','auction_no']
+    #split_space_search = True
+    paginate_by = 20
     paginate_position = 'Bottom' # Both | Bottom
     paginate_template = 'cruds/pagination/enumeration.html'
 

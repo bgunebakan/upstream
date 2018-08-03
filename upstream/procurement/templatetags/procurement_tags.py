@@ -25,9 +25,12 @@ def get_tendertypes():
     return tender_types
 
 @register.simple_tag
-def get_tenders():
+def get_tenders(request):
     try:
-        tenders = Tender.objects.all().order_by('-apply_date')
+        if request.GET.get("apply_date",""):
+            tenders = Tender.objects.filter(apply_date__year=request.GET.get("apply_date","")).order_by('-apply_date')
+        else:
+            tenders = Tender.objects.all().order_by('-apply_date')
     except ObjectDoesNotExist:
         return null
     return tenders
