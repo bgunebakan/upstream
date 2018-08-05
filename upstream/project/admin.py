@@ -11,6 +11,9 @@ class ProjectAdmin(admin.ModelAdmin):
 class CommentAdmin(admin.ModelAdmin):
      list_display = ('text', 'date','user')
 
+class ReportAdmin(admin.ModelAdmin):
+     list_display = ('task', 'date','user')
+
 class TasktypeAdmin(admin.ModelAdmin):
      list_display = ('name',)
 
@@ -26,3 +29,4 @@ admin.site.register(Tasktype,TasktypeAdmin)
 admin.site.register(Statustype,StatustypeAdmin)
 admin.site.register(Comment,CommentAdmin)
 admin.site.register(Log)
+admin.site.register(Report,ReportAdmin)

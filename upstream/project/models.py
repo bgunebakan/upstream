@@ -76,7 +76,7 @@ class Task(models.Model):
 
     task_type = models.ForeignKey(Tasktype,null=True,blank=True,on_delete=models.SET_NULL,verbose_name="Task type")
     status = models.ForeignKey(Statustype,null=True,blank=True,on_delete=models.SET_NULL,verbose_name="Status")
-
+    finished = models.BooleanField(default=False,blank=True,verbose_name = "Finished")
     description = models.TextField(max_length=500,null=True,blank=True,verbose_name="Notes")
 
     def __unicode__(self):
@@ -93,7 +93,7 @@ class Comment(models.Model):
     task = models.ForeignKey(Task,null=True,on_delete=models.SET_NULL)
     user = models.ForeignKey(User,null=True,on_delete=models.SET_NULL)
     text = models.TextField(max_length=1000,null=True,blank=True)
-    date = models.DateTimeField(verbose_name='oluşturma tarihi',default=timezone.now, editable=False)
+    date = models.DateTimeField(verbose_name='Created date',default=timezone.now, editable=False)
 
     def __unicode__(self):
         return self.text
@@ -105,6 +105,24 @@ class Comment(models.Model):
         ordering = ['-date']
         verbose_name = _(u'Comment')
         verbose_name_plural = _(u'Comments')
+
+class Report(models.Model):
+    task = models.ForeignKey(Task,null=True,on_delete=models.SET_NULL,verbose_name='Task')
+    user = models.ForeignKey(User,null=True,on_delete=models.SET_NULL,verbose_name='User')
+    report = models.TextField(max_length=1000,null=True,blank=True,verbose_name='Report')
+    date = models.DateTimeField(verbose_name='created date',default=timezone.now, editable=False)
+    approved = models.BooleanField(default=False,blank=True,verbose_name = "Approved")
+
+    def __unicode__(self):
+        return self.report
+
+    def get_absolute_url(self):
+        return "/project/task/%i" % self.task.id
+
+    class Meta:
+        ordering = ['-date']
+        verbose_name = _(u'Report')
+        verbose_name_plural = _(u'Reports')
 
 class Log(models.Model):
     timedate = models.DateTimeField(auto_now_add=True, verbose_name=_(u'Log Time'))

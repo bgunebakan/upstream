@@ -110,3 +110,21 @@ class CommentForm(forms.ModelForm):
 
     def __init__(self, *args, **kwargs):
         super(CommentForm, self).__init__(*args, **kwargs)
+
+class ReportForm(forms.ModelForm):
+
+    class Meta:
+        model = Report
+        exclude = ('date',)
+        widgets = {
+            'report': CKEditorWidget(attrs={'lang': 'en'}),
+        }
+        #text = forms.CharField(widget=RichTextWidget(field_settings='mini'))
+        #widgets = {
+        #    'text': forms.DateTimeInput(attrs={'class':'textarea','id':'editor1'}),
+        #}
+
+        #fields = ('name', 'top_project', 'owner', 'group')
+
+    def __init__(self, *args, **kwargs):
+        super(ReportForm, self).__init__(*args, **kwargs)

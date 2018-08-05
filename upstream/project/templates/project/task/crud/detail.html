@@ -158,6 +158,7 @@
                         <li><a data-toggle="modal" href="#datetimeModal">Edit Date</a></li>
                         <li><a data-toggle="modal" href="#fsModal">Relation</a></li>
                         <li><a data-toggle="modal" href="#resourceModal">Resources</a></li>
+                        <li><a data-toggle="modal" href="#reportModal">Finish Task</a></li>
                       </ul>
                     </div>
                   </div>
@@ -653,11 +654,12 @@ $(function () {
       </div>
     </div>
   </div>
-  <!-- Modal -->
+
+  <!-- TASK DETAILS Modal -->
   <div class="modal fade" id="taskModal" role="dialog">
 
     <div class="modal-dialog">
-      <!-- TASK DETAILS Modal content-->
+      <!-- Modal content-->
       <div class="modal-content">
         <div class="modal-body">
             <div class="row">
@@ -683,6 +685,84 @@ $(function () {
                  </div>
                  <div id="task_url"></div>
               </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- REPORT Modal -->
+  <div class="modal fade" id="reportModal" role="dialog">
+
+    <div class="modal-dialog">
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-body">
+          <div class="box-body row">
+            <div class="col-md-12">
+
+                    <form action="/project/report/create?success_url=/project/&" method="POST" enctype="multipart/form-data">
+                      {% csrf_token %}
+                      <div class="box-body row">
+                        <div class="col-md-12">
+                          <input type="hidden" name="success_url" value="/project/" />
+                          <div id="div_id_task" class="form-group col-md-12">
+                            <div class="controls hidden">
+                              <select name="task" required="" class="select form-control select2-hidden hidden" id="id_task" tabindex="-1" aria-hidden="true">
+                                <option value="{{object.id}}">{{object}}</option>
+                              </select>
+                            </div>
+                          </div>
+                          <div id="div_id_user" class="form-group col-md-12">
+                            <div class="controls hidden">
+                              <select name="user" required="" class="select form-control select2-hidden hidden" id="id_user" tabindex="-1" aria-hidden="true">
+                                <option value="{{request.user.id}}">{{request.user.first_name}} {{request.user.last_name}}</option>
+                              </select>
+                            </div>
+                          </div>
+
+                          <div id="div_id_report" class="form-group">
+                            <label for="id_report" class="control-label ">Report</label>
+                            <div class="controls ">
+                              <textarea class="ckeditorwidget form-control" cols="40" maxlength="200" rows="10" name="report" id="id_report" style="visibility: hidden; display: none;" lang="en">
+                              </textarea>
+
+
+        <script>
+        $(function () {
+            CKEDITOR.replace('id_report', {
+                language: 'en',
+
+            });
+
+            CKEDITOR.config.toolbar = [
+               ['Format','Font','FontSize','Bold','Italic','Underline','StrikeThrough','-',
+                'Undo','Redo','-','Cut','Copy','Paste','Find','Replace','-',
+                'Outdent','Indent','-','Print', '-','NumberedList','BulletedList','-',
+                'JustifyLeft','JustifyCenter','JustifyRight','JustifyBlock','-',
+                'Image','Table','-','Link','Smiley'], ['Source']
+            ] ;
+
+        });
+        </script> </div>
+                          </div>
+                        </div>
+                      </div>
+
+                      <div class="box-footer">
+                        <div class="form-group">
+                          <div class="controls">
+                            <button type="submit" class="btn btn-primary">Submit</button>
+
+                          </div>
+                        </div>
+                      </div>
+
+                    </form>
+
+
+            </div>
+          </div>
+
+        </div>
       </div>
     </div>
   </div>

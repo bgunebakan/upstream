@@ -101,6 +101,7 @@ class StatustypeCRUD(CRUDView):
     paginate_by = 15
     paginate_position = 'Bottom' # Both | Bottom
     paginate_template = 'cruds/pagination/enumeration.html'
+
 class CommentCRUD(CRUDView):
     model = Comment
     #template_name_base='crud'  #customer cruds => ccruds
@@ -122,6 +123,28 @@ class CommentCRUD(CRUDView):
     paginate_by = 15
     paginate_position = 'Bottom' # Both | Bottom
     paginate_template = 'cruds/pagination/enumeration.html'
+
+class ReportCRUD(CRUDView):
+    model = Report
+    #template_name_base='crud'  #customer cruds => ccruds
+    namespace = None
+    check_login = True
+    check_perms = False
+    add_form = ReportForm
+    update_form = ReportForm
+
+    views_available=['create','update']
+    fields = ['task','user','report','approved']
+    #list_fields = ['task','user','text']
+    #display_fields = ['name','start_date','end_date','percent_done','top_task','project','inchargeuser','task_type','status','description' ]
+
+    #list_filter = ['project','task_type','task_status','inchargeuser']
+
+    #search_fields = ['name',  'inchargeuser', 'group','start_date','end_date']
+    #split_space_search = True
+    #paginate_by = 15
+    #paginate_position = 'Bottom' # Both | Bottom
+    #paginate_template = 'cruds/pagination/enumeration.html'
 
 @login_required
 def ganttchart(request):
