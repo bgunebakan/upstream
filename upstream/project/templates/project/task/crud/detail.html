@@ -17,7 +17,7 @@
 {% endblock %}
 
 {% block js %}
-  <script src="{% static 'gstatic/charts/loader.js' %}"></script>
+  <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
   <script type="text/javascript">
     google.charts.load('current', {'packages':['gantt']});
     google.charts.setOnLoadCallback(drawChart);
@@ -154,11 +154,9 @@
                         <span class="caret"></span>
                       </button>
                       <ul class="dropdown-menu">
-                        <li><a data-toggle="modal" href="#taskModal">Details</a></li>
                         <li><a data-toggle="modal" href="#datetimeModal">Edit Date</a></li>
                         <li><a data-toggle="modal" href="#fsModal">Relation</a></li>
-                        <li><a data-toggle="modal" href="#resourceModal">Resources</a></li>
-                        <li><a data-toggle="modal" href="#reportModal">Finish Task</a></li>
+                        <li><a data-toggle="modal" href="#reportModal">Activity Report</a></li>
                       </ul>
                     </div>
                   </div>
@@ -235,8 +233,42 @@
               {{comment.text|safe}}
               </div>
               <div class="timeline-footer">
-                <a class="btn btn-primary btn-xs">Edit</a>
                 <a class="btn btn-danger btn-xs" href="/project/comment/{{comment.id}}/delete">Delete</a>
+              </div>
+            </div>
+          </li>
+          <!-- END timeline item -->
+        {%endfor%}
+        {%get_reports object as reports%}
+        {%for report in reports%}
+          <!-- timeline time label -->
+          <li class="time-label">
+                <span class="bg-green">
+                  {{report.date|date:"d M Y"}}
+                </span>
+          </li>
+          <!-- /.timeline-label -->
+          <!-- timeline item -->
+          <li>
+            <i class="fa fa-edit bg-green"></i>
+
+            <div class="timeline-item">
+              <span class="time"><i class="fa fa-clock-o"></i> {{report.date|date:"H:i"}}</span>
+
+              <h3 class="timeline-header"><b>Activity Report of</b> {{report.user.first_name}} {{report.user.last_name}}</h3>
+
+              <div class="timeline-body">
+              {{report.report|safe}}
+              </div>
+              <div class="timeline-footer">
+                {%if report.approved%}
+                <i class="fa fa-edit bg-green">Approved</i>
+                {%else%}
+                <i class="fa fa-edit bg-red">Not Approved</i>
+                {%if request.user.is_superuser%}
+                <a class="btn btn-success btn-xs" href="/project/report/{{report.id}}/update">Approve</a>
+                {%endif%}
+                {%endif%}
               </div>
             </div>
           </li>
@@ -278,39 +310,35 @@
                       </textarea>
 
 
-<script>
-$(function () {
-    CKEDITOR.replace('id_text', {
-        language: 'en',
+                      <script>
+                      $(function () {
+                        CKEDITOR.replace('id_text', {
+                          language: 'en',
 
-    });
+                        });
 
-    CKEDITOR.config.toolbar = [
-       ['Format','Font','FontSize','Bold','Italic','Underline','StrikeThrough','-',
-        'Undo','Redo','-','Cut','Copy','Paste','Find','Replace','-',
-        'Outdent','Indent','-','Print', '-','NumberedList','BulletedList','-',
-        'JustifyLeft','JustifyCenter','JustifyRight','JustifyBlock','-',
-        'Image','Table','-','Link','Smiley'], ['Source']
-    ] ;
+                        CKEDITOR.config.toolbar = [
+                           ['Format','Font','FontSize','Bold','Italic','Underline','StrikeThrough','-',
+                            'Undo','Redo','-','Cut','Copy','Paste','Find','Replace','-',
+                            'Outdent','Indent','-','Print', '-','NumberedList','BulletedList','-',
+                            'JustifyLeft','JustifyCenter','JustifyRight','JustifyBlock','-',
+                            'Image','Table','-','Link','Smiley'], ['Source']
+                        ] ;
 
-});
-</script> </div>
+                        });
+                      </script>
+                    </div>
                   </div>
                 </div>
               </div>
-
               <div class="box-footer">
                 <div class="form-group">
                   <div class="controls">
                     <button type="submit" class="btn btn-primary">Submit</button>
-
                   </div>
                 </div>
               </div>
-
             </form>
-
-
     </div>
   </div>
 
@@ -692,13 +720,12 @@ $(function () {
   <!-- REPORT Modal -->
   <div class="modal fade" id="reportModal" role="dialog">
 
-    <div class="modal-dialog">
+    <div class="modal-dialog modal-lg">
       <!-- Modal content-->
       <div class="modal-content">
         <div class="modal-body">
           <div class="box-body row">
             <div class="col-md-12">
-
                     <form action="/project/report/create?success_url=/project/&" method="POST" enctype="multipart/form-data">
                       {% csrf_token %}
                       <div class="box-body row">
@@ -724,25 +751,24 @@ $(function () {
                             <div class="controls ">
                               <textarea class="ckeditorwidget form-control" cols="40" maxlength="200" rows="10" name="report" id="id_report" style="visibility: hidden; display: none;" lang="en">
                               </textarea>
+                              <script>
+                                $(function () {
+                                  CKEDITOR.replace('id_report', {
+                                    language: 'en',
 
+                                  });
 
-        <script>
-        $(function () {
-            CKEDITOR.replace('id_report', {
-                language: 'en',
+                                  CKEDITOR.config.toolbar = [
+                                    ['Format','Font','FontSize','Bold','Italic','Underline','StrikeThrough','-',
+                                    'Undo','Redo','-','Cut','Copy','Paste','Find','Replace','-',
+                                    'Outdent','Indent','-','Print', '-','NumberedList','BulletedList','-',
+                                    'JustifyLeft','JustifyCenter','JustifyRight','JustifyBlock','-',
+                                    'Image','Table','-','Link','Smiley'], ['Source']
+                                  ] ;
 
-            });
-
-            CKEDITOR.config.toolbar = [
-               ['Format','Font','FontSize','Bold','Italic','Underline','StrikeThrough','-',
-                'Undo','Redo','-','Cut','Copy','Paste','Find','Replace','-',
-                'Outdent','Indent','-','Print', '-','NumberedList','BulletedList','-',
-                'JustifyLeft','JustifyCenter','JustifyRight','JustifyBlock','-',
-                'Image','Table','-','Link','Smiley'], ['Source']
-            ] ;
-
-        });
-        </script> </div>
+                                });
+                              </script>
+                            </div>
                           </div>
                         </div>
                       </div>

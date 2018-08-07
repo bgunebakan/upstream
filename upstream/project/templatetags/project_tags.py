@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 from django import template
 from django.core.urlresolvers import resolve
-from project.models import Project,Task,Tasktype,Log,Comment
+from project.models import Project,Task,Tasktype,Log,Comment,Report
 from django.core.exceptions import ObjectDoesNotExist
 from auditlog.models import LogEntry
 from personnel.models import Personnel
@@ -40,6 +40,11 @@ def get_comments(task):
     return comments
 
 @register.simple_tag
+def get_reports(task):
+    reports = Report.objects.filter(task=task).order_by('-date')
+    return reports
+
+@register.simple_tag
 def get_users():
     users = User.objects.all()
     return users
@@ -66,7 +71,7 @@ def projects():
 
 @register.simple_tag
 def tasks(count,request):
-    tasks = Task.objects.filter(inchargeuser=request.user).order_by('-start_date')[:count:1]
+    tasks = Task.objects.filter(inchargeuser=request.user,finished=False).order_by('-start_date')[:count:1]
     return tasks
 
 @register.inclusion_tag('project/dashboard.html')
