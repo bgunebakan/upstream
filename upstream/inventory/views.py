@@ -12,12 +12,9 @@ from cruds_adminlte.crud import CRUDView
 
 @login_required
 def index(request):
-    #personnel,created = Personnel.objects.get_or_create(user=request.user)
-    #form = list(ItemForm())
+
         return HttpResponseRedirect('/inventory/item/list')
-    #return render(request, 'inventory/dashboard.html',{'personnel': personnel,'form': form})
-
-
+        
 class LocationCRUD(CRUDView):
     model = Location
     template_name_base='crud'

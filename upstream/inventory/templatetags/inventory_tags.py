@@ -11,7 +11,7 @@ register = template.Library()
 def get_item_code(id):
     try:
         item = Item.objects.get(id=id)
-        item_code = item.item_type.code + "-"+item.owner_code +":"+ item.category.code + item.code
+        item_code = item.item_type.code + "-"+item.owner_code +":"+ item.code
     except ObjectDoesNotExist:
         return "0000"
     return item_code
