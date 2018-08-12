@@ -18,7 +18,7 @@ def index(request):
 
 
 def callfortender(request):
-    tenders = Tender.objects.all().order_by('-apply_date')
+    tenders = Tender.objects.filter(tender_status=5).order_by('-apply_date')
 
     tender_types = TenderType.objects.all()
 
