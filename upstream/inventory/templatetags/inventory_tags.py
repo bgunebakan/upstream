@@ -4,16 +4,21 @@ from django import template
 from django.core.exceptions import ObjectDoesNotExist
 from django.contrib.auth.models import User
 from inventory.tables import LogTable
+from django.contrib import messages
 
 register = template.Library()
 
 @register.simple_tag
-def get_item_code(id):
+def get_item_code(id,request):
     try:
         item = Item.objects.get(id=id)
+        print item.code
         item_code = item.item_type.code + "-"+item.owner_code +":"+ item.code
     except ObjectDoesNotExist:
         return "0000"
+    except AttributeError:
+        item_code = item.owner_code +":"+ item.code
+        messages.error(request,'Item Type of ' + unicode(item) + ' is not defined!')
     return item_code
 
 @register.simple_tag
