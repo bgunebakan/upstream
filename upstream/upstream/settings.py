@@ -281,7 +281,7 @@ DATETIME_FORMAT = ('d/m/Y H:i')
 
 #USE_L10N = True
 DEFAULT_CHARSET = 'utf-8'
-#USE_TZ = True
+USE_TZ = True
 
 
 # Static files (CSS, JavaScript, Images)

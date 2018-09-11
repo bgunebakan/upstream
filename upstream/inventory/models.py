@@ -212,7 +212,7 @@ class Item(models.Model):
 class Log(models.Model):
     timedate = models.DateTimeField(auto_now_add=True, verbose_name=_(u'Time-Date'))
     action = models.CharField(max_length=32, verbose_name='Action')
-    notes = models.TextField(verbose_name=_(u'Notes'), null=True, blank=True)
+    notes = models.TextField(verbose_name=_(u'Notes'), null=True, blank=True,max_length=200)
 
     item = models.ForeignKey(Item, verbose_name=_(u'Item'),null=True,on_delete=models.SET_NULL)
     user = models.ForeignKey(User,related_name="action_user", verbose_name='User',blank=True,null=True,on_delete=models.SET_NULL)

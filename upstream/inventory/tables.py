@@ -16,6 +16,6 @@ class ItemTable(tables.Table):
 class LogTable(tables.Table):
     class Meta:
         model = Log
-        fields = ('timedate','action', 'item', 'user')
+        fields = ('timedate','action', 'item', 'user','notes')
 
         attrs = {'class': 'table table-bordered table-hover'}
