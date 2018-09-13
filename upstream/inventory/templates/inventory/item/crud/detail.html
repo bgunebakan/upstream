@@ -60,6 +60,7 @@
             <div class="col-md-12 col-lg-12 " align="center">
               <a href="/inventory/item/{{object.id}}/update" class="btn btn-primary" align="center">Update Details</a>
               <a data-toggle="modal" href="#ownershipModal" class="btn btn-success" align="center">Ownership</a>
+              <a href="/inventory/labelprint/?item_name={{object}}&item_code={{object.code}}&owner_code={{object.owner_code}}&item_type={{object.item_type.code}}" class="btn btn-warning" align="center">Label Print</a>
             </div>
           {%endif%}
         </div>

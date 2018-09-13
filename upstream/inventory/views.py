@@ -13,11 +13,73 @@ from cruds_adminlte.crud import CRUDView
 from django.core.exceptions import ObjectDoesNotExist
 from django.db.models import Q
 from django.contrib import messages
+###
+from reportlab.graphics.barcode import code39, code128, code93
+from reportlab.graphics.barcode import eanbc, qr, usps
+from reportlab.graphics.shapes import Drawing
+from reportlab.lib.pagesizes import letter
+from reportlab.lib.units import mm
+from reportlab.pdfgen import canvas
+from reportlab.graphics import renderPDF
+from django.http import HttpResponse, HttpResponseNotFound
+from io import BytesIO
+
+def createBarCodes(item_name,item_code,owner_code,item_type,url):
+
+    buffer = BytesIO()
+    c = canvas.Canvas(buffer, pagesize=letter)
+
+    c.setPageSize((60 * mm, 30 * mm))
+    c.setFont('Helvetica', 9)
+    c.drawString(24*mm,25*mm,item_type + "-" + owner_code + ":" + item_code)
+    c.drawString(24*mm,15*mm,"SN:" + item_type + owner_code + item_code)
+    c.drawString(24*mm,10*mm,item_name)
+
+    barcode=code128.Code128(item_type+owner_code+item_code,barWidth=0.35*mm,barHeight=5*mm)
+    # drawOn puts the barcode on the canvas at the specified coordinates
+    barcode.drawOn(c,0.01*mm,0.1*mm)
+
+    # draw a QR code
+    qr_code = qr.QrCodeWidget(url+"?sn_code="+item_type+owner_code+item_code)
+    bounds = qr_code.getBounds()
+    width = bounds[2] - bounds[0]
+    height = bounds[3] - bounds[1]
+    d = Drawing(70, 70, transform=[70./width,0,0,70./height,0,0])
+    d.add(qr_code)
+    renderPDF.draw(d, c, 0, 20)
+
+    c.showPage()
+    c.save()
+
+    pdf = buffer.getvalue()
+    buffer.close()
+    return pdf
+
 
 @login_required
 def index(request):
+    return HttpResponseRedirect('/inventory/item/list')
 
-        return HttpResponseRedirect('/inventory/item/list')
+@login_required
+def item_label_print(request):
+
+    item_name = unicode(request.GET.get("item_name", ""))
+    item_code = unicode(request.GET.get("item_code", ""))
+    owner_code = unicode(request.GET.get("owner_code", ""))
+    item_type = unicode(request.GET.get("item_type", ""))
+    url = "https://internal.tarla.org.tr/inventory/find/item/"
+
+    # item_name = "Limitleyici"
+    # item_code = "012231232131"
+    # owner_code = "T"
+    # item_type = "C"
+
+    response = HttpResponse(content_type='application/pdf')
+    response['Content-Disposition'] = 'inline; filename="'+item_code+'.pdf"'
+
+    pdf = createBarCodes(item_name,item_code,owner_code,item_type,url)
+    response.write(pdf)
+    return response
 
 @login_required
 def find_item(request):
