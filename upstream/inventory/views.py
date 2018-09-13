@@ -30,7 +30,7 @@ def createBarCodes(item_name,item_code,owner_code,item_type,url):
     c = canvas.Canvas(buffer, pagesize=letter)
 
     c.setPageSize((60 * mm, 30 * mm))
-    c.setFont('Helvetica', 9)
+    c.setFont('Helvetica', 8)
     c.drawString(24*mm,25*mm,item_type + "-" + owner_code + ":" + item_code)
     c.drawString(24*mm,15*mm,"SN:" + item_type + owner_code + item_code)
     c.drawString(24*mm,10*mm,item_name)
@@ -75,7 +75,7 @@ def item_label_print(request):
     # item_type = "C"
 
     response = HttpResponse(content_type='application/pdf')
-    response['Content-Disposition'] = 'inline; filename="'+item_code+'.pdf"'
+    response['Content-Disposition'] = 'inline; filename="'+item_type+owner_code+item_code+'.pdf"'
 
     pdf = createBarCodes(item_name,item_code,owner_code,item_type,url)
     response.write(pdf)
