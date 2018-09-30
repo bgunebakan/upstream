@@ -4,10 +4,10 @@
 {% load crud_tags %}
 {% load static %}
 {% load personnel_tags %}
-{% block title %}Kullanıcı Yönetimi{% endblock %}
+{% block title %}Portunes Access Control{% endblock %}
 
-{% block page_name %}Kullanıcı Yönetimi{% endblock %}
-{% block page_description %}Dashboard{% endblock %}
+{% block page_name %}Portunes Access Control{% endblock %}
+{% block page_description %}Delete{% endblock %}
 
 {% block bodyclass %}skin-blue {%if config.hide_sidebar %}sidebar-collapse{%endif%} {% endblock %}
 
@@ -22,14 +22,13 @@
   {% if crud_perms.list %}
         <a href="{{ url_list }}{{getparams}}" class="btn btn-info">
             <i class="fa fa-angle-double-left"></i>
-            {{ model_verbose_name_plural }}{% trans " listesine dön" %}
+            {{ model_verbose_name_plural }}{% trans " back" %}
         </a>
   {% endif %}
 
-  <h1>{{ object }}</h1><h2> {% trans " kullanıcısını silmek istiyor musunuz" %}?</h2>
+  <h1>{{ object }}</h1><h2> {% trans " Do you want to delete this identifier?" %}?</h2>
   <div class="alert alert-warning">
-  <strong>Uyarı!</strong> <p>Eğer LDAP yetkilendirmesi kullanıyorsanız, kullanıcıyı silmek ldap yetkilerini de silmez.<br>
-    Ldap yetki sayfasından ldap yetkilerini de siliniz.</p>
+  <strong>Uyarı!</strong> <p>If you delete identifier, All permissions will be deleted.</p>
 </div>
 
 
@@ -37,7 +36,7 @@
     {% csrf_token %}
 
     <p>
-      <button type="submit" class="btn btn-danger">{% trans "Onayla" %}</button>
+      <button type="submit" class="btn btn-danger">{% trans "Submit" %}</button>
     </p>
   </form>
 {% endblock %}

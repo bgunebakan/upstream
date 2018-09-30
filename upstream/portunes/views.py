@@ -309,6 +309,7 @@ def sorting(L):
 
 
 @login_required
+@permission_required('portunes.permission.edit')
 def user_access(request, user_id):
     if request.method == 'POST':
         try:
