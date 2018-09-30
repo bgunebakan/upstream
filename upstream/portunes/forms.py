@@ -98,7 +98,8 @@ class IdentifierUpdateForm(forms.ModelForm):
         users = User.objects.all()
         self.fields['user'].choices = [(user.pk, user.get_full_name()) for user in users]
         self.fields['name'].widget.attrs.update({'class' : 'form-control'})
-        self.fields['key'].widget.attrs.update({'class' : 'form-control','disabled':'true'})
+        self.fields['key'].widget.attrs.update({'class' : 'form-control'})
+        self.fields['key'].widget.attrs['readonly'] = True
         self.fields['is_active'].widget.attrs.update({'class' : 'form-control'})
         self.fields['identifier_type'].widget.attrs.update({'class' : 'form-control'})
         self.fields['name'].label = "Card Name"
