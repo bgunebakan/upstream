@@ -30,3 +30,10 @@ django_generic_positions
 mysqlclient
 celery
 django-import-export
+requests-negotiate
+gssapi
+requests_negotiate_sspi
+requests
+djangorestframework
+requests_ntlm
+

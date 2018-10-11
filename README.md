@@ -11,7 +11,7 @@ Last Realease: 0.2 Beta
 
 **Debian like systems:**
 
-sudo apt-get install libsasl2-dev python-dev libldap2-dev libssl-dev
+sudo apt-get install libsasl2-dev python-dev libldap2-dev libssl-dev libkrb5-dev
 
 ## Crontab Settings
 # m h  dom mon dow   command

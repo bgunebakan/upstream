@@ -23,21 +23,29 @@ from reportlab.pdfgen import canvas
 from reportlab.graphics import renderPDF
 from django.http import HttpResponse, HttpResponseNotFound
 from io import BytesIO
+from reportlab.pdfbase import pdfmetrics
+from reportlab.pdfbase.ttfonts import TTFont
 
 def createBarCodes(item_name,item_code,owner_code,item_type,url):
 
     buffer = BytesIO()
     c = canvas.Canvas(buffer, pagesize=letter)
 
-    c.setPageSize((60 * mm, 30 * mm))
-    c.setFont('Helvetica', 8)
-    c.drawString(24*mm,25*mm,item_type + "-" + owner_code + ":" + item_code)
-    c.drawString(24*mm,15*mm,"SN:" + item_type + owner_code + item_code)
-    c.drawString(24*mm,10*mm,item_name)
+    c.setPageSize((30 * mm, 60 * mm))
+    pdfmetrics.registerFont(TTFont('Arimo-Regular', 'static/fonts/Arimo-Regular.ttf'))
+    c.setFont('Arimo-Regular', 8)
+    c.saveState()
+    c.translate(0,0)
+    c.rotate(90)
+    c.drawString(24*mm,-10*mm,unicode(item_name))
 
-    barcode=code128.Code128(item_type+owner_code+item_code,barWidth=0.35*mm,barHeight=5*mm)
+    #c.drawString(24*mm,25*mm,item_type + "-" + owner_code + ":" + item_code)
+    c.drawString(24*mm,-15*mm,"SN:" + item_code)
+    c.restoreState()
+
+    #barcode=code128.Code128(item_type+owner_code+item_code,barWidth=0.35*mm,barHeight=5*mm)
     # drawOn puts the barcode on the canvas at the specified coordinates
-    barcode.drawOn(c,0.01*mm,0.1*mm)
+    #barcode.drawOn(c,0.01*mm,0.1*mm)
 
     # draw a QR code
     qr_code = qr.QrCodeWidget(url+"?sn_code="+item_type+owner_code+item_code)
@@ -46,7 +54,8 @@ def createBarCodes(item_name,item_code,owner_code,item_type,url):
     height = bounds[3] - bounds[1]
     d = Drawing(70, 70, transform=[70./width,0,0,70./height,0,0])
     d.add(qr_code)
-    renderPDF.draw(d, c, 0, 20)
+    renderPDF.draw(d, c, 5, 0)
+
 
     c.showPage()
     c.save()
