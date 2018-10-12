@@ -31,17 +31,17 @@ def createBarCodes(item_name,item_code,owner_code,item_type,url):
     buffer = BytesIO()
     c = canvas.Canvas(buffer, pagesize=letter)
 
-    c.setPageSize((30 * mm, 60 * mm))
+    c.setPageSize((60 * mm, 30 * mm))
     pdfmetrics.registerFont(TTFont('Arimo-Regular', 'static/label-fonts/Arimo-Regular.ttf'))
     c.setFont('Arimo-Regular', 8)
-    c.saveState()
-    c.translate(0,0)
-    c.rotate(90)
-    c.drawString(24*mm,-10*mm,unicode(item_name))
+    #c.saveState()
+    #c.translate(0,0)
+    #c.rotate(90)
+    c.drawString(24*mm,20*mm,unicode(item_name))
 
     #c.drawString(24*mm,25*mm,item_type + "-" + owner_code + ":" + item_code)
-    c.drawString(24*mm,-15*mm,"SN:" + item_code)
-    c.restoreState()
+    c.drawString(24*mm,10*mm,"SN:" + item_code)
+    #c.restoreState()
 
     #barcode=code128.Code128(item_type+owner_code+item_code,barWidth=0.35*mm,barHeight=5*mm)
     # drawOn puts the barcode on the canvas at the specified coordinates
@@ -54,7 +54,7 @@ def createBarCodes(item_name,item_code,owner_code,item_type,url):
     height = bounds[3] - bounds[1]
     d = Drawing(70, 70, transform=[70./width,0,0,70./height,0,0])
     d.add(qr_code)
-    renderPDF.draw(d, c, 5, 0)
+    renderPDF.draw(d, c, 0, 5)
 
 
     c.showPage()
