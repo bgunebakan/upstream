@@ -32,7 +32,7 @@ def createBarCodes(item_name,item_code,owner_code,item_type,url):
     c = canvas.Canvas(buffer, pagesize=letter)
 
     c.setPageSize((60 * mm, 30 * mm))
-    pdfmetrics.registerFont(TTFont('Arimo-Regular', 'static/label-fonts/Arimo-Regular.ttf'))
+    pdfmetrics.registerFont(TTFont('Arimo-Regular', '/usr/share/fonts/Arimo-Regular.ttf'))
     c.setFont('Arimo-Regular', 8)
     #c.saveState()
     #c.translate(0,0)
