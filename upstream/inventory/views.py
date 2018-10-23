@@ -26,21 +26,36 @@ from io import BytesIO
 from reportlab.pdfbase import pdfmetrics
 from reportlab.pdfbase.ttfonts import TTFont
 
-def createBarCodes(item_name,item_code,owner_code,item_type,url):
+def createBarCodes(item_name,item_code,owner_code,item_type,url,page_size):
 
     buffer = BytesIO()
     c = canvas.Canvas(buffer, pagesize=letter)
 
-    c.setPageSize((60 * mm, 30 * mm))
     pdfmetrics.registerFont(TTFont('Arimo-Regular', '/usr/share/fonts/Arimo-Regular.ttf'))
-    c.setFont('Arimo-Regular', 8)
+
+
+    if page_size == '60x30':
+        c.setPageSize((60 * mm, 30 * mm))
+        c.setFont('Arimo-Regular', 8)
+        c.drawString(24*mm,20*mm,unicode(item_name))
+        c.drawString(24*mm,10*mm,"SN:" + item_code)
+    elif page_size == '40x20':
+        c.setPageSize((40 * mm, 20 * mm))
+        c.setFont('Arimo-Regular', 6)
+        c.drawString(17*mm,10*mm,unicode(item_name))
+        c.drawString(17*mm,5*mm,"SN:" + item_code)
+    elif page_size == '30x15':
+        c.setPageSize((30 * mm, 15 * mm))
+        c.setFont('Arimo-Regular', 5)
+        c.drawString(12*mm,10*mm,unicode(item_name))
+        c.drawString(12*mm,5*mm,"SN:" + item_code)
+    # 60 x 30 , 40 x 20 , 3 x 1,5
+
+
     #c.saveState()
     #c.translate(0,0)
     #c.rotate(90)
-    c.drawString(24*mm,20*mm,unicode(item_name))
 
-    #c.drawString(24*mm,25*mm,item_type + "-" + owner_code + ":" + item_code)
-    c.drawString(24*mm,10*mm,"SN:" + item_code)
     #c.restoreState()
 
     #barcode=code128.Code128(item_type+owner_code+item_code,barWidth=0.35*mm,barHeight=5*mm)
@@ -52,7 +67,14 @@ def createBarCodes(item_name,item_code,owner_code,item_type,url):
     bounds = qr_code.getBounds()
     width = bounds[2] - bounds[0]
     height = bounds[3] - bounds[1]
-    d = Drawing(70, 70, transform=[70./width,0,0,70./height,0,0])
+
+    if page_size == '60x30':
+        d = Drawing(70, 70, transform=[70./width,0,0,70./height,0,0])
+    elif page_size == '40x20':
+        d = Drawing(50, 50, transform=[50./width,0,0,50./height,0,0])
+    elif page_size == '30x15':
+        d = Drawing(70, 70, transform=[35./width,0,0,35./height,0,0])
+
     d.add(qr_code)
     renderPDF.draw(d, c, 0, 5)
 
@@ -76,6 +98,8 @@ def item_label_print(request):
     item_code = unicode(request.GET.get("item_code", ""))
     owner_code = unicode(request.GET.get("owner_code", ""))
     item_type = unicode(request.GET.get("item_type", ""))
+    page_size = unicode(request.GET.get("page_size", ""))
+
     url = "https://internal.tarla.org.tr/inventory/find/item/"
 
     # item_name = "Limitleyici"
@@ -86,7 +110,7 @@ def item_label_print(request):
     response = HttpResponse(content_type='application/pdf')
     response['Content-Disposition'] = 'inline; filename="'+item_type+owner_code+item_code+'.pdf"'
 
-    pdf = createBarCodes(item_name,item_code,owner_code,item_type,url)
+    pdf = createBarCodes(item_name,item_code,owner_code,item_type,url,page_size)
     response.write(pdf)
     return response
 
