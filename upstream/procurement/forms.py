@@ -233,9 +233,9 @@ class TravellingExpenseForm(forms.ModelForm):
         fields = ['name','surname','institution','activity_report','start_date','end_date','location','price','currency','notes']
 
         widgets = {
-            'start_date': DatePickerWidget(attrs={
+            'start_date': DatePickerWidget(attrs={'format': 'dd/mm/yyyy',
                                             'icon': 'fa-calendar'}),
-            'end_date': DatePickerWidget(attrs={
+            'end_date': DatePickerWidget(attrs={'format': 'dd/mm/yyyy',
                                             'icon': 'fa-calendar'}),
             'notes': CKEditorWidget(attrs={'lang': 'en'}),
         }

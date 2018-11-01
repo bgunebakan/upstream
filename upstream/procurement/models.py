@@ -282,4 +282,4 @@ class TravellingExpense(models.Model):
         return self.name + self.surname
 
     def get_absolute_url(self):
-        return "/procurement/travellingexpense/%i/update" % self.id
+        return "/procurement/travellingexpense/list"#%i/update" % self.id
