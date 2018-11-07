@@ -6,7 +6,7 @@ from django.utils.translation import ugettext_lazy as _
 
 class ProcurementConfig(AppConfig):
     name = 'procurement'
-    verbose_name = _('İhale Yönetimi')
+    verbose_name = _('Procurement')
 
     def ready(self):
         import procurement.signals  # noqa

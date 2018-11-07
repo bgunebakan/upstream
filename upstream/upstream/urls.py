@@ -41,6 +41,7 @@ tendercrud = TenderCRUD()
 tendertypecrud = TenderTypeCRUD()
 tenderstatuscrud = TenderStatusCRUD()
 travellingexpensecrud = TravellingExpenseCRUD()
+successfultenderercrud = SuccessfulTendererCRUD()
 
 controllercrud = ControllerCRUD()
 doorcrud = DoorCRUD()
@@ -89,6 +90,7 @@ urlpatterns = [
     url(r'', include(tendertypecrud.get_urls())),
     url(r'', include(tenderstatuscrud.get_urls())),
     url(r'', include(travellingexpensecrud.get_urls())),
+    url(r'', include(successfultenderercrud.get_urls())),
     #portunes
     url(r'^portunes/', include('portunes.urls')),
     url(r'', include(controllercrud.get_urls())),

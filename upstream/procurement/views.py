@@ -104,6 +104,18 @@ class TenderCRUD(CRUDView):
     paginate_position = 'Bottom' # Both | Bottom
     paginate_template = 'cruds/pagination/enumeration.html'
 
+class SuccessfulTendererCRUD(CRUDView):
+    model = Supplier
+    template_name_base='crud'
+    
+    check_login = True
+    check_perms = True
+    fields = ['name','phone_number1','web','address','notes']
+    list_fields = ['name','phone_number1','web']
+    display_fields = ['name','phone_number1','web','address','notes']
+
+    views_available=['create', 'list', 'delete', 'update']
+
 class TenderTypeCRUD(CRUDView):
     model = TenderType
 

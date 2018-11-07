@@ -151,7 +151,7 @@ class Supplier(models.Model):
 
 class Tender(models.Model):
     name = models.CharField(verbose_name=_(u'Name'), max_length=200)
-    no = models.CharField(verbose_name='No', max_length=32, null=True, blank=True)
+    no = models.CharField(verbose_name='No', max_length=32, null=False, blank=False)
     tender_type = models.ForeignKey(TenderType, verbose_name=_(u'Tender Type'),null=True,on_delete=models.SET_NULL)
 
     approximate_price = models.FloatField(verbose_name=_(u'Approximate Price'),default=0,null=True,blank=True)
@@ -179,6 +179,9 @@ class Tender(models.Model):
     bap_staff = models.CharField(blank=True,null=True,verbose_name=_(u'BAP personnel'), max_length=200)
 
     specification = models.FileField(upload_to=SpecificationFileUpload(os.path.join('technical_specifications')),null=True,blank=True,verbose_name = "Technical Specification")
+    invoice = models.FileField(upload_to=SpecificationFileUpload(os.path.join('invoice')),null=True,blank=True,verbose_name = "Invoice")
+    tenderapproval = models.FileField(upload_to=SpecificationFileUpload(os.path.join('tenderapproval')),null=True,blank=True,verbose_name = "Tender Approval")
+    agreement = models.FileField(upload_to=SpecificationFileUpload(os.path.join('agreement')),null=True,blank=True,verbose_name = "Agreement")
 
     notes = models.TextField(verbose_name=_(u'Notes'), null=True, blank=True)
 
@@ -191,7 +194,7 @@ class Tender(models.Model):
         verbose_name_plural = _(u'Tenders')
 
     def get_absolute_url(self):
-        return "/procurement/tender/list?tendertype=%i" % self.tender_type.id
+        return "/procurement/tender/%i/update" % self.id
 
     def __unicode__(self):
         return self.name

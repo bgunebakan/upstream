@@ -39,85 +39,12 @@ class TenderOfferForm(forms.ModelForm):
             )
         )
 
-
-
-
-# class TenderForm(forms.ModelForm):
-#
-#     class Meta:
-#         model = Tender
-#         fields = ['name','no','tender_type','approximate_price','currency','tender_status','notes','specification',
-#                     'apply_date','auction_date','auction_time','auction_price','auction_no','supplier','user','bap_staff','contract_date']
-#         widgets = {
-#             'apply_date': DatePickerWidget(attrs={'format': 'dd/mm/yyyy',
-#                                             'icon': 'fa-calendar'}),
-#             'contract_date': DatePickerWidget(attrs={'format': 'dd/mm/yyyy',
-#                                             'icon': 'fa-calendar'}),
-#             'auction_date': DatePickerWidget(
-#                 attrs={'format': 'dd/mm/yyyy',
-#                        'icon': 'fa-calendar'}),
-#             'auction_time': TimePickerWidget(
-#                 attrs={'format': 'HH:ii:ss',
-#                        'icon': 'fa-clock-o'}),
-#             'notes': CKEditorWidget(attrs={'lang': 'tr'}),
-#
-#         }
-#
-#     def __init__(self, *args, **kwargs):
-#         super(TenderForm, self).__init__(*args, **kwargs)
-#         users = User.objects.all()
-#         self.fields['user'].choices = [(user.pk, user.get_full_name()) for user in users]
-#         self.helper = FormHelper(self)
-#         self.helper.form_tag = False
-#
-#         self.helper.layout = Layout(
-#             TabHolder(
-#                 Tab(
-#                     _('General'),
-#                     Field('name', wrapper_class="col-md-12"),
-#                     Field('tender_type', wrapper_class="col-md-6"),
-#                     Field('tender_status', wrapper_class="col-md-6"),
-#                     Field('no', wrapper_class="col-md-6"),
-#                     Field('apply_date', wrapper_class="col-md-6"),
-#
-#
-#                 ),
-#                 Tab(
-#                     _('Details'),
-#                     Field('bap_staff', wrapper_class="col-md-6"),
-#                     Field('user', wrapper_class="col-md-6"),
-#                     Field('supplier', wrapper_class="col-md-6"),
-#                     Field('specification', wrapper_class="col-md-12"),
-#
-#                 ),
-#                 Tab(
-#                     _('Auction'),
-#                     Field('auction_no', wrapper_class="col-md-12"),
-#                     Field('auction_date', wrapper_class="col-md-4"),
-#                     Field('auction_time', wrapper_class="col-md-4"),
-#                     Field('auction_price', wrapper_class="col-md-4"),
-#                     Field('contract_date', wrapper_class="col-md-6"),
-#                 ),
-#                 Tab(
-#                     _('Notes'),
-#                     Field('notes', wrapper_class="col-md-12"),
-#                 )
-#             )
-#         )
-#
-#         self.helper.layout.append(
-#             FormActions(
-#                 Submit('submit', _('Submit'), css_class='btn btn-primary'),
-#                 HTML("""{% load i18n %}<a class="btn btn-danger"
-#                         href="{{ url_delete }}">{% trans 'Delete' %}</a>"""),
-#             )
-#         )
-
 class Tender_Form(forms.ModelForm):
 
     class Meta:
         model = Tender
         fields = ['name','no','tender_type','approximate_price','currency','tender_status','notes','specification',
+                    'invoice','tenderapproval','agreement',
                     'apply_date','auction_date','auction_time','auction_price','auction_no','supplier','user','bap_staff','contract_date']
 
         widgets = {
@@ -158,6 +85,9 @@ class Tender_Form(forms.ModelForm):
                     Field('user', wrapper_class="col-md-6"),
                     Field('supplier', wrapper_class="col-md-6"),
                     Field('specification', wrapper_class="col-md-12"),
+                    Field('invoice', wrapper_class="col-md-12"),
+                    Field('agreement', wrapper_class="col-md-12"),
+                    Field('tenderapproval', wrapper_class="col-md-12"),
 
                 ),
                 Tab(
