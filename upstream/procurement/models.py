@@ -151,7 +151,7 @@ class Supplier(models.Model):
 
 class Tender(models.Model):
     name = models.CharField(verbose_name=_(u'Name'), max_length=200)
-    no = models.CharField(verbose_name='No', max_length=32, null=False, blank=False)
+    no = models.CharField(verbose_name='No', max_length=32, null=False, blank=False,default='0000')
     tender_type = models.ForeignKey(TenderType, verbose_name=_(u'Tender Type'),null=True,on_delete=models.SET_NULL)
 
     approximate_price = models.FloatField(verbose_name=_(u'Approximate Price'),default=0,null=True,blank=True)
