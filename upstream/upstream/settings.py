@@ -75,7 +75,7 @@ INSTALLED_APPS = [
     'django_ajax',
     'menu',
     'django_python3_ldap',
-    'auditlog',
+    #'auditlog',
 #    'fullcalendar',
     #'csvimport.app.CSVImportConf',
 
@@ -137,7 +137,7 @@ MIDDLEWARE_CLASSES = [
     'django.contrib.auth.middleware.SessionAuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'auditlog.middleware.AuditlogMiddleware',
+    #'auditlog.middleware.AuditlogMiddleware',
 ]
 
 #DJANGO_SIMPLE_AUDIT_ACTIVATED = True
@@ -281,7 +281,7 @@ DATETIME_FORMAT = ('d/m/Y H:i')
 
 #USE_L10N = True
 DEFAULT_CHARSET = 'utf-8'
-USE_TZ = True
+#USE_TZ = True
 
 
 # Static files (CSS, JavaScript, Images)

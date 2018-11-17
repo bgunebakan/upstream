@@ -31,7 +31,7 @@ class TaskForm(forms.ModelForm):
 
             'start_date': DatePickerWidget(attrs={'format': 'd/m/yyyy 00:00', #'format': 'd/m/yyyy h:ii'
                                             'icon': 'fa-calendar'}),
-            'end_date': DatePickerWidget(attrs={'format': 'd/m/yyyy  00:00',
+            'end_date': DatePickerWidget(attrs={'format': 'd/m/yyyy 00:00',
                                             'icon': 'fa-calendar'}),
             'description': CKEditorWidget(attrs={'lang': 'en'}),
         }

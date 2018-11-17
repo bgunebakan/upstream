@@ -8,14 +8,13 @@ from django.utils.deconstruct import deconstructible
 
 from django.contrib.auth.models import User,Group
 from django_countries.fields import CountryField
-#from phonenumber_field.modelfields import PhoneNumberField
 from django.db.models.query import QuerySet
 from django.utils import timezone
 from django.db.models.signals import post_save
 from django.dispatch import receiver
 from django.utils.translation import ugettext_lazy as _
 from image_cropping import ImageCropField, ImageRatioField
-from auditlog.registry import auditlog
+#from auditlog.registry import auditlog
 from filer.fields.image import FilerImageField
 from filer.fields.file import FilerFileField
 
@@ -174,7 +173,7 @@ class Personnel(models.Model):
     def get_absolute_url(self):
         return "/personnel/personnel/%i" % self.id
 
-auditlog.register(Personnel)
+#auditlog.register(Personnel)
 
 class Personnel_file(models.Model):
     name = models.CharField(
