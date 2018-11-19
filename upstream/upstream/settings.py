@@ -32,6 +32,21 @@ DEBUG = True
 
 ALLOWED_HOSTS = ['login.tarla.org.tr','internal.tarla.org.tr','collab.creworker.com','127.0.0.1']
 
+CORS_ORIGIN_WHITELIST = (
+    'localhost:8000',
+    '127.0.0.1:9000',
+    'localhost:4200',
+    '127.0.0.1:4200',
+    'internal.tarla.org.tr:80'
+
+)
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework.authentication.BasicAuthentication',
+        'rest_framework.authentication.SessionAuthentication',
+    )
+}
+
 # Application definition
 ADMIN_VIEW_PERMISSION_MODELS = [
     'auth.User',
@@ -75,11 +90,11 @@ INSTALLED_APPS = [
     'django_ajax',
     'menu',
     'django_python3_ldap',
-    #'auditlog',
-#    'fullcalendar',
-    #'csvimport.app.CSVImportConf',
 
-#    'raven.contrib.django.raven_compat',
+    'api',
+    'corsheaders',
+    'rest_framework',
+    'rest_framework.authtoken',
 ]
 
 IMPORT_EXPORT_USE_TRANSACTIONS = True
@@ -137,7 +152,8 @@ MIDDLEWARE_CLASSES = [
     'django.contrib.auth.middleware.SessionAuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    #'auditlog.middleware.AuditlogMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
+    'django.middleware.common.CommonMiddleware',
 ]
 
 #DJANGO_SIMPLE_AUDIT_ACTIVATED = True

@@ -30,6 +30,7 @@ from procurement.views import *
 from portunes.views import ControllerCRUD,DoorCRUD,DoorGroupCRUD,IdentifierCRUD
 from project.views import ProjectCRUD,TaskCRUD,CommentCRUD,TasktypeCRUD,StatustypeCRUD,ReportCRUD
 from inventory.views import LocationCRUD,InventoryCRUD,CategoryCRUD,ItemTypeCRUD,ItemCRUD,SupplierCRUD,ShelfCRUD
+import api.urls
 
 usercrud = UserCRUD()
 groupcrud = GroupCRUD()
@@ -70,6 +71,7 @@ urlpatterns = [
     url(r'^filer/', include('filer.urls')),
     url(r'^', include('filer.server.urls')),
     url(r'^admin/', admin.site.urls),
+    url(r'^api/', include(api.urls)),
     url(r'^accounts/login/', auth_views.login, {'template_name': 'adminlte/login.html'}, name='login'),
     url(r'^accounts/logout/', auth_views.logout, {'next_page': '/'}, name='logout'),
     url(r'^select2/', include('django_select2.urls')),
