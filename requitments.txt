@@ -30,7 +30,7 @@ celery==4.1.1
 django-import-export==1.0.1
 requests-negotiate==1.5
 gssapi==1.5.1
-requests_negotiate_sspi
+#requests_negotiate_sspi
 requests==2.18.4
 djangorestframework==3.8.2
 django-cors-headers==2.4.0

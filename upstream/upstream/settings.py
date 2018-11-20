@@ -30,7 +30,7 @@ SECRET_KEY = 'k3iogt1+t=udm=!i!rn_hqwk@_*y9v*#ru7r^_wq4zyfuzml%3'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['login.tarla.org.tr','internal.tarla.org.tr','collab.creworker.com','127.0.0.1']
+ALLOWED_HOSTS = ['192.168.2.1','login.tarla.org.tr','internal.tarla.org.tr','collab.creworker.com','127.0.0.1']
 
 CORS_ORIGIN_WHITELIST = (
     'localhost:8000',
@@ -297,7 +297,7 @@ DATETIME_FORMAT = ('d/m/Y H:i')
 
 #USE_L10N = True
 DEFAULT_CHARSET = 'utf-8'
-#USE_TZ = True
+USE_TZ = True
 
 
 # Static files (CSS, JavaScript, Images)

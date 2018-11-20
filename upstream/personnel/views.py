@@ -149,7 +149,7 @@ class Annual_leaveCRUD(CRUDView):
 
 @login_required
 def rest_request(request):
-    url = 'https://86.61.236.217:8088/seod_mp/rest/SEOD_PERSON'
+    url = 'https://192.168.2.150:8088/seod_mp/rest/SEOD_PERSON'
     #session = requests.session()
     #payload = {'uname': 'Administrator', 'password': 'Heslo0.1.2.3'}
     #response=session.post(url, data=payload,verify=False)
