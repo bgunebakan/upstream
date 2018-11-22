@@ -25,20 +25,16 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/1.9/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'k3iogt1+t=udm=!i!rn_hqwk@_*y9v*#ru7r^_wq4zyfuzml%3'
+SECRET_KEY = ''
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['192.168.2.1','login.tarla.org.tr','internal.tarla.org.tr','collab.creworker.com','127.0.0.1']
+ALLOWED_HOSTS = ['127.0.0.1']
 
 CORS_ORIGIN_WHITELIST = (
-    'localhost:8000',
-    '127.0.0.1:9000',
     'localhost:4200',
     '127.0.0.1:4200',
-    'internal.tarla.org.tr:80'
-
 )
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (
@@ -47,12 +43,12 @@ REST_FRAMEWORK = {
     )
 }
 
-DOSIMETER_API_URL = 'https://192.168.2.150:8088/seod_mp/rest/'
-DOSIMETER_API_PERSON = DOSIMETER_API_URL + 'SEOD_PERSON'
-DOSIMETER_API_DEPARTMENT = DOSIMETER_API_URL + 'SEOD_DEPARTMENT'
-DOSIMETER_API_VISIT = DOSIMETER_API_URL + 'SEOD_VISIT'
-DOSIMETER_API_USER = 'Administrator'
-DOSIMETER_API_PASS = 'Heslo0.1.2.3'
+DOSIMETER_API_URL = ''
+DOSIMETER_API_PERSON = DOSIMETER_API_URL + ''
+DOSIMETER_API_DEPARTMENT = DOSIMETER_API_URL + ''
+DOSIMETER_API_VISIT = DOSIMETER_API_URL + ''
+DOSIMETER_API_USER = ''
+DOSIMETER_API_PASS = ''
 
 # Application definition
 ADMIN_VIEW_PERMISSION_MODELS = [
@@ -60,8 +56,6 @@ ADMIN_VIEW_PERMISSION_MODELS = [
 ]
 
 INSTALLED_APPS = [
-    #'admin_view_permission',
-
     'django_adminlte_theme',
     'django.contrib.admin',
     'django.contrib.auth',
@@ -83,7 +77,7 @@ INSTALLED_APPS = [
     'constance',
     'constance.backends.database',
     'import_export',
-    'raven',
+
     'homepage',
     'procurement',
     'personnel',
@@ -142,14 +136,12 @@ CONSTANCE_CONFIG_FIELDSETS = {
     'General Options': ('title','version','hide_sidebar'),
 }
 
-import raven
-
-RAVEN_CONFIG = {
-   'dsn': 'https://223fc82220dc4aa0aae1a96b55dea938@sentry.io/1328752',
+#RAVEN_CONFIG = {
+#    'dsn': 'https://108ffdfbcded4db1970763f200f27005:d56bbf45b4a0458eb3351b7da9b14e8a@sentry.io/291384',
     # If you are using git, you can also automatically configure the
     # release based on the git info.
-   'release': raven.fetch_git_sha(os.path.abspath(os.pardir)),
-}
+#    'release': raven.fetch_git_sha(os.path.abspath(os.pardir)),
+##}
 
 MIDDLEWARE_CLASSES = [
     'raven.contrib.django.raven_compat.middleware.Sentry404CatchMiddleware',
@@ -199,25 +191,12 @@ AUTHENTICATION_BACKENDS = (
 # Database
 # https://docs.djangoproject.com/en/1.9/ref/settings/#databases
 
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.mysql',
-#         'OPTIONS': {
-#             'read_default_file': '/etc/upstream/db.conf',
-#         },
-#     }
-# }
-
 DATABASES = {
-#   'default': {
-#       'ENGINE': 'django.db.backends.sqlite3',
-#       'NAME': os.path.join(BASE_DIR, 'upstream.sqlite3'),
-#    },
     'default': {
              'ENGINE': 'django.db.backends.mysql',
              'OPTIONS': {
                  'sql_mode': 'traditional',
-                 'read_default_file': '/etc/upstream/db.conf',
+                 'read_default_file': '/etc/creworker/flow/db.conf',
              },
          }
 }
@@ -312,8 +291,6 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.9/howto/static-files/
 
-#STATIC_ROOT = '/var/www/upstream/static/'
-#STATIC_ROOT = os.path.join(BASE_DIR, "static/")
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 STATIC_URL = '/static/'
 MEDIA_URL = '/media/'
@@ -330,7 +307,7 @@ FILER_STORAGES = {
         'main': {
             'ENGINE': 'filer.storage.PublicFileSystemStorage',
             'OPTIONS': {
-                'location': '/opt/upstream/media/filer',
+                'location': '/opt/creworker/flow/media/filer',
                 'base_url': '/media/filer/',
             },
             'UPLOAD_TO': 'filer.utils.generate_filename.randomized',
@@ -339,7 +316,7 @@ FILER_STORAGES = {
         'thumbnails': {
             'ENGINE': 'filer.storage.PublicFileSystemStorage',
             'OPTIONS': {
-                'location': '/opt/upstream/media/filer_thumbnails',
+                'location': '/opt/creworker/flow/media/filer_thumbnails',
                 'base_url': '/media/filer_thumbnails/',
             },
         },
@@ -348,7 +325,7 @@ FILER_STORAGES = {
         'main': {
             'ENGINE': 'filer.storage.PrivateFileSystemStorage',
             'OPTIONS': {
-                'location': '/opt/upstream/smedia/filer',
+                'location': '/opt/creworker/flow/smedia/filer',
                 'base_url': '/smedia/filer/',
             },
             'UPLOAD_TO': 'filer.utils.generate_filename.randomized',
@@ -357,24 +334,21 @@ FILER_STORAGES = {
         'thumbnails': {
             'ENGINE': 'filer.storage.PrivateFileSystemStorage',
             'OPTIONS': {
-                'location': '/opt/upstream/smedia/filer_thumbnails',
+                'location': '/opt/creworker/flow/smedia/filer_thumbnails',
                 'base_url': '/smedia/filer_thumbnails/',
             },
         },
     },
 }
 
-
-#INTERNAL_IPS = ('127.0.0.1',)
-
 # The URL of the LDAP server.
-LDAP_AUTH_URL = "ldap://ldap.tarla.org.tr:389"
+LDAP_AUTH_URL = "ldap://127.0.0.1:389"
 
 # Initiate TLS on connection.
 LDAP_AUTH_USE_TLS = False
 
 # The LDAP search base for looking up users.
-LDAP_AUTH_SEARCH_BASE = "ou=people,dc=tarla,dc=org,dc=tr"
+LDAP_AUTH_SEARCH_BASE = "ou=people,dc=creworker,dc=com"
 
 # The LDAP class that represents a user.
 LDAP_AUTH_OBJECT_CLASS = "inetOrgPerson"
@@ -426,8 +400,8 @@ LDAP_AUTH_CONNECT_TIMEOUT = None
 LDAP_AUTH_RECEIVE_TIMEOUT = None
 
 #E-MAIL settings
-EMAIL_HOST = 'smtp.yandex.com.tr'
+EMAIL_HOST = 'smtp.creworker.com'
 EMAIL_PORT = 587
-EMAIL_HOST_USER = 'info@tarla.org.tr'
-EMAIL_HOST_PASSWORD = 'tarla2007'
+EMAIL_HOST_USER = 'help@creworker.com'
+EMAIL_HOST_PASSWORD = 'PASSWORD'
 EMAIL_USE_TLS = True
