@@ -256,10 +256,10 @@ def controller_permission(request, id):
             response = send_controller('A',permission.door.entrance.ip_address,unicode(permission.door.entrance_controller_pin) +","
 										  + unicode(permission.identifier.key) )
 
-        if response is True:
-            messages.success(request, unicode(permission.door.name) + ' icin Yetki Guncellendi.')
-        else:
-            messages.success(request, unicode(permission.door.name) + ' icin Yetki GUNCELLENEMEDi!.')
+            if response is True:
+                messages.success(request, unicode(permission.door.name) + ' icin Yetki Guncellendi.')
+            else:
+                messages.success(request, unicode(permission.door.name) + ' icin Yetki GUNCELLENEMEDi!.')
 
     return HttpResponseRedirect('/portunes/controller/' + unicode(id))
     #return render(request, 'portunes/user/access.html' )
@@ -286,26 +286,23 @@ def controller_startup(request, id):
         messages.success(request, controller.name + ' saati guncellendi.')
     else:
         controller.health = False
-
     controller.save()
-    return HttpResponse("OK\n")
-#upload permissions to controller
 
-    for permission in permissions:
-        #print "personel", permission.personnel.nat_id
-        #print "kapı: ", permission.door.name
-        #print "ip: ", permission.door.entrance.ip_address
-        #print "pin: ", permission.door.entrance_controller_pin
-        #print "card: ", permission.personnel.identifier.key
-        #print "----------"
-        response = send_controller('A',permission.door.entrance.ip_address,unicode(permission.door.entrance_controller_pin) +","
-										+ unicode(permission.identifier.key) )
+    # UPDATE PERMISSIONS
+    if controller.health is True:
+        for permission in permissions:
+            response = send_controller('A',permission.door.entrance.ip_address,unicode(permission.door.entrance_controller_pin) +","
+										  + unicode(permission.identifier.key) )
+            if response is True:
+                messages.success(request, unicode(permission.door.name) + ' icin Yetki Guncellendi.')
+            else:
+                messages.success(request, unicode(permission.door.name) + ' icin Yetki GUNCELLENEMEDi!.')
 
+    return HttpResponseRedirect('/portunes/controller/' + unicode(id))
 
 def sorting(L):
     splitup = L.split('-')
     return splitup[2],splitup[1], splitup[0]
-
 
 
 @login_required
