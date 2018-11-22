@@ -19,6 +19,7 @@ from django.http import HttpResponse
 import requests
 from requests_ntlm import HttpNtlmAuth
 from django.http import JsonResponse
+from django.conf import settings
 
 def count_personnel():
     personnel_types = Personnel_type.objects.all()
@@ -149,12 +150,13 @@ class Annual_leaveCRUD(CRUDView):
 
 @login_required
 def rest_request(request):
-    url = 'https://192.168.2.150:8088/seod_mp/rest/SEOD_PERSON'
+    url = settings.DOSIMETER_API_PERSON
     #session = requests.session()
     #payload = {'uname': 'Administrator', 'password': 'Heslo0.1.2.3'}
     #response=session.post(url, data=payload,verify=False)
     #response.headers['www-authenticate']
-    response = requests.get(url, verify=False, auth=HttpNtlmAuth('Administrator','Heslo0.1.2.3') )
+    response = requests.get(url, verify=False, auth=HttpNtlmAuth(
+                                settings.DOSIMETER_API_USER,settings.DOSIMETER_API_PASS) )
     #persons = response.json()
     resp = response.json()
     print resp
