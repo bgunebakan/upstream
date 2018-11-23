@@ -12,6 +12,9 @@ Last Realease: 0.2 Beta
 **Debian like systems:**
 
 sudo apt-get install libsasl2-dev python-dev libldap2-dev libssl-dev libkrb5-dev
+apt install mysql-server python-mysql.connector
+apt install default-mysql-client
+apt install default-libmysqlclient-dev
 
 ## Crontab Settings
 # m h  dom mon dow   command
@@ -19,6 +22,9 @@ sudo apt-get install libsasl2-dev python-dev libldap2-dev libssl-dev libkrb5-dev
 */5 * * * * /opt/upstream/env/bin/python /opt/upstream/repo/upstream/manage.py get_logs >/dev/null 2>&1
 0 * * * * /opt/upstream/env/bin/python /opt/upstream/repo/upstream/manage.py settime >/dev/null 2>&1
 
+## MYsql database create
+
+ALTER DATABASE `databasename` CHARACTER SET utf8; 
 
 ## Changelogs
 

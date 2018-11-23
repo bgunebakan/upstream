@@ -4,7 +4,7 @@ from django import template
 from django.core.urlresolvers import resolve
 from django.core.exceptions import ObjectDoesNotExist
 from personnel.models import *
-
+from constance import config
 register = template.Library()
 
 @register.simple_tag
@@ -21,7 +21,7 @@ def appname(request):
     elif '/personnel/' in request.path or '/auth/' in request.path :
         return 'User Management'
     else:
-        return 'TARLA Internal'
+        return config.app_name
 
 
 @register.simple_tag

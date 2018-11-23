@@ -75,7 +75,7 @@ INSTALLED_APPS = [
     'mptt',
 
     'constance',
-    'constance.backends.database',
+    #'constance.backends.database',
     'import_export',
 
     'homepage',
@@ -128,12 +128,23 @@ CONSTANCE_BACKEND = 'constance.backends.database.DatabaseBackend'
 
 
 CONSTANCE_CONFIG = {
-    'title': ("Creworker","Software name",str),
-    'version': ("0.4.0","Version",str),
+    'logo_text': ("<b>Creworker</b> Flow","Sidebar full text",str),
+    'logo_text_small': ("<b>F</b>low","Sidebar small text",str),
+    'app_name': ("Creworker Flow","App name",str),
+    'app_version': ("0.4.0","Version",str),
     'hide_sidebar': (False, 'Left sidebar setting '),
+    'homepage': ("https://creworker.com","Customer home page",str),
+    'mail_server': ("https://webmail.creworker.com","Mail Server",str),
+    'footer_text': ("Copyright © 2018 All rights reserved.","Footer",str),
+    'support_text': ("<p>You can login with your Flow account to different web services.<br>"+
+                     "If you don't have permission to use services contact with IT department via " +
+                     "<a href='mailto:help@creworker.com'>help@creworker.com</a></p>",'Support text',str),
 }
+
 CONSTANCE_CONFIG_FIELDSETS = {
-    'General Options': ('title','version','hide_sidebar'),
+    'General Options': ('app_version','hide_sidebar','footer_text',
+                        'logo_text','logo_text_small','app_name',
+                        'support_text','homepage','mail_server'),
 }
 
 #RAVEN_CONFIG = {

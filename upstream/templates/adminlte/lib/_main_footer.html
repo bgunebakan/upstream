@@ -5,13 +5,13 @@
         <strong>Powered by
           <a href="http://creworker.com">Creworker</a>
         </strong>
-        {{ config.version }}
+        {{ config.app_version }}
         {% endblock %}
     </div>
 
     {% block footer_left %}
     {% block legal %}
-     Turkish Accelerator and Radiation Laboratory. Copyright © 2018 All rights reserved.
+     {{config.footer_text}}
 
     {% endblock %}
     {% endblock %}

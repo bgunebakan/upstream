@@ -36,13 +36,13 @@
       <!-- /.box-header -->
       <div class="box-body">
         <div class="col-lg-3 col-xs-6">
-        <a href="https://tarla.org.tr" class="small-box-footer">
+        <a href="{{config.homepage}}" class="small-box-footer">
         <div class="small-box bg-teal">
 
           <div class="inner">
-            <h3>TARLA</h3>
+            <h3>Web</h3>
 
-            <h4>Web Home</h4>
+            <h4>Home</h4>
           </div>
           <div class="icon">
             <i class="fa fa-users"></i>
@@ -66,19 +66,6 @@
         </div></a>
         </div>
 
-        <div class="col-lg-3 col-xs-6">
-        <a href="http://indico.tarla.org.tr" class="small-box-footer">
-        <div class="small-box bg-aqua">
-          <div class="inner">
-            <h3>Indico</h3>
-
-            <h4>Conference</h4>
-          </div>
-          <div class="icon">
-            <i class="fa fa-linkedin"></i>
-          </div>
-        </div></a>
-        </div>
         <div class="col-lg-3 col-xs-6">
         <a href="/procurement/" class="small-box-footer">
         <div class="small-box bg-red">
@@ -137,7 +124,7 @@
         </div>
 
         <div class="col-lg-3 col-xs-6">
-        <a href="http://mail.tarla.org.tr" class="small-box-footer">
+        <a href="{{config.mail_server}}" class="small-box-footer">
         <div class="small-box bg-teal">
           <div class="inner">
             <h3>Web</h3>
@@ -170,10 +157,7 @@
         </div>
         <!-- /.box-header -->
         <div class="box-body">
-          <p>You can login with your TARLA account to different web services.<br>
-            If you don't have permission to use services contact with IT department via
-            <a href="mailto:it@tarla.org.tr">it@tarla.org.tr</a>
-          </p>
+          {{config.support_text|safe}}
         </div>
     </div>
   <!-- ./col -->

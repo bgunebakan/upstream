@@ -10,9 +10,9 @@
     {% block logo %}
     <a href="{% block logo_href %}/{% endblock %}" class="logo">
         <!-- mini logo for sidebar mini 50x50 pixels -->
-        <span class="logo-mini">{% block logo_text_small %}<b>T</b>arla{% endblock %}</span>
+        <span class="logo-mini">{% block logo_text_small %}{{config.logo_text_small|safe}}{% endblock %}</span>
         <!-- logo for regular state and mobile devices -->
-        <span class="logo-lg">{% block logo_text %}<b>TARLA</b> Internal{% endblock %}</span>
+        <span class="logo-lg">{% block logo_text %}{{config.logo_text|safe}}{% endblock %}</span>
     </a>
     {% endblock %}
 
