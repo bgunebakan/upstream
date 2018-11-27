@@ -31,6 +31,10 @@ from portunes.views import ControllerCRUD,DoorCRUD,DoorGroupCRUD,IdentifierCRUD
 from project.views import ProjectCRUD,TaskCRUD,CommentCRUD,TasktypeCRUD,StatustypeCRUD,ReportCRUD
 from inventory.views import LocationCRUD,InventoryCRUD,CategoryCRUD,ItemTypeCRUD,ItemCRUD,SupplierCRUD,ShelfCRUD
 import api.urls
+from django.views.static import serve
+from django.views.generic.base import RedirectView
+
+favicon_view = RedirectView.as_view(url='/static/favicon.ico', permanent=True)
 
 usercrud = UserCRUD()
 groupcrud = GroupCRUD()
@@ -68,6 +72,7 @@ ns = crud_for_app('personnel', check_perms=True, namespace="up")
 
 urlpatterns = [
     url(r'^$', views.index),
+    url(r'^favicon\.ico$', favicon_view),
     url(r'^filer/', include('filer.urls')),
     url(r'^', include('filer.server.urls')),
     url(r'^admin/', admin.site.urls),
@@ -76,6 +81,8 @@ urlpatterns = [
     url(r'^accounts/logout/', auth_views.logout, {'next_page': '/'}, name='logout'),
     url(r'^select2/', include('django_select2.urls')),
     url(r'^mail/', include('webmail.urls')),
+
+    url('^TED/', include('TED.urls')),
 
     url(r'^ldapconnect/', include('ldapconnect.urls')),
     url(r'^select2/', include('django_select2.urls')),
@@ -116,6 +123,9 @@ urlpatterns = [
     url(r'', include(itemcrud.get_urls())),
     url(r'', include(suppliercrud.get_urls())),
     url(r'', include(shelfcrud.get_urls())),
+
+    url(r'^media/(?P<path>.*)$', serve,{'document_root': settings.MEDIA_ROOT}),
+    url(r'^static/(?P<path>.*)$', serve,{'document_root': settings.STATIC_ROOT}),
 ]
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

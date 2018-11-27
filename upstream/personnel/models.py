@@ -173,8 +173,6 @@ class Personnel(models.Model):
     def get_absolute_url(self):
         return "/personnel/personnel/%i" % self.id
 
-#auditlog.register(Personnel)
-
 class Personnel_file(models.Model):
     name = models.CharField(
         max_length=30,
