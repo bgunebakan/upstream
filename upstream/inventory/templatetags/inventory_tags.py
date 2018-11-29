@@ -5,6 +5,7 @@ from django.core.exceptions import ObjectDoesNotExist
 from django.contrib.auth.models import User
 from inventory.tables import LogTable
 from django.contrib import messages
+from django.db.models import Q
 
 register = template.Library()
 
@@ -98,3 +99,16 @@ def get_users():
     except ObjectDoesNotExist:
         return null
     return users
+
+@register.simple_tag
+def search(text):
+    #text = request.GET.get('q','')
+    if text is not "":
+        try:
+            item_list = Item.objects.filter(Q(name__icontains=text)|Q(brand__icontains=text)|
+                                        Q(model__icontains=text)|Q(code__icontains=text)|
+                                        Q(notes__icontains=text)).order_by('-created_date')
+        except ObjectDoesNotExist:
+            return null
+        return item_list
+    return ""

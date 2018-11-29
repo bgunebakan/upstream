@@ -98,6 +98,13 @@
 
 
     </div>
+
+    {%if request.GET.q %}
+    {%search request.GET.q as object_list%}
+    {%for item in search_list%}
+    {{item}}
+    {%endfor%}
+    {%endif%}
 {%if request.GET.list_type == 'box_list'%}
 
 <div class="box-body">
