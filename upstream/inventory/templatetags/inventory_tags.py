@@ -75,21 +75,21 @@ def get_top_category_list(context,top_category_id):
 
     while(top_category_id is not None):
         top_category = Category.objects.get(id=top_category_id)
-        print top_category
+        #print top_category
         category_id_list.append(top_category.id)
         if top_category.top_category is None:
             break
         top_category_id = top_category.top_category.id
-        print top_category_id
-    print "-------"
+        #print top_category_id
+    #print "-------"
     category_id_list = list(reversed(category_id_list))
     #category_id_list = [99,8,802]
     category_list = Category.objects.filter(id__in=category_id_list)
     category_list = sorted(category_list, key=lambda i: category_id_list.index(i.pk))
-    print category_list
-    print "-------"
-    for cat in category_list:
-        print unicode(cat) + unicode(cat.id)
+    #print category_list
+    #print "-------"
+    #for cat in category_list:
+        #print unicode(cat) + unicode(cat.id)
     return category_list
 
 @register.simple_tag

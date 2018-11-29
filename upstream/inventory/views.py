@@ -295,7 +295,7 @@ class ItemCRUD(CRUDView):
     check_login = True
     check_perms = True
     fields = ['name','brand','model','part_number','code','quantity','unit','picture','shelf','notes','suppliers','inventory','category','item_type']
-    list_fields = ['name','brand','model','shelf','category','quantity','picture']
+    list_fields = ['name','brand','model','shelf','category','quantity']
     display_fields = ['name','brand','model','picture','quantity','part_number','shelf','notes','suppliers','inventory','category','item_type']
 
     list_filter = ['owner','category','item_type','suppliers']
