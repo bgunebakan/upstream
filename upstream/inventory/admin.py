@@ -19,7 +19,7 @@ admin.site.register(Unit)
 admin.site.register(Log)
 admin.site.register(Inventory)
 admin.site.register(Supplier)
-
+admin.site.register(Basket)
 from import_export.admin import ImportExportModelAdmin
 from django.contrib import admin
 

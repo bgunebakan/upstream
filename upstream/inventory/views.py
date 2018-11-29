@@ -92,6 +92,13 @@ def index(request):
     return HttpResponseRedirect('/inventory/item/list')
 
 @login_required
+def basket(request):
+
+    basket_items = Basket.objects.filter(Q(user=request.user.id)|Q(done=False)|Q(checkout=False)).order_by('-created_date')
+
+    return render(request, 'inventory/basket.html', {'basket_items': basket_items,})
+
+@login_required
 def item_label_print(request):
 
     item_name = unicode(request.GET.get("item_name", ""))

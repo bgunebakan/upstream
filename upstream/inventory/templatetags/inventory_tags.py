@@ -39,9 +39,9 @@ def get_itemtypes():
     return item_types
 
 @register.simple_tag
-def get_items():
+def get_items(category_id):
     try:
-        items = Item.objects.all()
+        items = Item.objects.filter(category__id=category_id)
     except ObjectDoesNotExist:
         return null
     return items
@@ -55,6 +55,41 @@ def get_category_items(category_id):
     except ObjectDoesNotExist:
         return null
     return items
+
+@register.simple_tag
+def get_categories(top_category_id):
+    if top_category_id is "":
+        top_category_id = 99 #hardcode for main category
+    try:
+        categories = Category.objects.filter(top_category__id=top_category_id)
+    except ObjectDoesNotExist:
+        return null
+    return categories
+
+@register.assignment_tag(takes_context=True)
+def get_top_category_list(context,top_category_id):
+    category_id_list = []
+    if top_category_id is "":
+        top_category_id = 99 #hardcode for main category
+
+    while(top_category_id is not None):
+        top_category = Category.objects.get(id=top_category_id)
+        print top_category
+        category_id_list.append(top_category.id)
+        if top_category.top_category is None:
+            break
+        top_category_id = top_category.top_category.id
+        print top_category_id
+    print "-------"
+    category_id_list = list(reversed(category_id_list))
+    #category_id_list = [99,8,802]
+    category_list = Category.objects.filter(id__in=category_id_list)
+    category_list = sorted(category_list, key=lambda i: category_id_list.index(i.pk))
+    print category_list
+    print "-------"
+    for cat in category_list:
+        print unicode(cat) + unicode(cat.id)
+    return category_list
 
 @register.simple_tag
 def get_users():

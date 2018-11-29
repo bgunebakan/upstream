@@ -247,3 +247,24 @@ class Supplier(models.Model):
 
     def get_absolute_url(self):
         return "/inventory/supplier/list"
+
+class Basket(models.Model):
+    item = models.ForeignKey(Item,verbose_name=_(u'Item'),on_delete=models.CASCADE)
+    user = models.ForeignKey(User,verbose_name=_(u'User'),on_delete=models.CASCADE)
+    quantity = models.IntegerField(default=1, verbose_name=_(u'Quantity'))
+    notes = models.TextField(null=True, blank=True, verbose_name=(u'Notes'))
+    created_date = models.DateTimeField(default=timezone.now,verbose_name='Created Date', editable=False)
+
+    checkout = models.BooleanField(default=False)
+    done = models.BooleanField(default=False)
+
+    class Meta:
+        ordering = ['user']
+        verbose_name = _(u'Basket')
+        verbose_name_plural = _(u'Baskets')
+
+    def __unicode__(self):
+        return unicode(self.user.get_full_name()) + " - " + unicode(self.item)
+
+    def get_absolute_url(self):
+        return "/inventory/basket/list"

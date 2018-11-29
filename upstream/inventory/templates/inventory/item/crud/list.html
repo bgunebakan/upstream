@@ -3,7 +3,6 @@
 {% load crud_tags %}
 {% load inventory_tags %}
 
-
 {% block title %} Inventory - Dashboard {% endblock %}
 {% block bodyclass %}skin-green {%if config.hide_sidebar %}sidebar-collapse{%endif%} {% endblock %}
 {% block page_name %} Inventory{% endblock %}
@@ -53,39 +52,50 @@
                           {%endif%}
                     </div>
                     {% endif %}
-                    {% if search %}
-                    <div class="col-lg-6">
-                        <form action="" method="get">
-                            <div class="input-group">
-                                <input type="text" name="q" value="{{q}}" class="form-control" placeholder="{% trans 'Find with item code...' %}">
-                                <span class="input-group-btn">
-                                    <button class="btn btn-flat" type="submit">
-                                        <i class="fa fa-search"></i>
-                                    </button>
-                                </span>
-                            </div>
-                        </form>
-                    </div>
-                    {% endif %}
-                </div>
 
-                {% if filters %}
-                <br />
-                        <form action="" method="get">
-                            <table class="table">
-                                {% for filter in filters %}
-                                {{filter.render }}
-                                {% endfor %}
-
-                            </table>
-                            <input type="submit" class="btn btn-info" value="Filter" />
-                            <a  class="btn btn-warning" href="?"> {% trans 'Clean filter' %} </a>
-                        </form>
                 </div>
-                <!-- /.box-body -->
-            </div>
-                    {% endif%}
         </div>
+        <div class="row">
+          {% if search %}
+          <div class="col-lg-6 col-md-offset-3">
+              <form action="" method="get">
+                  <div class="input-group">
+                      <input type="text" name="q" value="{{q}}" class="form-control" placeholder="{% trans 'Search . . .' %}">
+                      <span class="input-group-btn">
+                          <button class="btn btn-primary" type="submit">
+                              <i class="fa fa-search"></i>
+                          </button>
+                      </span>
+                  </div>
+              </form>
+          </div>
+          {% endif %}
+        </div>
+        <br>
+        <div class="row">
+          {%get_top_category_list request.GET.top_category as category_list%}
+
+          {%for cat in category_list%}
+          <div class="col-xs-2">
+
+            <table id="datatable" class="table table-responsive table-bordered table-hover">
+              <tbody>
+                  {%get_categories cat.id as categories%}
+                  {%for category in categories%}
+                  <tr {%if category in category_list%} class="bg-info"{%endif%}>
+                    <td>
+                      <a href="/inventory/item/list?top_category={{category.id}}&category={{category.id}}">{{category}}</a>
+                    </td>
+                    </tr>
+                  {%endfor%}
+
+              </tbody>
+            </table>
+          </div>
+          {%endfor%}
+
+        </div>
+
 
     </div>
 {%if request.GET.list_type == 'box_list'%}
