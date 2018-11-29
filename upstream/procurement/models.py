@@ -241,7 +241,7 @@ class TenderOffer(models.Model):
         verbose_name_plural = _(u'Tender Offers')
 
     def __unicode__(self):
-        return unicode(self.firm) +' offer for ' + unicode(tender.no)
+        return unicode(self.firm) +' offer for ' + unicode(self.tender.no)
     def get_absolute_url(self):
         return "/procurement/tender_offer/%i/update" % self.id
 
