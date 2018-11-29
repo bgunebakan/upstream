@@ -6,12 +6,12 @@
 {% block title %} {{ model_verbose_name_plural }}{% trans " list" %}{% endblock %}
 {% block bodyclass %}skin-blue {%if config.hide_sidebar %}sidebar-collapse{%endif%} {% endblock %}
 {% block page_name %}{{ model_verbose_name_plural }}{% endblock %}
-{% block page_description %}{{ model_verbose_name_plural }}{% trans " list" %}{% endblock %}
+{% block page_description %}{% trans " list" %}{% endblock %}
 
 {% block breadcrumbs %}
 <ol class="breadcrumb">
     <li><a href="/personnel/"><i class="fa fa-dashboard"></i> Dashboard</a></li>
-    <li class="active">Annual Leave</li>
+    <li class="active">Time off</li>
 </ol>
 {% endblock %}
 

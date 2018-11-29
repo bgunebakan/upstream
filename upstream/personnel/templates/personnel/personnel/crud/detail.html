@@ -53,7 +53,7 @@
                 <a href="/personnel/personnel/{{object.id}}/update" class="btn btn-primary" align="center">Update Details</a>
                 {% get_folder object.id as folder%}
                 <a href="/admin/filer/folder/{{folder.id}}/list/" class="btn btn-warning" align="center">User Files</a>
-                <a data-toggle="modal" href="#Annual_leaveModal" class="btn btn-success" align="center">Annual Leave</a>
+                <a data-toggle="modal" href="#Annual_leaveModal" class="btn btn-danger" align="center">Time off</a>
               </div>
             {%endif%}
           {%endif%}
@@ -297,7 +297,7 @@
           <div class="modal-content">
             <div class="modal-header">
               <button type="button" class="close" data-dismiss="modal">&times;</button>
-              <h4 style="color:green;">Annual Leave Request</h4>
+              <h4 style="color:green;">Time off Request</h4>
             </div>
             <div class="modal-body">
               <div class="col-md-12">
@@ -358,7 +358,6 @@
 
               </div>
             <div class="modal-footer">
-              <button type="submit" class="btn btn-warning" data-dismiss="modal"><span class="glyphicon glyphicon-remove"></span> Cancel</button>
             </div>
           </div>
         </div>

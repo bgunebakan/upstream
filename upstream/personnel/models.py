@@ -211,8 +211,8 @@ class Annual_leave(models.Model):
     notes = models.TextField(max_length=300,verbose_name = "Notes",null=True,blank=True)
     approved = models.BooleanField(default=False,blank=True,verbose_name = "Approved")
     class Meta:
-        verbose_name = _(u'Annual Leave')
-        verbose_name_plural = _(u'Annual Leaves')
+        verbose_name = _(u'Time off')
+        verbose_name_plural = _(u'Time off')
 
     def __unicode__(self):
         return unicode(self.user.get_full_name()) +" : "+ unicode(self.start_date) +" - "+ unicode(self.end_date)
