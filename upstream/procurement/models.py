@@ -130,10 +130,12 @@ class Currency(models.Model):
         return "/procurement/currency/list"
 
 class Supplier(models.Model):
-    name = models.CharField(max_length=32,unique=True, verbose_name=_(u'Supplier'))
+    name = models.CharField(max_length=50,unique=True, verbose_name=_(u'Supplier'))
     address = models.TextField(max_length=200,null=True,blank=True, verbose_name=_(u'Address'))
     phone_number1 = models.CharField(max_length=32, null=True, blank=True, verbose_name=_(u'Phone'))
     web = models.CharField(max_length=32, null=True, blank=True, verbose_name=_(u'Web'))
+    tax_id = models.CharField(max_length=12, null=True, blank=True, verbose_name=_(u'TAX id'))
+    tax_office = models.CharField(max_length=20, null=True, blank=True, verbose_name=_(u'TAX Office'))
     notes = models.TextField(null=True, blank=True, verbose_name=(u'Notes'))
     created_date = models.DateTimeField(default=timezone.now,verbose_name='Created date', editable=False)
 
@@ -150,6 +152,10 @@ class Supplier(models.Model):
 
 
 class Tender(models.Model):
+    Firm_location = (
+            (1, 'Domestic Firm'),
+            (2, 'Overseas Firm ')
+    )
     name = models.CharField(verbose_name=_(u'Name'), max_length=200)
     no = models.CharField(verbose_name='No', max_length=32, null=False, blank=False,default='TARLA-2018')
     tender_type = models.ForeignKey(TenderType, verbose_name=_(u'Tender Type'),null=True,on_delete=models.SET_NULL)
@@ -167,6 +173,8 @@ class Tender(models.Model):
     auction_time = models.TimeField(verbose_name='Auction Time', editable=True,null=True, blank=True)
 
     auction_price = models.FloatField(verbose_name=_(u'Auction Price'),default=0,null=True,blank=True)
+
+    firm_location = models.IntegerField(choices=Firm_location, default=1,verbose_name = "Firm Location")
 
     auction_no = models.CharField(verbose_name=_(u'Auction No'), max_length=32, null=True, blank=True)
 
@@ -215,10 +223,15 @@ class Tender_end_date(models.Model):
         return "/procurement/tender/%i/update" % self.tender.id
 
 class TenderOffer(models.Model):
+    VAT = (
+            (1, 'VAT Included'),
+            (2, 'VAT Excluded ')
+    )
     firm = models.CharField(max_length=50, verbose_name=_(u'Firm'))
     tender = models.ForeignKey(Tender, verbose_name=_(u'Tender'),null=True,on_delete=models.SET_NULL)
     price = models.FloatField(default=0, verbose_name=_(u'Price'))
     currency = models.ForeignKey(Currency, verbose_name=_(u'Currency'),null=True,on_delete=models.SET_NULL)
+    vat = models.IntegerField(choices=VAT, default=2,verbose_name = "VAT")
     proposal_form = models.FileField(upload_to=OfferFileUpload(os.path.join('proposal_form')),null=True,blank=True,verbose_name ="Proposal form ")
     created_date = models.DateTimeField(default=timezone.now,verbose_name='Created date', editable=False)
 

@@ -90,14 +90,14 @@ class Personnel_type(models.Model):
 
 class Personnel(models.Model):
     Gender = (
-            (1, 'Belirtilmemiş'),
-            (2, 'Kadın'),
-            (3, 'Erkek')
+            (1, 'Unknown'),
+            (2, 'Female'),
+            (3, 'Male')
     )
     Marital_status = (
-            (1, 'Belirtilmemiş'),
-            (2, 'Evli'),
-            (3, 'Bekar')
+            (1, 'Unknown'),
+            (2, 'Married'),
+            (3, 'Single')
     )
 
     Drive_licence = (

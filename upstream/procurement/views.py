@@ -70,9 +70,9 @@ class Tender_offer_AjaxCRUD(InlineAjaxCRUD):
     model = TenderOffer
     base_model = Tender
     inline_field = 'tender'
-    fields = ['firm','price','currency']
+    fields = ['firm','price','currency','vat']
     display_fields = ['firm','price','currency','proposal_form']
-    list_fields = ['firm','price','currency']
+    list_fields = ['firm','price','currency','vat']
 
     #add_form = TenderOfferForm
     #update_form = TenderOfferForm
@@ -96,7 +96,7 @@ class TenderCRUD(CRUDView):
     add_form = Tender_Form
     update_form = Tender_Form
 
-    inlines = [Tender_end_date_AjaxCRUD,Tender_offer_AjaxCRUD,Tender_content_AjaxCRUD]
+    inlines = [Tender_end_date_AjaxCRUD,Tender_offer_AjaxCRUD] #Tender_content_AjaxCRUD
 
     #search_fields = ['name','no','auction_no']
     #split_space_search = True
@@ -107,10 +107,10 @@ class TenderCRUD(CRUDView):
 class SuccessfulTendererCRUD(CRUDView):
     model = Supplier
     template_name_base='crud'
-    
+
     check_login = True
     check_perms = True
-    fields = ['name','phone_number1','web','address','notes']
+    fields = ['name','phone_number1','web','tax_office','tax_id','address','notes']
     list_fields = ['name','phone_number1','web']
     display_fields = ['name','phone_number1','web','address','notes']
 

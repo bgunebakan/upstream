@@ -19,16 +19,17 @@ from cruds_adminlte import (DatePickerWidget,
 class TenderOfferForm(forms.ModelForm):
     class Meta:
         model = TenderOffer
-        fields = ['firm','price','currency']
+        fields = ['firm','price','currency','vat']
 
     def __init__(self, *args, **kwargs):
         super(TenderOfferForm, self).__init__(*args, **kwargs)
         self.helper = FormHelper(self)
         self.helper.form_tag = False
         self.helper.layout = Layout(
-            Field('firm', wrapper_class="col-md-6"),
+            Field('firm', wrapper_class="col-md-12"),
             Field('price', wrapper_class="col-md-4"),
-            Field('currency', wrapper_class="col-md-2"),
+            Field('currency', wrapper_class="col-md-4"),
+            Field('vat', wrapper_class="col-md-4"),
         )
 
         self.helper.layout.append(
@@ -44,8 +45,9 @@ class Tender_Form(forms.ModelForm):
     class Meta:
         model = Tender
         fields = ['name','no','tender_type','approximate_price','currency','tender_status','notes','specification',
-                    'invoice','tenderapproval','agreement',
-                    'apply_date','auction_date','auction_time','auction_price','auction_no','supplier','user','bap_staff','contract_date']
+                    'invoice','tenderapproval','agreement','firm_location',
+                    'apply_date','auction_date','auction_time','auction_price','auction_no',
+                    'supplier','user','bap_staff','contract_date']
 
         widgets = {
             'apply_date': DatePickerWidget(attrs={'format': 'dd/mm/yyyy',
@@ -85,8 +87,8 @@ class Tender_Form(forms.ModelForm):
                     Field('user', wrapper_class="col-md-6"),
                     Field('supplier', wrapper_class="col-md-6"),
                     Field('specification', wrapper_class="col-md-12"),
-                    Field('invoice', wrapper_class="col-md-12"),
                     Field('agreement', wrapper_class="col-md-12"),
+                    Field('invoice', wrapper_class="col-md-12"),
                     Field('tenderapproval', wrapper_class="col-md-12"),
 
                 ),
@@ -96,6 +98,7 @@ class Tender_Form(forms.ModelForm):
                     Field('auction_date', wrapper_class="col-md-4"),
                     Field('auction_time', wrapper_class="col-md-4"),
                     Field('auction_price', wrapper_class="col-md-4"),
+                    Field('firm_location', wrapper_class="col-md-6"),
                     Field('contract_date', wrapper_class="col-md-6"),
                 ),
                 Tab(
