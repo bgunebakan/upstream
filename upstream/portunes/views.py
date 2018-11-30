@@ -436,9 +436,9 @@ def door_access(request, door_id):
 
                 for iden in identifier:
                     permission, created = Permission.objects.update_or_create(identifier=iden,door=door)
-                    print "iden:" + unicode(iden)
-                    print "user:" + unicode(user)
-                    print "-----"
+                    #print "iden:" + unicode(iden)
+                    #print "user:" + unicode(user)
+                    #print "-----"
                     if permission.id != None:
                         messages.info(request,unicode(user) + " - " + unicode(door.entrance) + " kontrolcuye kaydedildi.")
                     else:
