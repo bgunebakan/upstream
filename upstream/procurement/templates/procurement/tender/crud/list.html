@@ -118,7 +118,7 @@
                     {%for tender in object_list%}
 
                       {%if tender.tender_type == tender_type%}
-                        {%if 'apply_date' in request.GET and request.GET.apply_date is not None%}
+                        {%if 'apply_date' in request.GET and request.GET.apply_date != '' %}
                           {%if tender.apply_date|date:"Y" == request.GET.apply_date %}
 
                             <tr role="row" class="odd">
