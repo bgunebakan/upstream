@@ -56,8 +56,10 @@ def doors(controller_id):
 def door_permission_users(door_id):
     try:
         permissions = Permission.objects.filter(door__id=door_id).order_by('identifier')
+        for perm in permissions:
+            print perm.identifier.user
     except ObjectDoesNotExist:
-        return "Door does not Exist!"
+        print "Door does not Exist!"
     return permissions
 
 @register.simple_tag

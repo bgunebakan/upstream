@@ -61,6 +61,7 @@
           <div class="tab-content">
 
               <div class="active tab-pane" id="permissions">
+                <form action="/portunes/access/door/{{object.id}}/" method="post" name="form" id="form">
                   <div class="box-body">
                       <div class="row">
                         <table class="table table-bordered text-center">
@@ -68,24 +69,28 @@
                         <ul>
                         {% door_permission_users object.id as permissions %}
                         {% all_users as users %}
-                        <form action="" method="post" name="form" id="form">
+
                           {% csrf_token %}
-                         {% for user in users %}
+                          {% for user in users %}
                           <li class="fa fa-user" >
-                            <input type="checkbox" name="permissions" value="{{user.id}}" id="{{user}}"> {{user.first_name}} {{user.last_name}}
+                            <input type="checkbox" name="users" value="{{user.id}}" id="{{user}}"
+                            {%for perm in permissions%}
+                            {%if user == perm.identifier.user%} checked {%endif%}{%endfor%}> {{user.first_name}} {{user.last_name}}
                           </li>
                           <br>
                           {% endfor %}
 
-                      </ul>
-                    </tbody></table>
-                      <div class="box-footer">
-                        <button type="submit" name="savepermission" value="savepermission" class="btn btn-primary">Kaydet</button>
-                        <button type="submit" name="clearpermission" value="clearpermission" class="btn btn-danger">Yetkileri sil</button>
+                        </ul>
+                        </tbody>
+                      </table>
                       </div>
-                      </form>
-                      </div>
+
                   </div>
+                  <div class="box-footer">
+                    <button type="submit" name="savepermission" value="savepermission" class="btn btn-primary">Kaydet</button>
+                    <button type="submit" name="clearpermission" value="clearpermission" class="btn btn-danger">Yetkileri sil</button>
+                  </div>
+                  </form>
               </div>
           </div>
         <!-- /.box-body -->

@@ -76,8 +76,8 @@ class DoorCRUD(CRUDView):
     list_fields = ['name','entrance_controller_pin','enter']
     display_fields = ['name','entrance','entrance_controller_pin','antipassback','enter','description','created_date','updated_date' ,'deleted' ]
 
-    search_fields = ['name','entrance','entrance_controller_pin']
-    split_space_search = True
+    #search_fields = ['name','entrance__name']
+    #split_space_search = False
     paginate_by = 15
     paginate_position = 'Bottom' # Both | Bottom
     paginate_template = 'cruds/pagination/enumeration.html'
@@ -389,3 +389,61 @@ def user_access(request, user_id):
             raise Http404("Kullanici Bulunamadi")
 
         return render(request, 'portunes/user/access.html', {'user': user,'controllers': controllers,'doors': doors,'door_groups': door_groups,'identifier':identifier,'permissions':permissions,'table_label':'User Permissions','user_menu':'active'})
+
+
+##DOOR Access
+@login_required
+@permission_required('portunes.permission.edit')
+def door_access(request, door_id):
+    if request.method == 'POST':
+        try:
+            door = Door.objects.get(id=door_id)
+            controller = Controller.objects.get(health=True,id=door.entrance.id)
+
+            checkboxes = request.POST.getlist('users')
+        except Door.DoesNotExist:
+            raise Http404("Door or Controller Does not Exist")
+
+        if 'clearpermission' in request.POST:
+            #CLEAR ALL PERMISSIONS
+            permissions = Permission.objects.filter(door__id=door_id)
+            if permissions:
+                for permission in permissions:
+                    permission.delete()
+                    if permission.id != None:
+                        messages.error(request,unicode(permission.identifier.user) + " - " + unicode(permission.door.entrance) + " kontrolcuden SiLiNEMEDi!")
+                    else:
+                        messages.info(request, unicode(permission.identifier.user) + " - " + unicode(permission.door.entrance) + " kontrolcuden silindi.")
+            return HttpResponseRedirect('/portunes/door/'+unicode(door_id))
+
+        elif 'savepermission' in request.POST:
+            print "save---" + unicode(door_id)
+            #CLEAR ALL PERMISSIONS
+            permissions = Permission.objects.filter(door__id=door_id)
+            if permissions:
+                for permission in permissions:
+                    permission.delete()
+
+            message = ""
+            for user_id in checkboxes:
+                try:
+                    user = User.objects.get(id=user_id)
+                    identifier = Identifier.objects.filter(user=user)
+                    #permission = Permission.objects.get(door__id=door_id,identifier__in=identifier)
+                except Identifier.DoesNotExist:
+                    continue
+                door = Door.objects.get(id=door_id)
+
+                for iden in identifier:
+                    permission, created = Permission.objects.update_or_create(identifier=iden,door=door)
+                    print "iden:" + unicode(iden)
+                    print "user:" + unicode(user)
+                    print "-----"
+                    if permission.id != None:
+                        messages.info(request,unicode(user) + " - " + unicode(door.entrance) + " kontrolcuye kaydedildi.")
+                    else:
+                        messages.error(request, unicode(user) + " - " + unicode(door.entrance) + " kontrolcuye KAYDEDiLEMEDi!")
+
+            return HttpResponseRedirect('/portunes/door/'+unicode(door_id))
+    else:
+        return HttpResponseRedirect('/portunes/door/'+unicode(door_id))

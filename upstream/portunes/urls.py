@@ -12,6 +12,7 @@ urlpatterns=[
     url(r'^logs', views.logs, name='logs'),
     url(r'^settime', views.settime, name='settime'),
     url(r'^access/(?P<user_id>[0-9]+)/', views.user_access, name='user_access'),
+    url(r'^access/door/(?P<door_id>[0-9]+)/', views.door_access, name='door_access'),
     url(r'^controller/permission/(?P<id>[0-9]+)/', views.controller_permission, name='controller_permission'),
     url(r'^controller/startup/(?P<id>[0-9]+)/', views.controller_startup, name='controller_startup'),
     #url(r'^$',
