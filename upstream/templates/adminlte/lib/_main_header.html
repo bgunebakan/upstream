@@ -53,6 +53,50 @@
             <ul class="nav navbar-nav">
                 {% block header_dropdowns %}
                     {% if request.user.is_authenticated %}
+                        {%get_total_message request as total_message%}
+                        <li class="dropdown messages-menu">
+                          <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                            <i class="fa fa-envelope-o"></i>
+                            {%if total_message > 0%}<span class="label label-success">{{total_message}}</span>{%endif%}
+                          </a>
+                          <ul class="dropdown-menu">
+                            {%if total_message > 0%}<li class="header">You have {{total_message}} messages</li>{%else%}
+                            <li class="header">You have no message</li>{%endif%}
+                            <li>
+                              <!-- inner menu: contains the actual data -->
+                              <ul class="menu">
+                                {%get_messages request as messages%}
+                                {%for message in messages%}
+                                <li><!-- start message -->
+                                  <a data-toggle="modal" data-id="{{message.id}}"
+                                      data-title="{{message.title}}" data-excerpt="{{message.excerpt}}"
+                                      data-date="{{message.date|timesince}}" data-text="{{message.text}}"
+                                      data-date="{{message.sender}}" data-image="/media/profile_pictures/support.png" href="#messageModal">
+                                    <div class="pull-left">
+                                      <img src="{%if message.sender == None%}/media/profile_pictures/support.png{%else%}{{personnel.profile_picture.url}}{%endif%}" class="img-circle" alt="User Image">
+                                    </div>
+                                    <h4>
+                                      {%if message.sender == None%}Support {%else%}{{message.sender}}{%endif%}
+                                      <small><i class="fa fa-clock-o"></i>{{message.date|timesince}}</small>
+                                    </h4>
+                                    <p>{{message.title}}</p>
+                                  </a>
+                                </li>
+                                <!-- end message -->
+                                {%endfor%}
+                              </ul>
+                            </li>
+                            <form action="/personnel/message/mark_as_read/" method="post">
+                              {% csrf_token %}
+                              <input class="form-control hidden" name="message_all" value="1">
+                              <input class="form-control hidden" name="redirect_url" id="redirect_url" value="{{ request.get_full_path }}">
+                              <div class="text-center">
+                              {%if total_message > 0%}<li class="footer"><button>Mark all messages as read</button></li>{%endif%}
+                              </div>
+                            </form>
+
+                          </ul>
+                        </li>
                         <li class="dropdown user user-menu">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                                 <img src="{{personnel.profile_picture.url}}" class="user-image" alt="User Image">
@@ -91,3 +135,71 @@
     </nav>
     {% endblock %}
 </header>
+
+<!-- TASK DETAILS Modal -->
+<div class="modal fade" id="messageModal" role="dialog">
+
+  <div class="modal-dialog">
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-body">
+        <div class="box box-widget">
+        <div class="box-header with-border">
+          <div class="user-block">
+            <img class="img-circle" id="message_image" alt="Sender Image">
+            <span id="message_sender" class="username"></span>
+            <span id="message_date" class="description"></span>
+          </div>
+          <!-- /.user-block -->
+          <div class="box-tools">
+            <button type="button" class="btn btn-box-tool" data-toggle="tooltip" title="" data-original-title="Mark as read">
+              <i class="fa fa-circle-o"></i></button>
+            <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+            </button>
+            <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+          </div>
+          <!-- /.box-tools -->
+        </div>
+        <!-- /.box-header -->
+        <div class="box-body">
+          <!-- post text -->
+          <h3 id="message_title"></h3>
+
+          <p id="message_text"></p>
+        </div>
+        <div class="box-footer">
+          <form action="/personnel/message/mark_as_read/" method="post">
+            {% csrf_token %}
+            <input class="form-control hidden" name="message_id" id="message_id">
+            <input class="form-control hidden" name="redirect_url" id="redirect_url" value="{{ request.get_full_path }}">
+            <button class="btn btn-primary btn-xs">Mark as Read</button>
+          </form>
+        </div>
+      </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% block js %}
+<script type="text/javascript">
+  //triggered when modal is about to be shown
+  $('#messageModal').on('show.bs.modal', function(e) {
+    //get data-id attribute of the clicked element
+    var message_id = $(e.relatedTarget).data('id');
+    var message_title = $(e.relatedTarget).data('title');
+    var message_excerpt = $(e.relatedTarget).data('excerpt');
+    var message_text = $(e.relatedTarget).data('text');
+    var message_date = $(e.relatedTarget).data('date');
+    var message_image = $(e.relatedTarget).data('image');
+    console.log(message_id + " - " +message_title);
+    //populate the textbox
+    document.getElementById("message_title").innerHTML = message_title;
+    document.getElementById("message_sender").innerHTML = "Support";
+    document.getElementById("message_text").innerHTML = message_text;
+    document.getElementById("message_date").innerHTML = message_date;
+    document.getElementById("message_id").value = message_id;
+    document.getElementById("message_image").src = message_image;
+    //$(e.currentTarget).find('h2[name="message_title"]').val(message_title);
+  });
+</script>
+{% endblock js %}

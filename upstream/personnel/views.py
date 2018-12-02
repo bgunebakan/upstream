@@ -178,3 +178,28 @@ def detail(request,user_id, template_name='personnel/personnel/crud/detail.html'
 
     return render(request, template_name, {'object': personnel})
     #return HttpResponseRedirect('/personnel/personnel/' + unicode(personnel.id))
+
+@login_required
+def mark_as_read(request):
+
+    if request.method == "POST":
+        if request.POST.get("message_id",""):
+            message_id = int(request.POST.get("message_id",""))
+        else:
+            message_id = 0
+        redirect_url = request.POST.get("redirect_url","")
+        try:
+            if message_id != 0:
+                message = Message.objects.get(id=message_id)
+                message.mark_as_read = True
+                message.save()
+            else:
+                messages = Message.objects.filter(user=request.user)
+                for message in messages:
+                    message.mark_as_read = True
+                    message.save()
+        except Message.DoesNotExist:
+            return HttpResponseRedirect(redirect_url)
+    else:
+        return HttpResponseRedirect(redirect_url)
+    return HttpResponseRedirect(redirect_url)

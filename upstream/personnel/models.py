@@ -219,3 +219,24 @@ class Annual_leave(models.Model):
 
     def get_absolute_url(self):
         return "/personnel/annual_leave/list"
+
+class Message(models.Model):
+    #task = models.ForeignKey(Task,null=True,on_delete=models.SET_NULL)
+    sender = models.ForeignKey(User,related_name="Sender",blank=True,null=True,on_delete=models.SET_NULL)
+    user = models.ForeignKey(User,related_name="User",null=True,on_delete=models.SET_NULL)
+    excerpt = models.CharField(max_length=50,null=True,blank=True)
+    title = models.CharField(max_length=50,null=True,blank=True)
+    text = models.TextField(max_length=1000,null=True,blank=True)
+    date = models.DateTimeField(verbose_name='Created date',default=timezone.now, editable=False)
+    mark_as_read  = models.BooleanField(default=False,blank=True,verbose_name = "Mark as read")
+
+    def __unicode__(self):
+        return self.text
+
+    #def get_absolute_url(self):
+    #return "/project/task/%i" % self.task.id
+
+    class Meta:
+        ordering = ['-date']
+        verbose_name = _(u'Message')
+        verbose_name_plural = _(u'Messages')

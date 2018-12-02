@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-from personnel.models import Personnel,Annual_leave
+from personnel.models import Personnel,Annual_leave,Message
 from django import template
 from django.core.exceptions import ObjectDoesNotExist
 #from auditlog.models import LogEntry
@@ -28,6 +28,26 @@ def get_annual_leaves(request):
     except ObjectDoesNotExist:
         return ""
     return annual_leaves
+
+@register.simple_tag
+def get_messages(request):
+    try:
+        messages = Message.objects.filter(user=request.user,mark_as_read=False)
+    except ObjectDoesNotExist:
+        return null
+    return messages
+
+@register.simple_tag
+def get_total_message(request):
+    try:
+        messages = Message.objects.filter(user=request.user,mark_as_read=False)
+        i = 0
+        for message in messages:
+            i = i + 1
+        return i
+    except ObjectDoesNotExist:
+        return 0
+
 
 @register.simple_tag
 def select_personnel(id):
