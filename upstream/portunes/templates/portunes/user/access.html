@@ -69,7 +69,7 @@
         <div class="box-body">
           <table class="table table-bordered text-center">
           <tbody>
-
+            <ul>
              {% for door_group in door_groups.all %}
               <a href="?door_group={{door_group.id}}" value="{{door_group.id}}" ><li class="fa fa-archive" > {{door_group.name}}</li></a>
 
@@ -104,10 +104,11 @@
               {% csrf_token %}
           <table class="table table-bordered text-center">
           <tbody>
+            <ul>
           {% for controller in controllers.all %}
             {% cycle '<tr>' '' '' %}
                 <td>
-          <ul>
+
             <a href="/controllers/detail/{{controller.mac}}">
               <i class="fa fa-archive"></i> <span>{{ controller.name}}</span>
             </a><br>
@@ -136,8 +137,9 @@
               {% endfor %}
                 </td>
             {% cycle '' '' '</tr>' %}
-          </ul>
+
           {% endfor %}
+          </ul>
         </tbody></table>
           <div class="box-footer">
             <button type="submit" name="savepermission" value="savepermission" class="btn btn-primary">Save</button>
@@ -161,7 +163,7 @@
 
 {% endblock %}
 
-{% block javascript %}
+{% block js %}
 <script>
 $(document).ready(function () {
     $('#AllCheckbox').click(function () {
