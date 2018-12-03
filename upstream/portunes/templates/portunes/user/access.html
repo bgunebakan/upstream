@@ -41,16 +41,19 @@
         <div class="box-body">
           <table class="table table-bordered text-center">
           <tbody>
+            <ul>
+              {% for id in identifier.all %}
             <form action="" method="post" name="form" id="form">
               {% csrf_token %}
-             {% for id in identifier.all %}
+
               <a href="/portunes/identifier/{{id.id}}/update"><li class="fa fa-user" > {{id.name}} - {{id.key}}</li></a>
               <input type="hidden" name="identifier" id="identifier" value="{{id.id}}" />&nbsp;&nbsp;&nbsp;
               <button type="submit" name="deleteidentifier" value="deleteidentifier" class="btn btn-xs btn-danger">Delete</button>
               <br>
 
-              {% endfor %}
+
             </form>
+            {% endfor %}
           </ul>
         </tbody></table>
         </div>
