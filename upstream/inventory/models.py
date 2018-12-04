@@ -9,7 +9,7 @@ from django.contrib.auth.models import User,Group
 from django.utils.deconstruct import deconstructible
 import os
 from uuid import uuid4
-#from procurement.models import Supplier
+from procurement.models import Supplier
 @deconstructible
 class UploadToPathAndRename(object):
 
@@ -187,7 +187,7 @@ class Item(models.Model):
     owner = models.ForeignKey(User, verbose_name=_(u'Owner'),blank=True,null=True,on_delete=models.SET_NULL)
     notes = models.TextField(verbose_name=_(u'Notes'), null=True, blank=True)
     picture = models.ImageField(upload_to=UploadToPathAndRename(os.path.join('item_pictures')),null=True,blank=True,default='item_pictures/item.png',verbose_name = "Picture")
-    #suppliers = models.ManyToManyField('Supplier',blank=True, verbose_name=_(u'Supplier'))
+    suppliers = models.ManyToManyField(Supplier,blank=True, verbose_name=_(u'Supplier'))
     inventory = models.ForeignKey(Inventory, null=True, blank=True, verbose_name=_(u'Inventory'),on_delete=models.SET_NULL)
     category = models.ForeignKey(Category, verbose_name=_(u'Category'),null=True,on_delete=models.SET_NULL)
     shelf = models.CharField(max_length=50,null=True, blank=True, verbose_name=_(u'Shelf'))

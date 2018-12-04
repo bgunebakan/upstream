@@ -146,7 +146,7 @@ class ItemForm(forms.ModelForm):
 
     class Meta:
         model = Item
-        fields = ['name','brand','model','picture','quantity','unit','shelf','part_number','notes','inventory','category','item_type']
+        fields = ['name','brand','model','picture','quantity','unit','shelf','part_number','notes','suppliers','inventory','category','item_type']
 
         widgets = {
             'notes': CKEditorWidget(attrs={'lang': 'tr'}),
