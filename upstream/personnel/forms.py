@@ -18,7 +18,7 @@ class UserForm(forms.ModelForm):
 
     class Meta:
         model = User
-        fields = ['first_name','last_name','username','email','user_permissions','groups']
+        fields = ['first_name','last_name','username','email','is_active','user_permissions','groups']
 
     def __init__(self, *args, **kwargs):
         super(UserForm, self).__init__(*args, **kwargs)
@@ -32,14 +32,13 @@ class UserForm(forms.ModelForm):
                     Field('last_name', wrapper_class="col-md-6"),
                     Field('username', wrapper_class="col-md-6"),
                     Field('email', wrapper_class="col-md-6"),
-                    Field('groups', wrapper_class="col-md-6"),
+                    Field('is_active', wrapper_class="col-md-6"),
+                    Field('groups', wrapper_class="col-md-12"),
                     Field('user_permissions', wrapper_class="col-md-12"),
         )
         self.helper.layout.append(
             FormActions(
-                Submit('submit', _('Submit'), css_class='btn btn-primary'),
-                HTML("""{% load i18n %}<a class="btn btn-danger"
-                        href="{{ url_delete }}">{% trans 'Delete' %}</a>"""),
+                Submit('submit', _('Submit'), css_class='btn btn-primary')
             )
         )
 

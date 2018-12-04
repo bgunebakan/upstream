@@ -34,15 +34,15 @@ class UserCRUD(CRUDView):
     namespace = None
     check_login = True
     check_perms = True
-    views_available=['create', 'list', 'update','delete']
+    views_available=['create', 'list', 'update']
 
-    fields = ['first_name','last_name', 'username','email','user_permissions','groups']
+    fields = ['first_name','last_name', 'username','email','is_active','user_permissions','groups']
 
-    list_fields = ['first_name','last_name','username','email']
+    list_fields = ['first_name','last_name','username','email','is_active']
 
-    list_filter = ['first_name', 'username']
+    list_filter = ['first_name', 'username','is_active']
 
-    display_fields = ['first_name', 'last_name','username','email']
+    display_fields = ['first_name', 'last_name','username','email','is_active']
 
     add_form = UserForm
     update_form = UserForm
