@@ -72,31 +72,22 @@
           {% endif %}
         </div>
         <br>
+        <label>Categories :</label>
         <div class="row">
           {%get_top_category_list request.GET.top_category as category_list%}
-
           {%for cat in category_list%}
-          <div class="col-xs-2">
-
-            <table id="datatable" class="table table-responsive table-bordered table-hover">
-              <tbody>
-                  {%get_categories cat.id as categories%}
-                  {%for category in categories%}
-                  <tr {%if category in category_list%} class="bg-info"{%endif%}>
-                    <td>
-                      <a href="/inventory/item/list?top_category={{category.id}}&category={{category.id}}">{{category}}</a>
-                    </td>
-                    </tr>
-                  {%endfor%}
-
-              </tbody>
-            </table>
+          <div class="col-lg-3">
+            <select class="form-control select2 select2-hidden-accessible" style="width: 100%;" tabindex="-1" aria-hidden="true" onchange="window.location.href=this.value;">
+              <option value="#">Select a Category</option>
+              {%get_categories cat.id as categories%}
+              {%for category in categories%}
+                <option value="/inventory/item/list?top_category={{category.id}}&category={{category.id}}" {%if category in category_list%} selected="selected" {%endif%}>{{category}}</option>
+              {%endfor%}
+            </select>
           </div>
           {%endfor%}
-
         </div>
-
-
+      <br>
     </div>
 
     {%if request.GET.q %}
