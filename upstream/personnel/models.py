@@ -171,7 +171,7 @@ class Personnel(models.Model):
             if 'Portunes' in app.verbose_name:
                 import portunes.models
                 print "PORTUNES detected"
-                identifiers = portunes.models.Identifier.objects.filter(user__id=1)
+                identifiers = portunes.models.Identifier.objects.filter(user=self.user)
 
                 for identifier in identifiers:
                     permissions = portunes.models.Permission.objects.filter(identifier=identifier)
@@ -189,7 +189,7 @@ class Personnel(models.Model):
             self.user.save()
             self.save()
         return
-        
+
     def get_absolute_url(self):
         return "/personnel/personnel/%i" % self.id
 
