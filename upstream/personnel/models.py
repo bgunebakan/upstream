@@ -18,6 +18,8 @@ from image_cropping import ImageCropField, ImageRatioField
 from filer.fields.image import FilerImageField
 from filer.fields.file import FilerFileField
 
+from django.apps import apps
+
 class SoftDeleteManager(models.Manager):
 
     def get_query_set(self):
@@ -163,15 +165,31 @@ class Personnel(models.Model):
         return self.name + " " + self.surname
 
     def delete(self, *args, **kwargs):
-        self.deleted=True
-        self.user.is_active = False
-        self.user.save()
-        #permissions = Permission.objects.filter(personnel=self)
-        #for permission in permissions:
-        #    permission.delete()
-        #self.identifier = None
-        self.save()
+        permission_deleted = False
+        # DELETE PORTUNES IDENTIFIER PERMISSIONS
+        for app in apps.get_app_configs():
+            if 'Portunes' in app.verbose_name:
+                import portunes.models
+                print "PORTUNES detected"
+                identifiers = portunes.models.Identifier.objects.filter(user__id=1)
+
+                for identifier in identifiers:
+                    permissions = portunes.models.Permission.objects.filter(identifier=identifier)
+                    for permission in permissions:
+                        print permission
+                        permission.delete() # delete all permissions
+                    identifier.user = None # delete identifiers
+                    identifier.save()
+                permission_deleted = True
+
+        #check succesful delete portunes permissions
+        if permission_deleted:
+            self.deleted=True
+            self.user.is_active = False
+            self.user.save()
+            self.save()
         return
+        
     def get_absolute_url(self):
         return "/personnel/personnel/%i" % self.id
 
