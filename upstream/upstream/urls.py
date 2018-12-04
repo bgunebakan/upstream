@@ -29,7 +29,7 @@ from personnel.models import Personnel
 from procurement.views import *
 from portunes.views import ControllerCRUD,DoorCRUD,DoorGroupCRUD,IdentifierCRUD
 from project.views import ProjectCRUD,TaskCRUD,CommentCRUD,TasktypeCRUD,StatustypeCRUD,ReportCRUD
-from inventory.views import LocationCRUD,InventoryCRUD,CategoryCRUD,ItemTypeCRUD,ItemCRUD,SupplierCRUD,ShelfCRUD
+from inventory.views import LocationCRUD,InventoryCRUD,CategoryCRUD,ItemTypeCRUD,ItemCRUD,ShelfCRUD
 import api.urls
 from django.views.static import serve
 from django.views.generic.base import RedirectView
@@ -65,7 +65,7 @@ inventorycrud = InventoryCRUD()
 categorycrud = CategoryCRUD()
 itemtypecrud = ItemTypeCRUD()
 itemcrud = ItemCRUD()
-suppliercrud = SupplierCRUD()
+#suppliercrud = SupplierCRUD()
 shelfcrud = ShelfCRUD()
 
 ns = crud_for_app('personnel', check_perms=True, namespace="up")
@@ -121,7 +121,7 @@ urlpatterns = [
     url(r'', include(categorycrud.get_urls())),
     url(r'', include(itemtypecrud.get_urls())),
     url(r'', include(itemcrud.get_urls())),
-    url(r'', include(suppliercrud.get_urls())),
+    #url(r'', include(suppliercrud.get_urls())),
     url(r'', include(shelfcrud.get_urls())),
 
     url(r'^media/(?P<path>.*)$', serve,{'document_root': settings.MEDIA_ROOT}),

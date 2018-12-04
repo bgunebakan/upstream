@@ -4,9 +4,8 @@ from __future__ import unicode_literals
 from django.contrib import admin
 
 from .models import *
-
-#class ItemAdmin(admin.ModelAdmin):
-#    filter_horizontal = ('suppliers',)
+from import_export.admin import ImportExportModelAdmin
+from django.contrib import admin
 
 
 
@@ -18,10 +17,9 @@ admin.site.register(ItemStatus)
 admin.site.register(Unit)
 admin.site.register(Log)
 admin.site.register(Inventory)
-admin.site.register(Supplier)
+#admin.site.register(Supplier)
 admin.site.register(Basket)
-from import_export.admin import ImportExportModelAdmin
-from django.contrib import admin
+
 
 @admin.register(Item)
 class ItemImportExportAdmin(ImportExportModelAdmin):

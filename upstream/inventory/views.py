@@ -296,7 +296,7 @@ class ItemCRUD(CRUDView):
     check_perms = True
     fields = ['name','brand','model','part_number','code','quantity','unit','picture','shelf','notes','suppliers','inventory','category','item_type']
     list_fields = ['name','brand','model','shelf','category','quantity']
-    display_fields = ['name','brand','model','picture','quantity','part_number','shelf','notes','suppliers','inventory','category','item_type']
+    display_fields = ['name','brand','model','picture','quantity','part_number','shelf','notes','inventory','category','item_type']
 
     list_filter = ['owner','category','item_type','suppliers']
     views_available=['create', 'list', 'delete', 'update', 'detail']
@@ -312,22 +312,22 @@ class ItemCRUD(CRUDView):
     paginate_position = 'Bottom' # Both | Bottom
     paginate_template = 'cruds/pagination/enumeration.html'
 
-class SupplierCRUD(CRUDView):
-    model = Supplier
-    template_name_base='crud'
-    check_login = True
-    check_perms = True
-    fields =  ['name','address','phone_number','web','notes']
-    list_fields =   ['name','address','phone_number','web']
-    display_fields =   ['name','address','phone_number','web','notes']
-
-    views_available=['create', 'list', 'delete', 'update']
-
-    add_form = SupplierForm
-    update_form = SupplierForm
-
-    search_fields = ['name','address','phone_number','web','notes']
-    split_space_search = True
-    paginate_by = 15
-    paginate_position = 'Bottom' # Both | Bottom
-    paginate_template = 'cruds/pagination/enumeration.html'
+# class SupplierCRUD(CRUDView):
+#     model = Supplier
+#     template_name_base='crud'
+#     check_login = True
+#     check_perms = True
+#     fields =  ['name','address','phone_number','web','notes']
+#     list_fields =   ['name','address','phone_number','web']
+#     display_fields =   ['name','address','phone_number','web','notes']
+#
+#     views_available=['create', 'list', 'delete', 'update']
+#
+#     add_form = SupplierForm
+#     update_form = SupplierForm
+#
+#     search_fields = ['name','address','phone_number','web','notes']
+#     split_space_search = True
+#     paginate_by = 15
+#     paginate_position = 'Bottom' # Both | Bottom
+#     paginate_template = 'cruds/pagination/enumeration.html'

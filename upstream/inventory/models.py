@@ -9,7 +9,7 @@ from django.contrib.auth.models import User,Group
 from django.utils.deconstruct import deconstructible
 import os
 from uuid import uuid4
-
+#from procurement.models import Supplier
 @deconstructible
 class UploadToPathAndRename(object):
 
@@ -187,7 +187,7 @@ class Item(models.Model):
     owner = models.ForeignKey(User, verbose_name=_(u'Owner'),blank=True,null=True,on_delete=models.SET_NULL)
     notes = models.TextField(verbose_name=_(u'Notes'), null=True, blank=True)
     picture = models.ImageField(upload_to=UploadToPathAndRename(os.path.join('item_pictures')),null=True,blank=True,default='item_pictures/item.png',verbose_name = "Picture")
-    suppliers = models.ManyToManyField('Supplier',blank=True, verbose_name=_(u'Supplier'))
+    #suppliers = models.ManyToManyField('Supplier',blank=True, verbose_name=_(u'Supplier'))
     inventory = models.ForeignKey(Inventory, null=True, blank=True, verbose_name=_(u'Inventory'),on_delete=models.SET_NULL)
     category = models.ForeignKey(Category, verbose_name=_(u'Category'),null=True,on_delete=models.SET_NULL)
     shelf = models.CharField(max_length=50,null=True, blank=True, verbose_name=_(u'Shelf'))
@@ -229,24 +229,24 @@ class Log(models.Model):
         return unicode(self.user) + " " + unicode(self.item) + ' Date:' + unicode(self.timedate)
 
 
-class Supplier(models.Model):
-    name = models.CharField(max_length=32, verbose_name=_(u'Name'))
-    address = models.TextField(max_length=200,null=True,blank=True, verbose_name=_(u'Address'))
-    phone_number = models.CharField(max_length=32, null=True, blank=True, verbose_name=_(u'Phone'))
-    web = models.CharField(max_length=32, null=True, blank=True, verbose_name=_(u'Web'))
-    notes = models.TextField(null=True, blank=True, verbose_name=(u'Notes'))
-    created_date = models.DateTimeField(default=timezone.now,verbose_name='Created Date', editable=False)
-
-    class Meta:
-        ordering = ['name']
-        verbose_name = _(u'Supplier')
-        verbose_name_plural = _(u'Suppliers')
-
-    def __unicode__(self):
-        return self.name
-
-    def get_absolute_url(self):
-        return "/inventory/supplier/list"
+# class Supplier(models.Model):
+#     name = models.CharField(max_length=32, verbose_name=_(u'Name'))
+#     address = models.TextField(max_length=200,null=True,blank=True, verbose_name=_(u'Address'))
+#     phone_number = models.CharField(max_length=32, null=True, blank=True, verbose_name=_(u'Phone'))
+#     web = models.CharField(max_length=32, null=True, blank=True, verbose_name=_(u'Web'))
+#     notes = models.TextField(null=True, blank=True, verbose_name=(u'Notes'))
+#     created_date = models.DateTimeField(default=timezone.now,verbose_name='Created Date', editable=False)
+#
+#     class Meta:
+#         ordering = ['name']
+#         verbose_name = _(u'Supplier')
+#         verbose_name_plural = _(u'Suppliers')
+#
+#     def __unicode__(self):
+#         return self.name
+#
+#     def get_absolute_url(self):
+#         return "/inventory/supplier/list"
 
 class Basket(models.Model):
     item = models.ForeignKey(Item,verbose_name=_(u'Item'),on_delete=models.CASCADE)

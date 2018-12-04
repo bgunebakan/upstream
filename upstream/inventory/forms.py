@@ -146,7 +146,7 @@ class ItemForm(forms.ModelForm):
 
     class Meta:
         model = Item
-        fields = ['name','brand','model','picture','quantity','unit','shelf','part_number','notes','suppliers','inventory','category','item_type']
+        fields = ['name','brand','model','picture','quantity','unit','shelf','part_number','notes','inventory','category','item_type']
 
         widgets = {
             'notes': CKEditorWidget(attrs={'lang': 'tr'}),
@@ -196,36 +196,36 @@ class ItemForm(forms.ModelForm):
             )
         )
 
-class SupplierForm(forms.ModelForm):
-
-    class Meta:
-        model = Supplier
-        fields = ['name','address','phone_number','web','notes']
-
-        widgets = {
-            'notes': CKEditorWidget(attrs={'lang': 'tr'}),
-
-        }
-
-    def __init__(self, *args, **kwargs):
-        super(SupplierForm, self).__init__(*args, **kwargs)
-        self.helper = FormHelper(self)
-        self.helper.form_tag = False
-
-        self.helper.layout = Layout(
-
-            Field('name', wrapper_class="col-md-12"),
-            Field('phone_number', wrapper_class="col-md-6"),
-            Field('web', wrapper_class="col-md-6"),
-            Field('address', wrapper_class="col-md-12"),
-            Field('notes', wrapper_class="col-md-12"),
-
-        )
-
-        self.helper.layout.append(
-            FormActions(
-                Submit('submit', _('Submit'), css_class='btn btn-primary'),
-                HTML("""{% load i18n %}<a class="btn btn-danger"
-                        href="{{ url_delete }}">{% trans 'Delete' %}</a>"""),
-            )
-        )
+# class SupplierForm(forms.ModelForm):
+#
+#     class Meta:
+#         model = Supplier
+#         fields = ['name','address','phone_number','web','notes']
+#
+#         widgets = {
+#             'notes': CKEditorWidget(attrs={'lang': 'tr'}),
+#
+#         }
+#
+#     def __init__(self, *args, **kwargs):
+#         super(SupplierForm, self).__init__(*args, **kwargs)
+#         self.helper = FormHelper(self)
+#         self.helper.form_tag = False
+#
+#         self.helper.layout = Layout(
+#
+#             Field('name', wrapper_class="col-md-12"),
+#             Field('phone_number', wrapper_class="col-md-6"),
+#             Field('web', wrapper_class="col-md-6"),
+#             Field('address', wrapper_class="col-md-12"),
+#             Field('notes', wrapper_class="col-md-12"),
+#
+#         )
+#
+#         self.helper.layout.append(
+#             FormActions(
+#                 Submit('submit', _('Submit'), css_class='btn btn-primary'),
+#                 HTML("""{% load i18n %}<a class="btn btn-danger"
+#                         href="{{ url_delete }}">{% trans 'Delete' %}</a>"""),
+#             )
+#         )
