@@ -164,6 +164,8 @@ class Personnel(models.Model):
 
     def delete(self, *args, **kwargs):
         self.deleted=True
+        self.user.is_active = False
+        self.user.save()
         #permissions = Permission.objects.filter(personnel=self)
         #for permission in permissions:
         #    permission.delete()
