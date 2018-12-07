@@ -8,6 +8,7 @@ from django.core.exceptions import ObjectDoesNotExist
 from django.contrib.auth.models import User
 from portunes.tables import *
 from django_tables2 import RequestConfig
+from django.db.models import Q
 
 register = template.Library()
 
@@ -109,4 +110,45 @@ def search_identifier(text):
         except ObjectDoesNotExist:
             return null
         return item_list
+    return ""
+
+@register.simple_tag
+def search_door(text):
+    #text = request.GET.get('q','')
+    if text is not "":
+        try:
+            item_list = Door.objects.filter(Q(name__icontains=text)|Q(entrance__name__icontains=text)|
+                                        Q(entrance_controller_pin__icontains=text)).order_by('-created_date')
+        except ObjectDoesNotExist:
+            return null
+        return item_list
+    return ""
+
+@register.simple_tag
+def search_controller(text):
+    #text = request.GET.get('q','')
+    if text is not "":
+        try:
+            item_list = Controller.objects.filter(Q(name__icontains=text)|Q(mac__icontains=text)|
+                                        Q(ip_address__icontains=text)).order_by('-created_date')
+        except ObjectDoesNotExist:
+            return null
+        return item_list
+    return ""
+
+@register.simple_tag
+def search_user(text):
+    #text = request.GET.get('q','')
+    if text is not "":
+        try:
+            item_list = User.objects.filter(Q(first_name__icontains=text)|Q(last_name__icontains=text)|
+                                        Q(username__icontains=text))
+
+            user_table = UserTable(item_list, order_by='first_name')
+            #RequestConfig(request, paginate={'per_page': 15}).configure(user_table)
+
+
+        except ObjectDoesNotExist:
+            return null
+        return user_table
     return ""

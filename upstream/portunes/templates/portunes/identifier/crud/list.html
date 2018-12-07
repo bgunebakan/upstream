@@ -1,7 +1,7 @@
 {% extends template_father %}
 {% load i18n %}
 {% load crud_tags %}
-
+{% load portunes_tags %}
 {% block title %} {{ model_verbose_name_plural }}{% trans " list" %}{% endblock %}
 {% block bodyclass %}skin-purple {%if config.hide_sidebar %}sidebar-collapse{%endif%} {% endblock %}
 {% block page_name %}{{ model_verbose_name_plural }}{% endblock %}
@@ -84,6 +84,9 @@
                     {% include paginate_template %}
                 {% endif %}
                     <table id="datatable" class="table table-responsive table-bordered table-hover">
+                    {%if request.GET.q %}
+                      {%search_identifier request.GET.q as object_list%}
+                    {%endif%}
                     {% if object_list %}
                         <thead>
                             {% block thead %}

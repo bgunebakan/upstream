@@ -53,10 +53,10 @@ class ControllerCRUD(CRUDView):
 
     views_available=['create', 'list', 'update', 'detail','delete']
     fields = ['name','mac','ip_address','health','created_date','updated_date','deleted']
-    list_fields = ['name','mac','health']
+    list_fields = ['name','ip_address','health']
     display_fields = ['name','mac','ip_address','health','created_date','updated_date','deleted']
 
-    search_fields = ['name','ip','mac']
+    search_fields = ['name','ip_address','mac']
     split_space_search = True
     paginate_by = 15
     paginate_position = 'Bottom' # Both | Bottom
@@ -73,10 +73,10 @@ class DoorCRUD(CRUDView):
 
     views_available=['create', 'list', 'update','delete','detail']
     fields = ['name','entrance','entrance_controller_pin','antipassback','enter','description','created_date','updated_date' ,'deleted' ]
-    list_fields = ['name','entrance_controller_pin','enter']
+    list_fields = ['name','entrance','entrance_controller_pin','enter']
     display_fields = ['name','entrance','entrance_controller_pin','antipassback','enter','description','created_date','updated_date' ,'deleted' ]
 
-    #search_fields = ['name','entrance__name']
+    search_fields = ['name','entrance__name']
     #split_space_search = False
     paginate_by = 15
     paginate_position = 'Bottom' # Both | Bottom
@@ -113,10 +113,10 @@ class IdentifierCRUD(CRUDView):
 
     views_available=['create', 'list', 'update','delete']
     fields = ['name','identifier_type','user','is_active','created_date','deleted' ]
-    list_fields = ['name','identifier_type','user','is_active','created_date','deleted' ]
+    list_fields = ['name','identifier_type','user','key','created_date','deleted' ]
     display_fields = ['name','identifier_type','user','is_active','created_date','deleted' ]
 
-    search_fields = ['name','identifier_type','user','is_active']
+    search_fields = ['name','key']
     split_space_search = True
     paginate_by = 15
     paginate_position = 'Bottom' # Both | Bottom

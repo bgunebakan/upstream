@@ -66,7 +66,7 @@ class Controller(models.Model):
         return "/portunes/controller/%i" % self.id
 
     def __unicode__(self):
-        return unicode(self.name) + " - "+unicode(self.mac)
+        return unicode(self.name)
 
 
 
