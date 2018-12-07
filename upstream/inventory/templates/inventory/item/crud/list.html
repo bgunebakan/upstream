@@ -90,34 +90,34 @@
       <br>
     </div>
 
-    {%if request.GET.q %}
-    {%search request.GET.q as object_list%}
-    {%for item in search_list%}
+{%if request.GET.q %}
+  {%search request.GET.q as object_list%}
+  {%for item in search_list%}
     {{item}}
-    {%endfor%}
-    {%endif%}
-{%if request.GET.list_type == 'box_list'%}
+  {%endfor%}
+{%endif%}
 
-<div class="box-body">
-  <table id="datatable" class="table table-bordered table-hover">
-<div class="box-body">
-{% if paginate_position == 'Up' or paginate_position == 'Both' %}
-  {% include paginate_template %}
-{% endif %}
-  <table id="datatable" class="table table-responsive table-bordered table-hover">
-  {% if object_list %}
+{%if request.GET.category %}
+  {% get_items request.GET.category as object_list%}
+{%endif%}
+{%if request.GET.list_type != 'box_list'%}
 
-        {% for object in object_list %}
-          <div class="col-md-3 d-flex align-content-stretch flex-wrap">
-            <!-- Profile Image -->
-            <div class="box box-success ">
-              <div class="box-body box-profile">
-                <img class="profile-user-img img-responsive img-rounded" src="{{ object.picture.url }}" alt="Fotoğraf">
+  <div class="box-body">
+    {% if paginate_position == 'Up' or paginate_position == 'Both' %}
+      {% include paginate_template %}
+    {% endif %}
 
+    {% if object_list %}
+      {% for object in object_list %}
+      {% cycle '' '' '' '' '' '<div class="row">' %}
+        <div class="col-lg-2" >
+          <div class="box box-success" >
+            <div class="box-body box-profile">
+              <div class="text-center">
+                <img class="img-thumbnail" style="width: 200px; height: 200px;" src="{{ object.picture.url }}" alt="Fotoğraf">
+              </div>
                 <h3 class="profile-username text-center">{{ object }}</h3>
-
                 <p class="text-muted text-center">{{ object.category }}</p>
-
                 <ul class="list-group list-group-unbordered">
                   <li class="list-group-item">
                     <b>Brand</b> <a class="pull-right">{{ object.brand }}</a>
@@ -131,32 +131,31 @@
                   <li class="list-group-item">
                     <b>Location</b> <a class="pull-right">{{ object.shelf }}</a>
                   </li>
-
                 </ul>
                 {% if crud_perms.update %}
-                <div class="col-md-12 col-lg-12 " align="center">
-                  <a href="/inventory/item/{{object.id}}" class="btn btn-primary" align="center">Details</a>
-                </div>
+                  <div class="col-md-12 col-lg-12 " align="center">
+                    <a href="/inventory/item/{{object.id}}" class="btn btn-primary" align="center">Details</a>
+                  </div>
                 {%endif%}
-              </div>
-              <!-- /.box-body -->
             </div>
-
-            <!-- /.box -->
+              <!-- /.box-body -->
           </div>
-        {% endfor %}
+            <!-- /.box -->
+        </div>
+      {% cycle '' '' '' '' '' '</div>' %}
+      {% endfor %}
 
-  {% else %}
-    <thead><th></th></thead>
-    <tbody><tr><td>{% trans "No items yet." %}</td></tr></tbody>
-  {% endif %}
-  </table>
 
-  {% if paginate_position == 'Bottom' or paginate_position == 'Both' %}
-{% include paginate_template %}
-{% endif %}
+    {% else %}
+      {% trans "No items yet." %}
+    {% endif %}
 
-</div>
+
+    {% if paginate_position == 'Bottom' or paginate_position == 'Both' %}
+      {% include paginate_template %}
+    {% endif %}
+
+  </div>
 
 <div class="box-footer"></div>
 </div>

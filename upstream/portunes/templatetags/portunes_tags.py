@@ -98,3 +98,15 @@ def get_group_doors(id):
         return door.doors.filter(doorgroup=id)
     else:
         return None
+
+@register.simple_tag
+def search_identifier(text):
+    #text = request.GET.get('q','')
+    if text is not "":
+        try:
+            item_list = Identifier.objects.filter(Q(name__icontains=text)|Q(user__username__icontains=text)|
+                                        Q(key__icontains=text)).order_by('-created_date')
+        except ObjectDoesNotExist:
+            return null
+        return item_list
+    return ""

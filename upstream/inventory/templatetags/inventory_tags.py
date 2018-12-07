@@ -41,10 +41,29 @@ def get_itemtypes():
 
 @register.simple_tag
 def get_items(category_id):
+
+    category_id_list = []
+    sub_category_id_list = []
+    category_id_list.append(int(category_id))
+    sub_category_id_list.append(int(category_id))
+
+    while(True):
+        sub_categories = Category.objects.filter(top_category__id__in=sub_category_id_list)
+        #print sub_categories
+        if sub_categories:
+            del sub_category_id_list[:]
+            for sub_category in sub_categories:
+                #print "CATEGORY: " + unicode(sub_category)
+                category_id_list.append(sub_category.id)
+                #print "LIST SUB: " + unicode(sub_category_id_list)
+                sub_category_id_list.append(sub_category.id)
+        else:
+            break
     try:
-        items = Item.objects.filter(category__id=category_id)
+        items = Item.objects.filter(category__id__in=category_id_list)
     except ObjectDoesNotExist:
         return null
+    print items
     return items
 
 @register.simple_tag
