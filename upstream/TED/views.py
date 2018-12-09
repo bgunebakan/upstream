@@ -8,8 +8,23 @@ from django.http import HttpResponse
 from django.http import JsonResponse
 from django.conf import settings
 from .models import Person,Department,Visit
+from .tables import PersonTable,VisitTable
 from collections import namedtuple
 import datetime
+from django_tables2 import RequestConfig
+
+
+@login_required
+def dashboard(request):
+
+    visit_table = VisitTable(Visit.objects.all(), order_by='-created_date')
+    RequestConfig(request, paginate={'per_page': 15}).configure(visit_table)
+
+    person_table = PersonTable(Person.objects.all(), order_by='firstname')
+    RequestConfig(request, paginate={'per_page': 15}).configure(person_table)
+
+
+    return render(request, 'TED/dashboard.html', {'visit_table': visit_table,'person_table': person_table})
 
 @login_required
 def rest_request(request):
