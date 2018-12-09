@@ -151,16 +151,16 @@ class Command(BaseCommand):
                     dN_TIME = None
                     enteR_TIME = None
 
-                    if item['exiT_TIME'] is not None:
-                        exiT_TIME = datetime.strptime(item['exiT_TIME'], "%Y-%m-%dT%H:%M:%S").date()
-                    if item['dP_TIME'] is not None:
-                        dP_TIME = datetime.strptime(item['dP_TIME'], "%Y-%m-%dT%H:%M:%S").date()
-                    if item['dS_TIME'] is not None:
-                        dS_TIME = datetime.strptime(item['dS_TIME'], "%Y-%m-%dT%H:%M:%S").date()
-                    if item['dN_TIME'] is not None:
-                        dN_TIME = datetime.strptime(item['dN_TIME'], "%Y-%m-%dT%H:%M:%S").date()
                     if item['enteR_TIME'] is not None:
-                        enteR_TIME = datetime.strptime(item['enteR_TIME'], "%Y-%m-%dT%H:%M:%S").date(),
+                        enteR_TIME = datetime.strptime(item['enteR_TIME'], "%Y-%m-%dT%H:%M:%S")
+                    if item['dP_TIME'] is not None:
+                        dP_TIME = datetime.strptime(item['dP_TIME'], "%Y-%m-%dT%H:%M:%S")
+                    if item['dS_TIME'] is not None:
+                        dS_TIME = datetime.strptime(item['dS_TIME'], "%Y-%m-%dT%H:%M:%S")
+                    if item['dN_TIME'] is not None:
+                        dN_TIME = datetime.strptime(item['dN_TIME'], "%Y-%m-%dT%H:%M:%S")
+                    if item['exiT_TIME'] is not None:
+                        exiT_TIME = datetime.strptime(item['exiT_TIME'], "%Y-%m-%dT%H:%M:%S")
 
                     print(unicode(item['person']['rel']) + " : "+ unicode(item['enteR_TIME']) +" - "+ unicode(enteR_TIME) +" - "+ unicode(exiT_TIME))
 
@@ -171,6 +171,7 @@ class Command(BaseCommand):
                         'person' : person,
                         'dP_STATE' : int(item['dP_STATE'] or 0),
                         'exiT_TIME' : exiT_TIME,
+                        'enteR_TIME' : enteR_TIME,
                         'dN_STATE' : int(item['dN_STATE'] or 0),
                         'e' : int(item['e'] or 0),
                         'dp' : int(item['dp'] or 0),
