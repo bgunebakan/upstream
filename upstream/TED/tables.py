@@ -2,6 +2,7 @@
 from .models import *
 from django.contrib.auth.models import User
 import django_tables2 as tables
+import datetime
 
 class VisitTable(tables.Table):
 
@@ -13,11 +14,15 @@ class VisitTable(tables.Table):
         fields = ('person', 'enteR_TIME', 'exiT_TIME','duration')
 
         attrs = {'class': 'table table-bordered table-hover'}
+        duration = tables.Column(verbose_name='(h:m:s)')
+
 
     def __init__(self, *args, **kwargs):
         super(VisitTable, self).__init__(*args, **kwargs)
         #users = User.objects.all()
         #self.rows['user'] = "[(user.pk, user.get_full_name()) for user in users]"
+    def render_duration(self, value, record):
+        return (str(datetime.timedelta(seconds=value)))
 
 
 class PersonTable(tables.Table):

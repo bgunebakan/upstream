@@ -78,7 +78,7 @@ class Visit(models.Model):
     department = models.ForeignKey(Department, null=True,on_delete=models.SET_NULL,verbose_name = "Department")
     enteR_TIME = models.DateTimeField(verbose_name="Enter Time",null=True)
     exiT_TIME = models.DateTimeField(verbose_name="Exit Time",null=True)
-    duration = models.IntegerField(verbose_name="Duration",default=0)
+    duration = models.IntegerField(verbose_name="Duration (h:m:s)",default=0)
     enteR_PLACE = models.IntegerField(verbose_name="Enter Place",default=0)
     exiT_PLACE = models.IntegerField(verbose_name="Exit Place",default=0)
     hp = models.IntegerField(verbose_name="hp",default=0)
@@ -101,7 +101,7 @@ class Visit(models.Model):
     e = models.IntegerField(verbose_name="e",default=0)
 
     class Meta:
-        ordering = ['enteR_TIME']
+        ordering = ['-enteR_TIME']
         verbose_name = _(u'Visit')
         verbose_name_plural = _(u'Visits')
 
