@@ -12,7 +12,8 @@ from .tables import PersonTable,VisitTable
 from collections import namedtuple
 import datetime
 from django_tables2 import RequestConfig
-
+import requests
+from requests_ntlm import HttpNtlmAuth
 
 @login_required
 def dashboard(request):
@@ -28,7 +29,7 @@ def dashboard(request):
 
 @login_required
 def rest_request(request):
-    test = True
+    test = False
     if request.method == "GET":
         if test is True:
             json_data = open('/opt/upstream/media/dump_json/person.json','r').read()

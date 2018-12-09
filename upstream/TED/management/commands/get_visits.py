@@ -7,6 +7,9 @@ from datetime import datetime
 from django.conf import settings
 import requests
 from requests_ntlm import HttpNtlmAuth
+from TED.serializers import PersonSerializer,DepartmentSerializer,VisitSerializer
+from django.core import serializers
+from django.core.exceptions import ValidationError
 
 class Command(BaseCommand):
     help = 'Get visit logs from TED'
@@ -93,7 +96,7 @@ class Command(BaseCommand):
 
             #print(data['items'])
         else:
-            url = settings.DOSIMETER_API_PERSON
+            url = settings.DOSIMETER_API_VISIT
             #session = requests.session()
             #payload = {'uname': 'Administrator', 'password': 'Heslo0.1.2.3'}
             #response=session.post(url, data=payload,verify=False)
@@ -101,13 +104,30 @@ class Command(BaseCommand):
             response = requests.get(url, verify=False, auth=HttpNtlmAuth(
                                 settings.DOSIMETER_API_USER,settings.DOSIMETER_API_PASS) )
                                 #persons = response.json()
-            json_data = response.json()
-            print json_data
-
+            json_data = json.dumps(response.json())
+            #data = json.dumps(json_data)
+            data = json.loads(json_data)
+#            for item in data['items']:
+#                print item['depnum']
+            
+            #print json_data
+#            try:
+#                personSaver = DepartmentSerializer(data=json.loads(data['items']), many=True)
+#                if personSaver.is_valid(raise_exception=True):
+#                    print "save persons"
+#                    personSaver.save()
+#                else:
+#                    print "NOT VALID"
+#                    print personSaver
+#            except (ValidationError, Department.DoesNotExist):
+#                raise serializers.ValidationError("human readable error message here")
+#            return
             #json_data = open('/opt/upstream/media/dump_json/person.json','r').read()
             #data1 = json.load(json_data)
             #x = json.loads(json_data, object_hook=lambda d: namedtuple('items', d.keys())(*d.values()))
-            data = json.loads(json_data)
+            #data = json.loads(json_data)
+        #    data1 = json.dumps(json_data , indent=4)
+        #    data = json.loads(data1)
             for item in data['items']:
 
                 try:
