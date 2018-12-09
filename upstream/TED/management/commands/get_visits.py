@@ -4,6 +4,9 @@ from TED.models import Visit,Department,Person
 from datetime import datetime
 import json
 from datetime import datetime
+from django.conf import settings
+import requests
+from requests_ntlm import HttpNtlmAuth
 
 class Command(BaseCommand):
     help = 'Get visit logs from TED'
