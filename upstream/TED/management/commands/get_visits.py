@@ -20,7 +20,7 @@ class Command(BaseCommand):
             return int(str)
     def handle(self, *args, **options):
         self.stdout.write(self.style.SUCCESS('GET VISIT LOG FROM TED'))
-        Test = True
+        Test = False
         if Test:
             department_json_data = open('/opt/upstream/media/dump_json/department.json','r').read()
             department_data = json.loads(department_json_data)
