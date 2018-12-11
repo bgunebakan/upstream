@@ -14,6 +14,7 @@ class Command(BaseCommand):
 
             while True:
                 response = send_controller('L',controller.ip_address,'')
+                print "RESPONSE: " + unicode(response)
                 if response is  True or response is False:
                     break
                 response = response.split(",")

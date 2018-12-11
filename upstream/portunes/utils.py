@@ -34,7 +34,7 @@ def send_controller(Command,ControllerIp, args):
 	            data += character
 
 
-        print(data)
+        #print(data)
         if "OK" in data :
             return True
         elif Command is 'L':
