@@ -78,7 +78,7 @@ def rest_request(request):
             return HttpResponse(data['items'])
             #return JsonResponse(data1)
         else:
-            url = settings.DOSIMETER_API_PERSON
+            url = settings.DOSIMETER_API_DEPARTMENT
             #session = requests.session()
             #payload = {'uname': 'Administrator', 'password': 'Heslo0.1.2.3'}
             #response=session.post(url, data=payload,verify=False)
