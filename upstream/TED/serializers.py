@@ -1,13 +1,7 @@
 from .models import Person,Department,Visit
 from rest_framework import serializers
 
-class PersonSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Person
 
-class VisitSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Visit
 
 class DepartmentSerializer(serializers.ModelSerializer):
 
@@ -20,9 +14,31 @@ class DepartmentSerializer(serializers.ModelSerializer):
 
     def get_deparT_ID(self, obj):
         return obj.id
-    
+
     def get_enable(self,obj):
         if obj.enable:
             return 1
         else:
             return 0
+
+class PersonSerializer(serializers.ModelSerializer):
+    department = DepartmentSerializer()
+    persoN_ID = serializers.SerializerMethodField()
+    enable = serializers.SerializerMethodField()
+
+    class Meta:
+        model = Person
+        fields = ('persoN_ID', 'enable','personnum','firstname','surname','title','titleafter','birthdate','department')
+
+    def get_persoN_ID(self, obj):
+        return obj.id
+
+    def get_enable(self,obj):
+        if obj.enable:
+            return 1
+        else:
+            return 0
+
+class VisitSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Visit
