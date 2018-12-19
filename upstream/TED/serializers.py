@@ -21,8 +21,19 @@ class DepartmentSerializer(serializers.ModelSerializer):
         else:
             return 0
 
+class SubDepartmentSerializer(serializers.ModelSerializer):
+
+    rel = serializers.SerializerMethodField()
+
+    class Meta:
+        model = Department
+        fields = ('rel',)
+
+    def get_rel(self, obj):
+        return obj.id
+
 class PersonSerializer(serializers.ModelSerializer):
-    department = DepartmentSerializer()
+    department = SubDepartmentSerializer()
     persoN_ID = serializers.SerializerMethodField()
     enable = serializers.SerializerMethodField()
 
