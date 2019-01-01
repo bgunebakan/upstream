@@ -121,8 +121,8 @@ class TenderTypeCRUD(CRUDView):
 
     check_login = True
     check_perms = True
-    fields = ['name','code','description']
-    list_fields = ['name','code']
+    fields = ['name','code','last_tender_no','description']
+    list_fields = ['name','code','total']
     display_fields = ['name','code','description']
 
     views_available=['create', 'list', 'delete', 'update']

@@ -48,6 +48,7 @@
 
               <a href="/portunes/identifier/{{id.id}}/update"><li class="fa fa-user" > {{id.name}} - {{id.key}}</li></a>
               <input type="hidden" name="identifier" id="identifier" value="{{id.id}}" />&nbsp;&nbsp;&nbsp;
+              <button type="submit" name="dosimeteraccess" value="dosimeteraccess" class="btn btn-xs btn-success">Dosimeter Access</button>
               <button type="submit" name="deleteidentifier" value="deleteidentifier" class="btn btn-xs btn-danger">Delete</button>
               <br>
 
@@ -164,7 +165,7 @@
 {% endblock %}
 
 {% block javascript %}
-<script>
+<script type="text/javascript">
 $(document).ready(function () {
     $('#AllCheckbox').click(function () {
         $('#NoneCheckbox').prop('checked',false);

@@ -318,7 +318,7 @@ def user_access(request, user_id):
 
             checkboxes = request.POST.getlist('permissions')
         except User.DoesNotExist:
-            raise Http404("Kullanici Bulunamadi")
+            raise Http404("Cannot find User!")
 
         if 'clearpermission' in request.POST:
             permissions = Permission.objects.filter(identifier__in=identifier)
@@ -326,12 +326,12 @@ def user_access(request, user_id):
                 for permission in permissions:
                     permission.delete()
                     if permission.id != None:
-                        messages.error(request,unicode(permission.identifier.user) + " - " + unicode(permission.door.entrance) + " kontrolcuden SiLiNEMEDi!")
+                        messages.error(request,unicode(permission.identifier.user) + " - " + unicode(permission.door.entrance) + " CANNOT DELETED!")
                     else:
-                        messages.info(request, unicode(permission.identifier.user) + " - " + unicode(permission.door.entrance) + " kontrolcuden silindi.")
+                        messages.info(request, unicode(permission.identifier.user) + " - " + unicode(permission.door.entrance) + " deleted.")
             return HttpResponseRedirect('#')
 
-        if 'deleteidentifier' in request.POST:
+        elif 'deleteidentifier' in request.POST:
             identifier = request.POST.get("identifier","")
             #print identifier + "---------------"
             permissions = Permission.objects.filter(identifier__id=identifier)
@@ -371,10 +371,17 @@ def user_access(request, user_id):
                 for iden in identifier:
                     permission, created = Permission.objects.update_or_create(identifier=iden,door=door)
                     if permission.id != None:
-                        messages.info(request,unicode(user) + " - " + unicode(door.entrance) + " kontrolcuye kaydedildi.")
+                        messages.info(request,unicode(user.get_full_name()) + " - " + unicode(door.entrance) + " updated.")
                     else:
-                        messages.error(request, unicode(user) + " - " + unicode(door.entrance) + " kontrolcuye KAYDEDiLEMEDi!")
+                        messages.error(request, unicode(user.get_full_name()) + " - " + unicode(door.entrance) + " CANNOT UPDATED!")
 
+            return HttpResponseRedirect('#')
+        elif 'dosimeteraccess' in request.POST:
+            identifier = Identifier.objects.get(id=int(request.POST.get("identifier","")))
+            #messages.info(request,unicode(user.get_full_name()) + " - " + unicode(identifier.first().key) + " dosimeter access granted.")
+            messages.error(request,"DOSIMETER SYSTEM IS NOT ACTIVATED! identifier: " + unicode(identifier))
+            return HttpResponseRedirect('#')
+        else:
             return HttpResponseRedirect('#')
         #return render(request, 'portunes/user/access.html', {'personnel': personnel,'controllers': controllers,'doors': doors,'permissions':permissions,'table_label':'Yetkilendirme','user_menu':'active'})
     else:
@@ -386,7 +393,7 @@ def user_access(request, user_id):
             permissions = Permission.objects.filter(identifier__in=identifier)
             door_groups = DoorGroup.objects.all()
         except User.DoesNotExist:
-            raise Http404("Kullanici Bulunamadi")
+            raise Http404("Cannot Find User!")
 
         return render(request, 'portunes/user/access.html', {'user': user,'controllers': controllers,'doors': doors,'door_groups': door_groups,'identifier':identifier,'permissions':permissions,'table_label':'User Permissions','user_menu':'active'})
 
@@ -411,9 +418,9 @@ def door_access(request, door_id):
                 for permission in permissions:
                     permission.delete()
                     if permission.id != None:
-                        messages.error(request,unicode(permission.identifier.user) + " - " + unicode(permission.door.entrance) + " kontrolcuden SiLiNEMEDi!")
+                        messages.error(request,unicode(permission.identifier.user) + " - " + unicode(permission.door.entrance) + " CANNOT DELETED!")
                     else:
-                        messages.info(request, unicode(permission.identifier.user) + " - " + unicode(permission.door.entrance) + " kontrolcuden silindi.")
+                        messages.info(request, unicode(permission.identifier.user) + " - " + unicode(permission.door.entrance) + " deleted.")
             return HttpResponseRedirect('/portunes/door/'+unicode(door_id))
 
         elif 'savepermission' in request.POST:

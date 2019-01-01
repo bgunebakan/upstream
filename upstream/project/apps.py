@@ -8,4 +8,4 @@ class ProjectConfig(AppConfig):
     name = 'project'
 
     def ready(self):
-        import project.signals  # noqa
+        import project.signals

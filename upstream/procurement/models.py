@@ -67,6 +67,7 @@ class TenderType(models.Model):
     icon = models.CharField(max_length=20,default="fa-wrench",verbose_name = "Icon",help_text=_('<a target="_blank" href="http://fontawesome.com/icons">Icon Seçenekleri</a>'))
     color = models.CharField(max_length=20,default="bg-yellow",verbose_name = "Color",help_text=_('<a target="_blank" href="http://basscss.com/v7/docs/background-colors/">Renk Seçenekleri</a>'))
     total = models.IntegerField(verbose_name="Total item",default=0)
+    last_tender_no = models.IntegerField(verbose_name="Last Tender No",default=1)
     created_date = models.DateTimeField(default=timezone.now,verbose_name='create date', editable=False)
     description = models.TextField(max_length=200,null=True,blank=True, verbose_name=_(u'Notes'))
 
@@ -157,7 +158,7 @@ class Tender(models.Model):
             (2, 'Overseas Firm ')
     )
     name = models.CharField(verbose_name=_(u'Name'), max_length=200)
-    no = models.CharField(verbose_name='No', max_length=32, null=False, blank=False,default='TARLA-2018')
+    no = models.CharField(verbose_name='No', max_length=32, null=True, blank=True)
     tender_type = models.ForeignKey(TenderType, verbose_name=_(u'Tender Type'),null=True,on_delete=models.SET_NULL)
 
     approximate_price = models.FloatField(verbose_name=_(u'Approximate Price'),default=0,null=True,blank=True)
