@@ -29,8 +29,9 @@ def count_item(sender, instance, **kwargs):
 
 @receiver(post_save, sender=Tender)
 def last_tender_no(sender, created, instance, **kwargs):
-    print "Generate new tender no"
+
     if created:
+        print "Generate new tender no"
         tender_no = unicode(config.tender_no_code) +"-"+ unicode(datetime.datetime.now().year) + unicode(instance.tender_type.code)+unicode(instance.tender_type.last_tender_no).zfill(3)
         print tender_no
         instance.no = tender_no
