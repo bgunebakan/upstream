@@ -139,6 +139,7 @@ CONSTANCE_CONFIG = {
     'support_text': ("<p>You can login with your Flow account to different web services.<br>"+
                      "If you don't have permission to use services contact with IT department via " +
                      "<a href='mailto:help@creworker.com'>help@creworker.com</a></p>",'Support text',str),
+    'tender_no_code': ("CREWORKER","Tender no short code",str),
 }
 
 CONSTANCE_CONFIG_FIELDSETS = {
