@@ -50,3 +50,9 @@ def count_personnel(sender, instance, **kwargs):
         personnels = Personnel.objects.filter(personnel_type=personnel_type)
         personnel_type.total = personnels.count()
         personnel_type.save()
+
+@receiver(post_save, sender=Personnel)
+def profile_picture_check(sender, instance, created, **kwargs):
+    if not instance.profile_picture:
+        instance.profile_picture = instance._meta.get_field('profile_picture').get_default()
+        instance.save()

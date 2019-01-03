@@ -27,7 +27,7 @@
       <!-- Profile Image -->
       <div class="box box-primary">
         <div class="box-body box-profile">
-          <img class="profile-user-img img-responsive img-circle" src="{{ object.profile_picture.url }}" alt="Fotoğraf">
+          <img class="profile-user-img img-responsive img-circle" src="{%if personnel.profile_picture %}{{ object.profile_picture.url }}{%endif%}" alt="Fotoğraf">
 
           <h3 class="profile-username text-center">{{ object }}</h3>
 
