@@ -35,6 +35,12 @@ from django.views.static import serve
 from django.views.generic.base import RedirectView
 
 favicon_view = RedirectView.as_view(url='/static/favicon.ico', permanent=True)
+from django.conf.urls import handler400, handler403, handler404, handler500
+
+handler404 = 'homepage.views.handler404'
+handler500 = 'homepage.views.handler500'
+handler403 = 'homepage.views.handler403'
+handler400 = 'homepage.views.handler400'
 
 usercrud = UserCRUD()
 groupcrud = GroupCRUD()
