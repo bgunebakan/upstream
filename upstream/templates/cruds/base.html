@@ -5,7 +5,7 @@
     {% load staticfiles i18n %}
 
     {% block title_outer %}
-        <title>{% block title %}{% endblock %} - TARLA Internal</title>
+        <title>{% block title %}{% endblock %} - {{config.app_name}}</title>
     {% endblock %}
 
     {% block meta %}

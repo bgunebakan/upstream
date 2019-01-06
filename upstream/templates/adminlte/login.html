@@ -2,13 +2,13 @@
 {% load i18n static %}
 
 {% block body_class %}login-page{% endblock %}
-{% block title %}TARLA Internal{% endblock %}
+{% block title %}{{config.app_name}}{% endblock %}
 {% block body %}
     <div class="login-box">
         {% block logo %}
         <div class="login-logo">
             {# Mirrors block names used in _main_header.html #}
-            <a href="/"><img align="center" src="https://tarla.org.tr/wp-content/uploads/2018/03/cropped-TARLA-Logo_notext-2.png" alt="TARLA internal" height="80" width="180"></a>
+            <a href="/"><img align="center" src="/media/login_logo.png" %}" alt="Logo" height="80" width="180"></a>
         </div>
         {% endblock %}
         <!-- /.login-logo -->
