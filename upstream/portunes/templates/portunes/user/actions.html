@@ -1,0 +1,91 @@
+{% extends 'cruds/base.html' %}
+{% load i18n %}
+{% load crispy_forms_tags %}
+{% load render_table from django_tables2 %}
+{% load crud_tags %}
+{% load static %}
+{% load personnel_tags %}
+{% load portunes_tags %}
+{% block title %}Access Control{% endblock %}
+
+{% block page_name %}Access Control{% endblock %}
+{% block page_description %}User Actions{% endblock %}
+
+{% block bodyclass %}skin-purple {%if config.hide_sidebar %}sidebar-collapse{%endif%} {% endblock %}
+
+{% block breadcrumbs %}
+<ol class="breadcrumb">
+    <li><a href="/portunes/"><i class="fa fa-dashboard"></i> Dashboard</a></li>
+    <li><a href="/portunes/access/{{user.id}}">User Access</a></li>
+    <li class="active">User Actions</li>
+</ol>
+{% endblock %}
+
+{% block content %}
+
+<!-- Content Header (Page header) -->
+<section class="content-header">
+  <h1>
+    <a href="/personnel/personnel/{{user.id}}">{{user.first_name}} {{user.last_name}}</a> Actions
+  </h1>
+</section>
+
+<!-- Main content -->
+<section class="content">
+  <div class="row">
+    <div class="col-xs-12">
+      <div class="box">
+        <div class="box-header">
+
+          <h3 class="box-title">Actions</h3>
+
+        </div>
+        <!-- /.box-header -->
+        <div class="box-body">
+          <div class="col-xs-12">
+            <div class="row">
+                {% render_table action_table %}
+            </div>
+          </div>
+        </div>
+        <!-- /.box-body -->
+      </div>
+      <!-- /.box -->
+
+    </div>
+    <!-- /.col -->
+  </div>
+  <!-- /.row -->
+</section>
+<!-- /.content -->
+
+
+
+
+{% endblock %}
+
+{% block javascript %}
+<script type="text/javascript">
+$(document).ready(function () {
+    $('#AllCheckbox').click(function () {
+        $('#NoneCheckbox').prop('checked',false);
+        $('.checkbox').prop('checked', "checked");
+    });
+
+    $('#NoneCheckbox').click(function () {
+        $('#AllCheckbox').prop('checked',false);
+        $('.checkbox').prop('checked',false);
+    });
+
+    $('#GroupCheckbox').click(function () {
+        alert('Type checkbox was clicked');
+    });
+
+    $('.checkbox').click(function () {
+       // alert('Type checkbox was clicked');
+        $('#AllCheckbox').prop('checked',false);
+        $('#NoneCheckbox').prop('checked',false);
+    });
+});
+</script>
+{% endblock %}
