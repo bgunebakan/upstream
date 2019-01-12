@@ -23,6 +23,7 @@ class ActionTable(tables.Table):
 class UserTable(tables.Table):
 
     Permission = tables.TemplateColumn('<a href="/portunes/access/{{record.id}}/" ><i class="fa  fa-edit"></i></a>')
+    Actions = tables.TemplateColumn('<a href="/portunes/actions/{{record.id}}" ><i class="fa  fa-key"></i></a>')
     #Sil = tables.TemplateColumn('<a href="/users/delete/{{record.nat_id}}/"><i class="fa   fa-eraser"></i></a>')
 
     class Meta:

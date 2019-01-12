@@ -9,7 +9,7 @@
 {% block title %}Access Control{% endblock %}
 
 {% block page_name %}Access Control{% endblock %}
-{% block page_description %}Dashboard{% endblock %}
+{% block page_description %}User Permission{% endblock %}
 
 {% block bodyclass %}skin-purple {%if config.hide_sidebar %}sidebar-collapse{%endif%} {% endblock %}
 
@@ -17,6 +17,7 @@
 <ol class="breadcrumb">
     <li><a href="/portunes/"><i class="fa fa-dashboard"></i> Dashboard</a></li>
     <li class="active">User Access</li>
+    <li><a href="/portunes/actions/{{user.id}}">User Actions</a></li>
 </ol>
 {% endblock %}
 
@@ -25,7 +26,7 @@
 <!-- Content Header (Page header) -->
 <section class="content-header">
   <h1>
-    <a href="/users/detail/{{personnel.nat_id}}/">{{user.first_name}} {{user.last_name}}</a> Permissions
+    <a href="/personnel/personnel/{{user.id}}">{{user.first_name}} {{user.last_name}}</a> Permissions
   </h1>
 </section>
 

@@ -3,6 +3,8 @@
 {% load crud_tags %}
 {% load static %}
 {% load portunes_tags %}
+{% load render_table from django_tables2 %}
+
 {% block title %}Portunes Access Control{% endblock %}
 
 {% block page_name %}Portunes Access Control{% endblock %}
@@ -54,13 +56,13 @@
       <!-- About Me Box -->
         <div class="nav-tabs-custom">
           <ul class="nav nav-tabs">
-            <li class="active"><a href="#permissions" data-toggle="tab">Permissions</a></li>
-
+            <li class="active"><a href="#actions" data-toggle="tab">Actions</a></li>
+            <li ><a href="#permissions" data-toggle="tab">Permissions</a></li>
           </ul>
 
           <div class="tab-content">
 
-              <div class="active tab-pane" id="permissions">
+              <div class="tab-pane" id="permissions">
                 <form action="/portunes/access/door/{{object.id}}/" method="post" name="form" id="form">
                   <div class="box-body">
                       <div class="row">
@@ -91,6 +93,15 @@
                     <button type="submit" name="clearpermission" value="clearpermission" class="btn btn-danger">Yetkileri sil</button>
                   </div>
                   </form>
+              </div>
+
+              <div class="active tab-pane" id="actions">
+                  <div class="box-body">
+                      <div class="row">
+                          {% get_door_table request object.id as table%}
+                          {% render_table table %}
+                      </div>
+                  </div>
               </div>
           </div>
         <!-- /.box-body -->

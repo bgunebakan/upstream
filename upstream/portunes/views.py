@@ -397,7 +397,14 @@ def user_access(request, user_id):
 
         return render(request, 'portunes/user/access.html', {'user': user,'controllers': controllers,'doors': doors,'door_groups': door_groups,'identifier':identifier,'permissions':permissions,'table_label':'User Permissions','user_menu':'active'})
 
+@login_required
+@permission_required('portunes.permission.edit')
+def user_actions(request, user_id):
+    user = User.objects.get(id=user_id)
+    action_table = ActionTable(Action.objects.filter(user=user), order_by='-created_date')
+    RequestConfig(request, paginate={'per_page': 15}).configure(action_table)
 
+    return render(request, 'portunes/user/actions.html', {'action_table': action_table,'user': user})
 ##DOOR Access
 @login_required
 @permission_required('portunes.permission.edit')

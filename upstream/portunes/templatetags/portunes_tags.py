@@ -30,6 +30,14 @@ def get_table(request,object):
     return table
 
 @register.simple_tag
+def get_door_table(request,object):
+
+    table = ActionTable(Action.objects.filter(door=object), order_by='-created_date')
+    RequestConfig(request, paginate={'per_page': 15}).configure(table)
+    print table
+    return table
+
+@register.simple_tag
 def select_personnel(id):
     try:
         personnel = Personnel.objects.get(id=id)
