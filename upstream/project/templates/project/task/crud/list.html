@@ -242,14 +242,14 @@
                         <div class="controls ">
                           <script>
                             $(function () {
-                              $('.datetimepickerwidget').datetimepicker();
+                              $('.datepickerwidget').datepicker();
                             });
                           </script>
                           <div class="input-group date">
                             <div class="input-group-addon">
                               <i class="fa fa-calendar"></i>
                             </div>
-                            <input class="datetimepickerwidget form-control" data-date-format="d/m/yyyy h:ii" name="start_date" id="id_start_date" value="{{object.start_date|date:'d/m/Y H:i'}}" type="text">
+                            <input class="datepickerwidget form-control" data-date-format="d/m/yyyy 00:00" name="start_date" id="id_start_date" value="{{object.start_date|date:'d/m/Y H:i'}}" type="text">
                           </div>
                         </div>
                       </div>
@@ -259,14 +259,14 @@
                         <div class="controls ">
                           <script>
                             $(function () {
-                              $('.datetimepickerwidget').datetimepicker();
+                              $('.datepickerwidget').datepicker();
                             });
                             </script>
                             <div class="input-group date">
                               <div class="input-group-addon">
                                 <i class="fa fa-calendar"></i>
                               </div>
-                              <input class="datetimepickerwidget form-control" data-date-format="d/m/yyyy  h:ii" name="end_date" id="id_end_date" value="{{object.end_date|date:'d/m/Y H:i'}}" type="text">
+                              <input class="datepickerwidget form-control" data-date-format="d/m/yyyy  00:00" name="end_date" id="id_end_date" value="{{object.end_date|date:'d/m/Y H:i'}}" type="text">
                             </div>
                         </div>
                       </div>
