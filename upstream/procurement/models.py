@@ -173,6 +173,8 @@ class Tender(models.Model):
 
     auction_time = models.TimeField(verbose_name='Auction Time', editable=True,null=True, blank=True)
 
+    auction_location = models.CharField(verbose_name=_(u'Auction Location'), max_length=100, null=True, blank=True)
+
     auction_price = models.FloatField(verbose_name=_(u'Auction Price'),default=0,null=True,blank=True)
 
     firm_location = models.IntegerField(choices=Firm_location, default=1,verbose_name = "Firm Location")
@@ -193,6 +195,11 @@ class Tender(models.Model):
     agreement = models.FileField(upload_to=SpecificationFileUpload(os.path.join('agreement')),null=True,blank=True,verbose_name = "Agreement")
 
     notes = models.TextField(verbose_name=_(u'Notes'), null=True, blank=True)
+
+    published = models.BooleanField(default=False,verbose_name='Publish to Call for Tenders Page')
+    publish_notes = models.TextField(verbose_name=_(u'Notes'), null=True, blank=True)
+    publish_status = models.CharField(verbose_name=_(u'Publish Status'), max_length=30, null=True, blank=True)
+
 
     created_date = models.DateTimeField(default=timezone.now,verbose_name='Created Date', editable=False)
     deleted = models.BooleanField(default=False)

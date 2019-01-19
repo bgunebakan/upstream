@@ -18,7 +18,7 @@ def index(request):
 
 
 def callfortender(request):
-    tenders = Tender.objects.filter(tender_status=5).order_by('-apply_date')
+    tenders = Tender.objects.filter(published=True).order_by('-apply_date')
 
     tender_types = TenderType.objects.all()
 
@@ -85,7 +85,8 @@ class TenderCRUD(CRUDView):
     check_login = True
     check_perms = True
     fields = ['name','no','tender_type','approximate_price','currency','tender_status','notes','specification',
-                'apply_date','auction_date','auction_time','auction_price','auction_no','supplier','user','bap_staff','contract_date']
+                'apply_date','auction_date','auction_time','auction_price','auction_no','auction_location',
+                'supplier','user','bap_staff','contract_date','published','publish_notes','publish_status']
 
     list_fields = ['name','no','tender_status','tender_type','apply_date']
     display_fields = ['name','no','tender_type','tender_status','auction_no']

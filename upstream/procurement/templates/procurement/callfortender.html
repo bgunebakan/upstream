@@ -18,6 +18,24 @@
 </ol>
 {% endblock %}
 
+{% block js %}
+<script type="text/javascript">
+  //'{{tender}}','{{tender.auction_date}}','{{tender.auction_time}}','{{tender.auction_location}}','{{tender.bap_staff}}','{{tender.publish_notes}}','{{tender.specification}}'
+  function taskModalUpdate(name,no,auction_date,auction_time,auction_location,bap_staff,publish_notes,specification){
+      console.log("Update modal");
+      document.getElementById('name').innerHTML = name;
+      document.getElementById('no').innerHTML = no;
+      document.getElementById('auction_date').innerHTML = auction_date;
+      document.getElementById('auction_time').innerHTML = auction_time;
+      document.getElementById('auction_location').innerHTML = auction_location;
+      document.getElementById('bap_staff').innerHTML = bap_staff;
+      document.getElementById('publish_notes').innerHTML = publish_notes;
+      document.getElementById('specification_url').href = specification;
+      //s.value = "new value";
+  }
+  //taskModalUpdate("id1");
+</script>
+{% endblock js %}
 {% block content %}
 <!-- Small boxes (Stat box) -->
 <div class="row">
@@ -41,20 +59,18 @@
             <tr role="row">
               <th class="sorting_asc" tabindex="0" aria-controls="tenders" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Rendering engine: activate to sort column descending">Name</th>
               <th class="sorting" tabindex="0" aria-controls="tenders" rowspan="1" colspan="1" aria-label="Platform(s): activate to sort column ascending">Apply Date</th>
-              <th class="sorting" tabindex="0" aria-controls="tenders" rowspan="1" colspan="1" aria-label="Engine version: activate to sort column ascending">Personnel</th>
+              <th class="sorting" tabindex="0" aria-controls="tenders" rowspan="1" colspan="1" aria-label="Engine version: activate to sort column ascending">Technical Personnel</th>
               <th class="sorting" tabindex="0" aria-controls="tenders" rowspan="1" colspan="1" aria-label="CSS grade: activate to sort column ascending">Status</th>
             </tr>
             </thead>
             <tbody>
-
-
                 {%for tender in tenders%}
                       <tr role="row" class="odd">
-                        <td class="sorting_1"><a data-toggle="modal" href="#tenderModal">
+                        <td class="sorting_1"><a data-toggle="modal" onclick="taskModalUpdate('{{tender}}','{{tender.no}}','{{tender.auction_date}}','{{tender.auction_time}}','{{tender.auction_location}}','{{tender.bap_staff}}','{{tender.publish_notes}}','{%if tender.specification%}{{tender.specification.url}}{%else%}#{%endif%}');" href="#tenderModal">
                           {{tender.name}}</a></td>
                          <td>{{tender.apply_date|date:"d M Y"}}</td>
                          <td><a href="/personnel/detail/{{tender.user.id}}">{{tender.user.first_name}} {{tender.user.last_name}}</a></td>
-                         <td class="bg {{tender.tender_status.bgcolor}}">{{tender.tender_status}}</td>
+                         <td >{%if tender.publish_status%}{{tender.publish_status}}{%endif%}</td>
                       </tr>
                 {%endfor%}
             </tbody>
@@ -82,15 +98,18 @@
               <!-- Widget: user widget style 1 -->
               <div class="box box-widget widget-user-2">
                 <!-- Add the bg color to the header using any of the bg-* classes -->
-                <div class="widget-user-header bg-yellow">
-                  <h2 id="task_name"></h2>
+                <div class="widget-user-header bg-red">
+                  <h2 id="name"></h2>
+                  <h4 id="no"></h4>
                 </div>
                 <div class="box-footer no-padding">
                   <ul class="nav nav-stacked">
-                    <li><a href="#">Start Date <span class="pull-right badge bg-blue" id="task_start"></span></a></li>
-                    <li><a href="#">End Date <span class="pull-right badge bg-red" id="task_end"></span></a></li>
-                    <li><a href="#">Status <span class="pull-right badge bg-green" id="task_status"></span></a></li>
-                    <li><a href="#">Project <span class="pull-right badge bg-aqua" id="task_dependencies"></span></a></li>
+                    <li><a href="#">Action Date <span class="pull-right badge bg-blue" id="auction_date"></span></a></li>
+                    <li><a href="#">Action Time <span class="pull-right badge bg-red" id="auction_time"></span></a></li>
+                    <li><a href="#">Action Location <span class="pull-right badge bg-red" id="auction_location"></span></a></li>
+                    <li><a href="#">BAP Personnel<span class="pull-right badge bg-red" id="bap_staff"></span></a></li>
+                    <li><a id="specification_url" href="#">Specification <span class="pull-right badge bg-aqua" id="specification">Download Specification Document</span></a></li>
+                    <li><a href="#">Notes</a> <span id="publish_notes"></span></li>
                   </ul>
                 </div>
               </div>
