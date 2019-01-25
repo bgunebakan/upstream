@@ -92,7 +92,7 @@ class Task(models.Model):
 class Comment(models.Model):
     task = models.ForeignKey(Task,null=True,on_delete=models.SET_NULL)
     user = models.ForeignKey(User,null=True,on_delete=models.SET_NULL)
-    text = models.TextField(max_length=1000,null=True,blank=True)
+    text = models.TextField(null=True,blank=True)
     date = models.DateTimeField(verbose_name='Created date',default=timezone.now, editable=False)
 
     def __unicode__(self):
@@ -109,7 +109,7 @@ class Comment(models.Model):
 class Report(models.Model):
     task = models.ForeignKey(Task,null=True,on_delete=models.SET_NULL,verbose_name='Task')
     user = models.ForeignKey(User,null=True,on_delete=models.SET_NULL,verbose_name='User')
-    report = models.TextField(max_length=3000,null=True,blank=True,verbose_name='Report')
+    report = models.TextField(null=True,blank=True,verbose_name='Report')
     date = models.DateTimeField(verbose_name='created date',default=timezone.now, editable=False)
     approved = models.BooleanField(default=False,blank=True,verbose_name = "Approved")
 
