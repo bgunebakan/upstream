@@ -158,7 +158,7 @@ class Tender(models.Model):
             (2, 'Overseas Firm ')
     )
     name = models.CharField(verbose_name=_(u'Name'), max_length=200)
-    no = models.CharField(verbose_name='No', max_length=32,unique=True, null=True, blank=True)
+    no = models.CharField(verbose_name='No', max_length=32,unique=True, null=True, blank=True,help_text="Tender no generated if you leave blank")
     tender_type = models.ForeignKey(TenderType, verbose_name=_(u'Tender Type'),null=True,on_delete=models.SET_NULL)
 
     approximate_price = models.FloatField(verbose_name=_(u'Approximate Price'),default=0,null=True,blank=True)

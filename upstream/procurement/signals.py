@@ -31,24 +31,27 @@ def count_item(sender, instance, **kwargs):
 def last_tender_no(sender, created, instance, **kwargs):
 
     if created:
-        print "Generate new tender no"
-        tenders = Tender.objects.filter(tender_type=instance.tender_type)
-        tender_no_list = []
+        if not instance.no:
+            print "Generate new tender no"
+            tenders = Tender.objects.filter(tender_type=instance.tender_type)
+            tender_no_list = []
 
-        for tender in tenders:
-            if tender.no:
-                print tender.no[6:10]
-                if tender.no[6:10] == unicode(datetime.datetime.now().year):
-                    tender_no_list.append(int(tender.no[-3:]))
-        if tender_no_list:
-            last_tender_no = max(tender_no_list) + 1
+            for tender in tenders:
+                if tender.no:
+                    print tender.no[6:10]
+                    if tender.no[6:10] == unicode(datetime.datetime.now().year):
+                        tender_no_list.append(int(tender.no[-3:]))
+            if tender_no_list:
+                last_tender_no = max(tender_no_list) + 1
+            else:
+                last_tender_no = 1
+
+            tender_no = unicode(config.tender_no_code) +"-"+ unicode(datetime.datetime.now().year) + unicode(instance.tender_type.code)+unicode(last_tender_no).zfill(3)
+            print tender_no
+            instance.no = tender_no
+            instance.save()
         else:
-            last_tender_no = 1
-
-        tender_no = unicode(config.tender_no_code) +"-"+ unicode(datetime.datetime.now().year) + unicode(instance.tender_type.code)+unicode(last_tender_no).zfill(3)
-        print tender_no
-        instance.no = tender_no
-        instance.save()
+            print "Tender no will not generated"
 
         #tender_type = TenderType.objects.get(id=instance.tender_type.id)
         #tender_type.last_tender_no = tender_type.last_tender_no + 1
