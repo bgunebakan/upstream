@@ -1,5 +1,5 @@
 from django.contrib.auth.models import User,Permission
-from django.db.models.signals import post_save,post_delete
+from django.db.models.signals import post_save,post_delete,pre_save
 from django.dispatch import receiver
 from filer.models import Folder
 from .models import Tender,TenderType
@@ -27,31 +27,30 @@ def count_item(sender, instance, **kwargs):
         tender_type.total = tenders.count()
         tender_type.save()
 
-@receiver(post_save, sender=Tender)
-def last_tender_no(sender, created, instance, **kwargs):
+@receiver(pre_save, sender=Tender)
+def last_tender_no(sender, instance, **kwargs):
 
-    if created:
-        if not instance.no:
-            print "Generate new tender no"
-            tenders = Tender.objects.filter(tender_type=instance.tender_type)
-            tender_no_list = []
+    if not instance.no:
+        print "Generate new tender no"
+        tenders = Tender.objects.filter(tender_type=instance.tender_type)
+        tender_no_list = []
 
-            for tender in tenders:
-                if tender.no:
-                    print tender.no[6:10]
-                    if tender.no[6:10] == unicode(datetime.datetime.now().year):
-                        tender_no_list.append(int(tender.no[-3:]))
-            if tender_no_list:
-                last_tender_no = max(tender_no_list) + 1
-            else:
-                last_tender_no = 1
-
-            tender_no = unicode(config.tender_no_code) +"-"+ unicode(datetime.datetime.now().year) + unicode(instance.tender_type.code)+unicode(last_tender_no).zfill(3)
-            print tender_no
-            instance.no = tender_no
-            instance.save()
+        for tender in tenders:
+            if tender.no:
+                print tender.no[6:10]
+                if tender.no[6:10] == unicode(datetime.datetime.now().year):
+                    tender_no_list.append(int(tender.no[-3:]))
+        if tender_no_list:
+            last_tender_no = max(tender_no_list) + 1
         else:
-            print "Tender no will not generated"
+            last_tender_no = 1
+
+        tender_no = unicode(config.tender_no_code) +"-"+ unicode(datetime.datetime.now().year) + unicode(instance.tender_type.code)+unicode(last_tender_no).zfill(3)
+        print tender_no
+        instance.no = tender_no
+        instance.save()
+    else:
+        print "Tender no will not generated"
 
         #tender_type = TenderType.objects.get(id=instance.tender_type.id)
         #tender_type.last_tender_no = tender_type.last_tender_no + 1
