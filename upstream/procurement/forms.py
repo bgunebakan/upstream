@@ -68,7 +68,13 @@ class Tender_Form(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super(Tender_Form, self).__init__(*args, **kwargs)
         users = User.objects.all()
-        self.fields['user'].choices = [(user.pk, user.get_full_name()) for user in users]
+        choice_list = list()
+        choice_list.append( (None, '----'))
+        for user in users:
+            choice_list.append((user.pk,user.get_full_name()))
+
+        self.fields['user'].choices = choice_list#[(user.pk, user.get_full_name()) for user in users]
+        
         self.helper = FormHelper(self)
         self.helper.form_tag = False
 

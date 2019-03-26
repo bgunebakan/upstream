@@ -283,7 +283,8 @@ class Identifier(models.Model):
         )
 
     def get_absolute_url(self):
-        return "/portunes/access/%i" % self.user.id
+        
+        return "/portunes/identifier/list"
 
     def __unicode__(self):
         return unicode(self.name) + "-" + self.key
