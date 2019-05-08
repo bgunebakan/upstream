@@ -26,7 +26,7 @@ admin.site.register(Currency)
 admin.site.register(TenderStatus)
 admin.site.register(Supplier)
 admin.site.register(Log)
-
+admin.site.register(Config)
 from import_export.admin import ImportExportModelAdmin
 from django.contrib import admin
 

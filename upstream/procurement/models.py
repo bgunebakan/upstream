@@ -273,12 +273,12 @@ class TenderContent(models.Model):
         return "/procurement/tender/%i/update" % self.tender.id
 
 class Log(models.Model):
-    timedate = models.DateTimeField(auto_now_add=True, verbose_name=_(u'Tarih-Saat'))
-    action = models.CharField(max_length=32, verbose_name=_(u'Hareket'))
-    description = models.TextField(verbose_name=_(u'Açıklama'), null=True, blank=True)
+    timedate = models.DateTimeField(auto_now_add=True, verbose_name=_(u'Date-Time'))
+    action = models.CharField(max_length=32, verbose_name=_(u'Action'))
+    description = models.TextField(verbose_name=_(u'Description'), null=True, blank=True)
 
-    item = models.ForeignKey(Tender, verbose_name=_(u'İhale'),null=True,on_delete=models.SET_NULL)
-    user = models.ForeignKey(User, verbose_name=_(u'Personel'),null=True,on_delete=models.SET_NULL)
+    item = models.ForeignKey(Tender, verbose_name=_(u'Tender'),null=True,on_delete=models.SET_NULL)
+    user = models.ForeignKey(User, verbose_name=_(u'User'),null=True,on_delete=models.SET_NULL)
 
 
 class TravellingExpense(models.Model):
@@ -307,3 +307,23 @@ class TravellingExpense(models.Model):
 
     def get_absolute_url(self):
         return "/procurement/travellingexpense/list"#%i/update" % self.id
+
+class Config(models.Model):
+    TYPE = (
+            (1, 'Text'),
+            (2, 'Number'),
+            (3, 'Array')
+    )
+
+    key = models.CharField(max_length=50, verbose_name=_(u'Key'))
+    value = models.CharField(max_length=50, verbose_name=_(u'Value'))
+
+    type = models.IntegerField(choices=TYPE, default=1,verbose_name = "Type")
+
+    class Meta:
+        ordering = ['key']
+        verbose_name = _(u'Config')
+        verbose_name_plural = _(u'Configs')
+
+    def __unicode__(self):
+        return str(self.key) + ": "+ str(self.value)

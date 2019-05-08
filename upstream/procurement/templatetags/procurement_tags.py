@@ -51,3 +51,17 @@ def get_users():
     except ObjectDoesNotExist:
         return null
     return users
+
+@register.simple_tag
+def get_procurement_config(key):
+    try:
+        config = Config.objects.get(key=key)
+        if config.type == 1: # text
+            value = str(config.value)
+        elif config.type == 2: # number
+            value = int(config.value)
+        elif config.type == 3: # array
+            value = config.value.split(',')
+    except ObjectDoesNotExist:
+        return null
+    return value

@@ -117,7 +117,9 @@
                     {%for tender in tenders%}
 
                       {%if tender.tender_type == tender_type%}
-
+                          {%get_procurement_config 'LISTexclude' as exclude_status%}
+                          {{exclude_status}}
+                          {%if not tender.tender_status.id|slugify in exclude_status%}
                           <tr role="row" class="odd">
 
                             <td class="sorting_1"><a href="/procurement/tender/{{tender.id}}/update">
@@ -128,7 +130,7 @@
                   	         <td class="bg {{tender.tender_status.bgcolor}}">{{tender.tender_status}}</td>
 
                           </tr>
-
+                          {%endif%}
                     {%endif%}
 
                     {%endfor%}
