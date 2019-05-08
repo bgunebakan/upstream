@@ -118,7 +118,7 @@
 
                       {%if tender.tender_type == tender_type%}
                           {%get_procurement_config 'LISTexclude' as exclude_status%}
-                          {{exclude_status}}
+                        
                           {%if not tender.tender_status.id|slugify in exclude_status%}
                           <tr role="row" class="odd">
 

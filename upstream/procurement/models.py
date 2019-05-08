@@ -205,7 +205,7 @@ class Tender(models.Model):
     deleted = models.BooleanField(default=False)
 
     class Meta:
-        ordering = ['name']
+        ordering = ['no']
         verbose_name = _(u'Tender')
         verbose_name_plural = _(u'Tenders')
 
@@ -219,6 +219,7 @@ class Tender_end_date(models.Model):
     tender = models.ForeignKey(Tender, verbose_name=_(u'Tender'),null=True,on_delete=models.SET_NULL)
     timedate = models.DateField(verbose_name=_(u'Date-Time'))
     notify = models.BooleanField(verbose_name=_(u'E-mail notification'),default=True)
+    notes = models.TextField(verbose_name=_(u'Notes'), null=True, blank=True)
 
     class Meta:
         verbose_name = _(u'Tender Deadline')

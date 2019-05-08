@@ -74,7 +74,7 @@ class Tender_Form(forms.ModelForm):
             choice_list.append((user.pk,user.get_full_name()))
 
         self.fields['user'].choices = choice_list#[(user.pk, user.get_full_name()) for user in users]
-        
+
         self.helper = FormHelper(self)
         self.helper.form_tag = False
 
@@ -161,7 +161,7 @@ class Tender_end_dateForm(forms.ModelForm):
 
     class Meta:
         model = Tender_end_date
-        fields = ['timedate','notify']
+        fields = ['timedate','notify','notes']
         widgets = {
             'timedate': DatePickerWidget(attrs={'format': 'dd/mm/yyyy',
                                             'icon': 'fa-calendar'}),
