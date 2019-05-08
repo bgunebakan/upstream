@@ -89,7 +89,7 @@
             {%if request.GET.tender_type %}
                 <li class="{%if request.GET.tender_type == tender_type.id|slugify%}active{%endif%}"><a href="#{{tender_type.code}}" data-toggle="tab" aria-expanded="false">{{tender_type.name}}</a></li>
             {%else%}
-                <li class="{%if tender_types|first == tender_type%}active{%endif%}"><a href="#{{tender_type.code}}" data-toggle="tab" aria-expanded="false">{{tender_type.name}}</a></li>
+                <li class="{%if tender_types|first == tender_type%}active{%endif%}"><a href="#{{tender_type.code}}" data-toggle="tab" aria-expanded="false">{{tender_type.name}} ({{tender_type.total}})</a></li>
             {%endif%}
 
             {%endfor%}
@@ -118,7 +118,7 @@
 
                       {%if tender.tender_type == tender_type%}
                           {%get_procurement_config 'LISTexclude' as exclude_status%}
-                        
+
                           {%if not tender.tender_status.id|slugify in exclude_status%}
                           <tr role="row" class="odd">
 
