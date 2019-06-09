@@ -58,9 +58,12 @@
             <thead>
             <tr role="row">
               <th class="sorting_asc" tabindex="0" aria-controls="tenders" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Rendering engine: activate to sort column descending">Name</th>
-              <th class="sorting" tabindex="0" aria-controls="tenders" rowspan="1" colspan="1" aria-label="Platform(s): activate to sort column ascending">Apply Date</th>
-              <th class="sorting" tabindex="0" aria-controls="tenders" rowspan="1" colspan="1" aria-label="Engine version: activate to sort column ascending">Technical Personnel</th>
-              <th class="sorting" tabindex="0" aria-controls="tenders" rowspan="1" colspan="1" aria-label="CSS grade: activate to sort column ascending">Status</th>
+              <th class="sorting" tabindex="0" aria-controls="tenders" rowspan="1" colspan="1" aria-label="Platform(s): activate to sort column ascending">Description</th>
+              <th class="sorting" tabindex="0" aria-controls="tenders" rowspan="1" colspan="1" aria-label="Engine version: activate to sort column ascending">Date of Tender</th>
+              <th class="sorting" tabindex="0" aria-controls="tenders" rowspan="1" colspan="1" aria-label="Contact Person">Contact Person</th>
+              <th class="sorting" tabindex="0" aria-controls="tenders" rowspan="1" colspan="1" aria-label="E-mail">E-mail</th>
+              <th class="sorting" tabindex="0" aria-controls="tenders" rowspan="1" colspan="1" aria-label="Phone">Phone</th>
+              <th class="sorting" tabindex="0" aria-controls="tenders" rowspan="1" colspan="1" aria-label="Status">Status</th>
             </tr>
             </thead>
             <tbody>
@@ -68,8 +71,12 @@
                       <tr role="row" class="odd">
                         <td class="sorting_1"><a data-toggle="modal" onclick="taskModalUpdate('{{tender}}','{{tender.no}}','{{tender.auction_date}}','{{tender.auction_time}}','{{tender.auction_location}}','{{tender.bap_staff}}','{{tender.publish_notes}}','{%if tender.specification%}{{tender.specification.url}}{%else%}#{%endif%}');" href="#tenderModal">
                           {{tender.name}}</a></td>
-                         <td>{{tender.apply_date|date:"d M Y"}}</td>
+                         <td>{{tender.publish_notes|safe}}</td>
+                         <td>{{tender.auction_date|date:"d M Y"}}</td>
                          <td><a href="/personnel/detail/{{tender.user.id}}">{{tender.user.first_name}} {{tender.user.last_name}}</a></td>
+                         <td >{{tender.user.email}}</td>
+                         {%get_personnel tender.user as personnel%}
+                         <td >{{personnel.phone_number1}}</td>
                          <td >{%if tender.publish_status%}{{tender.publish_status}}{%endif%}</td>
                       </tr>
                 {%endfor%}
