@@ -14,3 +14,10 @@ from django.core.wsgi import get_wsgi_application
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", "upstream.settings")
 
 application = get_wsgi_application()
+
+from portunes.tasks import tedThread
+
+tedlistenerThread = tedThread('TED Listener Thread')
+tedlistenerThread.daemon = True
+print("Starting Thread: " + str(tedlistenerThread.name))
+tedlistenerThread.start()

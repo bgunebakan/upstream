@@ -3,7 +3,7 @@
 from django.db import models
 from django.utils import timezone
 from django.contrib import admin
-from .utils import *
+from .utils import send_controller,setTime
 from django.db.models.query import QuerySet
 from django.contrib.auth.models import User,Group
 from django.utils.translation import ugettext_lazy as _
@@ -283,7 +283,7 @@ class Identifier(models.Model):
         )
 
     def get_absolute_url(self):
-        
+
         return "/portunes/identifier/list"
 
     def __unicode__(self):

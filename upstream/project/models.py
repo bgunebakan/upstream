@@ -65,7 +65,7 @@ class Task(models.Model):
     created_date = models.DateTimeField(verbose_name='Created Date',default=timezone.now, editable=False)
     updated_date = models.DateTimeField(auto_now=True,verbose_name='Update date', blank=True, editable=False)
     start_date = models.DateTimeField(default=timezone.now,verbose_name='Start date')
-    end_date = models.DateTimeField(default=timezone.now + timezone.timedelta(days=1),verbose_name='End date')
+    end_date = models.DateTimeField(default=timezone.now() + timezone.timedelta(days=1),verbose_name='End date')
     percent_done = models.PositiveSmallIntegerField(default=0,null=True,blank=True,verbose_name="Percent done")
     priority = models.PositiveSmallIntegerField(default=0,null=True,blank=True,verbose_name="Priority")
     top_task = models.ForeignKey('self',null=True,blank=True,on_delete=models.SET_NULL,verbose_name="Top Task")
