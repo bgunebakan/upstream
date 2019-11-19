@@ -16,6 +16,7 @@ from django.contrib import messages
 from django.http import HttpResponseRedirect
 from django.http import Http404
 from django_tables2 import RequestConfig
+import time
 
 @login_required
 @permission_required('portunes.action.view')
