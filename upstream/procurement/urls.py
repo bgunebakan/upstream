@@ -1,10 +1,11 @@
-from django.conf.urls import url,include
+from django.conf.urls import url, include
 from . import views
 
 urlpatterns = [
     url(r'^$', views.index, name='index'),
     url(r'^callfortenders/$', views.callfortender, name='callfortender'),
-    #url(r'^new/(?P<form_type>.*)', views.new, name='new'),
-    #url(r'^list/itemtype/100/', views.item_table, name='item_table'),
+    url(r'^tender/pdf/', views.generate_tender_pdf, name="generate_tender_pdf"),
+    # url(r'^new/(?P<form_type>.*)', views.new, name='new'),
+    # url(r'^list/itemtype/100/', views.item_table, name='item_table'),
 
 ]

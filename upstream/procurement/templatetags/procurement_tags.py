@@ -31,13 +31,13 @@ def get_tenders(request):
             apply_date = request.GET.get("apply_date","")
             tender_status = request.GET.get("tender_status","")
             tenders = Tender.objects.filter(apply_date__year=int(apply_date),
-                                            tender_status__id=int(tender_status)).order_by('-apply_date')
+                                            tender_status__id=int(tender_status)).order_by('-no')
         elif request.GET.get("apply_date","") == '' and request.GET.get("tender_status","") != '':
             tender_status = request.GET.get("tender_status","")
-            tenders = Tender.objects.filter(tender_status__id=int(tender_status)).order_by('-apply_date')
+            tenders = Tender.objects.filter(tender_status__id=int(tender_status)).order_by('-no')
         elif request.GET.get("apply_date","") != '' and request.GET.get("tender_status","") == '':
             apply_date = request.GET.get("apply_date","")
-            tenders = Tender.objects.filter(apply_date__year=int(apply_date)).order_by('-apply_date')
+            tenders = Tender.objects.filter(apply_date__year=int(apply_date)).order_by('-no')
         else:
             tenders = Tender.objects.all().order_by('-apply_date')
     except ObjectDoesNotExist:

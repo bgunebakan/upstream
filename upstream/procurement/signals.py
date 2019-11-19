@@ -38,7 +38,7 @@ def last_tender_no(sender, instance, **kwargs):
         for tender in tenders:
             if tender.no:
                 print tender.no[6:10]
-                if tender.no[6:10] == unicode(datetime.datetime.now().year):
+                if unicode(datetime.datetime.now().year) in tender.no:
                     tender_no_list.append(int(tender.no[-3:]))
         if tender_no_list:
             last_tender_no = max(tender_no_list) + 1

@@ -33,6 +33,11 @@
                     <a href="{{ url }}{{getparams}}" class="btn btn-primary">
                         {% trans "New " %} {{ model_verbose_name }}</a>
                     {%endif%}
+                  {%if request.GET.tender_status %}
+                    <a class="btn btn-primary" href="/procurement/tender/pdf?tender_status={{request.GET.tender_status}}"> {% trans 'Print All' %} </a>
+                  {%else%}
+                    <a class="btn btn-primary" href="/procurement/tender/pdf"> {% trans 'Print All' %} </a>
+                  {%endif%}
               </div>
               {% endif %}
               {% if search %}
@@ -119,17 +124,32 @@
                       {%if tender.tender_type == tender_type%}
                           {%get_procurement_config 'LISTexclude' as exclude_status%}
 
-                          {%if not tender.tender_status.id|slugify in exclude_status%}
-                          <tr role="row" class="odd">
+                          {%if request.GET.tender_status %}
+                            <tr role="row" class="odd">
 
-                            <td class="sorting_1"><a href="/procurement/tender/{{tender.id}}/update">
-                              {{tender.name}}</a></td>
-                  	         <td>{{tender.no}}</td>
-                  	         <td>{{tender.apply_date|date:"d M Y"}}</td>
-                  	         <td>{{tender.user}}</td>
-                  	         <td class="bg {{tender.tender_status.bgcolor}}">{{tender.tender_status}}</td>
+                                <td class="sorting_1"><a href="/procurement/tender/{{tender.id}}/update">
+                                  {{tender.name}}</a></td>
+                                 <td>{{tender.no}}</td>
+                                 <td>{{tender.apply_date|date:"d M Y"}}</td>
+                                 <td>{{tender.user}}</td>
+                                 <td class="bg {{tender.tender_status.bgcolor}}">{{tender.tender_status}}</td>
 
-                          </tr>
+                              </tr>
+                          {%else%}
+
+
+                              {%if not tender.tender_status.id|slugify in exclude_status%}
+                              <tr role="row" class="odd">
+
+                                <td class="sorting_1"><a href="/procurement/tender/{{tender.id}}/update">
+                                  {{tender.name}}</a></td>
+                                 <td>{{tender.no}}</td>
+                                 <td>{{tender.apply_date|date:"d M Y"}}</td>
+                                 <td>{{tender.user}}</td>
+                                 <td class="bg {{tender.tender_status.bgcolor}}">{{tender.tender_status}}</td>
+
+                              </tr>
+                              {%endif%}
                           {%endif%}
                     {%endif%}
 
@@ -138,8 +158,13 @@
 
                 </tbody>
               </table>
-
+                    {%if request.GET.tender_status %}
+                        <a class="btn btn-primary" href="/procurement/tender/pdf?tender_type={{tender_type.id}}&tender_status={{request.GET.tender_status}}"> {% trans 'Print' %} </a>
+                    {%else%}
+                        <a class="btn btn-primary" href="/procurement/tender/pdf?tender_type={{tender_type.id}}"> {% trans 'Print' %} </a>
+                    {%endif%}
             </div>
+
             {%endfor%}
             <!-- /.tab-pane -->
 
@@ -150,7 +175,6 @@
     </div>
   </div>
   <div class="col-md-2">
-
   <!-- ./col -->
 </div>
 </div>
