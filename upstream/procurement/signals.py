@@ -40,7 +40,7 @@ def last_tender_no(sender, instance, **kwargs):
         for tender in tenders:
             if tender.no:
                 print tender.no[6:10]
-                if tender.no[len(config.tender_no_code + 1):len(config.tender_no_code + 5)] == unicode(
+                if tender.no[len(config.tender_no_code) + 1:len(config.tender_no_code) + 5] == unicode(
                         datetime.datetime.now().year):
                     # if unicode(datetime.datetime.now().year) in tender.no:
                     tender_no_list.append(int(tender.no[-3:]))
