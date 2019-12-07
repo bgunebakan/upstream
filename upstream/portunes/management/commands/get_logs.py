@@ -27,7 +27,11 @@ class Command(BaseCommand):
                 time_str = response[4].split("\n")
 
                 date = date_str + "," + time_str[0]
-                action_datetime = datetime.strptime(date, '%d.%m.%Y,%H:%M:%S')
+                try:
+                    action_datetime = datetime.strptime(date, '%d.%m.%Y,%H:%M:%S')
+                except ValueError:
+                    print  str(controller) + " log datetime is not correct"
+                    continue
 
                 print "card:" + action_card
                 print "door: " + action_door
