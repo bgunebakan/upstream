@@ -2,6 +2,7 @@
 from __future__ import unicode_literals
 
 from django.contrib import admin
+from import_export import resources
 
 from .models import *
 
@@ -30,6 +31,17 @@ admin.site.register(Config)
 from import_export.admin import ImportExportModelAdmin
 from django.contrib import admin
 
+#@admin.register(Tender)
+#class TenderImportExportAdmin(ImportExportModelAdmin):
+#    pass
+
+class TenderResource(resources.ModelResource):
+    class Meta:
+        model = Tender
+        fields = ('id', 'name','no', 'tender_type__name','approximate_price','currency__short_name','apply_date','tender_status__name',
+                    'auction_date','auction_location','auction_price','firm_location','auction_no','contract_date',
+                    'supplier__name','bap_staff','notes')
+
 @admin.register(Tender)
 class TenderImportExportAdmin(ImportExportModelAdmin):
-    pass
+    resource_class = TenderResource
