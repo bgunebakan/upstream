@@ -20,4 +20,5 @@ class ActionResource(resources.ModelResource):
 
 @admin.register(Action)
 class ItemImportExportAdmin(ImportExportModelAdmin):
+    list_display = ('user', 'identifier', 'door', 'action_type', 'created_date')
     resource_class = ActionResource
