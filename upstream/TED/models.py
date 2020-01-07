@@ -42,12 +42,12 @@ class Department(models.Model):
 
 class Person(models.Model):
 
-    enable = models.BooleanField(default=False,verbose_name = "Enable")
+    enable = models.BooleanField(default=False, verbose_name = "Enable")
 
-    surname = models.CharField(max_length=30,verbose_name = "Surname")
-    firstname = models.CharField(max_length=30,verbose_name = "Name")
-    title = models.CharField(max_length=30,verbose_name = "Title",null=True,blank=True)
-    visitor = models.BooleanField(default=False,verbose_name = "Visitor")
+    surname = models.CharField(max_length=30, null=True,blank=True, verbose_name = "Surname")
+    firstname = models.CharField(max_length=30, verbose_name = "Name")
+    title = models.CharField(max_length=30, verbose_name = "Title",null=True,blank=True)
+    visitor = models.BooleanField(default=False, verbose_name = "Visitor")
 
     birthdate = models.DateField(null=True,blank=True,verbose_name="Birth date")
     personnum = models.CharField(max_length=30,null=True,blank=True,verbose_name = "Personnel Number")
@@ -65,7 +65,7 @@ class Person(models.Model):
         verbose_name_plural = _(u'Persons')
 
     def __unicode__(self):
-        return self.firstname + " " + self.surname
+        return str(self.firstname) + " " + str(self.surname)
 
     def delete(self, *args, **kwargs):
         self.enable=False
