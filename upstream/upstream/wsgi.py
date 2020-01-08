@@ -17,10 +17,9 @@ os.environ.setdefault("DJANGO_SETTINGS_MODULE", "upstream.settings")
 application = get_wsgi_application()
 
 
+from portunes.tasks import tedThread
 
-#from portunes.tasks import tedThread
-
-#tedlistenerThread = tedThread('TED Listener Thread')
-#tedlistenerThread.daemon = True
-#print("Starting Thread: " + str(tedlistenerThread.name))
-#tedlistenerThread.start()
+tedlistenerThread = tedThread('TED Listener Thread')
+tedlistenerThread.daemon = True
+print("Starting Thread: " + str(tedlistenerThread.name))
+tedlistenerThread.start()

@@ -245,7 +245,7 @@ def controller_permission(request, id):
     permissions = Permission.objects.filter(door__entrance=controller)
 
     if permissions.count() == 0:
-        messages.error(request, 'Guncellenecek Yetki Bulunamadi!')
+        messages.error(request, 'Cannot find any permission!')
         return HttpResponseRedirect('/portunes/controller/' + unicode(controller.id))
 
     for permission in permissions:
@@ -261,9 +261,9 @@ def controller_permission(request, id):
 										  + unicode(permission.identifier.key) )
 
             if response is True:
-                messages.success(request, unicode(permission.door.name) + ' icin Yetki Guncellendi.')
+                messages.success(request, unicode(permission.door.name) + ' permission has updated.')
             else:
-                messages.success(request, unicode(permission.door.name) + ' icin Yetki GUNCELLENEMEDi!.')
+                messages.error(request, unicode(permission.door.name) + ' permission CANNOT UPDATED!.')
 
     return HttpResponseRedirect('/portunes/controller/' + unicode(id))
     #return render(request, 'portunes/user/access.html' )
@@ -276,7 +276,7 @@ def controller_startup(request, id):
         controller = get_object_or_404(Controller, id=id)
         permissions = Permission.objects.filter(door__entrance=controller)
     except Permission.DoesNotExist:
-        messages.error(request, 'Guncellenecek Yetki Bulunamadi!')
+        messages.error(request, 'Cannot find any permission!')
         return HttpResponseRedirect('/portunes/controller/' + unicode(controller.id))
 
     #print controller.ip_address
@@ -287,7 +287,7 @@ def controller_startup(request, id):
     #print response
     if response:
         controller.health = True
-        messages.success(request, controller.name + ' saati guncellendi.')
+        messages.success(request, controller.name + ' date-time has updated.')
     else:
         controller.health = False
     controller.save()
@@ -298,9 +298,9 @@ def controller_startup(request, id):
             response = send_controller('A',permission.door.entrance.ip_address,unicode(permission.door.entrance_controller_pin) +","
 										  + unicode(permission.identifier.key) )
             if response is True:
-                messages.success(request, unicode(permission.door.name) + ' icin Yetki Guncellendi.')
+                messages.success(request, unicode(permission.door.name) + ' permission has updated.')
             else:
-                messages.success(request, unicode(permission.door.name) + ' icin Yetki GUNCELLENEMEDi!.')
+                messages.error(request, unicode(permission.door.name) + ' permission CANNOT UPDATED!.')
 
     return HttpResponseRedirect('/portunes/controller/' + unicode(id))
 
@@ -381,9 +381,49 @@ def user_access(request, user_id):
 
             return HttpResponseRedirect('#')
         elif 'dosimeteraccess' in request.POST:
-            identifier = Identifier.objects.get(id=int(request.POST.get("identifier","")))
+            identifier_id = int(request.POST.get("identifier",""))
+            car_identifier_id = int(request.POST.get("car_identifier",""))
+            dosimeter_access = request.POST.get("dosimeter_access","")
+
+            print(identifier_id)
+            print(car_identifier_id)
+
+            if identifier_id != 0:
+                identifier = Identifier.objects.get(id=identifier_id)
+                delete_identifiers = Identifier.objects.filter(~Q(id=identifier_id) & Q(user__id=user_id) & ~Q(identifier_type=3) )
+                messages.info(request,"Update card " + str(identifier))
+                messages.error(request,"Delete extra cards for migrations " + str(delete_identifiers))
+            else:
+                identifiers = Identifier.objects.filter(Q(user__id=user_id) & (Q(identifier_type=1) | Q(identifier_type=2)))
+                messages.error(request,"delete card " + str(identifiers))
+
+            if car_identifier_id != 0:
+                car_identifier = Identifier.objects.get(id=car_identifier_id)
+                delete_car_identifiers = Identifier.objects.filter(~Q(id=car_identifier_id) & Q(user__id=user_id) & Q(identifier_type=3) )
+                messages.info(request,"update car card " + str(car_identifier))
+                messages.error(request,"Delete extra car cards for migrations " + str(delete_car_identifiers))
+            else:
+                car_identifiers = Identifier.objects.filter(Q(user__id=user_id) & Q(identifier_type=3))
+                messages.error(request,"delete car card " + str(car_identifiers))
+
+            if dosimeter_access == "true":
+                messages.success(request,"dosimeter access granted")
+            else:
+                messages.error(request,"Dosimeter access not granted")
+            try:
+                print(identifier)
+            except:
+                print(identifiers)
+
+            try:
+                print(car_identifier)
+            except:
+                print(car_identifiers)
+
+            print(dosimeter_access)
+
             #messages.info(request,unicode(user.get_full_name()) + " - " + unicode(identifier.first().key) + " dosimeter access granted.")
-            messages.error(request,"DOSIMETER SYSTEM IS NOT ACTIVATED! identifier: " + unicode(identifier))
+
             return HttpResponseRedirect('#')
         else:
             return HttpResponseRedirect('#')
@@ -393,13 +433,14 @@ def user_access(request, user_id):
             controllers = Controller.objects.filter(health=True).order_by('name')
             doors = Door.objects.all().order_by('entrance_controller_pin')
             user = User.objects.get(id=user_id)
+            all_identifiers = Identifier.objects.all()
             identifier = Identifier.objects.filter(user=user)
             permissions = Permission.objects.filter(identifier__in=identifier)
             door_groups = DoorGroup.objects.all()
         except User.DoesNotExist:
             raise Http404("Cannot Find User!")
 
-        return render(request, 'portunes/user/access.html', {'user': user,'controllers': controllers,'doors': doors,'door_groups': door_groups,'identifier':identifier,'permissions':permissions,'table_label':'User Permissions','user_menu':'active'})
+        return render(request, 'portunes/user/access.html', {'user': user,'controllers': controllers,'doors': doors,'door_groups': door_groups,'identifier':identifier,'all_identifiers':all_identifiers,'permissions':permissions,'table_label':'User Permissions','user_menu':'active'})
 
 @login_required
 @permission_required('portunes.permission.edit')

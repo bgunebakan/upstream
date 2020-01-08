@@ -71,7 +71,8 @@ class Tender_Form(forms.ModelForm):
         choice_list = list()
         choice_list.append( (None, '----'))
         for user in users:
-            choice_list.append((user.pk,user.get_full_name()))
+            if user.is_active:
+                choice_list.append((user.pk,user.get_full_name()))
 
         self.fields['user'].choices = choice_list#[(user.pk, user.get_full_name()) for user in users]
 

@@ -237,7 +237,8 @@ class Identifier(models.Model):
     )
     IdentifierType = (
             (1, 'Personnel'),
-            (2, 'Visitor')
+            (2, 'Visitor'),
+            (3, 'Car')
     )
     key = models.CharField(
         max_length=255,
@@ -255,7 +256,10 @@ class Identifier(models.Model):
          verbose_name = "Card Type"
     )
     user = models.ForeignKey(User,blank=True,null=True,on_delete=models.SET_NULL)
+    dosimeter_access = models.BooleanField(default=False,verbose_name = "Dosimeter Access")
+
     created_date = models.DateTimeField(default=timezone.now,verbose_name = "Created Date")
+
     deleted = models.BooleanField(default=False,verbose_name = "Deleted")
 
     objects = SoftDeleteManager()

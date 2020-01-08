@@ -42,22 +42,92 @@
         <div class="box-body">
           <table class="table table-bordered text-center">
           <tbody>
-            <ul>
-              {% for id in identifier.all %}
             <form action="" method="post" name="form" id="form">
               {% csrf_token %}
+            <ul>
+              <div class="form-group" data-select2-id="13">
+                <label>Personel Identifier</label>
+                <select name="identifier" class="form-control select2 select2-container " style="width: 100%;" tabindex="-1" aria-hidden="true">
+                  <option value="0" selected="selected">----</option>
+                  {% for id in identifier.all %}
+                    {%if id.identifier_type != 3%}
+                      <option value="{{id.id}}" selected="selected">{{id.name}}</option>
+                    {%endif%}
+                  {%endfor%}
 
-              <a href="/portunes/identifier/{{id.id}}/update"><li class="fa fa-user" > {{id.name}} - {{id.key}}</li></a>
-              <input type="hidden" name="identifier" id="identifier" value="{{id.id}}" />&nbsp;&nbsp;&nbsp;
-              <button type="submit" name="dosimeteraccess" value="dosimeteraccess" class="btn btn-xs btn-success">Dosimeter Access</button>
-              <button type="submit" name="deleteidentifier" value="deleteidentifier" class="btn btn-xs btn-danger">Delete</button>
-              <br>
+                  {%for id in all_identifiers%}
+                  {{id.name}}
+                    {%if id.identifier_type != 3%}
+                      {%if id.user == None%}
+                        <option value="{{id.id}}">{{id.name}}</option>
+                      {%endif%}
+                    {%endif%}
+                  {%endfor%}
+                </select>
+              </div>
+            </ul>
+            <ul>
+              <div class="form-group" data-select2-id="13">
+                <label>Car Identifier</label>
+                <select name="car_identifier" class="form-control select2 select2-container " style="width: 100%;" tabindex="-1" aria-hidden="true">
+                  <option value="0" selected="selected">----</option>
+                  {% for id in identifier.all %}
+                    {%if id.identifier_type == 3%}
+                      <option value="{{id.id}}" selected="selected">{{id.name}}</option>
+                    {%endif%}
+                  {%endfor%}
 
+                  {%for id in all_identifiers%}
+                  {{id.name}}
+                    {%if id.identifier_type == 3%}
+                      {%if id.user == None%}
+                        <option value="{{id.id}}">{{id.name}}</option>
+                      {%endif%}
+                    {%endif%}
+                  {%endfor%}
+                </select>
+              </div>
+            </ul>
+
+            <ul>
+              <div class="form-group" data-select2-id="13">
+                <label>Dosimeter Access</label>
+                <select name="dosimeter_access" class="form-control select2 select2-container " style="width: 100%;" tabindex="-1" aria-hidden="true">
+                  <option value="false" selected="selected">Access Not Granted</option>
+                  {% for id in identifier.all %}
+                    {%if id.identifier_type != 3%}
+                      {%if id.dosimeter_access == true%}
+                        <option value="true" selected="selected">Access Granted</option>
+                      {%else%}
+                        <option value="true">Access Granted</option>
+                      {%endif%}
+                    {%endif%}
+                  {%endfor%}
+                </select>
+              </div>
+            </ul>
+            <ul>
+              <!--<input type="hidden" name="identifier" id="identifier" value="{{id.id}}" />&nbsp;&nbsp;&nbsp;-->
+              <button type="submit" name="dosimeteraccess" value="dosimeteraccess" class="btn btn-md btn-primary">Update</button>
+            </ul>
 
             </form>
-            {% endfor %}
+            <!--
+            <ul>
+              {% for id in identifier.all %}
+                <form action="" method="post" name="form" id="form">
+                  {% csrf_token %}
+                  <a href="/portunes/identifier/{{id.id}}/update"><li class="fa fa-user" > {{id.name}} - {{id.key}}</li></a>
+                  <input type="hidden" name="identifier" id="identifier" value="{{id.id}}" />&nbsp;&nbsp;&nbsp;
+                  <button type="submit" name="dosimeteraccess" value="dosimeteraccess" class="btn btn-xs btn-success">Dosimeter Access</button>
+                  <button type="submit" name="deleteidentifier" value="deleteidentifier" class="btn btn-xs btn-danger">Delete</button>
+                  <br>
+                </form>
+              {% endfor %}
           </ul>
-        </tbody></table>
+          -->
+        </tbody>
+      </table>
         </div>
         <!-- /.box-body -->
       </div>
@@ -111,7 +181,7 @@
             {% cycle '<tr>' '' '' %}
                 <td>
 
-            <a href="/controllers/detail/{{controller.mac}}">
+            <a href="/portunes/controller/{{controller.id}}">
               <i class="fa fa-archive"></i> <span>{{ controller.name}}</span>
             </a><br>
 
