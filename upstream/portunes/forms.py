@@ -45,7 +45,7 @@ class DoorGroupForm(forms.ModelForm):
 
     class Meta:
         model = DoorGroup
-        fields = ['name','doors']
+        fields = ['name','doors','group_type']
 
     def __init__(self, *args, **kwargs):
         super(DoorGroupForm, self).__init__(*args, **kwargs)
@@ -56,6 +56,7 @@ class DoorGroupForm(forms.ModelForm):
 
             _('General Details'),
             Field('name', wrapper_class="col-md-12"),
+            Field('group_type', wrapper_class="col-md-12"),
             Field('doors', wrapper_class="col-md-12"),
 
         )

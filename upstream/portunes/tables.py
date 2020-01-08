@@ -8,9 +8,10 @@ class ActionTable(tables.Table):
     #Identifier = tables.Column(accessor='personnel.identifier.key')
     #Profil = tables.TemplateColumn('<a href="/personnel/profile/{{record.personnel.user.username}}" ><i class="fa  fa-edit"></i></a>')
     #Personnel = tables.Column(accessor='personnel.name')
+    full_name = tables.Column(accessor='user.get_full_name')
     class Meta:
         model = Action
-        fields = ('user','identifier', 'door', 'action_type','created_date')
+        fields = ('full_name','identifier', 'door', 'action_type','created_date')
 
         attrs = {'class': 'table table-bordered table-hover'}
 

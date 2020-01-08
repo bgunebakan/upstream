@@ -126,6 +126,16 @@ class Door(models.Model):
 
 class DoorGroup(models.Model):
 
+    GROUP_TYPE = (
+            (1, 'General'),
+            (2, 'Staff'),
+            (3, 'Admin'),
+            (4, 'Visitor'),
+            (5, 'Radiation Enter'),
+            (6, 'Radiation Exit'),
+            (7, 'Vehicle Entrance'),
+    )
+
     name = models.CharField(
         max_length=30,
         unique=True,
@@ -134,6 +144,8 @@ class DoorGroup(models.Model):
         }
     )
     doors = models.ManyToManyField(Door,verbose_name="Doors")
+
+    group_type = models.IntegerField(choices=GROUP_TYPE, default=1,verbose_name = "Door Group Type")
 
     created_date = models.DateTimeField(default=timezone.now)
 
@@ -238,7 +250,7 @@ class Identifier(models.Model):
     IdentifierType = (
             (1, 'Personnel'),
             (2, 'Visitor'),
-            (3, 'Car')
+            (3, 'Vehicle')
     )
     key = models.CharField(
         max_length=255,

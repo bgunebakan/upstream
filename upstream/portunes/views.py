@@ -93,9 +93,9 @@ class DoorGroupCRUD(CRUDView):
     update_form = DoorGroupForm
 
     views_available=['create', 'list', 'update','delete']
-    fields = ['name','doors']
-    list_fields = ['name']
-    display_fields = ['name','doors']
+    fields = ['name','doors','group_type']
+    list_fields = ['name','group_type']
+    display_fields = ['name','doors','group_type']
 
     search_fields = ['name']
     split_space_search = True
