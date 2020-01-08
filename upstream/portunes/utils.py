@@ -4,7 +4,51 @@ import socket
 import errno
 import sys
 import time
+import models
 
+def release_identifier(identifiers):
+
+    for identifier in identifiers:
+        permissions = models.Permission.objects.filter(identifier=identifier)
+        if permissions:
+            for permission in permissions:
+                permission.delete()
+                if permission.id != None:
+                    print(unicode(permission.identifier.user) + " - " + unicode(permission.door.entrance) + " CANNOT deleted from Controller!")
+                else:
+                    print(unicode(permission.identifier.user) + " - " + unicode(permission.door.entrance) + " deleted from Controller.")
+
+        identifier.user = None
+        identifier.save()
+    return True
+
+def take_vehicle_identifier(identifiers):
+    print("take new vehicle identifier")
+    release_vehicle_identifier(identifiers)
+
+    door_groups = models.DoorGroup.objects.filter(group_type=7)
+    print(door_groups)
+
+    for identifier in identifiers:
+        for door_group in door_groups:
+            for door in door_group.doors.filter(doorgroup=door_group.id):
+                permission, created = models.Permission.objects.update_or_create(identifier=identifier,door=door)
+
+def release_vehicle_identifier(identifiers):
+    print("release old vehicle identifiers")
+    permissions = models.Permission.objects.filter(identifier__in=identifiers)
+    if permissions:
+        for permission in permissions:
+            permission.delete()
+    for identifier in identifiers:
+        identifier.user = None
+        identifier.save()
+
+def clear_identifier_permissions(identifier):
+    permissions = models.Permission.objects.filter(identifier__in=identifier)
+    if permissions:
+        for permission in permissions:
+            permission.delete()
 
 def send_controller(Command,ControllerIp, args):
 

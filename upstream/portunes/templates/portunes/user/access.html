@@ -68,7 +68,7 @@
             </ul>
             <ul>
               <div class="form-group" data-select2-id="13">
-                <label>Car Identifier</label>
+                <label>Vehicle Identifier</label>
                 <select name="car_identifier" class="form-control select2 select2-container " style="width: 100%;" tabindex="-1" aria-hidden="true">
                   <option value="0" selected="selected">----</option>
                   {% for id in identifier.all %}
@@ -93,12 +93,14 @@
               <div class="form-group" data-select2-id="13">
                 <label>Dosimeter Access</label>
                 <select name="dosimeter_access" class="form-control select2 select2-container " style="width: 100%;" tabindex="-1" aria-hidden="true">
-                  <option value="false" selected="selected">Access Not Granted</option>
+
                   {% for id in identifier.all %}
                     {%if id.identifier_type != 3%}
-                      {%if id.dosimeter_access == true%}
+                      {%if id.dosimeter_access == True%}
                         <option value="true" selected="selected">Access Granted</option>
+                        <option value="false">Access Not Granted</option>
                       {%else%}
+                        <option value="false" selected="selected">Access Not Granted</option>
                         <option value="true">Access Granted</option>
                       {%endif%}
                     {%endif%}
@@ -143,11 +145,12 @@
           <tbody>
             <ul>
              {% for door_group in door_groups.all %}
-              <a href="?door_group={{door_group.id}}" value="{{door_group.id}}" ><li class="fa fa-archive" > {{door_group.name}}</li></a>
+                {%if door_group.group_type == 1 or door_group.group_type == 2 or door_group.group_type == 3 or door_group.group_type == 4 %}
+                  <a href="?door_group={{door_group.id}}" value="{{door_group.id}}" ><li class="fa fa-archive" > {{door_group.name}}</li></a>
 
-              <br>
-
-              {% endfor %}
+                  <br>
+                {%endif%}
+             {% endfor %}
           </ul>
         </tbody></table>
         </div>

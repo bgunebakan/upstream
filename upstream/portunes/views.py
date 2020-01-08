@@ -4,6 +4,7 @@ from django.http import HttpResponse
 from .models import *
 from .forms import *
 from .tables import *
+from .utils import release_identifier,clear_identifier_permissions,take_vehicle_identifier,release_vehicle_identifier
 from django.db.models import Q
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.decorators import permission_required
@@ -222,7 +223,7 @@ def settime(request):
         print response
         if response:
             controller.health = True
-            messages.success(request, controller.name + ' saati guncellendi.')
+            messages.success(request, controller.name + ' date-time has updated.')
         else:
             controller.health = False
 
@@ -317,7 +318,8 @@ def user_access(request, user_id):
             controllers = Controller.objects.filter(health=True).order_by('name')
             doors = Door.objects.all().order_by('entrance_controller_pin')
             user = User.objects.get(id=user_id)
-            identifier = Identifier.objects.filter(user=user)
+            identifier = Identifier.objects.filter(Q(user=user) & ~Q(identifier_type=3))
+            car_identifier = Identifier.objects.filter(user=user,identifier_type=3)
             permissions = Permission.objects.filter(identifier__in=identifier)
 
             checkboxes = request.POST.getlist('permissions')
@@ -336,34 +338,22 @@ def user_access(request, user_id):
             return HttpResponseRedirect('#')
 
         elif 'deleteidentifier' in request.POST:
-            identifier = request.POST.get("identifier","")
+            identifier_id = request.POST.get("identifier","")
             #print identifier + "---------------"
-            permissions = Permission.objects.filter(identifier__id=identifier)
-            #print permissions
-            if permissions:
-                for permission in permissions:
-                    permission.delete()
-                    if permission.id != None:
-                        messages.error(request,unicode(permission.identifier.user) + " - " + unicode(permission.door.entrance) + " CANNOT deleted from Controller!")
-                    else:
-                        messages.info(request, unicode(permission.identifier.user) + " - " + unicode(permission.door.entrance) + " deleted from Controller.")
-            identifier = Identifier.objects.get(id=identifier)
-            identifier.user = None
-            identifier.save()
-            messages.success(request, unicode(identifier) + unicode(" identifier deleted from user"))
-
-            return HttpResponseRedirect('#')
+            if release_identifier(models.Identifier.objects.filter(identifier_id)):
+                messages.success(request, unicode(identifier) + unicode(" identifier deleted from user"))
+                return HttpResponseRedirect('#')
 
         elif 'savepermission' in request.POST:
+            print(identifier)
+            print(car_identifier)
             #CLEAR ALL PERMISSIONS
-            permissions = Permission.objects.filter(identifier__in=identifier)
-            if permissions:
-                for permission in permissions:
-                    permission.delete()
+            clear_identifier_permissions(identifier)
+
+            take_vehicle_identifier(car_identifier)
 
             message = ""
             for door_id in checkboxes:
-
                 door = Door.objects.get(id=door_id)
                 print unicode(door_id) + " name: "
                 #print "personel", personnel.nat_id
@@ -392,24 +382,48 @@ def user_access(request, user_id):
                 identifier = Identifier.objects.get(id=identifier_id)
                 delete_identifiers = Identifier.objects.filter(~Q(id=identifier_id) & Q(user__id=user_id) & ~Q(identifier_type=3) )
                 messages.info(request,"Update card " + str(identifier))
-                messages.error(request,"Delete extra cards for migrations " + str(delete_identifiers))
+                identifier.user = User.objects.get(id=user_id)
+                identifier.save()
+
+                if release_identifier(delete_identifiers):
+                    print(str(id) + str(" has released."))
+                    messages.error(request,"Delete extra cards for migrations " + str(delete_identifiers))
             else:
                 identifiers = Identifier.objects.filter(Q(user__id=user_id) & (Q(identifier_type=1) | Q(identifier_type=2)))
-                messages.error(request,"delete card " + str(identifiers))
+                if release_identifier(identifiers):
+                    print(str(id) + str(" has released."))
+                    messages.error(request,"delete card " + str(identifiers))
 
             if car_identifier_id != 0:
                 car_identifier = Identifier.objects.get(id=car_identifier_id)
                 delete_car_identifiers = Identifier.objects.filter(~Q(id=car_identifier_id) & Q(user__id=user_id) & Q(identifier_type=3) )
+
+                car_identifier.user = User.objects.get(id=user_id)
+                car_identifier.save()
                 messages.info(request,"update car card " + str(car_identifier))
-                messages.error(request,"Delete extra car cards for migrations " + str(delete_car_identifiers))
+
+                if release_vehicle_identifier(delete_car_identifiers):
+                    messages.error(request,"Delete extra car cards for migrations " + str(delete_car_identifiers))
             else:
                 car_identifiers = Identifier.objects.filter(Q(user__id=user_id) & Q(identifier_type=3))
+                release_vehicle_identifier(car_identifiers)
                 messages.error(request,"delete car card " + str(car_identifiers))
 
-            if dosimeter_access == "true":
-                messages.success(request,"dosimeter access granted")
-            else:
-                messages.error(request,"Dosimeter access not granted")
+            try:
+                if dosimeter_access == "true":
+                    identifier = Identifier.objects.get(id=identifier_id)
+                    identifier.dosimeter_access = True
+                    identifier.save()
+                    messages.success(request,"dosimeter access granted")
+                else:
+                    identifier = Identifier.objects.get(id=identifier_id)
+                    identifier.dosimeter_access = False
+                    identifier.save()
+                    messages.error(request,"Dosimeter access not granted")
+            except Identifier.DoesNotExist as e:
+                if dosimeter_access == "true":
+                    messages.info(request,"Dosimeter access not granted because User has no Identifier!")
+
             try:
                 print(identifier)
             except:
@@ -499,9 +513,9 @@ def door_access(request, door_id):
                     #print "user:" + unicode(user)
                     #print "-----"
                     if permission.id != None:
-                        messages.info(request,unicode(user) + " - " + unicode(door.entrance) + " kontrolcuye kaydedildi.")
+                        messages.info(request,unicode(user) + " - " + unicode(door.entrance) + " has updated.")
                     else:
-                        messages.error(request, unicode(user) + " - " + unicode(door.entrance) + " kontrolcuye KAYDEDiLEMEDi!")
+                        messages.error(request, unicode(user) + " - " + unicode(door.entrance) + " CANNOT UPDATED!")
 
             return HttpResponseRedirect('/portunes/door/'+unicode(door_id))
     else:
