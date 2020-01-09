@@ -50,8 +50,10 @@ class Person(models.Model):
     visitor = models.BooleanField(default=False, verbose_name = "Visitor")
 
     birthdate = models.DateField(null=True,blank=True,verbose_name="Birth date")
+    persoN_ID = models.IntegerField(verbose_name="Person ID",default=0)
     personnum = models.CharField(max_length=30,null=True,blank=True,verbose_name = "Personnel Number")
-    cardnum = models.CharField(max_length=20,null=True,blank=True,verbose_name = "Card Number")
+    nuM_PER = models.CharField(max_length=30,null=True,blank=True,verbose_name = "Num Personnel")
+    IDCARD = models.CharField(max_length=20,null=True,blank=True,verbose_name = "Card Number")
     department = models.ForeignKey(Department, null=True,blank=True,on_delete=models.SET_NULL,verbose_name = "Department")
 
     titleafter = models.CharField(max_length=30,null=True,blank=True,verbose_name = "Title After")
@@ -65,7 +67,7 @@ class Person(models.Model):
         verbose_name_plural = _(u'Persons')
 
     def __unicode__(self):
-        return str(self.firstname) + " " + str(self.surname)
+        return unicode(self.firstname) + " " + unicode(self.surname)
 
     def delete(self, *args, **kwargs):
         self.enable=False
@@ -74,8 +76,8 @@ class Person(models.Model):
 
 class Visit(models.Model):
 
-    person = models.ForeignKey(Person, null=True,on_delete=models.SET_NULL,verbose_name = "Person")
-    department = models.ForeignKey(Department, null=True,on_delete=models.SET_NULL,verbose_name = "Department")
+    person = models.IntegerField(verbose_name="Person",default=0)
+    department = models.IntegerField(verbose_name="Department",default=0)
     enteR_TIME = models.DateTimeField(verbose_name="Enter Time",null=True)
     exiT_TIME = models.DateTimeField(verbose_name="Exit Time",null=True)
     duration = models.IntegerField(verbose_name="Duration (h:m:s)",default=0)

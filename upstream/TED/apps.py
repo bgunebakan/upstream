@@ -2,7 +2,19 @@
 from __future__ import unicode_literals
 
 from django.apps import AppConfig
+from django.utils.translation import ugettext_lazy as _
 
 
 class TedConfig(AppConfig):
     name = 'TED'
+    verbose_name = _('TED Dosimeter')
+
+    def ready(self):
+        import TED.signals
+
+        from TED.tasks import tedThread
+
+        tedlistenerThread = tedThread('TED Listener Thread')
+        tedlistenerThread.daemon = True
+        print("Starting Thread: " + str(tedlistenerThread.name))
+        tedlistenerThread.start()

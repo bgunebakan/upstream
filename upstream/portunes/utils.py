@@ -22,14 +22,16 @@ def release_identifier(identifiers):
         identifier.save()
     return True
 
-def take_vehicle_identifier(identifiers):
+def take_vehicle_identifier(identifiers,user):
     print("take new vehicle identifier")
     release_vehicle_identifier(identifiers)
 
     door_groups = models.DoorGroup.objects.filter(group_type=7)
-    print(door_groups)
+    #print(door_groups)
 
     for identifier in identifiers:
+        identifier.user = user
+        identifier.save()
         for door_group in door_groups:
             for door in door_group.doors.filter(doorgroup=door_group.id):
                 permission, created = models.Permission.objects.update_or_create(identifier=identifier,door=door)
@@ -59,7 +61,7 @@ def send_controller(Command,ControllerIp, args):
     try:
     #if True:
         s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-        print(s.getsockname())
+        #print(s.getsockname())
         print(ControllerIp)
         s.connect((ControllerIp, ControllerPort))
         #s.settimeout(1.0)

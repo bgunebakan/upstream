@@ -9,6 +9,8 @@ class VisitTable(tables.Table):
     #Identifier = tables.Column(accessor='personnel.identifier.key')
     #Profil = tables.TemplateColumn('<a href="/personnel/profile/{{record.personnel.user.username}}" ><i class="fa  fa-edit"></i></a>')
     #Personnel = tables.Column(accessor='personnel.name')
+    #Person = tables.Column()
+
     class Meta:
         model = Visit
         fields = ('person', 'enteR_TIME', 'exiT_TIME','duration')
@@ -23,6 +25,13 @@ class VisitTable(tables.Table):
         #self.rows['user'] = "[(user.pk, user.get_full_name()) for user in users]"
     def render_duration(self, value, record):
         return (str(datetime.timedelta(seconds=value)))
+
+    def render_person(self, value, record):
+        try:
+            user = User.objects.get(id=value)
+        except:
+            return "<%s>" % value
+        return user.get_full_name
 
 
 class PersonTable(tables.Table):

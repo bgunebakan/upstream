@@ -162,6 +162,9 @@
         <div class="box-header">
 
           <h3 class="box-title">{{table_label}}</h3>
+          <p style="text-align: right;"><span style="color:blue;">Blue:</span> Radiation area readers
+            <br>
+          <span style="color:red;">Red:</span> Vehicle control readers</p>
 
         </div>
         <!-- /.box-header -->
@@ -191,7 +194,13 @@
              {% for door in doors.all %}
 
               {%if door.entrance.name == controller.name %}
-              <li class="fa fa-code-fork" > {{door.entrance_controller_pin}} - {{door.name}}
+              <li {%if door in vehicle_doors%} style="color:red;"
+                  {%elif door in radiation_doors%}style="color:blue;"
+                  {%else%}
+                  style="font-weight:bold;"
+                  {%endif%}
+              class="fa fa-code-fork" > {{door.entrance_controller_pin}} - {{door.name}}
+
                 <input type="checkbox" class="checkbox" name="permissions" value="{{door.id}}"
                 id="{{door.id}}"
                   {%for permission in permissions %}
@@ -219,6 +228,7 @@
           <div class="box-footer">
             <button type="submit" name="savepermission" value="savepermission" class="btn btn-primary">Save</button>
             <button type="submit" name="clearpermission" value="clearpermission" class="btn btn-danger">Delete Permission</button>
+
           </div>
           </form>
         </div>

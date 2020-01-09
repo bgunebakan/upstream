@@ -6,7 +6,8 @@ from django.utils import timezone
 
 @receiver(post_delete, sender=Identifier)
 def delete_permissions(sender, instance, created, **kwargs):
-    permissions =  Permission.objects.filter(user=instance)
+    print("Delete permissions of identifier: " + str(instance))
+    permissions =  Permission.objects.filter(identifier=instance)
     for perm in permissions:
         print perm
         perm.delete()

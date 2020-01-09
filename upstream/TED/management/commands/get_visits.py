@@ -163,57 +163,72 @@ class Command(BaseCommand):
             # visit_json_data = json.dumps(response.json())
             # visit_data = json.loads(visit_json_data)
 
-            for item in department_data['items']:
-                print item
-                deparT_ID = int(item['deparT_ID'])
-                department, created = Department.objects.update_or_create(
-
-                    id=deparT_ID,
-                    defaults={'depnum': item['depnum'],
-                              'enable': int(item['enable'] or 0),
-                              'name': item['name']
-                              }
-                )
-
-            for item in person_data['items']:
-                print item
-                persoN_ID = int(item['persoN_ID'])
-                try:
-                    department = Department.objects.get(id=int(item['department']['rel']))
-                    print "DEPARTMENT:" + unicode(department)
-                except (Department.DoesNotExist, TypeError):
-                    department = None
-                birthdate = None
-                if item['birthdate'] is not None:
-                    birthdate = datetime.strptime(item['birthdate'], "%Y-%m-%dT%H:%M:%S")
-
-                person, created = Person.objects.update_or_create(
-
-                    id=persoN_ID,
-                    defaults={'personnum': item['personnum'],
-                              'enable': int(item['enable'] or 0),
-                              'firstname': item['firstname'],
-                              'surname': item['surname'],
-                              'title': item['title'],
-                              'visitor': int(item['visitor'] or 0),
-                              'birthdate': birthdate,
-                              'department': department,
-                              'titleafter': item['titleafter']
-                              }
-                )
+            # for item in department_data['items']:
+            #     print item
+            #     deparT_ID = int(item['deparT_ID'])
+            #     department, created = Department.objects.update_or_create(
+            #
+            #         id=deparT_ID,
+            #         defaults={'depnum': item['depnum'],
+            #                   'enable': int(item['enable'] or 0),
+            #                   'name': item['name']
+            #                   }
+            #     )
+            #
+            # for item in person_data['items']:
+            #     print item
+            #     persoN_ID = int(item['persoN_ID'])
+            #     try:
+            #         department = Department.objects.get(id=int(item['department']['rel']))
+            #         print "DEPARTMENT:" + unicode(department)
+            #     except (Department.DoesNotExist, TypeError):
+            #         department = None
+            #     birthdate = None
+            #     if item['birthdate'] is not None:
+            #         birthdate = datetime.strptime(item['birthdate'], "%Y-%m-%dT%H:%M:%S")
+            #
+            #     person, created = Person.objects.update_or_create(
+            #
+            #         id=persoN_ID,
+            #         defaults={'personnum': item['personnum'],
+            #                   'enable': int(item['enable'] or 0),
+            #                   'firstname': item['firstname'],
+            #                   'surname': item['surname'],
+            #                   'title': item['title'],
+            #                   'visitor': int(item['visitor'] or 0),
+            #                   'birthdate': birthdate,
+            #                   'department': department,
+            #                   'titleafter': item['titleafter']
+            #                   }
+            #     )
 
             for item in visit_data['items']:
+                # try:
+                #     department = Department.objects.get(id=int(item['department']['rel']))
+                #     print "DEPARTMENT:" + unicode(department)
+                # except (Department.DoesNotExist, TypeError):
+                #     department = None
+                #
+                # try:
+                #     person = Person.objects.get(id=int(item['person']['rel']))
+                #     print "PERSON:" + unicode(person)
+                # except (Person.DoesNotExist, TypeError):
+                #     person = None
                 try:
-                    department = Department.objects.get(id=int(item['department']['rel']))
-                    print "DEPARTMENT:" + unicode(department)
-                except (Department.DoesNotExist, TypeError):
-                    department = None
+                    department = int(item['department']['rel'])
+                except TypeError as e:
+                    department = 0
 
                 try:
-                    person = Person.objects.get(id=int(item['person']['rel']))
-                    print "PERSON:" + unicode(person)
-                except (Person.DoesNotExist, TypeError):
-                    person = None
+                    person = get_person_id(int(item['person']['rel']),person_data['items'])
+                    if not person:
+                        print("--------------")
+                        print(item['person'])
+                        print(person)
+                        person = 0
+                except KeyError as e:
+                    person = 0
+                    print(item['person'])
 
                 try:
                     visiT_ID = int(item['visiT_ID'])
@@ -267,3 +282,11 @@ class Command(BaseCommand):
 
                 except Visit.DoesNotExist:
                     return
+
+def get_person_id(id,items):
+    for item in items:
+        try:
+            if int(item['persoN_ID']) == id:
+                return item['nuM_PER']
+        except:
+            return 0

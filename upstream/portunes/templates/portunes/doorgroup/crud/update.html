@@ -39,6 +39,18 @@
             {% csrf_token %}
             <label class="required" for="id_name">Name:</label>
             <input name="name" value="{{object}}" id="id_name" required="" class="vTextField" maxlength="30" type="text">
+
+              <label>Group Type</label>
+              <select name="group_type" id="id_group_type" class="form-control select2 select2-container " style="width: 50%;" tabindex="-1" aria-hidden="true">
+                  <option {%if object.group_type == 1 %}selected="selected"{%endif%} value="1">General</option>
+                  <option {%if object.group_type == 2 %}selected="selected"{%endif%} value="2">Staff</option>
+                  <option {%if object.group_type == 3 %}selected="selected"{%endif%} value="3">Admin</option>
+                  <option {%if object.group_type == 4 %}selected="selected"{%endif%} value="4">Visitor</option>
+                  <option {%if object.group_type == 5 %}selected="selected"{%endif%} value="5">Radiation Enter</option>
+                  <option {%if object.group_type == 6 %}selected="selected"{%endif%} value="6">Radiation Exit</option>
+                  <option {%if object.group_type == 7 %}selected="selected"{%endif%} value="7">Vehicle Entrance</option>
+
+              </select>
         </div>
         <!-- /.box-header -->
         <div class="box-body">

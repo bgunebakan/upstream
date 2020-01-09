@@ -80,7 +80,12 @@ def rest_request(request):
         else:
             item = unicode(request.GET.get("model", ""))
             if item == "person":
-                url = settings.DOSIMETER_API_PERSON
+                try:
+                    id = unicode(request.GET.get("id", ""))
+                    url = settings.DOSIMETER_API_PERSON + "/" + id
+                except:
+                    url = settings.DOSIMETER_API_PERSON
+
             elif item == "department":
                 url = settings.DOSIMETER_API_DEPARTMENT
             else:
@@ -93,7 +98,7 @@ def rest_request(request):
                                 settings.DOSIMETER_API_USER,settings.DOSIMETER_API_PASS) )
                                 #persons = response.json()
             resp = response.json()
-            print resp
+            #print resp
             return JsonResponse(resp)
     if request.method == "POST":
         return HttpResponse("POST")
