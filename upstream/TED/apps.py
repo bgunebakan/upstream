@@ -3,6 +3,8 @@ from __future__ import unicode_literals
 
 from django.apps import AppConfig
 from django.utils.translation import ugettext_lazy as _
+from requests.packages.urllib3.exceptions import InsecureRequestWarning
+import requests
 
 
 class TedConfig(AppConfig):
@@ -11,7 +13,7 @@ class TedConfig(AppConfig):
 
     def ready(self):
         import TED.signals
-
+        requests.packages.urllib3.disable_warnings(InsecureRequestWarning)
         from TED.tasks import tedThread
 
         tedlistenerThread = tedThread('TED Listener Thread')

@@ -8,7 +8,6 @@ import requests
 from requests_ntlm import HttpNtlmAuth
 from django.contrib.auth.models import User
 
-
 class Command(BaseCommand):
     help = 'Sync persons with TED'
 
@@ -25,7 +24,7 @@ class Command(BaseCommand):
             users = User.objects.filter(is_active=True)
 
             for user in users:
-                person_id = get_person_id(user.id,resp['items'])
+                person_id = get_person_id(user,resp['items'])
                 if person_id > 0:
                     serializer = UserPersonSerializer(user,context={'person_id': person_id})
                     data = json.dumps(serializer.data)
@@ -79,14 +78,18 @@ class Command(BaseCommand):
             print response.content
 
 
-def get_person_id(id,items):
+def get_person_id(user,items):
     for item in items:
-        try:
-            if int(item['nuM_PER']) == id:
+        if item['nuM_PER']:
+            if int(item['nuM_PER']) == user.id:
                 return item['persoN_ID']
-        except:
-            return 0
 
+    #try with name surname
+    for item in items:
+        if item['firstname'] and item['surname']:
+            if (item['firstname'] == user.first_name) and (item['surname'] == user.last_name):
+                return item['persoN_ID']
+    return 0
 
 def update_person(id,json_data):
     url = settings.DOSIMETER_API_PERSON + "/" +str(id)

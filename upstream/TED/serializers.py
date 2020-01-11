@@ -68,20 +68,24 @@ class UserPersonSerializer(serializers.ModelSerializer):
     birthdate = serializers.SerializerMethodField()
     nuM_PER = serializers.SerializerMethodField()
     IDCARD = serializers.SerializerMethodField()
+    allow = serializers.SerializerMethodField()
+    department = serializers.SerializerMethodField()
 
     class Meta:
         model = User
         fields = (
         'persoN_ID',
         'enable', 'personnum', 'firstname', 'surname', 'title',
-        'birthdate','nuM_PER','IDCARD')
+        'birthdate','nuM_PER','IDCARD','allow','department')
 
     def get_persoN_ID(self, obj):
         return self.context.get("person_id")
 
     def get_enable(self, obj):
-        identifier = Identifier.objects.filter((Q(identifier_type=1) | Q(identifier_type=2)) & Q(dosimeter_access=True))
+        identifier = Identifier.objects.filter((Q(identifier_type=1) | Q(identifier_type=2)) & Q(dosimeter_access=True) & Q(user=obj))
+
         if identifier:
+            print(identifier)
             return 1
         else:
             return 0
@@ -117,10 +121,16 @@ class UserPersonSerializer(serializers.ModelSerializer):
     def get_nuM_PER(self, obj):
         return obj.id
 
+    def get_allow(self, obj):
+        return "2021-01-01T00:00:00"
+
     def get_IDCARD(self, obj):
         identifier = Identifier.objects.filter(~Q(identifier_type=3) & Q(user=obj) )
         for id in identifier:
             return id.key
+
+    def get_department(self, obj):
+        return {"rel":"1","href":"https://192.168.2.150:8088/seod_mp/rest/SEOD_DEPARTMENT/1","method":"GET"}
 
 class VisitSerializer(serializers.ModelSerializer):
     class Meta:
