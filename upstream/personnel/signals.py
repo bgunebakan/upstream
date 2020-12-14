@@ -30,7 +30,11 @@ def create_user_folder(sender, instance, created, **kwargs):
 
 @receiver(post_save, sender=User)
 def save_user_profile(sender, instance, **kwargs):
-    instance.personnel.save()
+    print(instance)
+    try:
+        instance.personnel.save()
+    except:
+        pass
     #instance.save()
 
 @receiver(post_save, sender=Personnel)

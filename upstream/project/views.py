@@ -60,9 +60,9 @@ class TaskCRUD(CRUDView):
 
     search_fields = ['name',  'inchargeuser', 'group','start_date','end_date']
     split_space_search = True
-    paginate_by = 15
-    paginate_position = 'Bottom' # Both | Bottom
-    paginate_template = 'cruds/pagination/enumeration.html'
+    paginate_by = 200
+    #paginate_position = 'Bottom' # Both | Bottom
+    #paginate_template = 'cruds/pagination/enumeration.html'
 
 class TasktypeCRUD(CRUDView):
     model = Tasktype
@@ -76,9 +76,9 @@ class TasktypeCRUD(CRUDView):
     fields = ['name','icon','color']
     list_fields = ['name','icon','color']
 
-    paginate_by = 15
-    paginate_position = 'Bottom' # Both | Bottom
-    paginate_template = 'cruds/pagination/enumeration.html'
+    #paginate_by = 15
+    #paginate_position = 'Bottom' # Both | Bottom
+    #paginate_template = 'cruds/pagination/enumeration.html'
 
 class StatustypeCRUD(CRUDView):
     model = Statustype

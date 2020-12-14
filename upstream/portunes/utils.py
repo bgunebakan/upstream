@@ -14,9 +14,9 @@ def release_identifier(identifiers):
             for permission in permissions:
                 permission.delete()
                 if permission.id != None:
-                    print(unicode(permission.identifier.user) + " - " + unicode(permission.door.entrance) + " CANNOT deleted from Controller!")
+                    print(str(permission.identifier.user) + " - " + str(permission.door.entrance) + " CANNOT deleted from Controller!")
                 else:
-                    print(unicode(permission.identifier.user) + " - " + unicode(permission.door.entrance) + " deleted from Controller.")
+                    print(str(permission.identifier.user) + " - " + str(permission.door.entrance) + " deleted from Controller.")
 
         identifier.user = None
         identifier.save()

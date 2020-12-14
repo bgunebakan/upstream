@@ -130,6 +130,7 @@ class UserPersonSerializer(serializers.ModelSerializer):
             return id.key
 
     def get_department(self, obj):
+        #TARLA department
         return {"rel":"1","href":"https://192.168.2.150:8088/seod_mp/rest/SEOD_DEPARTMENT/1","method":"GET"}
 
 class VisitSerializer(serializers.ModelSerializer):
